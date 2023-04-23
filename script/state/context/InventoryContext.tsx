@@ -1,10 +1,16 @@
-// "use client";
+import { createContext, useState, Dispatch, SetStateAction } from "react";
 
-import { createContext, useState } from "react";
+type InventoryContextType = {
+unitsArray: never[];
+s__unitsArray: Dispatch<SetStateAction<never[]>>;
+};
 
-export const InventoryContext = createContext(null)
+export const InventoryContext = createContext<InventoryContextType>({
+unitsArray: [],
+s__unitsArray: () => {}
+});
 
-export function InventoryProvider({children}) {
+export function InventoryProvider({children}:any) {
     // console.log("InventoryProvider")
     const [unitsArray, s__unitsArray] = useState([])
 
