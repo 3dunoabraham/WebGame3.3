@@ -7,7 +7,7 @@ import { useDebounce } from 'usehooks-ts'
 export const InputColor = ({
     reference,  inputName,
     updateNewData,
-})=>{
+}:any)=>{
     /****** CREATE ******/
     useEffect(()=>{
         s__theColor(reference)
@@ -37,10 +37,10 @@ export const InputColor = ({
         makeTheUpdate()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debouncedValue])
-    const handleChange = (event)=>{
+    const handleChange = (event:any)=>{
         s__theColor(event.target.value)
     }
-    const handleBlur = (event)=>{
+    const handleBlur = (event:any)=>{
         s__theColor(event.target.value)
         makeTheUpdate()
     }

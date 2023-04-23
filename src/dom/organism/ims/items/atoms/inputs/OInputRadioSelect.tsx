@@ -6,12 +6,12 @@ import { BsTrash } from 'react-icons/bs'
 import { validateInteger } from '@/../script/util/helper/validationHelper';
 import { InputSelect, InputSelectProps } from '@/dom/organism/ims/items/atoms/inputs/InputSelect'
 export interface OInputRadioSelectProps {
-    theInputObj: any; mapmapmap?; key:any; formObject?:any; valueObj?:any; optObj: any;
+    theInputObj: any; mapmapmap?:any; key:any; formObject?:any; valueObj?:any; optObj: any;
 }
 // ReactFunctionComponent
 export const OInputRadioSelect = ({
     theInputObj,..._p
-}:InputSelectProps & OInputRadioSelectProps)=>{
+}:any)=>{
     const [radioValue, s__radioValue] = useState(
         !!_p.valueObj.location_related
             ? `${_p.valueObj.location_related}`
@@ -38,15 +38,15 @@ export const OInputRadioSelect = ({
  
 
     /****** UPDATE ******/
-    const handleClearUpdate = (event)=>{
+    const handleClearUpdate = (event:any)=>{
         _p.updateNewData({[theInputObj.radioName]:"0", [_p.inputName]:"0"} )
         s__radioValue("0");
     }
-    const handleUpdateNewData = (data)=>{
+    const handleUpdateNewData = (data:any)=>{
         if (data.value == "") return
         _p.updateNewData({[_p.inputName]:data.value, [theInputObj.radioName]:radioValue})
     }
-    const handleRadioChange = event => {s__radioValue(event.target.value); };
+    const handleRadioChange = (event:any) => {s__radioValue(event.target.value); };
 
 
 
@@ -128,13 +128,13 @@ return (<>
                                             placeholder={
                                                 `Select ${theInputObj.inputsObj[aRadioSelect].title}`
                                             }
-                                            parseFunction={theInputObj.limit ? (newVal,prevVal)=>{
+                                            parseFunction={theInputObj.limit ? (newVal:any,prevVal:any)=>{
                                                 if (theInputObj.customFormat == "intrange")
                                                 {   return validateInteger(
                                                         newVal,prevVal,0,theInputObj.limit
                                                     )
                                                 }
-                                            } : (x,y)=>x}
+                                            } : (x:any,y:any)=>x}
                                             updateNewData={handleUpdateNewData}
                                         />
                                     </>}
@@ -157,13 +157,13 @@ return (<>
                                                 `Select ${theInputObj.inputsObj[aRadioSelect].title}`
                                             } 
                                             updateNewData={handleUpdateNewData}
-                                            parseFunction={theInputObj.limit ? (newVal,prevVal)=>{
+                                            parseFunction={theInputObj.limit ? (newVal:any,prevVal:any)=>{
                                                 if (theInputObj.customFormat == "intrange")
                                                 {   return validateInteger(
                                                         newVal,prevVal,0,theInputObj.limit
                                                     )
                                                 }
-                                            } : (x,y)=>x}
+                                            } : (x:any,y:any)=>x}
                                         />
                                     </>}
                                 </>}

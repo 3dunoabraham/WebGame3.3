@@ -7,7 +7,7 @@ import { OInputNImagesJustUploaded } from "@/dom/organism/ims/items/molecules/ca
 export const InputImage = ({
     sendImage, handleDrop, handleChange, s__firstFile, firstFile, $theInput,
     failedUpload, s__failedUpload, percentComplete, s__percentComplete
-})=> {
+}:any)=> {
 
     const foundFileType = useMemo(() => firstFile?.type ? filename2Type(firstFile.type) : ""
     , [firstFile])

@@ -6,7 +6,7 @@ import { BsChevronDown, BsChevronUp, BsX, BsPlusLg } from 'react-icons/bs'
 import { jss, isEqInLowerCase, isIncInLowerCase } from '@/../script/util/type/stringHelper'
 import CSS from '@/../style/module/Select.module.css'
 export interface InputSelectProps {
-    refId?: string; inputName?: string; display?: string; 
+    refId?: any; inputName?: string; display?: string; 
     optName?: any; optMap: any;        
     /* CONFIG */ boolConfig?: any; editMode?: boolean; placeholder?: string;
     /* UPDATE */ updateNewData?: any; parseFunction?: any; 
@@ -16,7 +16,7 @@ export const InputSelect = ({
     inputName, refId, display, optName, optMap, 
     boolConfig = [], placeholder,
     updateNewData,
-    parseFunction = (x,y) => x,
+    parseFunction = (x:any,y:any) => x,
 }:InputSelectProps)=>{
     /****** CREATE ******/
     useEffect(()=>{
@@ -27,12 +27,12 @@ export const InputSelect = ({
 
 
     /****** DATA ******/
-    const $displayInput = useRef(null)
-    const $domContainer = useRef(null)
+    const $displayInput:any = useRef(null)
+    const $domContainer:any = useRef(null)
     const [addNewMode, __toggle_addNewMode, s__addNewMode] = useToggle(false)
     const [isOpen, __toggle_isOpen, s__isOpen] = useToggle(false);
-    const [displayValue, s__displayValue] = useState<string>('')
-    const [theId, s__theId] = useState<string>('')
+    const [displayValue, s__displayValue] = useState<any>('')
+    const [theId, s__theId] = useState<any>('')
     const [descriptionInput, s__descriptionInput] = useState<string>('')
     const _boolConfig = useMemo(() =>(boolConfig.join(",")),[boolConfig])
     const isDisplayAndTypeMatching = useMemo(() =>{
@@ -69,7 +69,7 @@ export const InputSelect = ({
 
 
     /****** UPDATE ******/
-    const setNewSelection = (option)=>{
+    const setNewSelection = (option:any)=>{
         s__theId(`${option.id}`); s__displayValue(option[optName])
         
         s__isOpen(false)
@@ -103,7 +103,7 @@ export const InputSelect = ({
     const clearInput = ()=>{
         s__displayValue(''); $displayInput.current.focus(); updateNewData({ inputName, value:``})
     }
-    const handle_onkeypress = (e)=>{if (e.keyCode == 9) {handleClickOutside()} }
+    const handle_onkeypress = (e:any)=>{if (e.keyCode == 9) {handleClickOutside()} }
     useOnClickOutside($domContainer, handleClickOutside)
     useEventListener('keydown', handle_onkeypress, $displayInput)
 
@@ -142,7 +142,7 @@ export const InputSelect = ({
                         N/A
                     </div>
                 </>}
-                {Array.from(FILTERED_optMap.entries()).map(([key, optField],index)=>(
+                {Array.from(FILTERED_optMap.entries()).map(([key, optField]:any,index)=>(
                     <div key={index} className="ims-bg-hov-faded clickble "
                         onClick={()=>{setNewSelection(optField)}}
                     >

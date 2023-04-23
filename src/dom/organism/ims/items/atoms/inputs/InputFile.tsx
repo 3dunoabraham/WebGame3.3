@@ -18,8 +18,8 @@ export const InputFile = ({...others })=>{
         "change the name or delete the existing one first"
     )
     const [isUploading, s__isUploading] =           useState<boolean>(false)
-    const $theInput =           useRef<HTMLInputElement>()
-    const [firstFile, s__firstFile] =               useState<{name:string,type:string,size:number}>()
+    const $theInput:any =           useRef<HTMLInputElement>()
+    const [firstFile, s__firstFile] =               useState<any>()
     const [percentComplete, s__percentComplete] =   useState<number>(0);
     const [liveImagesArray, s__liveImagesArray] =   useState();
     const [isOpen, s__isOpen] =                     useState(false);
@@ -29,12 +29,12 @@ export const InputFile = ({...others })=>{
 
 
     /****** UPDATE ******/
-    const handleDrop = (e)=>{}
+    const handleDrop = (e:any)=>{}
     const handleChange = ()=>{
         others.handleUpload(others.title, $theInput.current.files[0])
     }
     
-    const sendDocument = (firstCurrentFile)=>{
+    const sendDocument = (firstCurrentFile:any)=>{
         let theUrl = API_IMAGE_UPLOAD_BASE // +`${uid}/`
         const payload = new FormData();
         payload.append("img", firstCurrentFile, firstCurrentFile.name.replace(" ","_"));

@@ -13,7 +13,7 @@ export const InputDate = ({
     minDate = null,
     maxDate = null,
     updateNewData,
-})=>{
+}:any)=>{
     /****** CREATE ******/
     useEffectOnce(()=>{
         let theParsedDate = parseUTCString(new Date(reference))
@@ -40,10 +40,10 @@ export const InputDate = ({
         setValue(getStringForLocal(theUTCNow))
         updateNewData({inputName, value: getStringForAPI(theUTCNow)})
     }
-    const getStringForLocal = (dateString)=>{ 
+    const getStringForLocal = (dateString:any)=>{ 
         return hasTime ? dateString : dateString.split("T")[0]
     }
-    const getStringForAPI = (dateString)=>{ 
+    const getStringForAPI = (dateString:any)=>{ 
         return hasTime ? dateString.replace("T"," ")+":00" : dateString.split("T")[0]
     }
     const handleCalendarClick = ()=>{ 

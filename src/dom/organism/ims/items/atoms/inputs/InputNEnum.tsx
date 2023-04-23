@@ -51,7 +51,7 @@ export const InputNEnum = ({
     }, [value, hasExtraEnums, optMap])
 
 
-    const handleDimensionToggler = (theNewBool) =>
+    const handleDimensionToggler = (theNewBool:any) =>
     {
         if (extraDimensionToggler)
         {
@@ -65,7 +65,7 @@ export const InputNEnum = ({
         }
         s__extraDimensionToggler(theNewBool)
     }
-    const handleFirstColorChange = (theData) =>
+    const handleFirstColorChange = (theData:any) =>
     {
         let secondCurrentColor = 
         (
@@ -78,7 +78,7 @@ export const InputNEnum = ({
         s__selectedColor(theNewValue)
         emit_updateNewData(theNewValue)
     }
-    const handleSecondColorChange = (theData) =>
+    const handleSecondColorChange = (theData:any) =>
     {
         let firstCurrentColor = (
             selectedColor.includes(",") ? selectedColor.split(",")[0] : selectedColor
@@ -87,7 +87,7 @@ export const InputNEnum = ({
         s__selectedColor(`${firstCurrentColor},${theData.value}`)        
         emit_updateNewData(`${firstCurrentColor},${theData.value}`)
     }
-    const emit_updateNewData = (newValue)=>{
+    const emit_updateNewData = (newValue:any)=>{
         updateNewData({inputName, value: newValue})
     }
 
@@ -100,7 +100,7 @@ export const InputNEnum = ({
                 inputName={ inputName}  
                 optMap={optMap} optName="label"
                 boolConfig={[...boolConfig,...["isReadOnly"]]}
-                updateNewData={(e)=>{handleFirstColorChange(e)}}
+                updateNewData={(e:any)=>{handleFirstColorChange(e)}}
             />}
             {!extraDimensionToggler && 
                 <div onClick={()=>{handleDimensionToggler(!extraDimensionToggler)}}
@@ -131,7 +131,7 @@ export const InputNEnum = ({
                     inputName={ inputName} 
                     optMap={optMap} optName="label"
                     boolConfig={[...boolConfig,...["isReadOnly"]]}
-                    updateNewData={(e)=>{handleSecondColorChange(e)}}
+                    updateNewData={(e:any)=>{handleSecondColorChange(e)}}
                 />
             </div>
         }

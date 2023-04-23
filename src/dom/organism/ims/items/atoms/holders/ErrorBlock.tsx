@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 
 // ReactFunctionComponent
-export const ErrorBlock = ({err=null})=>{
+export const ErrorBlock = ({err=null}:any)=>{
     return (
     <div className="flex-center py-100">
         <div className="flex-col">

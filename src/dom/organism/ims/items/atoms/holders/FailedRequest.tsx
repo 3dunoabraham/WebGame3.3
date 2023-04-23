@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 
 
 // ReactFunctionComponent
-export default function Component({err=null,preview="/?offline"}) {
+export default function Component({err=null,preview="/?offline"}:any) {
     const router = useRouter();
-    const handleClick = async (newUrl) => {
+    const handleClick = async (newUrl:any) => {
       // Wait for route change before do anything
       await router.push(newUrl);
       // Reload after routing

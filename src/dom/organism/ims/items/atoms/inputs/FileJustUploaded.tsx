@@ -9,8 +9,8 @@ export const FileJustUploaded = ({
     cat, fileId="", 
     validatedFileType,foundFilename,date,
     percentComplete = 101,
-    handleDelete = (category, theFile)=>{}, handleDownload = (category, theFile)=>{},
-})=>{
+    handleDelete = (category:any, theFile:any)=>{}, handleDownload = (category:any, theFile:any)=>{},
+}:any)=>{
     return (
     <div className="  w-100" >
         <div className="flex-justify-between flex w-100" > 

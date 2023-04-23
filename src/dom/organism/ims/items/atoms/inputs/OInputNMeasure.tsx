@@ -47,7 +47,7 @@ export const OInputNMeasure = ({
 
 
     /****** DATA ******/
-    const display = useMemo(()=>{
+    const display:any = useMemo(()=>{
         let __value = value || DEFAULT_MEASURE
         return __value
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,7 +60,7 @@ export const OInputNMeasure = ({
         )
     } , [inputkeyobj]);
     const [inputkeyMap, inputkeyMap_do] = useMap(inputkeyArray);
-    const [inputkeyForm, inputkeyForm_do] = useMap();
+    const [inputkeyForm, inputkeyForm_do]:any = useMap();
     const [extraDimensionToggler, extraDimensionToggler_do] = useMap()
     const measureArraySmall:any = Array.from(Array(13).keys()).map(
         i => ([`${i}`,{label:`${i}`,id:`${i}`}]
@@ -78,7 +78,7 @@ export const OInputNMeasure = ({
 
 
     /****** UPDATE ******/
-    const toggleExtraDimension = (_key)=>{
+    const toggleExtraDimension = (_key:any)=>{
 
         let theFeetInputName = _key+":feet"
         let theInchesInputName = _key+":inches"
@@ -89,7 +89,7 @@ export const OInputNMeasure = ({
         }
         extraDimensionToggler_do.set(_key, !extraDimensionToggler.get(_key))
     }
-    const whatIs_spreatParse = (newData)=>{
+    const whatIs_spreatParse = (newData:any)=>{
         let spreatParse = Object.keys(inputkeyobj).map(item => {
             const theFirstD = inputkeyobj[item].format_titles[0]
             const theFirstDValue = inputkeyForm.get(item)[0]
@@ -121,7 +121,7 @@ export const OInputNMeasure = ({
         })
         return spreatParse
     }
-    const local_updateNewData = (newData)=>{
+    const local_updateNewData = (newData:any)=>{
         let spreatParse = whatIs_spreatParse(newData)
         const newMeasure = (
             `{${spreatParse.join(",")}}`).replace(/:,/g,':"",').replace(/:}/g,':""}'
@@ -181,7 +181,7 @@ export const OInputNMeasure = ({
                     })}
                 </div>
             }
-            {editMode && Array.from(inputkeyMap.entries()).map(([key, aValue])=>(
+            {editMode && Array.from(inputkeyMap.entries()).map(([key, aValue]:any)=>(
                 <div key={key+"edit"}
                     className=" bord-r-8  flex flex-align-center flex-justify-between w-100 my-1 "
                 >
@@ -224,7 +224,7 @@ export const OInputNMeasure = ({
                                 </div>
                             </div>
                             <div className="opaci-bhov--50">
-                                {extraDimensionToggler.get(key) &&
+                                {!!extraDimensionToggler.get(key) &&
                                     <div className="pl-1" > {`(in)`} </div>
                                 }
                                 {!extraDimensionToggler.get(key) &&
@@ -247,7 +247,7 @@ export const OInputNMeasure = ({
                                 boolConfig={["isReadOnly", "isCompact"]}
                                 updateNewData={local_updateNewData}
                                 parseFunction={
-                                    (newVal,prevVal)=>validateInteger(newVal,prevVal,0,60)
+                                    (newVal:any,prevVal:any)=>validateInteger(newVal,prevVal,0,60)
                                 }
                             />
                         </div>
@@ -264,7 +264,7 @@ export const OInputNMeasure = ({
                                 inputName={`${key}:${aValue.format_titles[1]}`}
                                 optMap={measureMapSmall} optName="label"
                                 parseFunction={
-                                    (newVal,prevVal)=>validateInteger(newVal,prevVal,0,12)
+                                    (newVal:any,prevVal:any)=>validateInteger(newVal,prevVal,0,12)
                                 }
                                 boolConfig={["isReadOnly", "isCompact"]}
                                 updateNewData={local_updateNewData}
@@ -285,7 +285,7 @@ export const OInputNMeasure = ({
                                 optName="label"
                                 boolConfig={["isReadOnly", "isCompact", ]}
                                 parseFunction={
-                                    (newVal,prevVal)=>validateInteger(newVal,prevVal,0,999)
+                                    (newVal:any,prevVal:any)=>validateInteger(newVal,prevVal,0,999)
                                 }
                                 updateNewData={local_updateNewData}
                             />
