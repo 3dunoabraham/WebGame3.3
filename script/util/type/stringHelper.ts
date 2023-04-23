@@ -1,16 +1,16 @@
-export const isValidImgExt = (theType, theExt)=>{
+export const isValidImgExt = (theType:any, theExt:any)=>{
     return (
         ["JPG","JPEG","PNG","GIF"].indexOf(theType.toUpperCase()) != -1 &&
         [".JPG",".JPEG",".PNG",".GIF"].indexOf(theExt.toUpperCase()) != -1
     )
 }
-export const filename2Type = (theString)=>{
+export const filename2Type = (theString:any)=>{
     return theString.replace(/(.*)\//g, '')
 }
-export const filename2Extension = (theString)=>{
+export const filename2Extension = (theString:any)=>{
     return theString.match(/\.[0-9a-z]+$/i)[0]
 }
-export const isValidDocExt = (theExt)=>{
+export const isValidDocExt = (theExt:any)=>{
     return (
         [
             ".DOC",".DOCX",".DOCM",".TXT",".PDF",".PPT",".PPTX",".PPTM",
@@ -24,16 +24,16 @@ export const isValidDocExt = (theExt)=>{
 // export const incInLowerCase = (subString,theString)=>{
 //     return (`${subString}`.toLowerCase() === theString.toLowerCase())
 // }
-export const isIncInLowerCase = (subString,theString)=>{
+export const isIncInLowerCase = (subString:any,theString:any)=>{
     return (`${subString}`.toLowerCase().includes(`${theString}`.toLowerCase()))
 }
-export const isEqInLowerCase = (subString,theString)=>{
+export const isEqInLowerCase = (subString:any,theString:any)=>{
     return (`${subString}`.toLowerCase() === `${theString}`.toLowerCase())
 }
-export const isStrInteger = (value)=>{
+export const isStrInteger = (value:any)=>{
   return /^\d+$/.test(value);
 }
-export const firstUpperCase = (theString) =>{
+export const firstUpperCase = (theString:any) =>{
     return theString.charAt(0).toUpperCase() + theString.slice(1)
 }
 
@@ -52,7 +52,7 @@ export const jss: JSS = (...args) =>
     ).join(' ')
 
 
-export const jssWSwitch = (ref, sequence, widths) =>{
+export const jssWSwitch = (ref:any, sequence:any, widths:any) =>{
     let arrayOfArgs: string[] = []
     const length = sequence.length
     const widthsLength = widths.length
@@ -63,7 +63,7 @@ export const jssWSwitch = (ref, sequence, widths) =>{
     return jss(...arrayOfArgs)
 }
 
-export const getOcurrences = (temp,match) =>{
+export const getOcurrences = (temp:any,match:any) =>{
     var regex = new RegExp( match, 'g' );
     return (temp.match(regex) || []).length
 }

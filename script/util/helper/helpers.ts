@@ -1,7 +1,7 @@
 import { DEFAULT_UNIT } from "@/../script/constant/unit"
 
 
-export const unit2Form = (unit)=> {
+export const unit2Form = (unit:any)=> {
     const {retail_price,min_retail_price, agreement_price, min_agreement_price} = (
         unit.price || DEFAULT_UNIT.price
     )
@@ -30,19 +30,19 @@ export const unit2Form = (unit)=> {
         locations: {location, physical_as_of, location_related},
     })
 }
-export const isValidImgExt = (theType, theExt)=>{
+export const isValidImgExt = (theType:any, theExt:any)=>{
     return (
         ["JPG","JPEG","PNG","GIF"].indexOf(theType.toUpperCase()) != -1 &&
         [".JPG",".JPEG",".PNG",".GIF"].indexOf(theExt.toUpperCase()) != -1
     )
 }
-export const filename2Type = (theString)=>{
+export const filename2Type = (theString:any)=>{
     return theString.replace(/(.*)\//g, '')
 }
-export const filename2Extension = (theString)=>{
+export const filename2Extension = (theString:any)=>{
     return theString.match(/\.[0-9a-z]+$/i)[0]
 }
-export const isValidDocExt = (theExt)=>{
+export const isValidDocExt = (theExt:any)=>{
     return (
         [
             ".DOC",".DOCX",".DOCM",".TXT",".PDF",".PPT",".PPTX",".PPTM",
@@ -56,16 +56,16 @@ export const isValidDocExt = (theExt)=>{
 // export const incInLowerCase = (subString,theString)=>{
 //     return (`${subString}`.toLowerCase() === theString.toLowerCase())
 // }
-export const isIncInLowerCase = (subString,theString)=>{
+export const isIncInLowerCase = (subString:any,theString:any)=>{
     return (`${subString}`.toLowerCase().includes(`${theString}`.toLowerCase()))
 }
-export const isEqInLowerCase = (subString,theString)=>{
+export const isEqInLowerCase = (subString:any,theString:any)=>{
     return (`${subString}`.toLowerCase() === `${theString}`.toLowerCase())
 }
-export const isStrInteger = (value)=>{
+export const isStrInteger = (value:any)=>{
   return /^\d+$/.test(value);
 }
-export const firstUpperCase = (theString) =>{
+export const firstUpperCase = (theString:any) =>{
     return theString.charAt(0).toUpperCase() + theString.slice(1)
 }
 
@@ -84,7 +84,7 @@ export const jss: JSS = (...args) =>
     ).join(' ')
 
 
-export const jssWSwitch = (ref, sequence, widths) =>{
+export const jssWSwitch = (ref:any, sequence:any, widths:any) =>{
     let arrayOfArgs: string[] = []
     const length = sequence.length
     const widthsLength = widths.length
@@ -95,7 +95,7 @@ export const jssWSwitch = (ref, sequence, widths) =>{
     return jss(...arrayOfArgs)
 }
 
-export const getOcurrences = (temp,match) =>{
+export const getOcurrences = (temp:any,match:any) =>{
     var regex = new RegExp( match, 'g' );
     return (temp.match(regex) || []).length
 }
@@ -116,17 +116,17 @@ export const getOcurrences = (temp,match) =>{
 import { MapOrEntries } from "usehooks-ts"
 
 
-export const obj2MapArray = (theObj): MapOrEntries<string, any> =>{
+export const obj2MapArray = (theObj:any): MapOrEntries<string, any> =>{
     return Object.keys(theObj).map((theObjKey, index)=>{
         return [theObjKey, theObj[theObjKey]]
     })
 }
 
-export const parseReadableSize = (fileSize)=>{
+export const parseReadableSize = (fileSize:any)=>{
     if(fileSize.length < 7) return `${Math.round(+fileSize/1024).toFixed(2)} KB`
     return `${(Math.round(+fileSize/1024)/1000).toFixed(2)} MB`
 }
-export const zeroPad = (value, length)=>{
+export const zeroPad = (value:any, length:any)=>{
     return `${value}`.padStart(length, '0');
 }
 const THE_DATE_NOW = new Date()
@@ -139,7 +139,7 @@ export const tenYearsFutureDateString = (
     `-${zeroPad(THE_DATE_NOW.getUTCMonth()+1,2)}-${zeroPad(THE_DATE_NOW.getUTCDate(),2)}`
 )
 
-export const parseUTCString = (_theDate)=>{
+export const parseUTCString = (_theDate:any)=>{
     let theDate = new Date(_theDate.toUTCString())
     return (
         `${theDate.getUTCFullYear()}-${zeroPad(theDate.getUTCMonth()+1,2)}-`+
@@ -148,7 +148,7 @@ export const parseUTCString = (_theDate)=>{
         `${zeroPad(theDate.getUTCHours(),2)}:${zeroPad(theDate.getUTCMinutes(),2)}`
     )
 }
-export const parseUTCDateString = (_theDate)=>{
+export const parseUTCDateString = (_theDate:any)=>{
     let theDate = new Date(_theDate.toUTCString())
     return (
         `${theDate.getUTCFullYear()}-${zeroPad(theDate.getUTCMonth()+1,2)}-`+
@@ -156,17 +156,17 @@ export const parseUTCDateString = (_theDate)=>{
     )
 }
 
-export const sortUIDAsc = (a, b)=>{
+export const sortUIDAsc = (a:any, b:any)=>{
     let parseIntUIDItemA = parseInt(a.uid.replace("-",""))
     let parseIntUIDItemB = parseInt(b.uid.replace("-",""))
     return  parseIntUIDItemA - parseIntUIDItemB;
 }
-export const sortUIDDesc = (a, b)=>{
+export const sortUIDDesc = (a:any, b:any)=>{
     let parseIntUIDItemA = parseInt(a.uid.replace("-",""))
     let parseIntUIDItemB = parseInt(b.uid.replace("-",""))
     return  parseIntUIDItemB - parseIntUIDItemA;
 }
-export const sortIDDesc = (a, b)=>{
+export const sortIDDesc = (a:any, b:any)=>{
     let parseIntUIDItemA = parseInt(a.id)
     let parseIntUIDItemB = parseInt(b.id)
     return  parseIntUIDItemB - parseIntUIDItemA;

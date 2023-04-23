@@ -32,7 +32,7 @@ export const CALENDAR_MONTHS = {
 export const CALENDAR_WEEKS = 6;
 // Pads a string value with leading zeroes(0) until length is reached
 // For example: zeroPad(5, 2) => "05"
-export const zeroPad = (value, length)=>{
+export const zeroPad = (value:any, length:any)=>{
   return `${value}`.padStart(length, '0');
 }
 // (int) Number days in a month for a given year from 28 - 31
@@ -55,14 +55,14 @@ export const getMonthFirstDay = (month = THIS_MONTH, year = THIS_YEAR)=>{
 
 
 // (bool) Checks if a value is a date - this is just a simple check
-export const isDate = (date)=>{
+export const isDate = (date:any)=>{
   const isDate = Object.prototype.toString.call(date) === '[object Date]';
   const isValidDate = date && !Number.isNaN(date.valueOf());
 
   return isDate && isValidDate;
 }
 // (bool) Checks if two date values are of the same month and year
-export const isSameMonth = (date, basedate = new Date())=>{
+export const isSameMonth = (date:any, basedate = new Date())=>{
   if (!(isDate(date) && isDate(basedate))) return false;
   const basedateMonth = +(basedate.getMonth()) + 1;
   const basedateYear = basedate.getFullYear();
@@ -72,7 +72,7 @@ export const isSameMonth = (date, basedate = new Date())=>{
 
 }
 // (bool) Checks if two date values are the same day
-export const isSameDay = (date, basedate = new Date())=>{
+export const isSameDay = (date:any, basedate = new Date())=>{
 
   if (!(isDate(date) && isDate(basedate))) return false;
   const basedateDate = basedate.getDate();
@@ -99,7 +99,7 @@ export const getDateISO = (date = new Date)=>{
 // ({month, year}) Gets the month and year before the given month and year
 // For example: getPreviousMonth(1, 2000)=>{month: 12, year: 1999}
 // while: getPreviousMonth(12, 2000)=>{month: 11, year: 2000}
-export const getPreviousMonth = (month, year)=>{
+export const getPreviousMonth = (month:any, year:any)=>{
   const prevMonth = (month > 1) ? month - 1 : 12;
   const prevMonthYear = (month > 1) ? year : year - 1;
   return { month: prevMonth, year: prevMonthYear };
@@ -107,7 +107,7 @@ export const getPreviousMonth = (month, year)=>{
 // ({month, year}) Gets the month and year after the given month and year
 // For example: getNextMonth(1, 2000)=>{month: 2, year: 2000}
 // while: getNextMonth(12, 2000)=>{month: 1, year: 2001}
-export const getNextMonth = (month, year)=>{
+export const getNextMonth = (month:any, year:any)=>{
   const nextMonth = (month < 12) ? month + 1 : 1;
   const nextMonthYear = (month < 12) ? year : year + 1;
   return { month: nextMonth, year: nextMonthYear };

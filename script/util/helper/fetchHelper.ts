@@ -53,7 +53,7 @@ export async function fetchUnitOptsObj() {
         return DEFAULT_UNIT_OPTS
     }
 }
-export const fetchDelete = async (url,body = {})=>{
+export const fetchDelete = async (url:any,body = {})=>{
     try {
         let fetchRes = await fetch(url, {
             headers:{"Content-Type":"application/json"},
@@ -79,7 +79,7 @@ export async function PostData(url = '', data = {}, method = "POST") {
         return err
     }
 }
-export const fetchPut = async (url,body)=>{
+export const fetchPut = async (url:any,body:any)=>{
     try {
         let fetchRes = await fetch(url, {
             headers:{"Content-Type":"application/json"},
@@ -91,7 +91,7 @@ export const fetchPut = async (url,body)=>{
         return err
     }
 }
-export const fetchGet = async (url,body={})=>{
+export const fetchGet = async (url:any,body={})=>{
     try {
         let fetchRes = await fetch(url, {
             headers:{"Content-Type":"application/json"},
@@ -103,7 +103,7 @@ export const fetchGet = async (url,body={})=>{
         return err
     }
 }
-export const fetchPost = async (url,body)=>{
+export const fetchPost = async (url:any,body:any)=>{
     try {
         let fetchRes = await fetch(url, {
             headers:{"Content-Type":"application/json"},
@@ -115,7 +115,7 @@ export const fetchPost = async (url,body)=>{
         return err
     }
 }
-export const fetchPostImage = async (url,file,config:any)=>{
+export const fetchPostImage = async (url:any,file:any,config:any)=>{
     return new Promise(async (resolve, reject) => {
         try {
             const payload = new FormData();
@@ -141,11 +141,11 @@ export const fetchPostImage = async (url,file,config:any)=>{
         }
     })
 }
-export function returnError(_a,err,theUrl,returnNull = false) {
+export function returnError(_a:any,err:any,theUrl:any,returnNull = false) {
     console.log("error fetching: "+theUrl,err)
     return returnNull ? null : _a
 }
-export async function fetchJsonArray(theUrl, propName = "", returnNull = false) {
+export async function fetchJsonArray(theUrl:any, propName = "", returnNull = false) {
     try {
         let theRequest = await fetch(theUrl);
         let headerCType = theRequest.headers.get("content-type");
@@ -161,7 +161,7 @@ export async function fetchJsonArray(theUrl, propName = "", returnNull = false) 
         return returnNull ? null : returnError([],err,theUrl,returnNull)
     }
 }
-export async function fetchMultipleJsonArray(requestsObj) {
+export async function fetchMultipleJsonArray(requestsObj:any) {
     let reqKeys =  Object.keys(requestsObj)
     let requests =  Object.keys(requestsObj).map((reqKey)=>{
         return fetch(requestsObj[reqKey][0])
@@ -172,7 +172,7 @@ export async function fetchMultipleJsonArray(requestsObj) {
         ))
     })
 }
-export async function fetchDownload(url, filename) {
+export async function fetchDownload(url:any, filename:any) {
     fetch(url).then(function(t) {
         return t.blob().then((b)=>{
             var a = document.createElement("a");
@@ -194,7 +194,7 @@ export const fetchShopifyProducts = async function () {
 }
 
 
-export async function fetchAndParseOrgTypes(orgsArray) {
+export async function fetchAndParseOrgTypes(orgsArray:any) {
     let orgTypesList = await fetchJsonArray(API_ORG_TYPES)
     
     let manufacturers = parseOrgTypeList("manufacturer", orgsArray,orgTypesList)
@@ -203,7 +203,7 @@ export async function fetchAndParseOrgTypes(orgsArray) {
     let owners = parseOrgTypeList("owner", orgsArray,orgTypesList)
     return {manufacturers, distributors, dealers, owners }
 }
-export const parseArray = (_obj)=>{
+export const parseArray = (_obj:any)=>{
     return _obj && Array.isArray(_obj) ? _obj : []
 }
 export async function fetchUnitStatuses() {
@@ -264,7 +264,7 @@ export async function fetchUnitStatuses() {
 //     }
 // }
 
-export function parseNoteObj(aNoteString,id) {
+export function parseNoteObj(aNoteString:any,id:any) {
     let splittedString = aNoteString.split(" ")
     let [date,time,created_by,...rest] = splittedString
     return {
@@ -279,12 +279,12 @@ export function parseNoteObj(aNoteString,id) {
         updated_by: 'null',
     }
 }
-export function parsedFetchedUnit(aUnit, orgsArray, customersArray) {
+export function parsedFetchedUnit(aUnit:any, orgsArray:any, customersArray:any) {
     let aParsedUnit = {...aUnit, ...{location: `-`}}
     if (aUnit.location_related == 0) return aParsedUnit 
     if (aUnit.location_related == 1)
     {
-        let theFoundOrg = orgsArray.filter((aOrg, index)=>{
+        let theFoundOrg = orgsArray.filter((aOrg:any, index:any)=>{
             return aOrg.id == aUnit.location
         })
         if (theFoundOrg.length == 0) return aParsedUnit
@@ -292,7 +292,7 @@ export function parsedFetchedUnit(aUnit, orgsArray, customersArray) {
     }
     if (aUnit.location_related == 2)
     {
-        let theFoundCustomer = customersArray.filter((aOrg, index)=>{
+        let theFoundCustomer = customersArray.filter((aOrg:any, index:any)=>{
             return aOrg.id == aUnit.location
         })
         if (theFoundCustomer.length == 0) return aParsedUnit
@@ -301,7 +301,7 @@ export function parsedFetchedUnit(aUnit, orgsArray, customersArray) {
     return aParsedUnit 
 }
 
-export function parseChangedDataObj(changedData) {
+export function parseChangedDataObj(changedData:any) {
     let the_data = Object.fromEntries(changedData) 
     if (changedData.has("year"))
     {
@@ -332,7 +332,7 @@ export function parseChangedDataObj(changedData) {
     }
     return the_data
 }
-export function parseChangedDataToAddObj(changedData) {
+export function parseChangedDataToAddObj(changedData:any) {
     let the_data = Object.fromEntries(changedData) 
     if (changedData.has("year"))
     {
@@ -366,13 +366,13 @@ export function parseChangedDataToAddObj(changedData) {
     }
     return the_data
 }
-export async function fetchUnitUIDAvailability(uid) {
+export async function fetchUnitUIDAvailability(uid:any) {
     let theRequest = await fetch(API_UNIT_BASE + uid)
-    let headerCType = theRequest.headers.get("content-type");
+    let headerCType:any = theRequest.headers.get("content-type");
     let isUIDTaken = headerCType.includes("application/json")
     return !isUIDTaken
 }
-export async function fetchParsedUnit(uid) {
+export async function fetchParsedUnit(uid:any) {
     let theRequest = await fetch(API_UNIT_BASE + uid);
     let headerCType = theRequest.headers.get("content-type");
     if (!headerCType || (headerCType && !headerCType.includes("application/json"))) return null
@@ -392,14 +392,14 @@ export async function fetchParsedUnit(uid) {
     }}
     return theExportResult
 }
-export function parseOrgTypeList(type, _orgsList, DEFAULT_ORG_TYPE_LIST) {
+export function parseOrgTypeList(type:any, _orgsList:any, DEFAULT_ORG_TYPE_LIST:any) {
     if (type == "owner")
     {
-        return _orgsList.filter((item,index)=> {return parseInt(item.type) <= 6 })
+        return _orgsList.filter((item:any,index:any)=> {return parseInt(item.type) <= 6 })
     }
-    let orgTypeId  = DEFAULT_ORG_TYPE_LIST.filter(orgOptType=>orgOptType.label == type)
+    let orgTypeId  = DEFAULT_ORG_TYPE_LIST.filter((orgOptType:any)=>orgOptType.label == type)
     if (!orgTypeId.length) return []
-    let returnList = _orgsList.filter((item,index)=> {
+    let returnList = _orgsList.filter((item:any,index:any)=> {
         return item.type == orgTypeId[0].id
     })
     return returnList

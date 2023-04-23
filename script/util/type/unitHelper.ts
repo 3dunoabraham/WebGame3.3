@@ -1,7 +1,7 @@
 import { DEFAULT_UNIT } from "@/../script/constant/unit"
 
 
-export const unit2Form = (unit)=> {
+export const unit2Form = (unit:any)=> {
     const {retail_price,min_retail_price, agreement_price, min_agreement_price} = (
         unit.price || DEFAULT_UNIT.price
     )

@@ -1,4 +1,4 @@
-export const zeroPad = (value, length)=>{
+export const zeroPad = (value:any, length:any)=>{
     return `${value}`.padStart(length, '0');
 }
 const THE_DATE_NOW = new Date()
@@ -11,7 +11,7 @@ export const tenYearsFutureDateString = (
     `-${zeroPad(THE_DATE_NOW.getUTCMonth()+1,2)}-${zeroPad(THE_DATE_NOW.getUTCDate(),2)}`
 )
 
-export const parseUTCString = (_theDate)=>{
+export const parseUTCString = (_theDate:any)=>{
     let theDate = new Date(_theDate.toUTCString())
     return (
         `${theDate.getUTCFullYear()}-${zeroPad(theDate.getUTCMonth()+1,2)}-`+
@@ -20,7 +20,7 @@ export const parseUTCString = (_theDate)=>{
         `${zeroPad(theDate.getUTCHours(),2)}:${zeroPad(theDate.getUTCMinutes(),2)}`
     )
 }
-export const parseUTCDateString = (_theDate)=>{
+export const parseUTCDateString = (_theDate:any)=>{
     let theDate = new Date(_theDate.toUTCString())
     return (
         `${theDate.getUTCFullYear()}-${zeroPad(theDate.getUTCMonth()+1,2)}-`+
