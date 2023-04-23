@@ -10,7 +10,8 @@ export const BreadCrumbs = ( { pages, current }: BreadCrumbsProps)=>{
     return (
     <div className="flex-center flex-justify-start pt-7 mt-1 tx-smd">
         <Link  href="/" className=" opaci-hov--50 py-2 pr-1">
-            <div className="ims-tx-primary tx-bold-6 ">{app.institution.title}</div>
+            {/* <div className="ims-tx-primary tx-bold-6 ">{app.institution.title}</div> */}
+            app
         </Link>
         {pages.map(([pageUrl,pageTitle], index)=>(
             <div className="   clickble" key={index}>
