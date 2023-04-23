@@ -15,6 +15,8 @@ import MovingBox2 from "./MovingBox2";
 import { parseDecimals } from "../../../../script/util/helper";
 import DynaText from "@/model/npc/TradingBox/DynaText";
 import BuyLowSellHigh from "./BuyLowSellHigh";
+import SetPriceAlarm from "./SetPriceAlarm";
+import SellHigh from "./SellHigh";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -24,9 +26,10 @@ const selectedTimeframeIndex = 0
 const selectedTimeframe = "3m"
 const feePercent = 0.1
 function Component ({}) {
-
-  const [LS_tutoStage, s__LS_tutoStage] = useLocalStorage('level2tutorialstage', "{}")
-  const [tutoStage,s__tutoStage] = useState<any>({})
+  const $bitcoin:any = useRef()
+  const [_tutoStage, s__LS_tutoStage] = useLocalStorage('level2tutorialstage', "{}")
+  const tutoStage:any = useMemo(()=> JSON.parse(_tutoStage) , [_tutoStage])
+  // const [tutoStage,s__tutoStage] = useState<any>({})
 
   const [LS_tokensArrayObj, s__LS_tokensArrayObj] = useLocalStorage('localTokensArrayObj', "{}")
   const [tokensArrayObj,s__tokensArrayObj] = useState<any>({})
@@ -137,7 +140,7 @@ function Component ({}) {
     return interestCount.length == 4
 },[tokensArrayObj])
   useEffect(()=>{
-    s__tutoStage(JSON.parse(LS_tutoStage))
+    // s__tutoStage(JSON.parse(LS_tutoStage))
     s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
   },[])
   const [clipbloardValue, clipbloard__do] = useCopyToClipboard()
@@ -170,7 +173,7 @@ function Component ({}) {
       console.log("main().catch(console.error)")
   }
   const setTutoStage = (lvl:any) => {
-    s__tutoStage({lvl})
+    // s__tutoStage({lvl})
     s__LS_tutoStage(JSON.stringify({lvl}))
   }
 
@@ -201,10 +204,21 @@ function Component ({}) {
       </DynaText>
       </>}
       {hasAnyToken && !tutoStage.lvl &&
-        <group position={[-0.6,-0.24,-0.5]} scale={0.5} onClick={()=>{setTutoStage(1)}}>
+        <group position={[-0.7,-0.24,-0.5]} scale={0.35} onClick={()=>{$bitcoin.current.toggleGame();setTutoStage(1)}}>
           <BuyLowSellHigh />
         </group>
       }
+      {hasAnyToken && tutoStage.lvl == 1 &&
+        <group position={[-0.7,-0.24,-0.5]} scale={0.35} onClick={()=>{setTutoStage(2)}}>
+          <SellHigh />
+        </group>
+      }
+
+      {/* {hasAnyToken && tutoStage.lvl == 2 &&
+        <group position={[-0.86,-0.4,-0.24]} scale={0.3} onClick={()=>{setTutoStage(3)}}>
+          <SetPriceAlarm />
+        </group>
+      } */}
 
       {hasAllTokens && <>
         <Box args={[4,0.25,5]} position={[0,-1.2,-0.5]} castShadow receiveShadow>
@@ -246,7 +260,7 @@ function Component ({}) {
         </group>
       </>}
       <group position={[-0.6,-0.1,-0.5]}>
-        <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="btc"
+        <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="btc" ref={$bitcoin}
           tokensArrayArray={"btc" in tokensArrayObj ? tokensArrayObj["btc"] : null}
           refetchInterval={selectedToken == "btc" ? 1000 : 60000}
           unselectedColor={"#50545B"}

@@ -1,6 +1,6 @@
 import { Cylinder, SpotLight, Torus, useDepthBuffer } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
-import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { Mesh, Box3, Vector3 } from "three";
 import * as THREE from "three";
 import DynaText from "./DynaText";
@@ -74,7 +74,7 @@ const Component = forwardRef(({
   score=0,s__score=()=>{},
   velocityX=0, setVelocityX=()=>{},
   velocityY=0, setVelocityY=()=>{},
-}: BoxProps) => {
+}: any, ref:any) => {
   const API_PRICE_BASEURL = "https://api.binance.com/api/v3/ticker/price?symbol="
   const baseToken = "USDT"
   
@@ -133,6 +133,12 @@ const Component = forwardRef(({
     s__uid(LS_uid)
     s__clientIP(LS_uid.split(":")[0])
   },[])
+
+  useImperativeHandle(ref, () => {
+    return {
+      toggleGame,
+    };
+  }, []);
 
 
   const toggleGame = () => {

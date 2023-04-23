@@ -1,7 +1,15 @@
 import { Vector3 } from "three"
 import DynaText from "./DynaText"
+import { useState } from "react"
 
 function Component ({tokensArrayArray, state, calls}:any) {
+  const [translation,s__translation]:any = useState({
+    btc:"gold",
+    eth:"emerald",
+    link:"diamond",
+    ftm:"lapis",
+  })
+  
     return (<>
       {state.clicked &&
         <DynaText text={state.clickedPrice/state.queryUSDT.data < 1 ? "I" : "O"}  
@@ -32,7 +40,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
         />
       }
       {state.isSelectedId &&
-        <DynaText text={state.token+"" || ""} color={state.isSelectedId ? state.tokenColor : state.tokenColor}
+        <DynaText text={translation[state.token]+"" || ""} color={state.isSelectedId ? state.tokenColor : state.tokenColor}
           position={new Vector3(-0.18,-0.2,-0.3)} rotation={[-Math.PI/4,0,0]}
           isSelected={state.isSelectedId}  font={0.25} onClick={()=>{calls.onTextClick()}}
         />
