@@ -8,7 +8,7 @@ import { BsClipboard } from "react-icons/bs";
 export const UnitSuccessBlock = ({
     newUID, loadings, s__confirmRedirect, confirmRedirect,
     s__redirectionTimeout,redirectionTimeout
-}) => {
+}:any) => {
     const app:any = useContext(AppContext);
     const [clipbloardValue, clipbloard__do] = useCopyToClipboard()
     const copyToClipboard = ()=>{

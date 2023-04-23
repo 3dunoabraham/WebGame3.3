@@ -23,7 +23,7 @@ export const BottomSectionOutputModule = ({
         for (let key in optsObj)
         {
             mapmapmap_do.set(key, new Map(optsObj[key].map(
-            object => {return [`${object.id}`, object]; }))
+            (object:any) => {return [`${object.id}`, object]; }))
         )
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,7 +35,7 @@ export const BottomSectionOutputModule = ({
 
 
 
-    const getNestedMapProp = (key,secKey,propName)=> {
+    const getNestedMapProp = (key:any,secKey:any,propName:any)=> {
         if (!mapmapmap.has(key)) return ""
         if (!mapmapmap.get(key).size) return ""
         if (!mapmapmap.get(key).has(secKey)) return ""
@@ -46,6 +46,7 @@ export const BottomSectionOutputModule = ({
 
     
     /****** HTML ******/
+    if (!!editMode) return <></>
     return (!editMode && <>
     <div className="flex w-100  Q_xs_md_flex-col">
         <div className="flex flex-1 w-max-400px pt-0 ">

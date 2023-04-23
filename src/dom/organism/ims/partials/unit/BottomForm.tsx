@@ -12,7 +12,7 @@ export const UnitBottomForm =({
     values, optMapObj,
     editMode,
     updateNewData,
-})=>{
+}:any)=>{
     /****** CREATE ******/
     useEffect(()=>{
         fetchJsonArray(API_UNIT_OPTS_BASE+"title_states").then((res)=>{s__title_statesArray(res)})
@@ -27,10 +27,10 @@ export const UnitBottomForm =({
     const [customersArray, s__customersArray] = useState([])
     const [title_statesArray, s__title_statesArray] = useState([])
     const parsed_investorsArray = useMemo(()=>(
-        investorsArray.map((x)=>({...x,_name:`${x.full_name.first_name} ${x.full_name.last_name}`})
+        investorsArray.map((x:any)=>({...x,_name:`${x.full_name.first_name} ${x.full_name.last_name}`})
     )),[investorsArray])
     const parsed_customersArray = useMemo(()=>(
-        customersArray.map((x)=>({...x,_name:`${x.full_name.first_name} ${x.full_name.last_name}`})
+        customersArray.map((x:any)=>({...x,_name:`${x.full_name.first_name} ${x.full_name.last_name}`})
     )),[customersArray])
     const axlesObjArray = (
         Array.from(Array(4).keys()).map(i => ({label:`${i+1}`,id:`${i+1}`}))

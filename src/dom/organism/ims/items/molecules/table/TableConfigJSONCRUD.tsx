@@ -149,14 +149,14 @@ export default function Component ({keyName }:any) {
                     </>}
                     {shouldRenderEditColumnsButton &&
                         <button className="flex gap-1 ims-button-primary opaci-chov--50 px-2 py-1 bord-r-8 "
-                            onClick={(id)=>{ updateSelectedArray(2) }}
+                            onClick={(id:any)=>{ updateSelectedArray(2) }}
                         >
                             <span className="flex">Edit Columns</span>
                         </button>
                     }
                     {shouldRenderCancelEditButton &&
                         <button className="flex gap-1 ims-border-faded opaci-chov--50 px-2 py-1 bord-r-8  "
-                            onClick={(id)=>{ updateSelectedArray(-1) }}
+                            onClick={(id:any)=>{ updateSelectedArray(-1) }}
                         >
                             <span className="flex">Cancel Edit</span>
                         </button>

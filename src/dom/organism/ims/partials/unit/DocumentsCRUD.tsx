@@ -12,10 +12,10 @@ import { BsExclamationCircle } from 'react-icons/bs'
 import { AppContext } from '@/../script/state/context/AppContext'
 import { fetchDelete } from '@/../script/util/helper/fetchHelper'
 // ReactFunctionComponent
-export const DocumentsCRUD = ({fileArrayMap, unit, refetch=(deps=[])=>{}})=>{
+export const DocumentsCRUD = ({fileArrayMap, unit, refetch=(deps=[])=>{}}:any)=>{
     /****** DATA ******/
     const app:any = useContext(AppContext);
-    const [firstFile, s__firstFile] = useState<{name:string,type:string,size:number}>()
+    const [firstFile, s__firstFile]:any = useState<{name:string,type:string,size:number}>()
     const [failedUpload, s__failedUpload] = useState(false)
     const [firstFileCat, s__firstFileCat] = useState("")
     const [percentComplete, s__percentComplete] =   useState<number>(0);
@@ -28,9 +28,9 @@ export const DocumentsCRUD = ({fileArrayMap, unit, refetch=(deps=[])=>{}})=>{
         s__firstFileCat("")
         s__firstFile(null)
     }, [fileArrayMap])
-    const handleDelete = (category, theFile)=>{ sendDeleteRequest(theFile.id) }
-    const handleDownload = (category, theFile)=>{ }
-    const _handleUpload = (category, theFile)=>{        
+    const handleDelete = (category:any, theFile:any)=>{ sendDeleteRequest(theFile.id) }
+    const handleDownload = (category:any, theFile:any)=>{ }
+    const _handleUpload = (category:any, theFile:any)=>{        
         if (theFile.type == "") return app.alert("error", API_INVALID_IMAGE_CORRUPT)
         let theParsedFileType = filename2Type(theFile.type)
         let theParsedFileExt = filename2Extension(theFile.name.replace(" ","_"))
@@ -39,17 +39,17 @@ export const DocumentsCRUD = ({fileArrayMap, unit, refetch=(deps=[])=>{}})=>{
         s__firstFile(theFile)
         sendDocument(category, theFile)
     }
-    const sendDeleteRequest = async (id)=>{
+    const sendDeleteRequest = async (id:any)=>{
         app.alert("neutral", "Deleting document...")
         
-        let fetchDeleteRes = await fetchDelete(API_DOCS, {docs_ids:[id]})
+        let fetchDeleteRes:any = await fetchDelete(API_DOCS, {docs_ids:[id]})
         if (!fetchDeleteRes) return
         if (fetchDeleteRes.status >= 400) return app.alert("error","Request error")
 
         app.alert("success", "Document deleted successfully!")
         await refetch(["docs"])
     }
-    const sendDocument = (category, firstCurrentFile)=>{
+    const sendDocument = (category:any, firstCurrentFile:any)=>{
         app.alert("neutral", "Uploading document...")
         let theUrl = API_DOC_UPLOAD_BASE + `${unit.uid}/` // + 1
         const payload = new FormData();
@@ -150,7 +150,7 @@ export const DocumentsCRUD = ({fileArrayMap, unit, refetch=(deps=[])=>{}})=>{
                         )}
                         <div className='w-100 flex flex-justify-end mt-2'>
                             <InputFile fileMapMap={fileArrayMap.get(aFileType)}
-                                handleUpload={(cat,file)=>{_handleUpload(aFileType,file)}}
+                                handleUpload={(cat:any,file:any)=>{_handleUpload(aFileType,file)}}
                                 border="dashed" title={aFileType}
                             />
                         </div>
@@ -160,7 +160,7 @@ export const DocumentsCRUD = ({fileArrayMap, unit, refetch=(deps=[])=>{}})=>{
                 Object.keys(fileArrayMap.get(aFileType)).length == 0 &&  /* */
                     <div className='w-100   '>
                         <InputFile fileMapMap={fileArrayMap.get(aFileType)}
-                            handleUpload={(cat,file)=>{_handleUpload(aFileType,file)}}
+                            handleUpload={(cat:any,file:any)=>{_handleUpload(aFileType,file)}}
                             border="solid" title={aFileType}
                         />
                     </div>

@@ -33,7 +33,7 @@ export default function Component({ unitsArray=[], fetchConfig=null, tableConfig
         })
         return filteredUnitsArray.sort(sortIDDesc)
     },[unitsArray, q__foreigns, app.filters])
-    const deleteUnit = async (id)=>{
+    const deleteUnit = async (id:any)=>{
         let fetchDeleteRes:any = await fetchDelete(API_UNITS, {uids:[id]})
         if (fetchDeleteRes && fetchDeleteRes.status >= 200 && fetchDeleteRes.status < 300)
         {
@@ -58,7 +58,7 @@ export default function Component({ unitsArray=[], fetchConfig=null, tableConfig
         return ["isActionable"]
     },[isSelectable])
     const [selectedUnits, s__selectedUnits] = useState([])
-    const updateSelectedArray = (id)=> {
+    const updateSelectedArray = (id:any)=> {
         console.log("id", id)
         const theIndex = selectedUnits.indexOf(id)
         if (theIndex != -1) {
@@ -115,7 +115,7 @@ export default function Component({ unitsArray=[], fetchConfig=null, tableConfig
                     boolConfig={_boolConfig}
                     // boolConfig={[]}
                     // actionCard=null
-                    actionCard={(id)=>(
+                    actionCard={(id:any)=>(
                         <button className={`ims-button-faded  tx-green block `}
                             onClick={async (evt)=>{
                                 console.log("id, evt",id,evt)
@@ -126,7 +126,7 @@ export default function Component({ unitsArray=[], fetchConfig=null, tableConfig
                             <span className="">Quick Edit</span>
                         </button>
                     )}
-                    // actionCard={(id)=>(
+                    // actionCard={(id:any)=>(
                     //     <button className={`ims-button-faded  tx-green block `}
                     //         onClick={async (evt)=>{
                     //             console.log("id, evt",id,evt)

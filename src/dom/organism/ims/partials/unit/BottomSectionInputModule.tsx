@@ -32,14 +32,14 @@ export const BottomSectionInputModule = ({
         if (!inputsMapObj) {return }
         Object.keys(inputsMapObj).map((item, index)=>{
             const inputName = inputsMapObj[item].inputName ? inputsMapObj[item].inputName : item
-            s__formObject(current => ({...current,...{[item]:""}}))
+            s__formObject((current:any) => ({...current,...{[item]:""}}))
             if (!values[inputName]) return
                 
-            s__formObject(current => ({...current,...{[item]:values[inputName]}}))
+            s__formObject((current:any) => ({...current,...{[item]:values[inputName]}}))
             switch (inputsMapObj[item].customFormat)
             {
                 case "price":
-                    s__formObject(current => ({...current,
+                    s__formObject((current:any) => ({...current,
                         ...{[item]:parseFloat(values[inputName]).toFixed(2)}
                     }))
                     break;
@@ -82,12 +82,12 @@ export const BottomSectionInputModule = ({
     const realInputsKeyList = useMemo(() => inputsKeyList.filter(i=>!inputsMapObj[i].autogen) 
     , [inputsKeyList,inputsMapObj]);
     const [modifiedObject,s__modifiedObject] = useState({})
-    const [formObject,s__formObject] = useState({})
+    const [formObject,s__formObject]:any = useState<any>({})
     useEffect(()=>{ 
         for (let key in optsObj)
         {
             mapmapmap_do.set(key, new Map(optsObj[key].map(
-            object => {return [`${object.id}`, object]; }))
+            (object:any) => {return [`${object.id}`, object]; }))
         )
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -96,7 +96,7 @@ export const BottomSectionInputModule = ({
 
 
     /****** UPDATE ******/
-    const handleUpdateNewData = (data)=>{
+    const handleUpdateNewData = (data:any)=>{
         const indexOf = Object.keys(inputsMapObj)
                         .filter(i=>(    !!inputsMapObj[i].inputName &&
                                         inputsMapObj[i].inputName == data.inputName))[0]
@@ -112,12 +112,13 @@ export const BottomSectionInputModule = ({
             }
         }
         let newParsed = { inputName, value: {...valuesThatChanged,...newDataObj}}
-        updateNewData(newParsed)
+        !!updateNewData && updateNewData(newParsed)
     }
 
 
 
     /****** HTML ******/
+    if (!editMode) return <></>
     return (editMode && <>
     <div className="flex w-100  Q_xs_md_flex-col">
         <div className="flex flex-1 w-max-400px pt-0 ">
@@ -150,7 +151,7 @@ export const BottomSectionInputModule = ({
                             <InputText
                                 inputName={theInputObj.inputName} updateNewData={handleUpdateNewData}
                                 reference={formObject[key] || ""}
-                                parseFunction={theInputObj.limit ? (newVal,prevVal)=>{
+                                parseFunction={theInputObj.limit ? (newVal:any,prevVal:any)=>{
                                     if (theFormat == "price")
                                     {   return validateFloat(newVal,prevVal,theInputObj.limit) }
                                     if (theFormat == "integer")
@@ -159,7 +160,7 @@ export const BottomSectionInputModule = ({
                                     { return validateBigint(newVal,prevVal,theInputObj.limit) }
                                     if (theFormat == "")
                                     { return validateStringLength(newVal,prevVal,theInputObj.limit) }
-                                } : (x,y)=>x}
+                                } : (x:any,y:any)=>x}
                             />
                         </div>
                     }
@@ -199,11 +200,11 @@ export const BottomSectionInputModule = ({
                                 optMap={mapmapmap.has(key) ? mapmapmap.get(key) : new Map()} 
                                 optName={theInputObj.optName}
                                 updateNewData={handleUpdateNewData} 
-                                parseFunction={theInputObj.limit ? (newVal,prevVal)=>{
+                                parseFunction={theInputObj.limit ? (newVal:any,prevVal:any)=>{
                                     if (theFormat == "intrange") {
                                         return validateInteger(newVal,prevVal,0,theInputObj.limit)
                                     }
-                                } : (x,y)=>x}
+                                } : (x:any,y:any)=>x}
                             />
                         </div>
                     }
@@ -225,11 +226,11 @@ export const BottomSectionInputModule = ({
                                 optMap={mapmapmap.has(key) ? mapmapmap.get(key) : new Map()} 
                                 optName={theInputObj.optName}
                                 updateNewData={handleUpdateNewData} 
-                                parseFunction={theInputObj.limit ? (newVal,prevVal)=>{
+                                parseFunction={theInputObj.limit ? (newVal:any,prevVal:any)=>{
                                     if (theFormat == "intrange") {
                                         return validateInteger(newVal,prevVal,0,theInputObj.limit)
                                     }
-                                } : (x,y)=>x}
+                                } : (x:any,y:any)=>x}
                             />
                         </div>
                     }
@@ -243,10 +244,10 @@ export const BottomSectionInputModule = ({
                                 optObj={optsObj}  optMap={new Map()} 
                                 optName={theFormat == "entity" ? "name" : "label"}
                                 boolConfig={[" isErasable "]}
-                                parseFunction={theInputObj.limit ? (newVal,prevVal)=>{
+                                parseFunction={theInputObj.limit ? (newVal:any,prevVal:any)=>{
                                     if (theFormat == "intrange")
                                     { return validateInteger(newVal,prevVal,0,theInputObj.limit) }
-                                } : (x,y)=>x}
+                                } : (x:any,y:any)=>x}
                                 updateNewData={handleUpdateNewData} 
                             />
                         </div>

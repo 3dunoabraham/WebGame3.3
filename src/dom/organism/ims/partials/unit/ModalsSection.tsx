@@ -11,12 +11,12 @@ export const UnitModalsSection = ({
     unit, editMode,
     fileArrayMap, notesArray,logsArray,
     refetch,    
-})=>{
+}:any)=>{
     const [logsModal, s__logsModal] = useState(false);
     const [notesModal, s__notesModal] = useState(false);
     const [docsModal, s__docsModal] = useState(false);
     const notes = useMemo(()=>(
-        notesArray.map((aNote,index)=>{
+        notesArray.map((aNote:any,index:any)=>{
             return {
                 id: aNote.id,
                 author: aNote.created_by == "1" ? "John Doe" : "<Author>",
@@ -26,7 +26,7 @@ export const UnitModalsSection = ({
         })
     ),[notesArray])
     const logs = useMemo(()=>(
-        logsArray.map((aLog,index)=>(
+        logsArray.map((aLog:any,index:any)=>(
             {id: aLog.id,message: "a log "+index,author: "Joe Doe",date: "0000-00-00"}
         ))
     ),[logsArray])

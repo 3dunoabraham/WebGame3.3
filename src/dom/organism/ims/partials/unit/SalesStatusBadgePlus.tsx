@@ -1,6 +1,6 @@
 export const SalesStatusBadgePlus = ({
     value, reference, date = "",
-})=>{
+}:any)=>{
     switch (value)
     {
         case 1: return <span className="ims-badge-success pa-1 tx-sm ">Available</span>

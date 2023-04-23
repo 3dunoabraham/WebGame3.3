@@ -10,7 +10,7 @@ import InputItemsPPage from "@/dom/organism/ims/items/atoms/inputs/InputItemsPP"
 
 export default function Component({items, exportConfig, tableConfigObj, urlBase, actionCard,
     selectedItems=[],
-    boolConfig,updateSelectedArray=(id)=>{} }) {
+    boolConfig,updateSelectedArray=(id:any)=>{} }) {
     const app:any = useContext(AppContext)
     const isClient = useIsClient()
     const [LS_itemsPerPage, s__LS_itemsPerPage] = useLocalStorage('itemsPerPage', 25)
@@ -27,7 +27,7 @@ export default function Component({items, exportConfig, tableConfigObj, urlBase,
         return thePaginatedItems // .sort(sortIDDesc)
     },[items,itemsOffsetStart,itemsPerPage])
 
-    const _updateSelectedArray = (id)=> {
+    const _updateSelectedArray = (id:any)=> {
         console.log("id items table container", id)
         updateSelectedArray(id)
     }

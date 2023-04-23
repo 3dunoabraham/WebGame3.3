@@ -11,7 +11,7 @@ export const LogsCRUD = ({
     unit,
     refetch=(deps=[])=>{},
     logs,
-})=>{
+}:any)=>{
     /****** DATA ******/
     const app:any = useContext(AppContext)
     const messagesEndRef:any = useRef()
@@ -29,11 +29,11 @@ export const LogsCRUD = ({
         let _val = e.target.value
         if (_val.length < 2) return
     }
-    const removeNote = (id)=>{ sendDeleteRequest(id) }
-    const sendDeleteRequest = async (id)=>{
+    const removeNote = (id:any)=>{ sendDeleteRequest(id) }
+    const sendDeleteRequest = async (id:any)=>{
         loadMap__do.set("deleteid",id)
         app.alertReset()
-        let fetchDeleteRes = await fetchDelete(API_NOTES, {logs_ids:[id]})
+        let fetchDeleteRes:any = await fetchDelete(API_NOTES, {logs_ids:[id]})
         if (!fetchDeleteRes) return
         if (fetchDeleteRes.status == 400) return app.alert("error","Request error")
 
@@ -47,7 +47,7 @@ export const LogsCRUD = ({
     //     if (counter < 1) return
     //     scrollToBottom()
     // }, [logs]);
-    const addNote = async (author)=>{
+    const addNote = async (author:any)=>{
         // alert()
         
         app.alertReset()
@@ -76,7 +76,7 @@ export const LogsCRUD = ({
     return (<>
     <div className="flex-col ">
         <div className="bord-r-8  w-100  h-max-300px autoverflow " >
-            {logs.map((aNote, index)=>{
+            {logs.map((aNote:any, index:any)=>{
                 return (
                 <div key={index} className="pb-5  px-2 ims-bg-faded-odd bord-r-8">
                     <div className="flex ims-tx-primary flex-align-end">

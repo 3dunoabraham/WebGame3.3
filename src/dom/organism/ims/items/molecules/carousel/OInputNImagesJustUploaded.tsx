@@ -8,7 +8,7 @@ export const OInputNImagesJustUploaded = ({
     theKey,handleDeleteImage = null,
     validatedFileType,foundFilename,foundSize,
     percentComplete,
-})=>{
+}:any)=>{
     return (<>
         <div className="mb-6 px-4">
             <div className="flex-center "> 

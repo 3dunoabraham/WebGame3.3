@@ -15,7 +15,7 @@ export default function Component ({updateQueriedToLocalstorage, updateClientToL
             <div className="tx-right  flex-1 opaci-50 Q_md_x">* Local Storage </div>
             <hr className="my-2 Q_xs_md"/>
             <ItemsTable  displayConfigObj={tableConfigObj} boolConfig={["isActionable", "isCompact"]}
-                actionCard={(id)=>(
+                actionCard={(id:any)=>(
                     <button className={`ims-button-faded  tx-green  `}
                         onClick={async (evt)=>{console.log("id, evt",id,evt)}}
                     >

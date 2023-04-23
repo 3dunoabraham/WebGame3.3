@@ -10,7 +10,7 @@ import { AppContext } from "@/../script/state/context/AppContext"
 export const NotesCRUD = ({
     unit, notes,
     refetch=(deps=[])=>{},
-})=>{
+}:any)=>{
     /****** DATA ******/
     const app:any = useContext(AppContext);
     const messagesEndRef:any = useRef()
@@ -23,14 +23,14 @@ export const NotesCRUD = ({
 
 
     /****** UPDATE ******/
-    const onKeyDown = (evt)=>{ if (evt.keyCode === 13) { addNote() } }
+    const onKeyDown = (evt:any)=>{ if (evt.keyCode === 13) { addNote() } }
     const updateMessage = (e:any)=>{ s__theMessage(e.target.value) }
-    const removeNote = (id)=>{ sendDeleteRequest(id) }
+    const removeNote = (id:any)=>{ sendDeleteRequest(id) }
     const scrollToBottom = ()=>{ messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }) }
-    const sendDeleteRequest = async (id)=>{
+    const sendDeleteRequest = async (id:any)=>{
         loadMap__do.set("deleteid",id)
         app.alert("neutral","Deleting note...")
-        let fetchDeleteRes = await fetchDelete(API_NOTES, {notes_ids:[id]})
+        let fetchDeleteRes:any = await fetchDelete(API_NOTES, {notes_ids:[id]})
         if (!fetchDeleteRes) return
         if (fetchDeleteRes.status >= 400) return app.alert("error","Request error")
 
@@ -65,7 +65,7 @@ export const NotesCRUD = ({
     return (<>
     <div className="flex-col ">
         <div className="bord-r-8  w-100  h-max-300px autoverflow " >
-            {notes.map((aNote, index)=>{
+            {notes.map((aNote:any, index:any)=>{
                 const isMissingId = aNote.id == -1
                 const isDeletingNote = loadMap.get("deleteid") == aNote.id
                 return (

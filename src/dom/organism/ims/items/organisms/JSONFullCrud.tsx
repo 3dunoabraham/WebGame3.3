@@ -61,7 +61,7 @@ export default function Component ({keyName, queriedObj, keyConfig, q__queriedOb
             <ItemsTable  displayConfigObj={tableConfigObj}
                 boolConfig={["isActionable", "isSelectable", "isCompact"]} 
                 updateSelectedArray={updateSelectedArray}
-                actionCard={(id)=>(
+                actionCard={(id:any)=>(
                     <button className={`ims-button-faded  tx-green block `}
                         onClick={async (evt)=>{
                             console.log("id, evt",id,evt)

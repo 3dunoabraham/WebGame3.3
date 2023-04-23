@@ -6,7 +6,7 @@ import { BsPencil } from "react-icons/bs"
 export const UnitSaveEditButtonLoadings = ({
     editMode,isLoadingEditing,isLoadingRefetching,isLoader = true,isCancelable = true,
     refreshCount,    succesfulRequest,cancelEdit,handleTopBottomSave,blockIfEditing,
-})=>{
+}:any)=>{
     const isWaiting = useMemo(()=>((isLoadingEditing || isLoadingRefetching) && refreshCount>1)
     ,[isLoadingEditing, isLoadingRefetching, refreshCount])
     const isFinished = useMemo(()=>(!isLoadingEditing && refreshCount>1)

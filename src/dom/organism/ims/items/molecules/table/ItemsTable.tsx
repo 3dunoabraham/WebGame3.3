@@ -7,7 +7,7 @@ import ItemsTableRest from '@/dom/organism/ims/items/molecules/table/ItemsTableR
 import { AppContext } from '@/../script/state/context/AppContext';
 
 export default function Component({
-    theArray, s__selectedId=(arg)=>{}, selectedId=null, displayConfigObj, updateSelectedArray=(id)=>{},
+    theArray, s__selectedId=(arg)=>{}, selectedId=null, displayConfigObj, updateSelectedArray=(id:any)=>{},
     selectedItems=[],
     boolConfig=[],urlBase="", headerStyle=null, tableStyle=null, actionCard=null,
 }) {
