@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Box } from "@react-three/drei";
 import { useCopyToClipboard, useLocalStorage } from "usehooks-ts";
+import { Text } from '@react-three/drei';
 
 
 import { getComputedLevels } from "../../../../script/util/helper/decoy";
@@ -12,6 +13,8 @@ import ChartBox from "@/dom/atom/ChartBox";
 import MovingBox1 from "./MovingBox1";
 import MovingBox2 from "./MovingBox2";
 import { parseDecimals } from "../../../../script/util/helper";
+import DynaText from "@/model/npc/TradingBox/DynaText";
+import BuyLowSellHigh from "./BuyLowSellHigh";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -21,6 +24,10 @@ const selectedTimeframeIndex = 0
 const selectedTimeframe = "3m"
 const feePercent = 0.1
 function Component ({}) {
+
+  const [LS_tutoStage, s__LS_tutoStage] = useLocalStorage('level2tutorialstage', "{}")
+  const [tutoStage,s__tutoStage] = useState<any>({})
+
   const [LS_tokensArrayObj, s__LS_tokensArrayObj] = useLocalStorage('localTokensArrayObj', "{}")
   const [tokensArrayObj,s__tokensArrayObj] = useState<any>({})
   const [selectedToken, __selectedToken] = useState("btc")
@@ -120,7 +127,17 @@ function Component ({}) {
       // console.log("interestCount", interestCount)
       return interestCount.length > 0
   },[tokensArrayObj])
+  const hasAllTokens = useMemo(()=>{
+    // console.log("tokensArrayObj", tokensArrayObj)
+    let interestCount = Object.keys(tokensArrayObj).filter((token)=>{
+        // console.log("token", token)
+        return token in tokensArrayObj
+    })
+    console.log("asdasdasdas", interestCount.length , Object.keys(tokensArrayObj).length)
+    return interestCount.length == 4
+},[tokensArrayObj])
   useEffect(()=>{
+    s__tutoStage(JSON.parse(LS_tutoStage))
     s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
   },[])
   const [clipbloardValue, clipbloard__do] = useCopyToClipboard()
@@ -152,18 +169,52 @@ function Component ({}) {
       // main().catch(console.error)
       console.log("main().catch(console.error)")
   }
-
+  const setTutoStage = (lvl:any) => {
+    s__tutoStage({lvl})
+    s__LS_tutoStage(JSON.stringify({lvl}))
+  }
 
   return (<>
     <Scene>
       <ambientLight intensity={0.25} />
       <pointLight intensity={1.5} position={[1.5, 1, 3]} castShadow />
-      <Box args={[4,0.25,5]} position={[0,-1.2,-0.5]} castShadow receiveShadow>
-        <meshStandardMaterial color={"#fff"}/>
-      </Box>
-      <Box args={[2.5,0.2,2.5]} position={[0.05,-1.05,0.15]} castShadow receiveShadow>
-        <meshStandardMaterial color={"#ddd"}/>
-      </Box>
+
+
+      {!hasAnyToken && <>
+        <DynaText
+          onClick={()=>{join("btc")}}
+          text="Click Here to Start"
+          color="#aa0000"
+          font={0.11}
+          position={[-1.05,-0.34,-0.15]}
+          rotation={[0,Math.PI/4,0]}
+        >        
+      </DynaText>
+        <DynaText
+          onClick={()=>{join("btc")}}
+          text="Click Here to Start"
+          color="#aa0000"
+          font={0.11}
+          position={[-1.05,-0.34,-0.15]}
+          rotation={[0,Math.PI/4+Math.PI,0]}
+        >        
+      </DynaText>
+      </>}
+      {hasAnyToken && !tutoStage.lvl &&
+        <group position={[-0.6,-0.24,-0.5]} scale={0.5} onClick={()=>{setTutoStage(1)}}>
+          <BuyLowSellHigh />
+        </group>
+      }
+
+      {hasAllTokens && <>
+        <Box args={[4,0.25,5]} position={[0,-1.2,-0.5]} castShadow receiveShadow>
+          <meshStandardMaterial color={"#fff"}/>
+        </Box>
+      </>}
+        <Box args={[2.5,0.2,2.5]} position={[0.05,-1.05,0.15]} castShadow receiveShadow>
+          <meshStandardMaterial color={"#ddd"}/>
+        </Box>
+      {hasAnyToken && <>
       <group position={[-1.05,-0.9,1.32]}>
         {profitHistory.slice(0,12).map((anOrder:any, index:any)=>{
           return (
@@ -180,10 +231,13 @@ function Component ({}) {
           )
         })}
       </group>
-      {hasAnyToken && <>
+      </>}
+      {<>
         <Box args={[2,0.3,0.5]} position={[0,-1,-1.5]} castShadow receiveShadow>
           <meshStandardMaterial color={"#ddd"}/>
         </Box>
+      </>}
+      { <>
         <group scale={[0.7,0.7,0.7]} position={[0.3,0,-1.5]}>
           <ChartBox boundaries={[1,0.1,0.04]} score={{score:0}} timeframe={selectedTimeframe.toLowerCase() || "1d"}
             position={[0,0,0]} velocityX={0}  theToken={form.id.split("USDT")[0]} askAI={(data:any)=>{askAI(data)}}

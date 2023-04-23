@@ -197,14 +197,14 @@ const Component = forwardRef(({
           isSelectedId={isSelectedId} token={token} clicked={clicked}
         />
 
-        
+{/*         
         <TimeframeButtons tokensArrayArray={tokensArrayArray}
           state={{isSelectedId, score, token, selectedTimeframe, selectedTimeframeIndex}}
           calls={{onTimeframeClick,onTextClick,}}
-        />
+        /> */}
         
         
-        <TableBody state={{boundaries, wallWidth, isSelectedId, clicked}} />
+        <TableBody state={{boundaries, wallWidth, isSelectedId, clicked, hasAnyToken:!!tokensArrayArray}} />
 
         <TableLegs />
         

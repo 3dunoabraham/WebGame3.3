@@ -9,7 +9,7 @@ function Component ({state, }:any) {
           <boxGeometry args={[1, state.wallWidth, 1]} />
           <meshStandardMaterial color={!state.isSelectedId ? "#888" : "#888"}  />
         </mesh>        
-        {state.isSelectedId && <>
+        {state.isSelectedId && state.hasAnyToken && <>
           <Torus args={[0.7,0.006,4,4]}   rotation={[Math.PI/2,0,Math.PI/4]} position={[ 0, -0.345, 0, ]}
           >
             <meshStandardMaterial  attach="material" color="#b6b" />
