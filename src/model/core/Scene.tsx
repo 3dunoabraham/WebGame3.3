@@ -5,21 +5,7 @@ import TheButton from "./TheButton";
 import SceneLight from "./SceneLight";
 import { OrbitControls } from "@react-three/drei";
 import React from "react";
-import { EffectComposer, SSAO } from "@react-three/postprocessing";
-import { BlendFunction } from "postprocessing";
 
-function Effects() {
-    return (
-      <EffectComposer>
-        <SSAO
-          blendFunction={BlendFunction.MULTIPLY} // Use NORMAL to see the effect
-          samples={31}
-          radius={5}
-          intensity={100}
-        />
-      </EffectComposer>
-    );
-  }
   
 function Component ( {
     children
