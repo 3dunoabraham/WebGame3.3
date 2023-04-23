@@ -36,7 +36,7 @@ export default function Component({
         }                            
     </div>
     <div className={`${!!tableStyle?"":"ims-border-faded   "} `} style={tableStyle}>
-        {theArray.map((item,index)=>{
+        {theArray.map((item:any,index:any)=>{
             return (
             <div key={index} className={`pos-rel ims-bg-lightest-odd ${selectedItems.indexOf(item[displayConfigObj.key.name]) != -1 ? "z-100 box-shadow-2-r tx-bold-6 " : ""}`}>
                 {_boolConfig.includes("isSelectable") && 

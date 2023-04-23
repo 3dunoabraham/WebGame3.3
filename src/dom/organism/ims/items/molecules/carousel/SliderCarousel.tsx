@@ -57,7 +57,7 @@ const SliderCarousel = forwardRef(({
         
 
         <div className={`bg-white mb-3 bord-r-25 flex-center bottom-0 pos-abs clickble `} >
-            {filteredFileList.map((item,index)=>{
+            {filteredFileList.map((item:any,index:any)=>{
                 if (index == 4)
                 {
                     if (currentPage >= 4)
