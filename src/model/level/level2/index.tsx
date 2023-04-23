@@ -1,0 +1,272 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Box } from "@react-three/drei";
+import { useCopyToClipboard, useLocalStorage } from "usehooks-ts";
+
+
+import { getComputedLevels } from "../../../../script/util/helper/decoy";
+import Scene from "@/model/core/Scene"
+import TradingBox, { DEFAULT_TIMEFRAME_ARRAY } from "@/model/npc/TradingBox";
+import ChartBox from "@/dom/atom/ChartBox";
+import MovingBox1 from "./MovingBox1";
+import MovingBox2 from "./MovingBox2";
+import { parseDecimals } from "../../../../script/util/helper";
+
+const DEFAULT_TOKEN_OBJ = {
+  mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
+  min:0,max:0,minMaxAvg:0,minMedian:0,maxMedian:0,
+}
+const selectedTimeframeIndex = 0
+const selectedTimeframe = "3m"
+const feePercent = 0.1
+function Component ({}) {
+  const [LS_tokensArrayObj, s__LS_tokensArrayObj] = useLocalStorage('localTokensArrayObj', "{}")
+  const [tokensArrayObj,s__tokensArrayObj] = useState<any>({})
+  const [selectedToken, __selectedToken] = useState("btc")
+  const [currentOrders, s__currentOrders] = useState<any>({})
+  const [orderHistory, s__orderHistory] = useState<any>([])
+  const [profitHistory, s__profitHistory] = useState<any>([])
+  const [form,s__form] = useState({
+    id:"BTCUSDT3M",
+  })
+  const onTimeframeClick = (x:any, y:any) => {  }
+  const join = (x:any) => {
+      console.log("join", x)
+      s__selectedToken(x)
+      updateTokenOrder(x,selectedTimeframeIndex,"state",1)
+  }
+  const leave = (x:any) => {
+      console.log("leave", x)
+      // updateTokenOrder(token,selectedTimeframeIndex,"state","0")
+      s__selectedToken(x)
+      
+      let new_tokensArrayObj = {...tokensArrayObj};
+      delete new_tokensArrayObj[x];
+      s__LS_tokensArrayObj((prevValue) => JSON.stringify(new_tokensArrayObj));
+      s__tokensArrayObj(new_tokensArrayObj)
+  }
+  const trendDown = (x:any) => {  }
+  const trendUp = (x:any) => {  }
+  const turnOn = (x:any) => { 
+  }
+  const turnOff = (x:any) => {
+  }
+  const s__selectedToken = (val:any) => {
+    let newId = val.toUpperCase() + "USDT" + selectedTimeframe.toUpperCase()
+    console.log("newId", newId)
+    s__form({id:newId})
+    __selectedToken(val)
+  }
+  const toggleTrade = (x:any, y:any) => {
+    let newTradeObj = {side:!!y.value ? "buy" : "sell",token:x,price:y.price}
+    s__orderHistory([...orderHistory, newTradeObj])
+    if (form.id in currentOrders) {
+      let oldOrders = {...currentOrders}
+      if (newTradeObj.side == "sell") {
+        let theindex = profitHistory.length
+        let newprofithi:any = [...profitHistory, [oldOrders[form.id],newTradeObj]]
+        let percentChange:any = newprofithi.price == oldOrders[form.id].price ? 0 : parseFloat(`${newTradeObj.price/oldOrders[form.id].price*100}`).toFixed(2)
+        // console.log(newprofithi, newprofithi.price , oldOrders[form.id].price)
+        
+        newprofithi[theindex].unshift((percentChange-100) > feePercent ? "profit" : "loss")
+        newprofithi[theindex].unshift((percentChange-100).toFixed(3))
+        console.log("new change", newprofithi[theindex])
+        s__profitHistory(newprofithi)
+      }
+      delete oldOrders[form.id]
+      s__currentOrders(oldOrders)
+    } else {
+      s__currentOrders({...currentOrders, [form.id]: newTradeObj })
+    }
+  }
+  const onTextClick = (x:any) => { 
+    s__selectedToken(x)
+  }
+  const updateTokenOrder = async (_token:string, timeframe:any, substate:string,val:any="") => {
+    if (!_token) return
+    let promptVal = !val ? prompt("Enter Value") : val
+    let value = !promptVal ? 0 : parseFloat(promptVal)
+    let timeframeIndex = timeframe
+    let old_tokensArrayObj:any = null
+    if (!tokensArrayObj[_token]) {
+      let price = 1
+      let new_tokensArrayObj = DEFAULT_TIMEFRAME_ARRAY.map((aTimeframe, index)=> (
+        {...DEFAULT_TOKEN_OBJ,...{
+          ...getComputedLevels({floor:price*0.8,ceil:price*1.2})
+        }}
+      ) )
+      tokensArrayObj[_token] = new_tokensArrayObj
+    }
+    let old_tokensArrayObjArray = [...tokensArrayObj[_token]]
+    let newCrystal = {
+      ...{[substate]:value},
+      ...getComputedLevels({
+        ...old_tokensArrayObjArray[timeframeIndex],
+        ...{[substate]:value}
+      }),
+    }
+    old_tokensArrayObjArray[timeframeIndex] = {...old_tokensArrayObj,...newCrystal}
+    let bigTokensObj = {...tokensArrayObj, ...{[_token]:old_tokensArrayObjArray}}
+    s__tokensArrayObj(bigTokensObj)
+    s__LS_tokensArrayObj((prevValue) => JSON.stringify(bigTokensObj))
+  }
+  const hasAnyToken = useMemo(()=>{
+      // console.log("tokensArrayObj", tokensArrayObj)
+      let interestCount = Object.keys(tokensArrayObj).filter((token)=>{
+          // console.log("token", token)
+          return token in tokensArrayObj
+      })
+      // console.log("interestCount", interestCount)
+      return interestCount.length > 0
+  },[tokensArrayObj])
+  useEffect(()=>{
+    s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
+  },[])
+  const [clipbloardValue, clipbloard__do] = useCopyToClipboard()
+  const copyToClipboard = ()=>{
+      // clipbloard__do(OFFICIAL_URL+"unit/"+newUID)
+      // app.alert("neutral","Copied to clipboard")
+  }
+  const AI_BASE = `
+  analyze this data and make a report:
+  include trend direction, resistance and support levels.
+  each array of the json represents the latest candlestick chart data with only the closing price
+  generate the report including all 4 timeframes  \n\n candles data:`
+  const [AIdata, s__AIdata] = useState({})
+  const askAI = (data:any) => {
+      let verbose:any = {
+          "3m": "3 minutes between prices",
+          "15m": "15 minutes between prices",
+          "4h": "4 hours between prices",
+          "1d": "1 day between prices",
+      }
+      let newPrompt:any = AIdata
+      newPrompt[verbose[selectedTimeframe.toLowerCase()]] = ([...data]).splice(400,499)
+      // newPrompt = AIdata + newPrompt
+      s__AIdata(newPrompt)
+      // console.clear()
+      console.log("newPrompt", newPrompt)
+      clipbloard__do(AI_BASE + JSON.stringify(newPrompt))
+      console.log("main().catch(console.error)")
+      // main().catch(console.error)
+      console.log("main().catch(console.error)")
+  }
+
+
+  return (<>
+    <Scene>
+      <ambientLight intensity={0.25} />
+      <pointLight intensity={1.5} position={[1.5, 1, 3]} castShadow />
+      <Box args={[4,0.25,5]} position={[0,-1.2,-0.5]} castShadow receiveShadow>
+        <meshStandardMaterial color={"#fff"}/>
+      </Box>
+      <Box args={[2.5,0.2,2.5]} position={[0.05,-1.05,0.15]} castShadow receiveShadow>
+        <meshStandardMaterial color={"#ddd"}/>
+      </Box>
+      <group position={[-1.05,-0.9,1.32]}>
+        {profitHistory.slice(0,12).map((anOrder:any, index:any)=>{
+          return (
+            <Box args={[0.19,0.1,0.07]} position={[index*0.2,0.2,0]}  castShadow receiveShadow key={index}>
+              <meshStandardMaterial color={anOrder[1] == "profit" ? "#cac" : "#ccc"}/>
+            </Box>
+          )
+        })}
+        {[0,1,2,3,4,5,6,7,8,9,0,1].map((anOrder:any, index:any)=>{
+          return (
+            <Box args={[0.04,0.5,0.08]} position={[index*0.2,0.01,0]}  castShadow receiveShadow key={index}>
+              <meshStandardMaterial color={"#bbb"}/>
+            </Box>
+          )
+        })}
+      </group>
+      {hasAnyToken && <>
+        <Box args={[2,0.3,0.5]} position={[0,-1,-1.5]} castShadow receiveShadow>
+          <meshStandardMaterial color={"#ddd"}/>
+        </Box>
+        <group scale={[0.7,0.7,0.7]} position={[0.3,0,-1.5]}>
+          <ChartBox boundaries={[1,0.1,0.04]} score={{score:0}} timeframe={selectedTimeframe.toLowerCase() || "1d"}
+            position={[0,0,0]} velocityX={0}  theToken={form.id.split("USDT")[0]} askAI={(data:any)=>{askAI(data)}}
+            velocityY={0} setVelocityX={()=>{}} setVelocityY={()=>{}}
+          />
+        </group>
+      </>}
+      <group position={[-0.6,-0.1,-0.5]}>
+        <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="btc"
+          tokensArrayArray={"btc" in tokensArrayObj ? tokensArrayObj["btc"] : null}
+          refetchInterval={selectedToken == "btc" ? 1000 : 60000}
+          unselectedColor={"#50545B"}
+          onTextClick={()=>{onTextClick("btc")}} 
+          setVelocityY={(data:any)=>{toggleTrade("btc",data)}}
+          turnOn={()=>{turnOn("btc")}} turnOff={()=>{turnOff("btc")}}
+          join={()=>{join("btc")}} leave={()=>{leave("btc")}}
+          trendDown={()=>{trendDown("btc")}} trendUp={()=>{trendUp("btc")}} 
+          onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("btc",tf)}}
+        /> 
+    </group>
+    {hasAnyToken &&
+      <group position={[-0.3,-0.1,0.5]}>
+        {("eth" in tokensArrayObj || "btc" in tokensArrayObj) && <>
+          <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="eth"
+            tokensArrayArray={"eth" in tokensArrayObj ? tokensArrayObj["eth"] : null}
+            refetchInterval={selectedToken == "eth" ? 1000 : 60000}
+            position={[1,0,-1]} unselectedColor={"#50545B"}
+            onTextClick={()=>{onTextClick("eth")}} 
+            setVelocityY={(data:any)=>{toggleTrade("eth",data)}}
+            turnOn={()=>{turnOn("eth")}} turnOff={()=>{turnOff("eth")}}
+            join={()=>{join("eth")}} leave={()=>{leave("eth")}}
+            trendDown={()=>{trendDown("eth")}} trendUp={()=>{trendUp("eth")}} 
+            onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("eth",tf)}}
+          /> 
+        </>}
+        {/* PIPE 1 */}
+        {"btc" in tokensArrayObj && <> <MovingBox1 /> </>}
+        <Box args={[0.03,0.05,0.06]} position={[0.19,-0.4,-1]} castShadow receiveShadow>
+          <meshStandardMaterial color={"#333"}/>
+        </Box>
+        {/* PIPE 2 */}
+        {"link" in tokensArrayObj && <>
+          <Box args={[0.1,0.1,0.5]} position={[-0.2,-0.45,-0.3]} castShadow receiveShadow>
+            <meshStandardMaterial color={"#888"}/>
+          </Box>
+          <Box args={[0.02,0.02,0.5]} position={[-0.2,-0.37,-0.3]} castShadow receiveShadow>
+            <meshStandardMaterial color={"#777"}/>
+          </Box>
+        </>}
+        {/* PIPE 3 */}
+        {"ftm" in tokensArrayObj && <> <MovingBox2 /> </>}
+        {("eth" in tokensArrayObj || "link" in tokensArrayObj) &&
+          <group position={[-0.3,0,0.3]} >
+            <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="link"
+              tokensArrayArray={"link" in tokensArrayObj ? tokensArrayObj["link"] : null}
+              refetchInterval={selectedToken == "link" ? 1000 : 60000}
+              position={[0,0,0]} unselectedColor={"#50545B"}
+              onTextClick={()=>{onTextClick("link")}} 
+              setVelocityY={(data:any)=>{toggleTrade("link",data)}}
+              turnOn={()=>{turnOn("link")}} turnOff={()=>{turnOff("link")}}
+              join={()=>{join("link")}} leave={()=>{leave("link")}}
+              trendDown={()=>{trendDown("link")}} trendUp={()=>{trendUp("link")}} 
+              onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("link",tf)}}
+            /> 
+          </group>
+        }
+        {("eth" in tokensArrayObj || "ftm" in tokensArrayObj) &&
+          <group position={[1,0,0.3]}  >
+            <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="ftm"
+              tokensArrayArray={"ftm" in tokensArrayObj ? tokensArrayObj["ftm"] : null}
+              refetchInterval={selectedToken == "ftm" ? 1000 : 60000}
+              position={[0,0,0]} unselectedColor={"#50545B"}
+              onTextClick={()=>{onTextClick("ftm")}} 
+              setVelocityY={(data:any)=>{toggleTrade("ftm",data)}}
+              turnOn={()=>{turnOn("ftm")}} turnOff={()=>{turnOff("ftm")}}
+              join={()=>{join("ftm")}} leave={()=>{leave("ftm")}}
+              trendDown={()=>{trendDown("ftm")}} trendUp={()=>{trendUp("ftm")}} 
+              onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("ftm",tf)}}
+            /> 
+        </group>}
+      </group>}
+    </Scene>
+  </>)
+}
+
+export default Component

@@ -1,0 +1,8 @@
+{
+    "DATA_API_URL": "",
+    "AUTH_API_URL": "",
+    "DEMO_USER": {
+        "email":"example@example.com",
+        "name": "joe"
+    }
+}
