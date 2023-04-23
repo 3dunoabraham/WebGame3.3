@@ -212,8 +212,8 @@ function Component ({}) {
     setTutoStage(2)
   }
   const clickFirstSell = () => {
-    $bitcoin.current.toggleGame()
-    setTutoStage(3)
+    // $bitcoin.current.toggleGame()
+    // setTutoStage(3)
   }
   return (<>
     <Scene>
@@ -249,14 +249,14 @@ function Component ({}) {
       }
       {hasAnyToken && tutoStage.lvl == 1 &&
       
-      <group position={[-0.7,-0.24,-0.5]} scale={0.35} onClick={()=>{clickFirstBuy()}}>
+      <group position={[-0.7,-0.24,-0.5]} scale={0.35} >
       <BuyLowSellHigh />
     </group>
       }
 
       {hasAnyToken && tutoStage.lvl == 2 &&
         
-      <group position={[-0.7,-0.24,-0.5]} scale={0.35} onClick={()=>{clickFirstSell()}}>
+      <group position={[-0.7,-0.24,-0.5]} scale={0.35} >
       <SellHigh />
     </group>
       }

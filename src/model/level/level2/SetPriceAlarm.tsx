@@ -14,10 +14,10 @@ function Component ({}) {
     })
 
     return (<group ref={$textGroup}>
-        <Text position={[0.35,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>Turn</Text>
-        <Text position={[-0.35,0,0]} fontSize={0.25} rotation={[0,0,0]} material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>Turn</Text>
-        <Text position={[-0.5,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}>off DEMO</Text>
-        <Text position={[0.5,0,0]} fontSize={0.25} rotation={[0,0,0]} material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}>off DEMO</Text>
+        <Text position={[0.35,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>Turn live</Text>
+        <Text position={[-0.35,0,0]} fontSize={0.25} rotation={[0,0,0]} material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>Turn live</Text>
+        <Text position={[-0.5,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}>mode ON</Text>
+        <Text position={[0.5,0,0]} fontSize={0.25} rotation={[0,0,0]} material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}>mode ON</Text>
     </group>)
 }
 export default Component

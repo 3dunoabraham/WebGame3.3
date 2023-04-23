@@ -21,7 +21,7 @@ function Component ({ tokensArrayArray, state, calls }:any) {
             rotation={[state.selectedHasArray ? -0.25 : 0.25 ,0,0]}          
             >
             <boxGeometry args={[0.025, 0.02, 0.05]} />
-            <meshStandardMaterial color={state.selectedHasArray ? "#558855" : "#667777"
+            <meshStandardMaterial color={state.selectedHasArray ? "#558855" : "#776666"
                 } />
             </mesh>
         }

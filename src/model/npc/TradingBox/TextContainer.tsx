@@ -12,17 +12,17 @@ function Component ({tokensArrayArray, state, calls}:any) {
   
     return (<>
       {state.clicked &&
-        <DynaText text={state.clickedPrice/state.queryUSDT.data < 1 ? "I" : "O"}  
+        <DynaText text={state.clickedPrice/state.queryUSDT.data < 1 ? "profit" : "loss"}  
           color={state.clickedPrice/state.queryUSDT.data < 1 ? 0x00ff00 : 0xff0000}
-          position={new Vector3(+0.25,-0.349,-0.35)}
-          isSelected={state.isSelectedId} font={0.12} 
+          position={new Vector3(+0.3,-0.349,-0.33)}
+          isSelected={state.isSelectedId} font={0.08} 
         />
       }
       
       {state.clicked &&
         <DynaText text={(((state.clickedPrice/state.queryUSDT.data)-1)*-100).toFixed(3)}  
           color={state.clickedPrice/state.queryUSDT.data < 1 ? 0x00ff00 : 0xff0000}
-          position={new Vector3(+0.13,-0.349,-0.35)}
+          position={new Vector3(+0.13,-0.349,-0.34)}
           isSelected={state.isSelectedId} font={0.06} 
         />
       }
@@ -53,13 +53,13 @@ function Component ({tokensArrayArray, state, calls}:any) {
       }
 
 
-      <DynaText text={!!tokensArrayArray ? "SYNC" : "OFF"} color={!!tokensArrayArray ?  0xaaaaaa : 0x888888}
+      <DynaText text={!!tokensArrayArray ? "SYNC" : "OFF"} color={!!tokensArrayArray ?  0xaaaaaa : 0x555555}
         position={new Vector3(-0.44,-0.345,+0.28)}
         isSelected={state.isSelectedId}  font={0.04} onClick={()=>{calls.onTextClick()}}
       />
       {!!tokensArrayArray &&
-        <DynaText color={state.selectedHasArray ? "#55ff55" : "#31958F"}
-        text={state.selectedHasArray ? "TRADE" : "DEMO"} 
+        <DynaText color={state.selectedHasArray ? "#55ff55" : "#f00"}
+        text={"LIVE"} 
             position={new Vector3(-0.32,-0.345,+0.28)}
             isSelected={state.isSelectedId}  font={0.04} onClick={()=>{calls.onTextClick()}}
         />
