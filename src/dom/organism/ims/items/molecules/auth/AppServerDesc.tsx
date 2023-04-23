@@ -3,7 +3,7 @@ import UserInformation from "@/dom/organism/ims/items/molecules/auth/UserInforma
 
 
 export default async function AppServerDesc() {
-    const session = await getServerSession();
+    const session:any = await getServerSession();
     // console.log("Hello from server");
     return (<>
         <div>
