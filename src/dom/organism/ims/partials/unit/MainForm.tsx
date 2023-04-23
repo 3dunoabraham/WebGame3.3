@@ -26,7 +26,7 @@ export const UnitMainForm = ({
     isAddPage,
     editMode,
     refetch=()=>{},
-}: UnitMainFormProps)=>{
+}: any)=>{
     const app:any = useContext(AppContext);
 
     /****** DATA ******/
@@ -71,18 +71,18 @@ export const UnitMainForm = ({
         useArrayMapPlus(optMapObj.owners,"id", unit.owner,"name")
     );
     const unit_brand = useMemo(() =>
-        !optMapObj ? -1 : optMapObj.manufacturers.filter(object => {return object.name == unit.brand; })[0]
+        !optMapObj ? -1 : optMapObj.manufacturers.filter((object:any) => {return object.name == unit.brand; })[0]
     , [optMapObj,unit]);
 
 
 
     /****** UPDATE ******/
-    const updateGallery = (newDataObj)=>{
+    const updateGallery = (newDataObj:any)=>{
     }
-    const updateField = (newDataObj)=>{
+    const updateField = (newDataObj:any)=>{
         updateNewData(newDataObj)
     }
-    const updateEntityField = (newDataObj)=>{
+    const updateEntityField = (newDataObj:any)=>{
         updateNewData(newDataObj)
     }
 

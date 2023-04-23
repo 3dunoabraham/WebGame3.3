@@ -7,11 +7,12 @@ import ItemsTableContainer from '@/dom/organism/ims/items/molecules/table/ItemsT
 import { DEFAULT_UNIT_FOREIGNS, fetchDelete, fetchUnitForeigns, parsedFetchedUnit }
 from "@/../script/util/helper/fetchHelper";
 import { sortIDDesc } from "@/../script/util/type/arrayHelper";
-import { SidebarFilterToolbar } from "@/src/items/templates/SidebarFilterToolbar";
+// import { SidebarFilterToolbar } from "@/src/items/templates/SidebarFilterToolbar";
 import { API_UNITS } from "@/../script/constant/api";
+import { SidebarFilterToolbar } from "../../items/templates/SidebarFilterToolbar";
 // import LOCAL_SETTINGS_JSON from '@/../script/constant/json/localSettings.json'
 
-export default function Component({ unitsArray=[], fetchConfig=null, tableConfigObj, exportConfig, selectedItem, s__selectedItem }) {
+export default function Component({ unitsArray=[], fetchConfig=null, tableConfigObj, exportConfig, selectedItem, s__selectedItem }:any) {
     const app:any = useContext(AppContext)
     const q_foreigns = useQuery({queryKey: ['foreignsData'], queryFn: async () =>
         await fetchUnitForeigns()
@@ -22,10 +23,10 @@ export default function Component({ unitsArray=[], fetchConfig=null, tableConfig
     ,[q_foreigns])
     const pq__units = useMemo(()=>{
         if (unitsArray.length == 0) return []
-        let newUnitsArray= unitsArray.map((aUnit, index)=> (
+        let newUnitsArray= unitsArray.map((aUnit:any, index:any)=> (
             parsedFetchedUnit(aUnit, q__foreigns.orgsArray, q__foreigns.customersArray) 
         ))
-        let filteredUnitsArray = newUnitsArray.filter((theUnit, index) => {
+        let filteredUnitsArray = newUnitsArray.filter((theUnit:any, index:any) => {
             if (app.filters.sales_status && theUnit.sales_status != app.filters.sales_status.id)
             { return false }
             if (app.filters.dealer && theUnit.dealer != app.filters.dealer.label) { return false }
@@ -41,7 +42,7 @@ export default function Component({ unitsArray=[], fetchConfig=null, tableConfig
             window.location.reload()
         }
     }
-    const deleteUnits = async (ids)=>{
+    const deleteUnits = async (ids:any)=>{
         let fetchDeleteRes:any = await fetchDelete(API_UNITS, {uids:ids})
         if (fetchDeleteRes && fetchDeleteRes.status >= 200 && fetchDeleteRes.status < 300)
         {
@@ -57,12 +58,12 @@ export default function Component({ unitsArray=[], fetchConfig=null, tableConfig
         }
         return ["isActionable"]
     },[isSelectable])
-    const [selectedUnits, s__selectedUnits] = useState([])
+    const [selectedUnits, s__selectedUnits]:any = useState([])
     const updateSelectedArray = (id:any)=> {
         console.log("id", id)
         const theIndex = selectedUnits.indexOf(id)
         if (theIndex != -1) {
-            s__selectedUnits(selectedUnits.filter(x=>id!=x))
+            s__selectedUnits(selectedUnits.filter((x:any)=>id!=x))
             return
         }
         s__selectedUnits([...selectedUnits,id])

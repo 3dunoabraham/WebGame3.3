@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { BsBox, BsCurrencyDollar } from 'react-icons/bs';
 
 
-export default function Component({ Title, firstValue, secondValue }) {
+export default function Component({ Title, firstValue, secondValue }:any) {
   return (
     <div className="flex-center flex-justify-start px-3">
       <div className="box-shadow-2 pt-4 w-min-400px bord-r-8">
