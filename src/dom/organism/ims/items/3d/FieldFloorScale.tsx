@@ -13,7 +13,7 @@ type BoxProps = {
 export default function Component ({ position=[0,0,0] , floorWidth=0.1}: BoxProps) {
     const [hovered, setHovered] = useState(false);
     const [clicked, setClicked] = useState(false);
-    const meshRef = useRef<Mesh>();
+    const meshRef:any = useRef<Mesh>();
     const depthBuffer = useDepthBuffer({ frames: 1 })
   
     useFrame((state, delta) => {
