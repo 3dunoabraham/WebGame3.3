@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
-import { SidebarFilterButton } from "@/src/items/templates/SidebarFilterButton";
+import { SidebarFilterButton } from "./SidebarFilterButton";
+// import { SidebarFilterButton } from "@/src/items/templates/SidebarFilterButton";
 
 
 export const SidebarFilterSection = ({
     filterSection, theIcon, handleClick, 
-})=>{
+}:any)=>{
     const [isOpen, s__isOpen] = useState(false);
-    const handleTheClick = (id, label, optName)=>{
+    const handleTheClick = (id:any, label:any, optName:any)=>{
         handleClick({id, label, optName, title: filterSection.filter.title})
     }
 
@@ -23,7 +24,7 @@ export const SidebarFilterSection = ({
         <div className=" tx-center   tx-mdl Q_lg_x" >{!isOpen ? BsChevronDown({}) : BsChevronUp({})}</div>
     </div>
     <div className="bord-r-8 px-1 ">
-        {isOpen && filterSection.optsArray.map((theOption,index)=>(
+        {isOpen && filterSection.optsArray.map((theOption:any,index:any)=>(
             <div key={index} className="flex-center bg-w-hov-33 clickble   bord-r-8 ">
                 <SidebarFilterButton filter={filterSection.filter}
                     theOption={theOption} handleClick={handleTheClick}                    
