@@ -1,5 +1,5 @@
 // ReactFunctionComponent
-export const FooterLayout = ({emailTitle, email, copyright})=>{
+export const FooterLayout = ({emailTitle, email, copyright}:any)=>{
 	return (
     <footer className=" pt-8 pb-4 flex-center Q_xs_lg_flex-col ">
         <div className="pb-4 px-5  flex-center Q_xs_sm_flex-col">

@@ -168,7 +168,7 @@ export default function Component ({keyName }:any) {
     <div className="flex-col flex-align-start  gap-1 b">
         {shouldRenderAddColumnButton && <>
             <div className="flex-wrap flex-align-start gap-1 r ">
-                {selectedColumns.map((anItem, index) => {
+                {selectedColumns.map((anItem:any, index:any) => {
                     return (
                         <div className="pa-1 bg-b-20 bord-r-8 flex-col " key={index}>
                             <div className="flex w-100" >

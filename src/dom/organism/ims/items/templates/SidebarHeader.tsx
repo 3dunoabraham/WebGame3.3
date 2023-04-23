@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 export default function Component({}) {
     const router = useRouter();
-    const handleClick = async (newUrl) => {
+    const handleClick = async (newUrl:any) => {
       // Wait for route change before do anything
       await router.push(newUrl);
       // Reload after routing

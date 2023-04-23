@@ -8,7 +8,7 @@ export const SidebarFilterToolbar = ({
 	configObj,
 	// filtersMap,
 	// filtersMap_do,
-})=>{
+}:any)=>{
     /****** DATA ******/
     const app:any = useContext(AppContext)
 	// const filteredConfigObj = useMemo(()=>{
@@ -20,7 +20,7 @@ export const SidebarFilterToolbar = ({
 	// 	})
 	// 	return theResult
 	// },[filtersMap])
-	const toggleAFilter = (configKey)=>{
+	const toggleAFilter = (configKey:any)=>{
 		app.unfilter(configKey)
 		// let theConfig = filtersMap.get(configKey)
 		// filtersMap_do.set(configKey, {...theConfig, ...{isOn: !theConfig.isOn}})

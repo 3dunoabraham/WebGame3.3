@@ -88,7 +88,7 @@ export default function Component({ unitsArray=[], fetchConfig=null, tableConfig
                     
                     <div className="flex-col flex-justify-start flex-align-start py-2 flex-1">
                         <div className="tx-bold-6">Selected Units:</div>
-                        <div className="flex-wrap gap-1 flex-justify-start">{selectedUnits.map((anItem,index)=>{
+                        <div className="flex-wrap gap-1 flex-justify-start">{selectedUnits.map((anItem:any, index:any)=>{
                             return (
                                 <div key={index} className="pa-1 bg-b-10 bord-r-8">
                                     {anItem}

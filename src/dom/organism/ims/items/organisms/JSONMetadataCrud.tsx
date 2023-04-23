@@ -111,7 +111,7 @@ export default function Component ({keyName, queriedObj, keyConfig, q__queriedOb
                 }
                 {!!settingsJson[keyName][selectedItemIndex].colVal &&
                     <div className="flex gap-1 ma-2">
-                        {Object.keys(JSON.parse(settingsJson[keyName][selectedItemIndex].colVal)).map((anItem, index) => {
+                        {Object.keys(JSON.parse(settingsJson[keyName][selectedItemIndex].colVal)).map((anItem:any, index:any) => {
                             return (
                                 <div className="px-2 py-1 bg-b-20 bord-r-8 opaci-chov--50" key={index}
                                     onClick={()=>{updateSelectedColName(anItem)}}

@@ -3,12 +3,15 @@ import { useContext, useEffect, useMemo } from "react";
 import { BsChevronUp, BsCircle } from "react-icons/bs";
 
 import { DEFAULT_UNIT_FOREIGNS, fetchUnitForeigns } from "@/../script/util/helper/fetchHelper";
-import { SidebarFilterSection } from "@/src/items/templates/SidebarFilterSection";
-import SidebarHeader from "@/src/items/templates/SidebarHeader";
+// import { SidebarFilterSection } from "@/src/items/templates/SidebarFilterSection";
+// import SidebarHeader from "@/src/items/templates/SidebarHeader";
 import { AppContext } from "@/../script/state/context/AppContext";
 import { InventoryContext } from "@/../script/state/context/InventoryContext";
 import { useRouter } from "next/router";
-import { FAKE_UNIT_FOREIGNS } from "@/scripts/constants";
+import { FAKE_UNIT_FOREIGNS } from "../../../../../../script/constant";
+import SidebarHeader from "./SidebarHeader";
+import { SidebarFilterSection } from "./SidebarFilterSection";
+// import { FAKE_UNIT_FOREIGNS } from "@/scripts/constants";
 
 export default function Component({ online=true }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,14 +44,14 @@ export default function Component({ online=true }) {
     //     filtersObj["sales_status"].optsArray = q__foreigns.sales_statuses
     //     if (inv.unitsArray.length > 0) {
     //         // console.log("inv.unitsArray.length", inv.unitsArray.length)
-    //         filtersObj["sales_status"].optsArray = filtersObj["sales_status"].optsArray.map((anItem,index)=>{
+    //         filtersObj["sales_status"].optsArray = filtersObj["sales_status"].optsArray.map((anItem:any, index:any)=>{
     //             let theCount = inv.unitsArray.filter((theUnit,i)=> theUnit.sales_status == anItem.id  )
     //             return {...anItem, ...{ _COUNT: theCount.length }}
     //         })
     //     }
     //     filtersObj["dealer"].optsArray = q__foreigns.dealers
     //     if (inv.unitsArray.length > 0) {
-    //         filtersObj["dealer"].optsArray = filtersObj["dealer"].optsArray.map((anItem,index)=>{
+    //         filtersObj["dealer"].optsArray = filtersObj["dealer"].optsArray.map((anItem:any, index:any)=>{
     //             let theCount = inv.unitsArray.filter((theUnit,i)=> theUnit.dealer == anItem.name  )
     //             return {...anItem, ...{ _COUNT: theCount.length }}
     //         })
@@ -59,7 +62,7 @@ export default function Component({ online=true }) {
 
 
     const filtersObj = useMemo(() => {
-        const lookupTable = {
+        const lookupTable:any = {
             sales_status: {
                 optsArray: q__foreigns.sales_statuses,
                 arrayPropertyKeyName: 'sales_statuses',
@@ -74,13 +77,13 @@ export default function Component({ online=true }) {
             },
         };
       
-        const filtersObj = { ...INVENTORY_FILTERS_OBJ };
+        const filtersObj:any = { ...INVENTORY_FILTERS_OBJ };
       
         Object.keys(lookupTable).forEach((key) => {
           const { optsArray, arrayPropertyKeyName, filterByProperty, keyFieldName } = lookupTable[key];
           filtersObj[key].optsArray = q__foreigns[arrayPropertyKeyName];
           if (inv.unitsArray.length > 0) {
-            filtersObj[key].optsArray = optsArray.map((anItem, index) => {
+            filtersObj[key].optsArray = optsArray.map((anItem:any, index:any) => {
               const theCount = inv.unitsArray.filter((theUnit, i) => theUnit[filterByProperty] === anItem[keyFieldName]);
               return { ...anItem, ...{ _COUNT: theCount.length } };
             });
@@ -93,11 +96,11 @@ export default function Component({ online=true }) {
 
 
     useEffect(()=>{
-        let freshFilters = {}
+        let freshFilters:any = {}
         let sales_status = app.query.stts
         // console.log("q__foreigns", q__foreigns)
         if (sales_status && q__foreigns.sales_statuses) {
-            let theLabel = q__foreigns.sales_statuses.filter((anItem,index)=>{
+            let theLabel = q__foreigns.sales_statuses.filter((anItem:any, index:any)=>{
                 return anItem.id == sales_status
             })
             // console.log(theLabel)
@@ -111,7 +114,7 @@ export default function Component({ online=true }) {
         app.s__filters(freshFilters)
     },[q__foreigns])
 
-    const handleFilterClick = (data)=> {
+    const handleFilterClick = (data:any)=> {
         // console.log("handleFilterClick", data)
         let newFiltersObj = {...app.filters,...{
             [data.optName]: { on: true, id: data.id, label: data.label, title: data.title}

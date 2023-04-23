@@ -1,6 +1,6 @@
 export const SidebarFilterButton = ({
     theOption, handleClick, filter,
-})=>{
+}:any)=>{
     return (
     <div className="flex w-100">
         <div className="flex w-100 Q_xs_lg  pos-rel "

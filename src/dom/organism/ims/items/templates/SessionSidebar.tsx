@@ -10,17 +10,17 @@ import { AppContext } from "@/../script/state/context/AppContext";
 import { MdOutlineInventory2 } from "react-icons/md";
 import { useIsClient } from "usehooks-ts";
 import { isDevEnvironment } from "@/../script/util/helper/devHelper";
-import SPLoginBtn from "../molecules/auth/SPLoginBtn";
+// import SPLoginBtn from "../molecules/auth/SPLoginBtn";
 
 export default function Component({}) {
     const router = useRouter();
-    const handleClick = async (newUrl,...args) => {
+    const handleClick = async (newUrl:any,...args:any) => {
       await router.push(newUrl);
     } 
     const isClient = useIsClient()
     const app:any = useContext(AppContext)
     const inv = useContext(InventoryContext)
-    const ICONS = {
+    const ICONS:any = {
         agreements: <BsStack />,
         users: <BsPerson />,
         builder3d: <BsBox />,
@@ -50,7 +50,7 @@ export default function Component({}) {
                 </Link>
             </div>
             <div className='flex-1'>
-                {!!app && !!app.sidebarPages && app.sidebarPages.map((aLink, index)=>{
+                {!!app && !!app.sidebarPages && app.sidebarPages.map((aLink:any, index:any)=>{
                         return (
                             <Link href="/users/" className="flex-center py-3 clickble  px-2 bg-w-hov-10  " key={index}>
                                 <div className=" pr-3  Q_lg_x"></div>
@@ -93,7 +93,7 @@ export default function Component({}) {
             </div>
             <div className='flex-1'>
                 
-                {!!app && !!app.sidebarPages && app.sidebarPages.map((aLink, index)=>{
+                {!!app && !!app.sidebarPages && app.sidebarPages.map((aLink:any, index:any)=>{
                     return (
                         <Link href={aLink.url || "#"} className="flex-center py-3 clickble  px-2 bg-w-hov-10  " key={index}>
                             <div className=" pr-3  Q_lg_x"></div>
@@ -105,7 +105,7 @@ export default function Component({}) {
                 }) }
                 <hr className="w-100 opaci-10 my-3" style={{borderColor: "white"}} />
                 
-                {!!app && !!app.sidebarLinks && app.sidebarLinks.map((anUnit, index)=>{
+                {!!app && !!app.sidebarLinks && app.sidebarLinks.map((anUnit:any, index:any)=>{
                     if (router.query.key == anUnit.label) { return (
                         <div key={index} className="flex-center py-1 clickble  px-2 bg-w-50   " >
                             <div className=" pr-3  Q_lg_x"></div>
@@ -141,7 +141,7 @@ export default function Component({}) {
             </div>
             {<>
                 <hr className="w-90 opaci-50 mt-3" style={{borderColor: "white"}} />
-                <div className='pa-3 w-100'><SPLoginBtn><AppClientDesc /></SPLoginBtn></div>
+                {/* <div className='pa-3 w-100'><SPLoginBtn><AppClientDesc /></SPLoginBtn></div> */}
             </>}
         </div>
 

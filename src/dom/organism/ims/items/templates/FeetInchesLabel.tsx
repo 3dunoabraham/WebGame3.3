@@ -60,7 +60,7 @@ function getDimension(
     </>);
 }
 
-export default function Component({ size = {} }: { size?: Size }) {
+export default function Component({ size = {} }: any) {
   if (!Object.values(size).some(Boolean)) {
     return <div>no size</div>;
   }
