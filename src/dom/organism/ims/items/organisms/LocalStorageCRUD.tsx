@@ -1,7 +1,7 @@
 import ItemsTable from "@/dom/organism/ims/items/molecules/table/ItemsTable"
 
 
-export default function Component ({updateQueriedToLocalstorage, updateClientToLocalstorage, theJsonArray}) {
+export default function Component ({updateQueriedToLocalstorage, updateClientToLocalstorage, theJsonArray}:any) {
     const tableConfigObj = {
         key:{title:"id",name:"id",isInvisible: false,},
         rest:{

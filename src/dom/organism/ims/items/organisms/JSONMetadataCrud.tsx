@@ -3,10 +3,11 @@ import { useMemo, useRef, useState } from "react"
 
 import ItemsTable from "@/dom/organism/ims/items/molecules/table/ItemsTable"
 import { useIsClient, useLocalStorage } from "usehooks-ts"
-import JSONFullCrudForm from "@/src/items/organisms/JSONFullCrudForm"
+// import JSONFullCrudForm from "@/src/items/organisms/JSONFullCrudForm"
 import SETTINGS_JSON from '@/../script/constant/json/settings.json'
+import JSONFullCrudForm from "./JSONFullCrudForm"
 
-export default function Component ({keyName, queriedObj, keyConfig, q__queriedObj, deleteUnit }) {
+export default function Component ({keyName, queriedObj, keyConfig, q__queriedObj, deleteUnit }:any) {
     const keyProperty = "key"
     const $jsonCrudForm:any = useRef()
     const DEFAULT_DB = {[keyName]:[]}
@@ -35,11 +36,11 @@ export default function Component ({keyName, queriedObj, keyConfig, q__queriedOb
             col2:{title:"Title",fieldName:"title"},
         },
     }
-    const updateSelectedColName = (colName) => {
+    const updateSelectedColName = (colName:any) => {
         $jsonCrudForm.current.s__form({...$jsonCrudForm.current.form,...{colName: colName}})
     }
-    const updateSelectedArray = (id) => {
-        let foundItemArray = queriedObj[keyName].findIndex((x,i) => {return x.id == id})
+    const updateSelectedArray = (id:any) => {
+        let foundItemArray = queriedObj[keyName].findIndex((x:any,i:any) => {return x.id == id})
         s__selectedItemIndex(foundItemArray)
         $jsonCrudForm.current.s__form({...$jsonCrudForm.current.form,...{id: id}})        
     }

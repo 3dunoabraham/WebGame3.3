@@ -5,7 +5,7 @@ import { forwardRef, useContext, useImperativeHandle, useState,  } from 'react'
 const Component = forwardRef(({form, s__form, newItemHandler}:any, ref)=>{
     const app:any = useContext(AppContext)
     
-    const [newList, s__newList] = useState([])
+    const [newList, s__newList]:any = useState([])
     const updateItem = async (e:any)=>{
         
         // await updateData(form.id, form.label)
@@ -18,7 +18,7 @@ const Component = forwardRef(({form, s__form, newItemHandler}:any, ref)=>{
         // s__form(DEFAULT_ITEM)
         // q__queriedArray.refetch()
     }
-    const handleChange = async (e, key)=>{
+    const handleChange = async (e:any, key:any)=>{
         s__form({...form,...{[key]: e.currentTarget.value}})
     }
     const deleteItem = async ()=>{
@@ -33,7 +33,7 @@ const Component = forwardRef(({form, s__form, newItemHandler}:any, ref)=>{
         clearNewItems: ()=>{s__newList([])},
     }));
     const addItem = async ()=>{
-        let newItem = {id:-1,label:form.label}
+        let newItem:any = {id:-1,label:form.label}
         newList.push(newItem)
         // let theNewList = [...newList]
         // s__newList([...newList])

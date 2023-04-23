@@ -2,18 +2,18 @@ import { useContext, useRef, useState } from "react"
 import { useIsClient } from "usehooks-ts"
 
 
+import _FOREIGNS_JSON from '@/../script/constant/json/foreigns.json'
 import { AppContext } from "@/../script/state/context/AppContext"
-import BrowserCRUDButtons from "@/src/items/organisms/BrowserCRUDButtons"
 import ItemsTable from "@/dom/organism/ims/items/molecules/table/ItemsTable"
-import FOREIGNS_JSON from '@/../script/constant/json/foreigns.json'
-
+import BrowserCRUDButtons from "./BrowserCRUDButtons"
+const FOREIGNS_JSON:any = _FOREIGNS_JSON
 export default function Component ({ browserArrayList,  queriedObj, s__crud, clearClientCrud,
     clearNewItems, crud, s__LS_crud, hardCoded1, keyName, keyProperty="label",
-}) {
+}:any) {
     const updateQueriedToClient = () => { s__crud({[keyName]: queriedObj[keyName]}) }
     const saveNewItemsToBrowserClient = async ()=>{ s__crud({[keyName]:[...crud[keyName],...newBrowserArray]}); clearNewItems()}
     const clearLocalhostCrud = () => { s__LS_crud(JSON.stringify({[keyName]: []})) }
-    const [newBrowserArray, s__newBrowserArray] = useState([])
+    const [newBrowserArray, s__newBrowserArray]:any = useState([])
     const app:any = useContext(AppContext)
     const updateJSONToClient = () => { s__crud({[keyName]: FOREIGNS_JSON[keyName]}) }
     const tableConfigObj = {
@@ -27,7 +27,7 @@ export default function Component ({ browserArrayList,  queriedObj, s__crud, cle
     const $browserCrudRef:any = useRef()
     const isClient = useIsClient()
     
-    const newItemHandler = (newItem)=>{
+    const newItemHandler = (newItem:any)=>{
         s__browserForm(defaultBrowserItem())
         s__newBrowserArray([...$browserCrudRef.current.newList])
     }

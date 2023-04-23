@@ -1,7 +1,7 @@
 // ReactFunctionComponent
 export default function StandardTablePagination ({
     currentPage, s__currentPage, lastPage,
-}) {
+}:any) {
     const nextPage = ()=>{
         if (currentPage+1 > lastPage) return
         s__currentPage(currentPage+1)

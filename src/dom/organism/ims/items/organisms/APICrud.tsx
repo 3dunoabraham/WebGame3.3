@@ -5,7 +5,7 @@ import { useContext } from "react"
 import ItemsTable from "@/dom/organism/ims/items/molecules/table/ItemsTable"
 
 
-export default function Component ({ queriedObj, q__queriedAPI, queriedAPI, hardCoded1, keyName, saveAPIListToJson}) {
+export default function Component ({ queriedObj, q__queriedAPI, queriedAPI, hardCoded1, keyName, saveAPIListToJson}:any) {
     const app:any = useContext(AppContext)
     
     const refreshAPIList = async ()=> {

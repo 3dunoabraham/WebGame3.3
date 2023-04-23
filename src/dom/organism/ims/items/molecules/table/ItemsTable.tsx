@@ -7,13 +7,13 @@ import ItemsTableRest from '@/dom/organism/ims/items/molecules/table/ItemsTableR
 import { AppContext } from '@/../script/state/context/AppContext';
 
 export default function Component({
-    theArray, s__selectedId=(arg)=>{}, selectedId=null, displayConfigObj, updateSelectedArray=(id:any)=>{},
+    theArray, s__selectedId=(arg:any)=>{}, selectedId=null, displayConfigObj, updateSelectedArray=(id:any)=>{},
     selectedItems=[],
     boolConfig=[],urlBase="", headerStyle=null, tableStyle=null, actionCard=null,
-}) {
+}:any) {
     const _boolConfig = useMemo(() =>(boolConfig.join(",")),[boolConfig])
     const app:any = useContext(AppContext)
-    const $divObj = useRef<HTMLDivElement>()
+    const $divObj:any = useRef<HTMLDivElement>()
     const [isMenu, s__isMenu] = useState<number>(-1);
 
 

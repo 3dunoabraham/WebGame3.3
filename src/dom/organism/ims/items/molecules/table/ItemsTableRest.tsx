@@ -2,7 +2,7 @@ import { SalesStatusBadgePlus } from '@/dom/organism/ims/partials/unit/SalesStat
 // ReactFunctionComponent
 export default function Component ({
     item, displayConfigObj, _boolConfig
-}) {
+}:any) {
     return(
     <div className={` flex-1 py-${_boolConfig.includes("isCompact")?1:3}  Q_xs_sm_flex-col flex-row`}>
         {Object.keys(displayConfigObj.rest).map((aKey, index)=>{
