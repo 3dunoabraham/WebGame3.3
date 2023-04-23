@@ -25,14 +25,16 @@ function Component ( {
         >
             {/* <Effects /> */}
              
-            <OrbitControls minPolarAngle={0.11} maxPolarAngle={1.77} 
-                minDistance={1} maxDistance={7} enablePan={false}
-            />
+            
 
             {!!children && <>
                 {childrenWithProps}
             </>}
             {!children && <>
+                <OrbitControls minPolarAngle={0.11} maxPolarAngle={1.77} 
+                    minDistance={1} maxDistance={7}
+                    enablePan={false}
+                />
                 <SceneLight />
                 <TheButton />
             </>}
