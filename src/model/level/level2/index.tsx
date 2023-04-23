@@ -60,7 +60,11 @@ function Component ({}) {
   const trendDown = (x:any) => {  }
   const trendUp = (x:any) => {  }
   const turnOn = (x:any) => { 
-    console.log("turnon")
+    // console.log("turnon",tutoStage)
+    if (!tutoStage.lvl)
+    {
+      setTutoStage(1)
+    }
     // setLiveMode(0)
     updateTokenOrder(x,selectedTimeframeIndex,"state",1)
 
@@ -77,6 +81,16 @@ function Component ({}) {
     __selectedToken(val)
   }
   const toggleTrade = (x:any, y:any) => {
+    
+    if (tutoStage.lvl == 1)
+    {
+      setTutoStage(2)
+    }
+    if (tutoStage.lvl == 2)
+    {
+      setTutoStage(3)
+    }
+
     let newTradeObj = {side:!!y.value ? "buy" : "sell",token:x,price:y.price}
     s__orderHistory([...orderHistory, newTradeObj])
     if (form.id in currentOrders) {
