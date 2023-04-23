@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { CSVLink } from "react-csv";
+// import { CSVLink } from "react-csv";
 
-export default function Component ({ itemsArray, columnLookup, filename })  {
+export default function Component ({ itemsArray, columnLookup, filename }:any)  {
   const csvData = useMemo(() => {
     let theCSV = [];
 
@@ -10,19 +10,19 @@ export default function Component ({ itemsArray, columnLookup, filename })  {
     theCSV.push(headerRow);
 
     // Create data rows using column names from columnLookup object
-    itemsArray.forEach((item) => {
-      const row = Object.keys(columnLookup).map((key) => item[key]);
-      theCSV.push(row);
-    });
+    // itemsArray.forEach((item) => {
+    //   const row = Object.keys(columnLookup).map((key) => item[key]);
+    //   theCSV.push(row);
+    // });
 
     return theCSV;
   }, [itemsArray, columnLookup]);
 
   return (
     <div className="ims-tx-link flex-center pr-3 opaci-hov-50 mr-100">
-      <CSVLink data={csvData} filename={filename}>
+      {/* <CSVLink data={csvData} filename={filename}>
         Export CSV
-      </CSVLink>
+      </CSVLink> */}
     </div>
   );
 };
