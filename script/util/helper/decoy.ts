@@ -132,7 +132,7 @@ export const parseDecimals = (x:number) => {
     return Number.isInteger(x) ? x : parseInt(`${x}`)
   };
 
-  export const zeroPad = (value, length:any) => {
+  export const zeroPad = (value:any, length:any) => {
     return `${value}`.padStart(length, '0');
 }
 const THE_DATE_NOW = new Date()
@@ -161,7 +161,7 @@ export const parseUTCDateString = (_theDate:any) => {
         `${zeroPad(theDate.getUTCDate(),2)}`
     )
 }
-export const timeDifference = (date1,date2:any) => {
+export const timeDifference = (date1:any,date2:any) => {
   var difference = parseInt(date1) - parseInt(date2);
   // console.log("difference", difference)
   var weeksDifference = Math.floor(difference/1000/60/60/24/7);
