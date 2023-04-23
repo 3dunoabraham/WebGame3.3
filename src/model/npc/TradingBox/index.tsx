@@ -215,7 +215,7 @@ const Component = forwardRef(({
         <TableLegs />
         
         {/* toggles sync join trend */}
-        <Toggles state={{score, isSelectedId, selectedHasArray,isDowntrend}}
+        <Toggles state={{score, isSelectedId, selectedHasArray,isDowntrend,}}
             tokensArrayArray={tokensArrayArray}
             calls={{join, leave, onTextClick, turnOff, turnOn,trendDown,trendUp}}
           />

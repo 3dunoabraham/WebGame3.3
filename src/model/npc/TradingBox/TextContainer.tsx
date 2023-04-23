@@ -42,7 +42,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
       {state.isSelectedId &&
         <DynaText text={translation[state.token]+"" || ""} color={state.isSelectedId ? state.tokenColor : state.tokenColor}
           position={new Vector3(-0.18,-0.2,-0.3)} rotation={[-Math.PI/4,0,0]}
-          isSelected={state.isSelectedId}  font={0.25} onClick={()=>{calls.onTextClick()}}
+          isSelected={state.isSelectedId}  font={0.2} onClick={()=>{calls.onTextClick()}}
         />
       }
       {!!tokensArrayArray &&
@@ -64,7 +64,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
             isSelected={state.isSelectedId}  font={0.04} onClick={()=>{calls.onTextClick()}}
         />
       }
-      {!!tokensArrayArray && state.isSelectedId &&
+      {!!tokensArrayArray && state.isSelectedId && state.selectedHasArray &&
       <DynaText text={!state.clicked ? "Send <BUY> Order" : "Send <SELL> Order"} color={!state.clicked ?  0x33ff33 : 0xff3333}
           position={new Vector3(!state.clicked ?  - 0.2 :  + 0.1,-0.349,+0.115)}
           isSelected={state.isSelectedId}  font={0.05} onClick={()=>{calls.onTextClick()}}

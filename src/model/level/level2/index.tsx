@@ -44,7 +44,8 @@ function Component ({}) {
   const join = (x:any) => {
       console.log("join", x)
       s__selectedToken(x)
-      updateTokenOrder(x,selectedTimeframeIndex,"state",1)
+
+      updateTokenOrder(x,selectedTimeframeIndex,"state",0)
   }
   const leave = (x:any) => {
       console.log("leave", x)
@@ -59,8 +60,15 @@ function Component ({}) {
   const trendDown = (x:any) => {  }
   const trendUp = (x:any) => {  }
   const turnOn = (x:any) => { 
+    console.log("turnon")
+    // setLiveMode(0)
+    updateTokenOrder(x,selectedTimeframeIndex,"state",1)
+
   }
   const turnOff = (x:any) => {
+    console.log("turnoff")
+    updateTokenOrder(x,selectedTimeframeIndex,"state",0)
+    // setLiveMode(1)
   }
   const s__selectedToken = (val:any) => {
     let newId = val.toUpperCase() + "USDT" + selectedTimeframe.toUpperCase()
@@ -95,7 +103,8 @@ function Component ({}) {
   }
   const updateTokenOrder = async (_token:string, timeframe:any, substate:string,val:any="") => {
     if (!_token) return
-    let promptVal = !val ? prompt("Enter Value") : val
+    // let promptVal = !val ? prompt("Enter Value") : val
+    let promptVal = val
     let value = !promptVal ? 0 : parseFloat(promptVal)
     let timeframeIndex = timeframe
     let old_tokensArrayObj:any = null
@@ -174,9 +183,24 @@ function Component ({}) {
   }
   const setTutoStage = (lvl:any) => {
     // s__tutoStage({lvl})
-    s__LS_tutoStage(JSON.stringify({lvl}))
+    s__LS_tutoStage(JSON.stringify({...tutoStage,lvl}))
   }
-
+  const setLiveMode = (demo:any) => {
+    // s__tutoStage({lvl})
+    s__LS_tutoStage(JSON.stringify({...tutoStage,demo}))
+  }
+  const turnOffDemo = () => {
+    turnOn("btc")
+    setTutoStage(1)
+  }
+  const clickFirstBuy = () => {
+    $bitcoin.current.toggleGame()
+    setTutoStage(2)
+  }
+  const clickFirstSell = () => {
+    $bitcoin.current.toggleGame()
+    setTutoStage(3)
+  }
   return (<>
     <Scene>
       <ambientLight intensity={0.25} />
@@ -204,21 +228,24 @@ function Component ({}) {
       </DynaText>
       </>}
       {hasAnyToken && !tutoStage.lvl &&
-        <group position={[-0.7,-0.24,-0.5]} scale={0.35} onClick={()=>{$bitcoin.current.toggleGame();setTutoStage(1)}}>
-          <BuyLowSellHigh />
+      
+        <group position={[-0.86,-0.4,-0.24]} scale={0.3} onClick={()=>{turnOffDemo()}}>
+          <SetPriceAlarm />
         </group>
       }
       {hasAnyToken && tutoStage.lvl == 1 &&
-        <group position={[-0.7,-0.24,-0.5]} scale={0.35} onClick={()=>{setTutoStage(2)}}>
-          <SellHigh />
-        </group>
+      
+      <group position={[-0.7,-0.24,-0.5]} scale={0.35} onClick={()=>{clickFirstBuy()}}>
+      <BuyLowSellHigh />
+    </group>
       }
 
-      {/* {hasAnyToken && tutoStage.lvl == 2 &&
-        <group position={[-0.86,-0.4,-0.24]} scale={0.3} onClick={()=>{setTutoStage(3)}}>
-          <SetPriceAlarm />
-        </group>
-      } */}
+      {hasAnyToken && tutoStage.lvl == 2 &&
+        
+      <group position={[-0.7,-0.24,-0.5]} scale={0.35} onClick={()=>{clickFirstSell()}}>
+      <SellHigh />
+    </group>
+      }
 
       {hasAllTokens && <>
         <Box args={[4,0.25,5]} position={[0,-1.2,-0.5]} castShadow receiveShadow>
@@ -266,8 +293,8 @@ function Component ({}) {
           unselectedColor={"#50545B"}
           onTextClick={()=>{onTextClick("btc")}} 
           setVelocityY={(data:any)=>{toggleTrade("btc",data)}}
-          turnOn={()=>{turnOn("btc")}} turnOff={()=>{turnOff("btc")}}
-          join={()=>{join("btc")}} leave={()=>{leave("btc")}}
+          turnOn={(e:any)=>{turnOn("btc");  e.stopPropagation()}} turnOff={(e:any)=>{turnOff("btc");  e.stopPropagation()}}
+          join={(e:any)=>{join("btc");  e.stopPropagation()}} leave={(e:any)=>{leave("btc");  e.stopPropagation()}}
           trendDown={()=>{trendDown("btc")}} trendUp={()=>{trendUp("btc")}} 
           onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("btc",tf)}}
         /> 
