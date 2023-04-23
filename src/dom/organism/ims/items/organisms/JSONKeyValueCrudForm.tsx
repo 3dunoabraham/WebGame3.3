@@ -20,7 +20,7 @@ const Component = forwardRef(({masterKeyName, theUrl, queriedArray, backup = [],
         s__form(DEFAULT_ITEM)
         // q__queriedObj.refetch()
     }
-    async function updateData(id,valName,val="") {
+    async function updateData(id:any,valName:any,val="") {
         let theData = {
             keyName:masterKeyName,
             id: parseInt(id),
@@ -28,14 +28,14 @@ const Component = forwardRef(({masterKeyName, theUrl, queriedArray, backup = [],
             value: val, 
         }
         // if (val != "") theData.val = 
-        const response = await fetchPut(theUrl, theData)
+        const response:any = await fetchPut(theUrl, theData)
         if (response) {
             const updatedItem = await response.json();
             console.log(updatedItem);
         }
         // q__queriedObj.refetch()
     }
-    const handleChange = (e,subProp)=>{
+    const handleChange = (e:any,subProp:any)=>{
         s__form({...form,...{[subProp]:e.currentTarget.value}})
     }
     const deleteUnit = async ()=>{
@@ -43,12 +43,12 @@ const Component = forwardRef(({masterKeyName, theUrl, queriedArray, backup = [],
         await deleteItem(id)
         // q__queriedObj.refetch()
     }
-    async function addNewItem(valName) {
+    async function addNewItem(valName:any) {
         const response = fetchPost(theUrl, {keyName:masterKeyName,[keyProperty]: valName,})
         if (!response) { return app.alert("error", "Error") }
         app.alert("success", "Item successfully added to JSON file")
     }
-    async function deleteItem(id) {
+    async function deleteItem(id:any) {
         const response = await fetchDelete(theUrl, {keyName:masterKeyName,id: parseInt(id),})
         if (!response) { throw new Error('Failed to delete item'); }
     }    
@@ -63,7 +63,7 @@ const Component = forwardRef(({masterKeyName, theUrl, queriedArray, backup = [],
         }
     }      
     async function createCol(e:any) {
-        let theSelectedItem = queriedArray.filter((x,index)=>{ return x.id == form.id })
+        let theSelectedItem = queriedArray.filter((x:any,index:any)=>{ return x.id == form.id })
         if (theSelectedItem.length == 0) { return }
         let selectedItem = !theSelectedItem[0].colVal ? "" : theSelectedItem[0].colVal
         // let selectedItem = !theSelectedItem[0].colVal ? "{}" : theSelectedItem[0].colVal

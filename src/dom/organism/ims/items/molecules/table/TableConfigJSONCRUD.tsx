@@ -6,7 +6,7 @@ import SETTINGS_JSON from '@/../script/constant/json/settings.json'
 import { fetchPut } from "@/../script/util/helper/fetchHelper"
 import { objectEquals } from "@/../script/util/helper/validationHelper"
 
-export default function Component ({keyName }) {
+export default function Component ({keyName }:any) {
     const [form, s__form] = useState<any>()
     const $jsonCrudForm:any = useRef()
     const DEFAULT_DB = {[keyName]:[]}
@@ -22,16 +22,16 @@ export default function Component ({keyName }) {
             col2:{title:"Title",fieldName:"title"},
         },
     }
-    const updateSelectedColName = (colName) => {
+    const updateSelectedColName = (colName:any) => {
         $jsonCrudForm.current.s__form({...$jsonCrudForm.current.form,...{colName: colName}})
     }
-    const updateSelectedArray = (id) => {
-        let foundItemArray = settings[keyName].findIndex((x,i) => {return x.id == id})
+    const updateSelectedArray = (id:any) => {
+        let foundItemArray = settings[keyName].findIndex((x:any,i:any) => {return x.id == id})
         s__selectedItemIndex(foundItemArray)
         if (!$jsonCrudForm.current) return
         $jsonCrudForm.current.s__form({...$jsonCrudForm.current.form,...{id: id}})        
     }
-    const handleChange = (e,subProp)=>{
+    const handleChange = (e:any,subProp:any)=>{
         s__form({...form,...{[subProp]:e.currentTarget.value}})
     }
     async function createCol(e:any) {
@@ -45,15 +45,15 @@ export default function Component ({keyName }) {
         }} ))
         e.preventDefault()
     }
-    async function delCol(id) {
+    async function delCol(id:any) {
         let theSelectedItem = settings[keyName][1]
         let oldColVal = JSON.parse(theSelectedItem.colVal)
         let newColVal = {...oldColVal}
         delete newColVal[id]
         await updateData(2, "rest", JSON.stringify( newColVal ))
     }
-    async function updateData(id,key,val="") {
-        const response = await fetchPut("/api/settings/", {
+    async function updateData(id:any,key:any,val="") {
+        const response:any = await fetchPut("/api/settings/", {
             keyName:keyName,
             id: parseInt(id),
             key: key,
@@ -67,7 +67,7 @@ export default function Component ({keyName }) {
     useEffect(()=>{
         let cols = JSON.parse(settings[keyName][1].colVal)
         let colsKeys = Object.keys(cols)
-        let asd = {
+        let asd:any = {
             "fieldName-new": "",
             "title-new": "",
             "widget-new": "",
@@ -122,7 +122,7 @@ export default function Component ({keyName }) {
                     <div className="flex-1"></div>
                     {shouldRenderAddColumnButton && <>
                         <div className=" flex gap-1 r ">
-                            <button className="flex opaci-chov--50 ims-button-primary" onClick={(e:any)=>{ createCol(e:any) }}>Add Column</button>
+                            <button className="flex opaci-chov--50 ims-button-primary" onClick={(e:any)=>{ createCol(e) }}>Add Column</button>
                             <div className="pa-1 bg-b-20 bord-r-8 flex-col ">
                                 <div className="flex-center " >
                                     {form && "title-"+"new" in form && <>
