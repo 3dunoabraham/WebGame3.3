@@ -1,6 +1,6 @@
 import { useReducer, createContext, useContext } from "react";
 
-const reducer = (state, action) => {
+const reducer = (state:any, action:any) => {
   switch (action.type) {
     case "add":
       return state + 1;
@@ -13,7 +13,7 @@ const reducer = (state, action) => {
 
 const CounterContext = createContext(null);
 
-export const CounterContextProvider = ({ children }) => (
+export const CounterContextProvider = ({ children }:any) => (
   <CounterContext.Provider value={useReducer(reducer, 0)}>
     {children}
   </CounterContext.Provider>
