@@ -48,7 +48,7 @@ export default function Component ({ position=[0,0,0] , floorWidth=0.1}: BoxProp
 function MovingSpot({ vec = new THREE.Vector3(), ...props }) {
     const light:any = useRef()
     const viewport = useThree((state) => state.viewport)
-    useFrame((state) => {
+    useFrame((state:any) => {
     //   light.current.target.position.lerp(vec.set((state.mouse.x * viewport.width) / 2, (state.mouse.y * viewport.height) / 2, 0), 0.1)
     //   light.current.target.position.lerp(vec.set((state.mouse.x * viewport.width) / 2, (state.mouse.y * viewport.height) / 2, 0), 0.1)
     //   light.current.target.updateMatrixWorld()

@@ -2,11 +2,11 @@ import { OrbitControls } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 
-export default function Component ({ height, width, length }) {
+export default function Component ({ height, width, length }:any) {
     const { camera, gl: { domElement }, } = useThree();
     // camera.position.y = -1
     const controls:any = useRef();
-    useFrame((state) => {
+    useFrame((state:any) => {
         // camera.position.z += 0.001
         // controls.current.update()
     });

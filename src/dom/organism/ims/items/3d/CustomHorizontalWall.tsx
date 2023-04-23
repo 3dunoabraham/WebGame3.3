@@ -15,7 +15,7 @@ type BoxProps = {
 export default function Component ({ position, pillars, diameter=0.1,  length=2, roofHeight, wallThick }: BoxProps) {
     const [hovered, setHovered] = useState(false);
     const [clicked, setClicked] = useState(false);
-    const meshRef = useRef<Mesh>();
+    const meshRef:any = useRef<Mesh>();
   
     useFrame((state, delta) => {
         if (meshRef.current) {
@@ -26,7 +26,7 @@ export default function Component ({ position, pillars, diameter=0.1,  length=2,
   
     return (
     <group position={position}>
-        {pillars.map((aPillar, index) => {
+        {pillars.map((aPillar:any, index:any) => {
             return (
                 <mesh key={index}
                     castShadow receiveShadow
@@ -37,7 +37,7 @@ export default function Component ({ position, pillars, diameter=0.1,  length=2,
                     onPointerOver={() => setHovered(true)}
                     onPointerOut={() => setHovered(false)}
                 >
-                    <boxGeometry args={[wallThick, roofHeight, length+wallThick]} />
+                    <boxGeometry args={[wallThick, roofHeight, length+(wallThick || 0)]} />
                     <meshStandardMaterial color={"gray"} />
                 </mesh>
             )

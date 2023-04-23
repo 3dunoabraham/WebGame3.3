@@ -1,4 +1,4 @@
-import { Canvas } from "@react-three/fiber";
+
 import { MdRoofing, MdBorderLeft, MdBorderRight } from "react-icons/md";
 import { MdFlipToBack } from "react-icons/md";
 import { FaWarehouse } from "react-icons/fa";
@@ -7,18 +7,19 @@ import { TfiLayoutSidebarLeft } from "react-icons/tfi";
 import { AiOutlineCaretUp, AiOutlineVerticalAlignBottom } from "react-icons/ai";
 
 
-import CameraControl from "@/src/items/3d/CameraControl";
-import CustomPillars from "@/src/items/3d/CustomPillars";
-import ShapeContainer from "@/src/items/3d/ShapeContainer";
-import RoofContainer from "@/src/items/3d/RoofContainer";
-import CustomWall from "@/src/items/3d/CustomWall";
-import CustomHorizontalWall from "@/src/items/3d/CustomHorizontalWall";
-import HumanScale from "@/src/items/3d/HumanScale";
-import FieldFloorScale from "@/src/items/3d/FieldFloorScale";
-import CustomHorizontalWallDoor from "@/src/items/3d/CustomHorizontalWallDoor";
+import CameraControl from "@/dom/organism/ims/items/3d/CameraControl";
+import CustomPillars from "@/dom/organism/ims/items/3d/CustomPillars";
+import ShapeContainer from "@/dom/organism/ims/items/3d/ShapeContainer";
+import RoofContainer from "@/dom/organism/ims/items/3d/RoofContainer";
+import CustomWall from "@/dom/organism/ims/items/3d/CustomWall";
+import CustomHorizontalWall from "@/dom/organism/ims/items/3d/CustomHorizontalWall";
+import HumanScale from "@/dom/organism/ims/items/3d/HumanScale";
+import FieldFloorScale from "@/dom/organism/ims/items/3d/FieldFloorScale";
+import CustomHorizontalWallDoor from "@/dom/organism/ims/items/3d/CustomHorizontalWallDoor";
 
 import { forwardRef, useContext, useImperativeHandle, useMemo, useState,  } from 'react'
-import CustomBox from "@/src/items/3d/CustomBox";
+import CustomBox from "@/dom/organism/ims/items/3d/CustomBox";
+import { Canvas } from "@react-three/fiber";
 
 const Component = forwardRef(({}:any, ref)=>{
     
@@ -26,7 +27,7 @@ const Component = forwardRef(({}:any, ref)=>{
         // testConnect: () => {
         //     console.log("connected")
         // },
-        resize: (size) => {
+        resize: (size:any) => {
             let oldNewSize = {...sizeForm}
             console.log("resize with this", size)
             if (size.width && size.width.feet) {
@@ -47,12 +48,12 @@ const Component = forwardRef(({}:any, ref)=>{
 
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const [mouseDown, setMouseDown] = useState(false);
-    function handleMouseDown(e) {
+    function handleMouseDown(e:any) {
         setMouseDown(true);
         setMousePos({ x: e.clientX, y: e.clientY });
     }
-    function handleMouseUp(e) { setMouseDown(false); }
-    function handleMouseMove(e) { if (mouseDown) { setMousePos({ x: e.clientX, y: e.clientY }); } }
+    function handleMouseUp(e:any) { setMouseDown(false); }
+    function handleMouseMove(e:any) { if (mouseDown) { setMousePos({ x: e.clientX, y: e.clientY }); } }
     const DEFAULT_CARPORT_OTPS = {
         frontwall: {bool:true},
         backwall: {bool:true},
@@ -62,8 +63,8 @@ const Component = forwardRef(({}:any, ref)=>{
         floor: {bool:true},
         services: {bool:true},
     }
-    const [optsToggler, s__optsToggler] = useState(DEFAULT_CARPORT_OTPS)
-    const toggleOption = (opt) => {
+    const [optsToggler, s__optsToggler] = useState<any>(DEFAULT_CARPORT_OTPS)
+    const toggleOption = (opt:any) => {
         let oldBool = optsToggler[opt].bool
         s__optsToggler({...optsToggler,...{[opt]:{bool:!oldBool}}})
     }
@@ -92,7 +93,7 @@ const Component = forwardRef(({}:any, ref)=>{
         return sizeForm.y/3.281
     }
     ,[sizeForm.y])
-    const be_size = (e, propName) => {
+    const be_size = (e:any, propName:any) => {
         // console.log(sizeForm, "be_size", {[propName]:e})
         let theNewSize = {...sizeForm,...{[propName]:e}}
         // console.log("the new size", theNewSize)

@@ -13,7 +13,7 @@ type BoxProps = {
 export default function Component ({ position, pillars, diameter=0.1, height= 1 }: BoxProps) {
     const [hovered, setHovered] = useState(false);
     const [clicked, setClicked] = useState(false);
-    const meshRef = useRef<Mesh>();
+    const meshRef:any = useRef<Mesh>();
   
     useFrame((state, delta) => {
         if (meshRef.current) {
@@ -24,7 +24,7 @@ export default function Component ({ position, pillars, diameter=0.1, height= 1 
   
     return (
     <group position={position}>
-        {pillars.map((aPillar, index) => {
+        {pillars.map((aPillar:any, index:any) => {
             return (
                 <mesh key={index}
                     castShadow receiveShadow

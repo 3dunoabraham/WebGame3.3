@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { DoubleSide, Mesh } from "three";
 import * as THREE from "three";
 
-export default function Component({ position=[0,0,0], points=null,  length, width, wallWidth, roofWidth }) {
+export default function Component({ position=[0,0,0], points=null,  length, width, wallWidth, roofWidth }:any) {
     const outerTop = 0.6
     const innerTop = outerTop*0.9
     const shoulderHeight = 0.35
@@ -35,7 +35,7 @@ export default function Component({ position=[0,0,0], points=null,  length, widt
         let mult = 2
         return points ? points : humanShape.map(([x, y, z]) => [x * mult, y * mult, z * mult]);
     }, [points,width, humanShape]);
-    const meshRef = useRef<Mesh>();
+    const meshRef:any = useRef<Mesh>();
     const shape = useMemo(() => {
         const shape = new THREE.Shape();
         shape.moveTo(shapePoints[0][0], shapePoints[0][1]);

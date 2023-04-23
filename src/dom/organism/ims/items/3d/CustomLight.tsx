@@ -12,7 +12,7 @@ type BoxProps = {
 export default function Component ({ position }: BoxProps) {
     const [hovered, setHovered] = useState(false);
     const [clicked, setClicked] = useState(false);
-    const meshRef = useRef<Mesh>();
+    const meshRef:any = useRef<Mesh>();
     const depthBuffer = useDepthBuffer({ frames: 1 })
   
     useFrame((state, delta) => {
@@ -49,7 +49,7 @@ function MovingSpot({ vec = new THREE.Vector3(), ...props }) {
     useEffect(() => {
       light.current.target.position.set(0,-3,0)
     },[])
-        useFrame((state) => {
+        useFrame((state:any) => {
     //   light.current.target.position.lerp(vec.set((state.mouse.x * viewport.width) / 2, (state.mouse.y * viewport.height) / 2, 0), 0.1)
     //   light.current.target.position.lerp(vec.set((state.mouse.x * viewport.width) / 2, (state.mouse.y * viewport.height) / 2, 0), 0.1)
     //   light.current.target.updateMatrixWorld()

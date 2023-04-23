@@ -1,11 +1,11 @@
 import { useLoader } from "@react-three/fiber";
 // import { ShapeBufferGeometry, Mesh, MeshBasicMaterial } from "three";
-import StarJSON from "@/../script/constant/json/StarJSON.json";
 import { useMemo } from "react";
 import * as THREE from "three";
 
 export default function Component() {
-  const starPoints = StarJSON.Star.map(([x, y, z]) => [x * 10, y * 10, z * 10]);
+  // const starPoints = StarJSON.Star.map(([x, y, z]) => [x * 10, y * 10, z * 10]);
+  const starPoints:any = []
 
   const shape = useMemo(() => {
     const shape = new THREE.Shape();

@@ -3,7 +3,7 @@ import { BufferGeometry, DoubleSide, Mesh, MeshBasicMaterial, MeshStandardMateri
 import * as THREE from "three";
 import { useThree } from "@react-three/fiber";
 
-export default function Component({ position=[0,0,0], points=null, thickness=0.1, width, wallThick }) {
+export default function Component({ position=[0,0,0], points=null, thickness=0.1, width, wallThick }:any) {
     const { viewport } = useThree();
 
     const shapePoints = useMemo(() => {
@@ -13,10 +13,10 @@ export default function Component({ position=[0,0,0], points=null, thickness=0.1
       ];
       return points ? points : starPoints.map(([x, y, z]) => [x * mult, y * mult, z * mult]);
     }, [points, width]);
-    const vertices = useMemo(() => shapePoints.map(point => new THREE.Vector3(...point)), [shapePoints])
+    const vertices = useMemo(() => shapePoints.map((point:any) => new THREE.Vector3(...point)), [shapePoints])
     const basic_material = new MeshBasicMaterial({ color: 0xffffff, side: DoubleSide,  });
     const material = new MeshStandardMaterial({ color: 0xffffff, side: DoubleSide, roughness: 0.5 });
-    const meshRef = useRef<Mesh>();
+    const meshRef:any = useRef<Mesh>();
     
     
 
@@ -31,7 +31,7 @@ export default function Component({ position=[0,0,0], points=null, thickness=0.1
   }, [shapePoints]);
 
   const geometry = useMemo(() => {
-    const geometry = new BufferGeometry();
+    const geometry:any = new BufferGeometry();
     geometry.computeBoundingBox();
     const center = geometry.boundingBox.getCenter(new THREE.Vector3());
     geometry.translate(-center.x, -center.y, 0);
