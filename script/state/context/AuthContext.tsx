@@ -29,7 +29,7 @@ const AuthProvider: FC<{
     user: IUser;
     jwt: string;
   };  
-  children: JSX.Element;
+  children: any;
 }> = (props) => {
   const { session: session, children } = props;
   const [user, setUser] = useState<IUser | undefined>(session.user);
