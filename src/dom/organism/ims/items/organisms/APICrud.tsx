@@ -6,7 +6,7 @@ import ItemsTable from "@/dom/organism/ims/items/molecules/table/ItemsTable"
 
 
 export default function Component ({ queriedObj, q__queriedAPI, queriedAPI, hardCoded1, keyName, saveAPIListToJson}) {
-    const app = useContext(AppContext)
+    const app:any = useContext(AppContext)
     
     const refreshAPIList = async ()=> {
         await q__queriedAPI.refetch()

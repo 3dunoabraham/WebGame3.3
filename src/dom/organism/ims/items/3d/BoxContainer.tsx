@@ -114,17 +114,17 @@ const Component = forwardRef(({}:any, ref)=>{
                 <div className="flex-col gap-1 opaci-50 tx-ls-">
                     
                     <div className="flex tx-xsm">width: {sizeForm.x}</div>
-                    <input type="range" min="3" max="77" className="w-100" value={sizeForm.x} onChange={(e)=>{be_size(e.target.value,"x")}} />
+                    <input type="range" min="3" max="77" className="w-100" value={sizeForm.x} onChange={(e:any)=>{be_size(e.target.value,"x")}} />
                 </div>
                 <div className="flex-col gap-1 opaci-50 tx-ls-">
                     
                     <div className="tx-xsm pr-1">length: {sizeForm.z}</div>
-                    <input type="range" min="3" max="77" className="w-100" value={sizeForm.z} onChange={(e)=>{be_size(e.target.value,"z")}} />
+                    <input type="range" min="3" max="77" className="w-100" value={sizeForm.z} onChange={(e:any)=>{be_size(e.target.value,"z")}} />
                 </div>
                 <div className="flex-col gap-1 opaci-50 tx-ls-">
                     
                     <div className="flex tx-xsm">height: {sizeForm.y}</div>
-                    <input type="range" min="3" max="55" className="w-100" value={sizeForm.y} onChange={(e)=>{be_size(e.target.value,"y")}} />
+                    <input type="range" min="3" max="55" className="w-100" value={sizeForm.y} onChange={(e:any)=>{be_size(e.target.value,"y")}} />
                 </div>
             </div>
         </div>

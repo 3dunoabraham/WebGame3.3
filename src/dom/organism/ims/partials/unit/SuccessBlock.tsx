@@ -9,7 +9,7 @@ export const UnitSuccessBlock = ({
     newUID, loadings, s__confirmRedirect, confirmRedirect,
     s__redirectionTimeout,redirectionTimeout
 }) => {
-    const app = useContext(AppContext);
+    const app:any = useContext(AppContext);
     const [clipbloardValue, clipbloard__do] = useCopyToClipboard()
     const copyToClipboard = ()=>{
         clipbloard__do(OFFICIAL_URL+"unit/"+newUID)

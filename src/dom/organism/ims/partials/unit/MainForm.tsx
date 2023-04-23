@@ -27,7 +27,7 @@ export const UnitMainForm = ({
     editMode,
     refetch=()=>{},
 }: UnitMainFormProps)=>{
-    const app = useContext(AppContext);
+    const app:any = useContext(AppContext);
 
     /****** DATA ******/
     const DEFAULT_INPUT_KEYMAP_OBJECT = {

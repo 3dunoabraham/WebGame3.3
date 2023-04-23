@@ -13,7 +13,7 @@ export const LogsCRUD = ({
     logs,
 })=>{
     /****** DATA ******/
-    const app = useContext(AppContext)
+    const app:any = useContext(AppContext)
     const messagesEndRef:any = useRef()
     const DEFAULT_LOAD_ARRAY:any = [["delete",false],["deleteid",""],["create",false],["update",false]]
     
@@ -24,7 +24,7 @@ export const LogsCRUD = ({
     const inputRef = useRef(null)
 
     /****** UPDATE ******/
-    const updateMessage = (e)=>{
+    const updateMessage = (e:any)=>{
         s__theMessage(e.target.value)
         let _val = e.target.value
         if (_val.length < 2) return

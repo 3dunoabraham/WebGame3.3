@@ -11,7 +11,7 @@ import Providers from "@/../script/state/context/Providers";
 import AlertContainer from "@/dom/organism/ims/items/atoms/common/AlertContainer";
 import { useRouter } from "next/router";
 
-export default function Layout({ children }) {
+export default function Layout({ children }:any) {
     const router = useRouter()
     const { query } = useRouter()
     const queryClient = new QueryClient()

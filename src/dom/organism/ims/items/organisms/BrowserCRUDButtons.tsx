@@ -3,10 +3,10 @@ import { fetchDelete, fetchPost, fetchPut } from '@/../script/util/helper/fetchH
 import { forwardRef, useContext, useImperativeHandle, useState,  } from 'react'
 
 const Component = forwardRef(({form, s__form, newItemHandler}:any, ref)=>{
-    const app = useContext(AppContext)
+    const app:any = useContext(AppContext)
     
     const [newList, s__newList] = useState([])
-    const updateItem = async (e)=>{
+    const updateItem = async (e:any)=>{
         
         // await updateData(form.id, form.label)
         // s__form(DEFAULT_ITEM)
@@ -50,8 +50,8 @@ const Component = forwardRef(({form, s__form, newItemHandler}:any, ref)=>{
                 Add
             </div>
             <form onSubmit={addItem}>
-                {/* <input placeholder='ID' className='ims-button-faded w-80px' value={form.id} onChange={(e)=>handleChange(e,"id")}  /> */}
-                <input placeholder='Label' className='noborder  pa-2 w-100px ' value={form.label} onChange={(e)=>handleChange(e,"label")}  />
+                {/* <input placeholder='ID' className='ims-button-faded w-80px' value={form.id} onChange={(e:any)=>handleChange(e,"id")}  /> */}
+                <input placeholder='Label' className='noborder  pa-2 w-100px ' value={form.label} onChange={(e:any)=>handleChange(e,"label")}  />
             </form> 
         </div>
         
@@ -63,7 +63,7 @@ const Component = forwardRef(({form, s__form, newItemHandler}:any, ref)=>{
             </div>
             
             <form onSubmit={updateItem}>
-                <input placeholder='Label' className='ims-button-faded w-80px ' value={form.id} onChange={(e)=>handleChange(e,"label")}  />
+                <input placeholder='Label' className='ims-button-faded w-80px ' value={form.id} onChange={(e:any)=>handleChange(e,"label")}  />
             </form> 
         </div> */}
 

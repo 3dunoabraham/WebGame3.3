@@ -6,7 +6,7 @@ import { useContext } from 'react';
 export interface BreadCrumbsProps { pages: string[][]; current?: string; }
 // ReactFunctionComponent
 export const BreadCrumbs = ( { pages, current }: BreadCrumbsProps)=>{
-    // const app = useContext(AppContext)
+    // const app:any = useContext(AppContext)
     return (
     <div className="flex-center flex-justify-start pt-7 mt-1 tx-smd">
         <Link  href="/" className=" opaci-hov--50 py-2 pr-1 nodeco">

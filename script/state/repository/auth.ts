@@ -16,7 +16,7 @@ export async function fetchLogin (credentials:any) {
       body: JSON.stringify(credentials)
     })
     return (await reqRes.json()).data
-  } catch (e) {
+  } catch (e:any) {
     return null
   }
 }
@@ -40,7 +40,7 @@ export async function fetchLogout (jwt:any) {
     })
     console.log("delete ", reqRes)
     return await reqRes.json()
-  } catch (e) {
+  } catch (e:any) {
     return null
   }
 }
@@ -54,7 +54,7 @@ export async function fetchUser (jwt:any) {
       },
     })
     return (await reqRes.json()).data
-  } catch (e) {
+  } catch (e:any) {
     return null
   }
 }

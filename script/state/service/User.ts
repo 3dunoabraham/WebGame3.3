@@ -7,7 +7,7 @@ async function login (credentials:any) {
       body: JSON.stringify(credentials),
     })
     return await reqRes.json()
-  } catch (e) {
+  } catch (e:any) {
     return null
   }
 }
@@ -18,7 +18,7 @@ async function logout () {
       method:"DELETE", headers:{"Content-Type":"application/json"},
     })
     return await reqRes.json()
-  } catch (e) {
+  } catch (e:any) {
     return null
   }
 }
@@ -30,7 +30,7 @@ async function demo () {
       body: JSON.stringify({}),
     })
     return await reqRes.json()
-  } catch (e) {
+  } catch (e:any) {
     return null
   }
 }

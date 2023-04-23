@@ -8,8 +8,8 @@ import { AppContext } from "@/../script/state/context/AppContext";
 import { useContext } from 'react'
 import { fetchDelete } from "@/../script/util/helper/fetchHelper";
 
-export default function Component({ children }) {
-    const app = useContext(AppContext)
+export default function Component({ children }:any) {
+    const app:any = useContext(AppContext)
     const SP_signIn = () => {
         let email = prompt("Email?")
         if (!email) return

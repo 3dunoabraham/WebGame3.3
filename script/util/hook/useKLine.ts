@@ -9,7 +9,7 @@ export default function useKLine(tickerName: TickerName, timeframe: string, dela
       try {
         const newKLine = await fetchKLine(tickerName, timeframe);
         setKLine(newKLine);
-      } catch (e) {
+      } catch (e:any) {
         return
       }
     };

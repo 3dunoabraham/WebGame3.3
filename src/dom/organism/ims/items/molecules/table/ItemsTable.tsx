@@ -12,7 +12,7 @@ export default function Component({
     boolConfig=[],urlBase="", headerStyle=null, tableStyle=null, actionCard=null,
 }) {
     const _boolConfig = useMemo(() =>(boolConfig.join(",")),[boolConfig])
-    const app = useContext(AppContext)
+    const app:any = useContext(AppContext)
     const $divObj = useRef<HTMLDivElement>()
     const [isMenu, s__isMenu] = useState<number>(-1);
 

@@ -10,7 +10,7 @@ export const SidebarFilterToolbar = ({
 	// filtersMap_do,
 })=>{
     /****** DATA ******/
-    const app = useContext(AppContext)
+    const app:any = useContext(AppContext)
 	// const filteredConfigObj = useMemo(()=>{
 	// 	let theResult = {}
 	// 	Array.from(filtersMap.keys()).map((configKey:string,index)=>{

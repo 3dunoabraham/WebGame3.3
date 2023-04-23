@@ -20,7 +20,7 @@ function Component({
     // online, id, optMapObj,
     id, optMapObj,
 }: any) {
-    const app = useContext(AppContext)
+    const app:any = useContext(AppContext)
     // const optMapObj = DEFAULT_UNIT_OPTS
     const online = true
     /****** DATA ******/

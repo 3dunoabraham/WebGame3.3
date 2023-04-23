@@ -38,11 +38,11 @@ const Component = ({
 
         {forms.isForm &&
           <div className='flex-col gap-3 box-shadow-1-t pa-2 bord-r- mt-8 z-100'>
-            <input value={forms.email} onChange={(e)=>s__forms({...forms,...{email:e.target.value}})}
+            <input value={forms.email} onChange={(e:any)=>s__forms({...forms,...{email:e.target.value}})}
               type="text" placeholder='Email'  ref={$email}
               className='bord-r- noborder opaci-50 opaci-hov-75  py-1 px-2  bg-trans'
             />
-            <input value={forms.password} onChange={(e)=>s__forms({...forms,...{password:e.target.value}})}
+            <input value={forms.password} onChange={(e:any)=>s__forms({...forms,...{password:e.target.value}})}
               type="password" placeholder='Password' 
               className='bord-r- noborder opaci-50 opaci-hov-75  py-1 px-2  bg-trans'
             />

@@ -100,7 +100,7 @@ export const InputNEnum = ({
                 inputName={ inputName}  
                 optMap={optMap} optName="label"
                 boolConfig={[...boolConfig,...["isReadOnly"]]}
-                updateNewData={(e:any)=>{handleFirstColorChange(e)}}
+                updateNewData={(e:any)=>{handleFirstColorChange(e:any)}}
             />}
             {!extraDimensionToggler && 
                 <div onClick={()=>{handleDimensionToggler(!extraDimensionToggler)}}
@@ -131,7 +131,7 @@ export const InputNEnum = ({
                     inputName={ inputName} 
                     optMap={optMap} optName="label"
                     boolConfig={[...boolConfig,...["isReadOnly"]]}
-                    updateNewData={(e:any)=>{handleSecondColorChange(e)}}
+                    updateNewData={(e:any)=>{handleSecondColorChange(e:any)}}
                 />
             </div>
         }

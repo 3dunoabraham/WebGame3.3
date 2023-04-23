@@ -49,10 +49,10 @@ export const InputFile = ({...others })=>{
 
         const req = new XMLHttpRequest();
         req.open('POST', theUrl);
-        req.upload.addEventListener('progress', (e)=>{
+        req.upload.addEventListener('progress', (e:any)=>{
             s__percentComplete(parseInt(`${(e.loaded / e.total)*100}`))
         })
-        req.addEventListener('load', async (e)=>{
+        req.addEventListener('load', async (e:any)=>{
             s__isUploading(false)
             if (req.status >= 400)
             {

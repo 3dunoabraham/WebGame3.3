@@ -12,7 +12,7 @@ export const NotesCRUD = ({
     refetch=(deps=[])=>{},
 })=>{
     /****** DATA ******/
-    const app = useContext(AppContext);
+    const app:any = useContext(AppContext);
     const messagesEndRef:any = useRef()
     const DEFAULT_LOAD_ARRAY:any = [["delete",false],["deleteid",""],["create",false],["update",false]]
     const [loadMap,loadMap__do] = useMap<string,any>(DEFAULT_LOAD_ARRAY)
@@ -24,7 +24,7 @@ export const NotesCRUD = ({
 
     /****** UPDATE ******/
     const onKeyDown = (evt)=>{ if (evt.keyCode === 13) { addNote() } }
-    const updateMessage = (e)=>{ s__theMessage(e.target.value) }
+    const updateMessage = (e:any)=>{ s__theMessage(e.target.value) }
     const removeNote = (id)=>{ sendDeleteRequest(id) }
     const scrollToBottom = ()=>{ messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }) }
     const sendDeleteRequest = async (id)=>{

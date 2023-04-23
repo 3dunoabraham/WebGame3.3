@@ -14,7 +14,7 @@ export default function Component({ online=true }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const { query } = useRouter()
     const inv = useContext(InventoryContext)
-    const app = useContext(AppContext)
+    const app:any = useContext(AppContext)
     // console.log("online", app.online)
     const INVENTORY_FILTERS_OBJ = {
         sales_status:{

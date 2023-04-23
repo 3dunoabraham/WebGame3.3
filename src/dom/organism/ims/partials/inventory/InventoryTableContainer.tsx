@@ -12,7 +12,7 @@ import { API_UNITS } from "@/../script/constant/api";
 // import LOCAL_SETTINGS_JSON from '@/../script/constant/json/localSettings.json'
 
 export default function Component({ unitsArray=[], fetchConfig=null, tableConfigObj, exportConfig, selectedItem, s__selectedItem }) {
-    const app = useContext(AppContext)
+    const app:any = useContext(AppContext)
     const q_foreigns = useQuery({queryKey: ['foreignsData'], queryFn: async () =>
         await fetchUnitForeigns()
     ,})

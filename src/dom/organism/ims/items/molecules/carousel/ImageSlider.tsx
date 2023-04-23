@@ -41,19 +41,19 @@ export const ImageSlider = ({
         },
         isPlaying ? delay : null,
       )
-    const onDrag = (e)=>{
+    const onDrag = (e:any)=>{
         if (isClicking)
         {
             s__swipeOffset(parseInt(((e.offsetX-firstTouch) * 1.68).toString()))
         }
     }
 
-    const onStartClick = (e)=>{s__isClicking(true); s__firstTouch(e.offsetX) }
+    const onStartClick = (e:any)=>{s__isClicking(true); s__firstTouch(e.offsetX) }
     const setNextPage = ()=>{
         if (pageOffset > -GW*(filteredFileList.length-1)) {s__pageOffset(pageOffset-GW) }
     }
     const setPrevPage = ()=>{if (pageOffset < 0) {s__pageOffset(pageOffset+GW) } }
-    const onEndClick = (e)=>{
+    const onEndClick = (e:any)=>{
         s__isClicking(false)
         s__swipeOffset(0)
         if (filteredFileList.length < 2) return
@@ -63,8 +63,8 @@ export const ImageSlider = ({
     useEventListener(_isTouch ? "touchmove" : "mousemove", onDrag, $touchPad)
     useEventListener(_isTouch ? "touchstart" : "mousedown", onStartClick, $touchPad)
     useEventListener(_isTouch ? "touchend" : "mouseup", onEndClick, $touchPad)
-    useEventListener("mouseleave", (e)=>{
-        onEndClick(e)
+    useEventListener("mouseleave", (e:any)=>{
+        onEndClick(e:any)
     }, $touchPad)
     useOnClickOutside($touchPad, ()=>{ s__swipeOffset(0) })
 

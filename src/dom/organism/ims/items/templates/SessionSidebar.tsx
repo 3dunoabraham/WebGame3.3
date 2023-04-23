@@ -18,7 +18,7 @@ export default function Component({}) {
       await router.push(newUrl);
     } 
     const isClient = useIsClient()
-    const app = useContext(AppContext)
+    const app:any = useContext(AppContext)
     const inv = useContext(InventoryContext)
     const ICONS = {
         agreements: <BsStack />,

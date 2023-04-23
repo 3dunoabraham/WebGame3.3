@@ -3,7 +3,7 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { BsBoxArrowInRight, BsDoorClosed, BsBoxArrowInDown, BsBoxArrowRight } from "react-icons/bs";
 
-export default function Component({ children }) {
+export default function Component({ children }:any) {
     const { data: session } = useSession();
     if (session) {
         return (

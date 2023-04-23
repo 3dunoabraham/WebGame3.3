@@ -34,7 +34,7 @@ export default function Component ({keyName }) {
     const handleChange = (e,subProp)=>{
         s__form({...form,...{[subProp]:e.currentTarget.value}})
     }
-    async function createCol(e) {
+    async function createCol(e:any) {
         if (!form["title-"+"new"] || !form["fieldName-"+"new"]) return
         let theSelectedItem = settings[keyName][1]
         let oldColVal = JSON.parse(theSelectedItem.colVal)
@@ -122,25 +122,25 @@ export default function Component ({keyName }) {
                     <div className="flex-1"></div>
                     {shouldRenderAddColumnButton && <>
                         <div className=" flex gap-1 r ">
-                            <button className="flex opaci-chov--50 ims-button-primary" onClick={(e)=>{ createCol(e) }}>Add Column</button>
+                            <button className="flex opaci-chov--50 ims-button-primary" onClick={(e:any)=>{ createCol(e:any) }}>Add Column</button>
                             <div className="pa-1 bg-b-20 bord-r-8 flex-col ">
                                 <div className="flex-center " >
                                     {form && "title-"+"new" in form && <>
                                         t:
                                         <input type="text" placeholder="Title" className="pa-1 w-80px tx-xsm noborder bord-r-8 ma-1"
-                                            value={form["title-"+"new"]} onChange={(e)=>{handleChange(e,"title-"+"new")}} 
+                                            value={form["title-"+"new"]} onChange={(e:any)=>{handleChange(e,"title-"+"new")}} 
                                         />
                                     </>}
                                     {form && "fieldName-"+"new" in form && <>
                                         f:
                                         <input type="text" placeholder="Field Name" className="pa-1 w-80px tx-xsm noborder bord-r-8 ma-1"
-                                            value={form["fieldName-"+"new"]} onChange={(e)=>{handleChange(e,"fieldName-"+"new")}} 
+                                            value={form["fieldName-"+"new"]} onChange={(e:any)=>{handleChange(e,"fieldName-"+"new")}} 
                                         />
                                     </>}
                                     {form && "widget-"+"new" in form && <>
                                         w:
                                         <input type="text" placeholder="Widget" className="pa-1 w-80px tx-xsm noborder bord-r-8 ma-1"
-                                            value={form["widget-"+"new"]} onChange={(e)=>{handleChange(e,"widget-"+"new")}} 
+                                            value={form["widget-"+"new"]} onChange={(e:any)=>{handleChange(e,"widget-"+"new")}} 
                                         />
                                     </>}
                                 </div>
@@ -186,7 +186,7 @@ export default function Component ({keyName }) {
                                 {form && "title-"+index in form && <>
                                     <span className="opaci-50">t</span>:
                                     <input type="text" value={form["title-"+index]}
-                                        onChange={(e)=>{handleChange(e,"title-"+index)}}
+                                        onChange={(e:any)=>{handleChange(e,"title-"+index)}}
                                         className="pa-1 w-80px tx-xsm noborder bord-r-8 ma-1"
                                     />
                                 </>}
@@ -194,7 +194,7 @@ export default function Component ({keyName }) {
                                     <span className="opaci-50">f</span>:
                                     <input type="text"  value={form["fieldName-"+index]}
                                         className="pa-1 w-80px tx-xsm noborder bord-r-8 ma-1"
-                                        onChange={(e)=>{handleChange(e,"fieldName-"+index)}}
+                                        onChange={(e:any)=>{handleChange(e,"fieldName-"+index)}}
                                     />
                                 </>}
                             </div>
@@ -202,7 +202,7 @@ export default function Component ({keyName }) {
                                 {form && "widget-"+index in form &&  <>
                                     w:
                                     <input type="text" className="pa-1 w-80px tx-xs noborder bord-r-8 ma-1" 
-                                        onChange={(e)=>{handleChange(e,"widget-"+index)}} value={form["widget-"+index]}
+                                        onChange={(e:any)=>{handleChange(e,"widget-"+index)}} value={form["widget-"+index]}
                                     />
                                 </>}                                        
                                 {   objectEquals([

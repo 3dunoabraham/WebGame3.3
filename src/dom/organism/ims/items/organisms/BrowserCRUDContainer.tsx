@@ -14,7 +14,7 @@ export default function Component ({ browserArrayList,  queriedObj, s__crud, cle
     const saveNewItemsToBrowserClient = async ()=>{ s__crud({[keyName]:[...crud[keyName],...newBrowserArray]}); clearNewItems()}
     const clearLocalhostCrud = () => { s__LS_crud(JSON.stringify({[keyName]: []})) }
     const [newBrowserArray, s__newBrowserArray] = useState([])
-    const app = useContext(AppContext)
+    const app:any = useContext(AppContext)
     const updateJSONToClient = () => { s__crud({[keyName]: FOREIGNS_JSON[keyName]}) }
     const tableConfigObj = {
         key:{title:"id",name:"id",isInvisible: false,},

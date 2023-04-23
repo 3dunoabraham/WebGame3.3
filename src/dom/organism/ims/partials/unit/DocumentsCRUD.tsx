@@ -14,7 +14,7 @@ import { fetchDelete } from '@/../script/util/helper/fetchHelper'
 // ReactFunctionComponent
 export const DocumentsCRUD = ({fileArrayMap, unit, refetch=(deps=[])=>{}})=>{
     /****** DATA ******/
-    const app = useContext(AppContext);
+    const app:any = useContext(AppContext);
     const [firstFile, s__firstFile] = useState<{name:string,type:string,size:number}>()
     const [failedUpload, s__failedUpload] = useState(false)
     const [firstFileCat, s__firstFileCat] = useState("")
@@ -78,10 +78,10 @@ export const DocumentsCRUD = ({fileArrayMap, unit, refetch=(deps=[])=>{}})=>{
             }
         };
 
-        req.upload.addEventListener('progress', (e)=>{
+        req.upload.addEventListener('progress', (e:any)=>{
             s__percentComplete(parseInt(`${(e.loaded / e.total)*100}`))
         })
-        req.addEventListener('load', async (e)=>{
+        req.addEventListener('load', async (e:any)=>{
             if (req.status < 400) {
             } else {
                 dd("err")

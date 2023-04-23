@@ -35,9 +35,9 @@ export const OInputNImages = ({
 
 
     /****** DATA ******/
-    const app = useContext(AppContext)
+    const app:any = useContext(AppContext)
     const $childRef =           useRef<any>()
-    const $divObj =          useRef<HTMLDivElement>()
+    const $divObj:any =          useRef<HTMLDivElement>()
     const [isOpen, s__isOpen] =                     useState(false);
     const [isGalleryModal, s__isGalleryModal] =     useState(false);
     const _useDeviceXS_SM = useDeviceXS_SM()
@@ -48,10 +48,10 @@ export const OInputNImages = ({
     const [pageOffset, s__pageOffset] =             useState(0);
     const [liveImagesArray, s__liveImagesArray] =   useState([]);
     const [percentComplete, s__percentComplete] =   useState<number>(0);
-    const [firstFile, s__firstFile] =               useState<{name:string,type:string,size:number}>()
+    const [firstFile, s__firstFile]:any =               useState<any>()
     const [imgMap, imgMap_do] =                useMap(new Map())
     const [failedUpload, s__failedUpload] = useState(false)
-    const $theInput =           useRef<HTMLInputElement>()
+    const $theInput:any =           useRef<HTMLInputElement>()
     const GW = useMemo(()=>{
         if (_useDeviceXS_SM) return 320
         if (_useDeviceXS_MD) return 420
@@ -61,9 +61,9 @@ export const OInputNImages = ({
     }, [_useDeviceXS_SM,_useDeviceXS_MD,_useDeviceXS_LG, _useDeviceXS_XL])
     const parsedImagesArray = useMemo(()=>(filelistString == "[]" || !liveImagesArray.length)
         ? []
-        : JSON.parse(filelistString).map((aImg, index)=>{
+        : JSON.parse(filelistString).map((aImg:any, index:any)=>{
             let theReferenceArray = liveImagesArray || []
-            let theFoundExt = theReferenceArray.filter((theRefImg, index)=>{
+            let theFoundExt:any = theReferenceArray.filter((theRefImg:any, index)=>{
                 return theRefImg.id == aImg
             })
 
@@ -78,7 +78,7 @@ export const OInputNImages = ({
 
     /****** UPDATE ******/
     useOnClickOutside($divObj, ()=>{s__isOpen(false) })
-    const handleDrop = (e)=>{}
+    const handleDrop = (e:any)=>{}
     const removeCurrentImage = async ()=>{
         let _currentPage = $childRef.current.getCurrentPage()
         let theExt = filename2Extension(parsedImagesArray[_currentPage])
@@ -89,7 +89,7 @@ export const OInputNImages = ({
         let theImgObjArray = await fetchJsonArray(API_IMAGES,"Data")        
         s__liveImagesArray(theImgObjArray)
     }
-    const sendDeleteRequest = async (theImageName)=>{
+    const sendDeleteRequest = async (theImageName:any)=>{
         let theImageId = theImageName
         try {
             let theResult = await fetch(API_IMAGES, {
@@ -117,18 +117,18 @@ export const OInputNImages = ({
         s__isUploading(true)
         sendImage(firstCurrentFile)
     }
-    const sendImage = async (firstCurrentFile)=>{
+    const sendImage = async (firstCurrentFile:any)=>{
         let theUrl = API_IMAGE_UPLOAD_BASE+`${uid}/`
         s__failedUpload(false)
 
         let {req, payload}:any = await fetchPostImage(theUrl, firstCurrentFile, {
-            onProgress: (e)=>{s__percentComplete(parseInt(`${(e.loaded / e.total)*100}`))},
+            onProgress: (e:any)=>{s__percentComplete(parseInt(`${(e.loaded / e.total)*100}`))},
             onReady: () => {
                 if (req.readyState === 4 && req.status >= 300) { s__isUploading(false); s__failedUpload(true) }
             },
         })
         
-        req.addEventListener('load', async (e) => {
+        req.addEventListener('load', async (e:any) => {
             s__isUploading(false)
             await refetchImagesArray()
             s__isOpen(false);s__isGalleryModal(false)

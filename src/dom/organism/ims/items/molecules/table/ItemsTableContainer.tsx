@@ -11,7 +11,7 @@ import InputItemsPPage from "@/dom/organism/ims/items/atoms/inputs/InputItemsPP"
 export default function Component({items, exportConfig, tableConfigObj, urlBase, actionCard,
     selectedItems=[],
     boolConfig,updateSelectedArray=(id)=>{} }) {
-    const app = useContext(AppContext)
+    const app:any = useContext(AppContext)
     const isClient = useIsClient()
     const [LS_itemsPerPage, s__LS_itemsPerPage] = useLocalStorage('itemsPerPage', 25)
     const [itemsPerPage,s__itemsPerPage] = useState<number>(LS_itemsPerPage)

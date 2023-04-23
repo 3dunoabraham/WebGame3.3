@@ -6,16 +6,16 @@ import { fetchDelete, fetchPost, fetchPut } from '@/../script/util/helper/fetchH
 
 const Component = forwardRef(({masterKeyName, theUrl, queriedArray, backup = [],
     keyProperty="label"}:any, ref)=>{
-    const app = useContext(AppContext)    
+    const app:any = useContext(AppContext)    
     const DEFAULT_ITEM = {[keyProperty]:"",id:"", colName:"", colValue:""}
     const [form, s__form] = useState(DEFAULT_ITEM)
-    const createItem = (e)=>{
+    const createItem = (e:any)=>{
         addNewItem(form[keyProperty])
         s__form(DEFAULT_ITEM)
         // q__queriedObj.refetch()
         e.preventDefault()
     }
-    const updateItem = async (e)=>{
+    const updateItem = async (e:any)=>{
         await updateData(form.id, form[keyProperty])
         s__form(DEFAULT_ITEM)
         // q__queriedObj.refetch()
@@ -62,7 +62,7 @@ const Component = forwardRef(({masterKeyName, theUrl, queriedArray, backup = [],
             await addNewItem(item[keyProperty])
         }
     }      
-    async function createCol(e) {
+    async function createCol(e:any) {
         let theSelectedItem = queriedArray.filter((x,index)=>{ return x.id == form.id })
         if (theSelectedItem.length == 0) { return }
         let selectedItem = !theSelectedItem[0].colVal ? "" : theSelectedItem[0].colVal
@@ -85,7 +85,7 @@ const Component = forwardRef(({masterKeyName, theUrl, queriedArray, backup = [],
                 <button onClick={createItem} className="ims-button-primary clickble mx-2 mr-8">Add Item</button>
                 <form onSubmit={createItem}>
                     <input placeholder='Item Slug' className='ims-button-faded' value={form[keyProperty]}
-                        onChange={(e)=>handleChange(e,keyProperty)}  
+                        onChange={(e:any)=>handleChange(e,keyProperty)}  
                     />
                 </form> 
             </div>
@@ -93,7 +93,7 @@ const Component = forwardRef(({masterKeyName, theUrl, queriedArray, backup = [],
                 <div className="flex-wrap gap-1">
                     <form onSubmit={updateItem}>
                         <input placeholder='ID' className='ims-button-faded w-80px' value={form.id}
-                            onChange={(e)=>handleChange(e,"id")} 
+                            onChange={(e:any)=>handleChange(e,"id")} 
                         />
                     </form> 
                     <button onClick={updateItem} className="ims-button-primary clickble ">Update {form.id}</button>
@@ -110,10 +110,10 @@ const Component = forwardRef(({masterKeyName, theUrl, queriedArray, backup = [],
                 </div>         */}
                 <form onSubmit={createCol} className="flex gap-1">
                     {/* <input placeholder='Column Name' className='ims-button-faded w-150px' value={form.colName}
-                        onChange={(e)=>handleChange(e,"colName")} 
+                        onChange={(e:any)=>handleChange(e,"colName")} 
                     /> */}
                     <input placeholder='Value' className='ims-button-faded w-100px' value={form.colValue}
-                        onChange={(e)=>handleChange(e,"colValue")} 
+                        onChange={(e:any)=>handleChange(e,"colValue")} 
                     />
                 </form> 
             </div> 
