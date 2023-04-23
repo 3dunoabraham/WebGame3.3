@@ -8,7 +8,7 @@ export const ImageSlider = ({
     GW, filteredFileList, loadedImages, loadedImages_do,
     isClicking, s__isClicking,
     pageOffset, s__pageOffset
-})=>{
+}:any)=>{
     const [swipeOffset, s__swipeOffset] = useState(0);
     const _isTouch = process.browser && window.ontouchstart !== undefined;
     const $touchPad = useRef<any>()
@@ -64,7 +64,7 @@ export const ImageSlider = ({
     useEventListener(_isTouch ? "touchstart" : "mousedown", onStartClick, $touchPad)
     useEventListener(_isTouch ? "touchend" : "mouseup", onEndClick, $touchPad)
     useEventListener("mouseleave", (e:any)=>{
-        onEndClick(e:any)
+        onEndClick(e)
     }, $touchPad)
     useOnClickOutside($touchPad, ()=>{ s__swipeOffset(0) })
 
@@ -77,7 +77,7 @@ export const ImageSlider = ({
         </div>
         <div className="none top-0 right-0 pos-abs"  > off:{swipeOffset} </div>
         <div className={'flex  noclick ${CSS["carousel-height"]} '} >
-            {filteredFileList.map((item,index)=>{
+            {filteredFileList.map((item:any,index:any)=>{
             return (
                 <div  key={index} 
                     style={{transform:`translateX(${liveOffset}px)`}}
