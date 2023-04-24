@@ -285,6 +285,7 @@ function Component ({}) {
           <meshStandardMaterial color={"#ddd"}/>
         </Box>
         
+      {hasAnyToken && <>
         <Cylinder args={[0.1,0.1,0.4,6]} position={[0,!enablePan?-1.1:-1.05,0]} castShadow receiveShadow 
           onClick={()=>{s__enablePan(!enablePan)}}
         >
@@ -300,7 +301,7 @@ function Component ({}) {
           
         >        
       </DynaText>
-
+      </>}
         {/* <Box args={[0.1,0.1,0.4]} position={[0.05,-1,-1.7]} castShadow receiveShadow rotation={[enablePan ? 0.5 : -0.5,0,0]}
           onClick={()=>{s__enablePan(!enablePan)}}
         >
