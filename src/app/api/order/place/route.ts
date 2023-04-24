@@ -60,7 +60,7 @@ function makeLimitOrder({ side, symbol, quantity, price, recvWindow = 5000, time
 
   req.on('error', (err) => {
     console.log("error place order",err)
-    callback(err);
+    callback(false);
   });
 
   req.write(data);
@@ -136,23 +136,7 @@ function parseQuantity(symbol: string, quantity: number): number {
 
   
 export async function POST(request: NextRequest) {
-    // const cookieStore = cookies();
-    // const oldJWTjwt = cookieStore.get(JWTNAME);
-    // console.log("oldJWTjwt", oldJWTjwt)
-  
-    const body:any = await request.json()
-
-    // const reqRes:any = await fetchLogin({
-    //   email: body.email,
-    //   password: body.password,
-    // })
-    // if (!reqRes) {
-    //   console.log("no ok from server")
-    //   return null
-    // }
-  
-
-
+  const body:any = await request.json()
   // Retrieve the parameters from the request body
   const { side, symbol, quantity:_quantity, price:_price,apiKey,apiSecret } = body;
   console.log("req body", { side, symbol, quantity:_quantity, price:_price })
@@ -164,17 +148,14 @@ export async function POST(request: NextRequest) {
     apiKey,
     apiSecret,
     (result: any) => {
-    //   res.status(200).json(result);
-        console.log("resulttt?", result)
+      console.log("resulttt?", result)
+      if (!result) {
+        throw Error
+      }
     }
   );
 
-    const fullRes = new Response(JSON.stringify({}));
-    // const fullRes = new Response(JSON.stringify(reqRes));
-    // fullRes.headers.append(
-    //   'Set-Cookie', JWTNAME + '=' + reqRes.jwt +
-    //   '; Path=/; Secure; HttpOnly; SameSite=None; Max-Age=3600'
-    // );
+    const fullRes = new Response(JSON.stringify({message:"success"}));
   
     return fullRes
   }
