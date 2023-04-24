@@ -24,7 +24,7 @@ export default async function Page() {
       Dashboard
     </a> */}
     <main className='flex-col px-3 pos-rel' style={{background: "linear-gradient(45deg, #D6DBDC, #ffffff)"}}>
-      <div className='  h-min-95vh pos-rel w-100 '>      
+      <div className='  h-min-90vh pos-rel w-100 '>      
         
         <div className='flex '>
           <a href="/game" rel="noopener noreferrer" className='nodeco  w-min-80px z-800 pos-rel pt-3 ' >

@@ -22,7 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           href={`https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap`}
           />
       </head>
-      <body className="ma-0 h-min-95vh" > 
+      <body className="ma-0 h-min-90vh" > 
         <ClientProviders session={session}>
           <> {children}  </>
         </ClientProviders>
