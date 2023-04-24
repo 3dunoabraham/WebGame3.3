@@ -5,9 +5,9 @@ import { useState } from "react"
 function Component ({tokensArrayArray, state, calls}:any) {
   const [translation,s__translation]:any = useState({
     btc:"gold",
-    eth:"emerald",
-    link:"diamond",
-    ftm:"lapis",
+    eth:"money",
+    link:"silver",
+    ftm:"spirit",
   })
   
     return (<>
@@ -34,15 +34,15 @@ function Component ({tokensArrayArray, state, calls}:any) {
         />
       }
       {!state.isSelectedId &&
-        <DynaText text={state.token+"" || ""} color={state.isSelectedId ? 0x222222 : 0x222222}
+        <DynaText text={translation[state.token]+"" || ""} color={state.isSelectedId ? 0x222222 : 0x222222}
           position={new Vector3(-0.18,-0.349,-0.3)}
-          isSelected={state.isSelectedId}  font={0.2} onClick={()=>{calls.onTextClick()}}
+          isSelected={state.isSelectedId}  font={0.14} onClick={()=>{calls.onTextClick()}}
         />
       }
       {state.isSelectedId &&
         <DynaText text={translation[state.token]+"" || ""} color={state.isSelectedId ? state.tokenColor : state.tokenColor}
           position={new Vector3(-0.18,-0.2,-0.3)} rotation={[-Math.PI/4,0,0]}
-          isSelected={state.isSelectedId}  font={0.2} onClick={()=>{calls.onTextClick()}}
+          isSelected={state.isSelectedId}  font={0.14} onClick={()=>{calls.onTextClick()}}
         />
       }
       {!!tokensArrayArray &&

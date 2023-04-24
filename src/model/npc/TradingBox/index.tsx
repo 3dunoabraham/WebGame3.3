@@ -210,7 +210,10 @@ const Component = forwardRef(({
         /> */}
         
         
-        <TableBody state={{boundaries, wallWidth, isSelectedId, clicked, hasAnyToken:!!tokensArrayArray}} />
+        <TableBody state={{boundaries, wallWidth, isSelectedId, clicked, hasAnyToken:!!tokensArrayArray}}
+            calls={{ onTextClick: (e:any) => {onTextClick();e.stopPropagation()}}}
+
+         />
 
         <TableLegs />
         

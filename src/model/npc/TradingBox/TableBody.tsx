@@ -1,14 +1,16 @@
 import { Torus } from "@react-three/drei"
 
-function Component ({state, }:any) {
+function Component ({state, calls }:any) {
     return ( <>
         
-        <mesh castShadow receiveShadow 
+        <mesh castShadow receiveShadow onClick={calls.onTextClick}
           position={[ 0, (state.boundaries[1] / 2 + state.wallWidth) - (1 ), 0,]}
         >
           <boxGeometry args={[1, state.wallWidth, 1]} />
           <meshStandardMaterial color={!state.isSelectedId ? "#888" : "#888"}  />
         </mesh>        
+
+
         {state.isSelectedId && state.hasAnyToken && <>
           <Torus args={[0.7,0.006,4,4]}   rotation={[Math.PI/2,0,Math.PI/4]} position={[ 0, -0.345, 0, ]}
           >
