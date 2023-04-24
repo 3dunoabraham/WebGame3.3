@@ -117,7 +117,8 @@ function Component ({}) {
     }
 
     
-    if (newTradeObj.side == "buy") {
+    // if (newTradeObj.side == "buy")
+    {
       {
         let keyval = !binanceKeys.length ? prompt("Enter public:secret keys","") : binanceKeys
         if (!keyval) return
