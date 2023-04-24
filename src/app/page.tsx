@@ -18,13 +18,14 @@ export default async function Page() {
   );
 
   return (<>
+    {/* <a href="/dashboard" rel="noopener noreferrer"
+      className='pos-abs bottom-0 right-0 pt-0 Q_xs_px-3 mt-3 pa-8 z-800 block tx-black tx-lg tx-ls-3 opaci-chov--50 tx-bold-2 nodeco '
+    >
+      Dashboard
+    </a> */}
     <main className='flex-col px-3 pos-rel' style={{background: "linear-gradient(45deg, #D6DBDC, #ffffff)"}}>
-      <div className='  h-min-100vh pos-rel w-100 '>      
-        <a href="/dashboard" rel="noopener noreferrer"
-          className='pos-abs bottom-0 right-0 Q_xs_px-3 mt-3 pa-8 z-800 block tx-black tx-lg tx-ls-3 opaci-chov--50 tx-bold-2 nodeco '
-        >
-          Dashboard
-        </a>
+      <div className='  h-min-90vh pos-rel w-100 '>      
+        
         <div className='flex '>
           <a href="/game" rel="noopener noreferrer" className='nodeco  w-min-80px z-800 pos-rel pt-3 ' >
             <h1 className='tx-center flex-col tx-bold-2 tx-white bg-black py-2 z-800 pos-rel bord-r-5 box-shadow-5-b '>
