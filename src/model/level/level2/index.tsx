@@ -285,18 +285,18 @@ function Component ({}) {
           <meshStandardMaterial color={"#ddd"}/>
         </Box>
         
-        <Cylinder args={[0.1,0.1,0.4,6]} position={[0,enablePan?-1.1:-1.05,0]} castShadow receiveShadow 
+        <Cylinder args={[0.1,0.1,0.4,6]} position={[0,!enablePan?-1.1:-1.05,0]} castShadow receiveShadow 
           onClick={()=>{s__enablePan(!enablePan)}}
         >
-          <meshStandardMaterial color={enablePan ? "#f99" : "#999"}/>
+          <meshStandardMaterial color={!enablePan ? "#f99" : "#999"}/>
         </Cylinder>
         
         <DynaText
           // onClick={()=>{join("btc")}}
-          text={"Free Camera"}
-          color={enablePan ? "#a55" : "#977"}
+          text={"Lock Camera"}
+          color={!enablePan ? "#a55" : "#977"}
           font={0.06}
-          position={[0,-0.94,-0.15]} 
+          position={[0,-0.94,-0.17]} 
           
         >        
       </DynaText>
