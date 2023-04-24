@@ -64,6 +64,8 @@ function Component ({}) {
   const trendUp = (x:any) => {  }
   const turnOn = (x:any) => { 
     // console.log("turnon",tutoStage)
+    s__selectedToken(x)
+
     if (!tutoStage.lvl)
     {
       setTutoStage(1)
@@ -142,6 +144,7 @@ function Component ({}) {
   }
   const onTextClick = (x:any) => { 
     s__selectedToken(x)
+
   }
   const updateTokenOrder = async (_token:string, timeframe:any, substate:string,val:any="") => {
     if (!_token) return

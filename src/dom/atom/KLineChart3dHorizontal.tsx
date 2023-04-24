@@ -49,7 +49,7 @@ export default function Component({
       refGreen.current.setMatrixAt(i, temp.matrix);
       // set vertex colors for each instance
       const color = new THREE.Color(0xffffff);
-      color.setHSL(0.7 - y / yRangeSize, 1.0, 0.5); // Use y position to set hue value
+      color.setHSL(i / count, 1.0, 0.5);
       refGreen.current.setColorAt(i, color);
     }
     // Update the instance

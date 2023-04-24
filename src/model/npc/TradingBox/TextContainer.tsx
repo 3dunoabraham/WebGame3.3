@@ -5,7 +5,7 @@ import { useState } from "react"
 function Component ({tokensArrayArray, state, calls}:any) {
   const [translation,s__translation]:any = useState({
     btc:"gold",
-    eth:"money",
+    eth:"dola",
     link:"silver",
     ftm:"spirit",
   })
@@ -34,20 +34,20 @@ function Component ({tokensArrayArray, state, calls}:any) {
         />
       }
       {!state.isSelectedId &&
-        <DynaText text={translation[state.token]+"" || ""} color={state.isSelectedId ? 0x222222 : 0x222222}
+        <DynaText text={state.token.toUpperCase()+"" || ""} color={state.isSelectedId ? 0x222222 : 0x222222}
           position={new Vector3(-0.18,-0.349,-0.3)}
-          isSelected={state.isSelectedId}  font={0.14} onClick={()=>{calls.onTextClick()}}
+          isSelected={state.isSelectedId}  font={0.18} onClick={()=>{}}
         />
       }
       {state.isSelectedId &&
-        <DynaText text={translation[state.token]+"" || ""} color={state.isSelectedId ? state.tokenColor : state.tokenColor}
+        <DynaText text={state.token.toUpperCase()+"" || ""} color={state.isSelectedId ? state.tokenColor : state.tokenColor}
           position={new Vector3(-0.18,-0.2,-0.3)} rotation={[-Math.PI/4,0,0]}
-          isSelected={state.isSelectedId}  font={0.14} onClick={()=>{calls.onTextClick()}}
+          isSelected={state.isSelectedId}  font={0.18} onClick={()=>{}}
         />
       }
       {!!tokensArrayArray &&
         <DynaText text={state.queryUSDT.data+"" || ""} color={state.isSelectedId ? 0xaa0099 : 0xaaaaaa}
-          onClick={()=>{calls.onTextClick()}} font={0.29}
+          onClick={()=>{}} font={0.29}
           position={new Vector3( + 0.1,-0.349,+0.3)} isSelected={state.isSelectedId} 
         />
       }
@@ -55,19 +55,19 @@ function Component ({tokensArrayArray, state, calls}:any) {
 
       <DynaText text={!!tokensArrayArray ? "SYNC" : "OFF"} color={!!tokensArrayArray ?  0xaaaaaa : 0x555555}
         position={new Vector3(-0.44,-0.345,+0.28)}
-        isSelected={state.isSelectedId}  font={0.04} onClick={()=>{calls.onTextClick()}}
+        isSelected={state.isSelectedId}  font={0.04} onClick={()=>{}}
       />
       {!!tokensArrayArray &&
         <DynaText color={state.selectedHasArray ? "#55ff55" : "#f00"}
         text={"LIVE"} 
             position={new Vector3(-0.32,-0.345,+0.28)}
-            isSelected={state.isSelectedId}  font={0.04} onClick={()=>{calls.onTextClick()}}
+            isSelected={state.isSelectedId}  font={0.04} onClick={()=>{}}
         />
       }
       {!!tokensArrayArray && state.isSelectedId && state.selectedHasArray &&
       <DynaText text={!state.clicked ? "Send <BUY> Order" : "Send <SELL> Order"} color={!state.clicked ?  0x33ff33 : 0xff3333}
           position={new Vector3(!state.clicked ?  - 0.2 :  + 0.1,-0.349,+0.115)}
-          isSelected={state.isSelectedId}  font={0.05} onClick={()=>{calls.onTextClick()}}
+          isSelected={state.isSelectedId}  font={0.05} onClick={()=>{}}
         />   
       } 
     </>)
