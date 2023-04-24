@@ -128,7 +128,7 @@ function Component ({}) {
           side: newTradeObj.side,
           symbol: x.toUpperCase()+"USDT",
           quantity:"0.001",
-          price:newTradeObj.price,
+          price:newTradeObj.side == "buy" ? newTradeObj.price*1.01 : newTradeObj.price*0.99,
           apiKey: keyval.split(":")[0],
           apiSecret: keyval.split(":")[1]
         }
