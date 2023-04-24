@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Box, OrbitControls } from "@react-three/drei";
+import { Box, Cylinder, OrbitControls } from "@react-three/drei";
 import { useCopyToClipboard, useLocalStorage } from "usehooks-ts";
 import { Text } from '@react-three/drei';
 
@@ -17,6 +17,7 @@ import DynaText from "@/model/npc/TradingBox/DynaText";
 import BuyLowSellHigh from "./BuyLowSellHigh";
 import SetPriceAlarm from "./SetPriceAlarm";
 import SellHigh from "./SellHigh";
+import MetaOrbitControls from "@/model/core/MetaOrbitControls";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -30,7 +31,7 @@ function Component ({}) {
   const [_tutoStage, s__LS_tutoStage] = useLocalStorage('level2tutorialstage', "{}")
   const tutoStage:any = useMemo(()=> JSON.parse(_tutoStage) , [_tutoStage])
   // const [tutoStage,s__tutoStage] = useState<any>({})
-  const [enablePan, s__enablePan] = useState(false)
+  const [enablePan, s__enablePan] = useState(true)
   const [LS_tokensArrayObj, s__LS_tokensArrayObj] = useLocalStorage('localTokensArrayObj', "{}")
   const [tokensArrayObj,s__tokensArrayObj] = useState<any>({})
   const [selectedToken, __selectedToken] = useState("btc")
@@ -217,10 +218,20 @@ function Component ({}) {
   }
   return (<>
     <Scene>
-      <OrbitControls minPolarAngle={0.11} maxPolarAngle={1.77} 
-                    minDistance={1} maxDistance={7}
-                    enablePan={enablePan}
-                />
+      {enablePan &&
+        <MetaOrbitControls minPolarAngle={0.11} maxPolarAngle={1.77} 
+            minDistance={1} maxDistance={7}
+            enablePan={enablePan}
+            basePosition={[0,0,0]}
+        />
+      }
+      {!enablePan &&
+        <OrbitControls minPolarAngle={0.11} maxPolarAngle={1.77} 
+            minDistance={1} maxDistance={7}
+            enablePan={false}
+            
+        />
+      }
       <ambientLight intensity={0.25} />
       <pointLight intensity={1.5} position={[1.5, 1, 3]} castShadow />
 
@@ -274,12 +285,28 @@ function Component ({}) {
           <meshStandardMaterial color={"#ddd"}/>
         </Box>
         
-        <Box args={[0.1,0.1,0.4]} position={[0.05,-1,-1.7]} castShadow receiveShadow rotation={[enablePan ? 0.5 : -0.5,0,0]}
+        <Cylinder args={[0.1,0.1,0.4,6]} position={[0,enablePan?-1.1:-1.05,0]} castShadow receiveShadow 
+          onClick={()=>{s__enablePan(!enablePan)}}
+        >
+          <meshStandardMaterial color={enablePan ? "#f99" : "#999"}/>
+        </Cylinder>
+        
+        <DynaText
+          // onClick={()=>{join("btc")}}
+          text={"Free Camera"}
+          color={enablePan ? "#a55" : "#977"}
+          font={0.06}
+          position={[0,-0.94,-0.15]} 
+          
+        >        
+      </DynaText>
+
+        {/* <Box args={[0.1,0.1,0.4]} position={[0.05,-1,-1.7]} castShadow receiveShadow rotation={[enablePan ? 0.5 : -0.5,0,0]}
           onClick={()=>{s__enablePan(!enablePan)}}
         >
           <meshStandardMaterial color={enablePan ? "#a55" : "#977"}/>
-        </Box>
-        
+        </Box> */}
+{/*         
         <DynaText
           // onClick={()=>{join("btc")}}
           text="Open World"
@@ -288,7 +315,7 @@ function Component ({}) {
           position={[0.05,-0.89,-1.76]} 
           rotation={[0,Math.PI,0]}
         >        
-      </DynaText>
+      </DynaText> */}
       {hasAnyToken && <>
       <group position={[-1.05,-0.9,1.32]}>
         {profitHistory.slice(0,12).map((anOrder:any, index:any)=>{
