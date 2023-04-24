@@ -18,6 +18,7 @@ import BuyLowSellHigh from "./BuyLowSellHigh";
 import SetPriceAlarm from "./SetPriceAlarm";
 import SellHigh from "./SellHigh";
 import MetaOrbitControls from "@/model/core/MetaOrbitControls";
+import { fetchPost } from "../../../../script/util/helper/fetchHelper";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -38,6 +39,7 @@ function Component ({}) {
   const [currentOrders, s__currentOrders] = useState<any>({})
   const [orderHistory, s__orderHistory] = useState<any>([])
   const [profitHistory, s__profitHistory] = useState<any>([])
+  const [binanceKeys, s__binanceKeys] = useState<any>("")
   const [form,s__form] = useState({
     id:"BTCUSDT3M",
   })
@@ -81,7 +83,7 @@ function Component ({}) {
     s__form({id:newId})
     __selectedToken(val)
   }
-  const toggleTrade = (x:any, y:any) => {
+  const toggleTrade = async (x:any, y:any) => {
     
     if (tutoStage.lvl == 1)
     {
@@ -93,6 +95,7 @@ function Component ({}) {
     }
 
     let newTradeObj = {side:!!y.value ? "buy" : "sell",token:x,price:y.price}
+
     s__orderHistory([...orderHistory, newTradeObj])
     if (form.id in currentOrders) {
       let oldOrders = {...currentOrders}
@@ -112,6 +115,29 @@ function Component ({}) {
     } else {
       s__currentOrders({...currentOrders, [form.id]: newTradeObj })
     }
+
+    
+    if (newTradeObj.side == "buy") {
+      {
+        let keyval = !binanceKeys.length ? prompt("Enter public:secret keys","") : binanceKeys
+        if (!keyval) return
+
+        s__binanceKeys(keyval)
+        // side, symbol, quantity:_quantity, price:_price,apiKey,apiSecret
+        let fetchObjData = {
+          side: newTradeObj.side,
+          symbol: x.toUpperCase()+"USDT",
+          quantity:"0.001",
+          price:newTradeObj.price,
+          apiKey: keyval.split(":")[0],
+          apiSecret: keyval.split(":")[1]
+        }
+        console.log("fetchObjData", fetchObjData)
+        let fetchRes = await fetchPost("/api/order/place",fetchObjData)
+        console.log("fetchRes", fetchRes)
+      }
+    }
+
   }
   const onTextClick = (x:any) => { 
     s__selectedToken(x)
