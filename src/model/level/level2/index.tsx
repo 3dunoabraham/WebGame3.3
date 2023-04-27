@@ -301,8 +301,13 @@ function Component ({}) {
           <meshStandardMaterial color={"#ddd"}/>
         </Box>
         
+        <Cylinder args={[0.01,0.01,0.2,6]} position={[2,2.05,2]} castShadow receiveShadow 
+          onClick={()=>{s__LS_tutoStage("{}");s__LS_tokensArrayObj("{}");window.location.reload()}}
+        >
+          <meshStandardMaterial color={"#f00"}/>
+        </Cylinder>
       {hasAnyToken && <>
-        <Cylinder args={[0.1,0.1,0.4,6]} position={[0,!enablePan?-1.1:-1.05,0]} castShadow receiveShadow 
+        <Cylinder args={[0.1,0.1,0.2,6]} position={[0,!enablePan?-1:-0.95,0]} castShadow receiveShadow 
           onClick={()=>{s__enablePan(!enablePan)}}
         >
           <meshStandardMaterial color={!enablePan ? "#f99" : "#999"}/>
