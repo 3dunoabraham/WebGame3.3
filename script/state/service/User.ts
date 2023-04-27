@@ -1,10 +1,21 @@
-const LOCAL_API_URL = "api/"
+const LOCAL_API_URL = "/api/"
 
 async function login (credentials:any) {
   try {
     const reqRes = await fetch(LOCAL_API_URL+"/auth/login",{
       method:"POST", headers:{"Content-Type":"application/json"},
       body: JSON.stringify(credentials),
+    })
+    return await reqRes.json()
+  } catch (e:any) {
+    return null
+  }
+}
+
+async function verify () {
+  try {
+    const reqRes = await fetch(LOCAL_API_URL+"/auth/verify",{
+      method:"POST", headers:{"Content-Type":"application/json"},
     })
     return await reqRes.json()
   } catch (e:any) {
@@ -37,6 +48,7 @@ async function demo () {
 
 export default {
   login,
+  verify,
   logout,
   demo,
 }

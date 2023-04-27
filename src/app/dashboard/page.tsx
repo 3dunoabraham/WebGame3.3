@@ -1,15 +1,11 @@
 import Image from 'next/image'
 import { fetchUser } from '@/../script/state/repository/auth';
 import { TICKER_SYMBOLS, Ticker, fetchTicker } from '@/../script/state/repository/ticker'
-import TickerCard from '@/dom/atom/TickerCard'
-import LoginForm from '@/dom/molecule/LoginForm';
-import FlexTable from '@/dom/molecule/FlexTable';
-import Sidebar from '@/dom/template/Sidebar';
-import DashboardSummary from '@/dom/atom/DashboardSummary';
-import KLineTable from '@/dom/atom/KLineTable';
-import KLineChart from '@/dom/atom/KLineChart';
-import { fetchJWT } from '../../../script/state/repository/session';
-
+import { getJWTCookie } from '../../../script/state/repository/session';
+import TickerCard from '@/model/extra/TickerCard';
+import Sidebar from '@/dom/organ/layout/Sidebar';
+import KLineTable from '@/model/extra/KLineTable';
+import KLineChart from '@/model/extra/KLineChart';
 
 export default async function Home() {
 
@@ -17,7 +13,7 @@ const theArray = await (
   await fetch("https://api.binance.com/api/v3/klines?interval=1m&symbol=BTCUSDT")
 ).json()
   
-  const foundJWT:any = await fetchJWT()
+  const foundJWT:any = await getJWTCookie()
   const foundUser:any = !!foundJWT ? (
     foundJWT.length > 42 ? await fetchUser(foundJWT) : {
       email:"example@example.com",

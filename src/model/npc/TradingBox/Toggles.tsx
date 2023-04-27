@@ -6,21 +6,41 @@ function Component ({ tokensArrayArray, state, calls }:any) {
         
         {/* STATE MODE */}
         <mesh castShadow receiveShadow onClick={!tokensArrayArray ? calls.join : calls.leave}
-            rotation={[!tokensArrayArray ? 0.25 : -0.25,0,0]} scale={state.score.score ? 1 : 3}
-            position={[  - 0.44,  - 0.35,  + 0.38,]}
+            rotation={[0,0,!tokensArrayArray ? 0.25 : -0.25]} scale={state.score.score ? 1 : 3}
+            position={[  - 0,  - 0.34,  - 0.41,]}
         >
-            <boxGeometry args={[0.025, 0.02, 0.05]} />
+            <boxGeometry args={[0.07, 0.02, 0.03]} />
             <meshStandardMaterial color={!tokensArrayArray ? "#776666" : "#558855"} />
         </mesh>
         
+        <mesh castShadow receiveShadow onClick={!tokensArrayArray ? calls.join : calls.leave}
+            scale={3}
+            position={[  - 0,  -0.37,  - 0.41,]}
+        >
+            <boxGeometry args={[0.08, 0.02, 0.04]} />
+            <meshStandardMaterial color={"#888"} />
+        </mesh>
+        
         {/* DEMO MODE */}
-        {!!tokensArrayArray &&
+        {/* {!!tokensArrayArray &&
             <mesh castShadow receiveShadow scale={state.score.score ? 1 : 3}
             onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
-            position={[  - 0.32,  - 0.35,  + 0.38, ]}
+            position={[  - 0.308,  - 0.35,  + 0.35, ]}
             rotation={[state.selectedHasArray ? -0.25 : 0.25 ,0,0]}          
             >
             <boxGeometry args={[0.025, 0.02, 0.05]} />
+            <meshStandardMaterial color={state.selectedHasArray ? "#558855" : "#776666"
+                } />
+            </mesh>
+        } */}
+
+        {!!tokensArrayArray &&
+            <mesh castShadow receiveShadow scale={state.score.score ? 1 : 3}
+            onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
+            position={[  - 0.43,  state.selectedHasArray ? - 0.35 : -0.33,  + 0.37, ]}
+            // rotation={[state.selectedHasArray ? -0.25 : 0.25 ,0,0]}          
+            >
+            <boxGeometry args={[0.03, 0.01, 0.03]} />
             <meshStandardMaterial color={state.selectedHasArray ? "#558855" : "#776666"
                 } />
             </mesh>

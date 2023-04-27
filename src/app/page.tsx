@@ -1,11 +1,11 @@
 import { fetchUser } from '@/../script/state/repository/auth';
 import { Ticker, fetchTicker } from '@/../script/state/repository/ticker'
-import { fetchJWT } from '@/../script/state/repository/session';
-import LoginForm from '@/dom/molecule/LoginForm';
 import Level2 from '@/model/level/level2';
+import { getJWTCookie } from '@/../script/state/repository/session';
+import LoginForm from '@/dom/cell/form/LoginForm';
 
 export default async function Page() {  
-  const foundJWT:any = await fetchJWT()
+  const foundJWT:any = await getJWTCookie()
   const foundUser:any = !!foundJWT ? (
     foundJWT.length > 42 ? await fetchUser(foundJWT) : {
       email:"example@example.com",

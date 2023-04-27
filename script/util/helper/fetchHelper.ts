@@ -115,23 +115,33 @@ export const fetchPost = async (url:any,body:any)=>{
         return err
     }
 }
+export async function fetchPostWjwt (url:any,body:any,jwt:any) {
+  try {
+    const reqRes = await fetch(url,{
+      headers: {
+        "Content-Type":"application/json",
+        Authorization: 'Bearer ' + jwt,
+        body:JSON.stringify(body)
+      },
+    })
+    let awaitedRes = (await reqRes.clone().json())
+    return awaitedRes
+  } catch (e:any) {
+    console.log("reqRes catch (e:any)", e)
+    return null
+  }
+}
 export const fetchPostImage = async (url:any,file:any,config:any)=>{
     return new Promise(async (resolve, reject) => {
         try {
             const payload = new FormData();
+            console.log("config", config)
             payload.append(config.fieldName || "img", file, file.name);
 
-            const options = { method: 'POST', body: payload,
-                headers: {
-                    'Accept': (
-                        'text/html,application/xhtml+xml,application/xml;q=0.9,'
-                        +'image/avif,image/webp,*/*;q=0.8'
-                    )
-                },
-            };
             const req = new XMLHttpRequest();
             req.open('POST', url);
-            
+            req.setRequestHeader("Authorization", `Bearer ${config.jwt}`);
+
             req.onreadystatechange = config.onReady
             req.upload.addEventListener('progress', config.onProgress)
             resolve({req,payload})

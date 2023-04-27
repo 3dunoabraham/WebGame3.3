@@ -74,9 +74,9 @@ function Component ({_bouncingThing, tokensArrayArray, isSelectedId, token, clic
         
         <group position={[0,-0.3,0]}>
           <mesh castShadow receiveShadow ref={bouncingThing}
-            position={[ 0.25, 0, -0.335, ]}          
+            position={[ 0.33, 0, -0.36, ]}          
           >
-            <boxGeometry args={[0.1, 0.1, 0.1]} />
+            <boxGeometry args={[0.1, 0.1, 0.05]} />
             <meshStandardMaterial  color={!isSelectedId ? "#777777" : "#777777"}  />
           </mesh>
         </group>

@@ -1,4 +1,4 @@
-import { TickerName } from "./ticker";
+import { TickerName } from "@/../script/state/repository/ticker";
 
 export interface KLine {
     openTime: number;

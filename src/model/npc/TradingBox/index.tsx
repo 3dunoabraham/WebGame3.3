@@ -180,9 +180,9 @@ const Component = forwardRef(({
 
       {!!tokensArrayArray && !clicked && <>
         <mesh  ref={playerMesh}
-          position={[ position[0]+0.25, -0.37, position[2]-0.32, ]}          
+          position={[ position[0]+0.325, -0.37, position[2]-0.38, ]}          
         >
-          <boxGeometry args={[0.45, 0.18, wallWidth*3]} />
+          <boxGeometry args={[0.15, 0.18, 0.1]} />
           <meshStandardMaterial transparent={true} opacity={0.5} color={!isSelectedId ? "#777777" : "#777777"}  />
         </mesh>
       </>}
@@ -195,7 +195,7 @@ const Component = forwardRef(({
 
       <group position={position}>
         <TextContainer tokensArrayArray={tokensArrayArray}
-          state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor}}
+          state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray}}
           calls={{onTextClick,}}
         />
         
@@ -222,6 +222,24 @@ const Component = forwardRef(({
             tokensArrayArray={tokensArrayArray}
             calls={{join, leave, onTextClick, turnOff, turnOn,trendDown,trendUp}}
           />
+          
+        
+        {/* OPEN VIRTUAL ORDER SCREEN */}
+        {clicked &&  <>
+        <mesh castShadow receiveShadow scale={score.score ? 1 : 3}
+          position={[  + 0.33,  - 0.2,  - 0.41 ]}
+        >
+          <boxGeometry args={[0.1, 0.095, 0.01]} />
+          <meshStandardMaterial color={"#777777"}  />
+        </mesh>
+        <mesh castShadow receiveShadow scale={score.score ? 1 : 3} 
+          position={[  + 0.33,  - 0.22,  - 0.40 ]}
+        >
+          <boxGeometry args={[0.08, 0.095, 0.01]} />
+          <meshStandardMaterial emissive={tokenColor} color={"#777777"}  />
+        </mesh>
+        </>}
+
       </group>
 
 
@@ -231,9 +249,9 @@ const Component = forwardRef(({
       {isSelectedId && selectedHasArray && <>
       <mesh castShadow receiveShadow onClick={() => toggleGame()} scale={score.score ? 1 : 3}
         position={[
-          !clicked ? position[0] - 0.2 : position[0] + 0.1,
+          !clicked ? position[0] - 0.05 : position[0] + 0.27,
           clicked ? position[1] - 0.33 : position[1] - 0.3,
-          position[2],
+          position[2]+0.34,
         ]}        
       >
         <boxGeometry args={[0.1, clicked ? 0.015 : 0.04, 0.05]} />
@@ -241,22 +259,6 @@ const Component = forwardRef(({
       </mesh>
       
       </>}
-        
-      {clicked &&  <>
-      <mesh castShadow receiveShadow scale={score.score ? 1 : 3}
-        position={[ position[0] + 0.25, position[1] - 0.2, position[2] - 0.41 ]}
-      >
-        <boxGeometry args={[0.1, 0.095, 0.01]} />
-        <meshStandardMaterial color={"#777777"}  />
-      </mesh>
-      <mesh castShadow receiveShadow scale={score.score ? 1 : 3} 
-        position={[ position[0] + 0.25, position[1] - 0.22, position[2] - 0.40 ]}
-      >
-        <boxGeometry args={[0.08, 0.095, 0.01]} />
-        <meshStandardMaterial emissive={tokenColor} color={"#777777"}  />
-      </mesh>
-      </>}
-
 
 
       {/* mini buttons */}

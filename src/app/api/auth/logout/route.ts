@@ -1,28 +1,17 @@
-import { NextRequest, NextResponse } from "next/server"
-import { JWTNAME, deleteCookie, fetchLogout } from '@/../script/state/repository/auth';
-import { cookies } from 'next/headers';
+import { NextRequest } from "next/server"
+
+
+import { JWTNAME, fetchLogout } from '@/../script/state/repository/auth';
+import { getJWTCookie } from "@/../script/state/repository/session";
 
 export async function DELETE(request: NextRequest) {
-  const cookieStore = cookies();
-  const oldJWTjwt:any = cookieStore.get(JWTNAME);
-  console.log("oldJWTjwt delete", oldJWTjwt)
-  if (!oldJWTjwt.value) return null
-  // const body:any = await request.json()
-  const reqRes:any = await fetchLogout(oldJWTjwt.value)
-  // console.log("reqRes", reqRes)
-  if (!reqRes) {
-    console.log("no ok delete from server")
-    return null
-  }
-  if (!reqRes.data) {
-    console.log("no ok delete from server")
-    return null
-  }
-
-  const fullRes:any = new Response(JSON.stringify({message: true}));
-  // deleteCookie(request, fullRes, "jwt")
+  const jwtObj:any = getJWTCookie()
+  if (!jwtObj) throw new Error() 
   
-  // fullRes.headers.append('Set-Cookie', 'jwt=' + reqRes.jwt + '; Path=/; Secure; HttpOnly; SameSite=None; Max-Age=60');
+  const reqRes:any = await fetchLogout(jwtObj)
+  if (!reqRes && !reqRes.data) { throw new Error()}
 
-  return fullRes
+  return new Response(JSON.stringify(reqRes), {
+    headers: { 'Set-Cookie': `${JWTNAME}=; Path=/; Secure; HttpOnly; SameSite=None; Max-Age=0` }
+  });
 }

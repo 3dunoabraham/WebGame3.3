@@ -9,7 +9,7 @@ import { Text } from '@react-three/drei';
 import { getComputedLevels } from "../../../../script/util/helper/decoy";
 import Scene from "@/model/core/Scene"
 import TradingBox, { DEFAULT_TIMEFRAME_ARRAY } from "@/model/npc/TradingBox";
-import ChartBox from "@/dom/atom/ChartBox";
+import ChartBox from "@/model/npc/ChartBox";
 import MovingBox1 from "./MovingBox1";
 import MovingBox2 from "./MovingBox2";
 import { parseDecimals } from "../../../../script/util/helper";
@@ -19,6 +19,7 @@ import SetPriceAlarm from "./SetPriceAlarm";
 import SellHigh from "./SellHigh";
 import MetaOrbitControls from "@/model/core/MetaOrbitControls";
 import { fetchPost } from "../../../../script/util/helper/fetchHelper";
+import ClickToStart from "./ClickToStart";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -28,6 +29,8 @@ const selectedTimeframeIndex = 0
 const selectedTimeframe = "3m"
 const feePercent = 0.1
 function Component ({}) {
+  const [btcBoxPos, s__btcBoxPos] = useState(-0.1)
+  const [chartBoxPos, s__chartBoxPos] = useState([0,0,0])
   const $bitcoin:any = useRef()
   const [_tutoStage, s__LS_tutoStage] = useLocalStorage('level2tutorialstage', "{}")
   const tutoStage:any = useMemo(()=> JSON.parse(_tutoStage) , [_tutoStage])
@@ -267,24 +270,7 @@ function Component ({}) {
 
 
       {!hasAnyToken && <>
-        <DynaText
-          onClick={()=>{join("btc")}}
-          text="Click Here to Start"
-          color="#aa0000"
-          font={0.11}
-          position={[-1.05,-0.34,-0.15]}
-          rotation={[0,Math.PI/4,0]}
-        >        
-      </DynaText>
-        <DynaText
-          onClick={()=>{join("btc")}}
-          text="Click Here to Start"
-          color="#aa0000"
-          font={0.11}
-          position={[-1.05,-0.34,-0.15]}
-          rotation={[0,Math.PI/4+Math.PI,0]}
-        >        
-      </DynaText>
+        <ClickToStart calls={{join}} />
       </>}
       {hasAnyToken && !tutoStage.lvl &&
       
@@ -365,20 +351,16 @@ function Component ({}) {
         })}
       </group>
       </>}
-      {<>
-        <Box args={[2,0.3,0.5]} position={[0,-1,-1.5]} castShadow receiveShadow>
-          <meshStandardMaterial color={"#ddd"}/>
-        </Box>
-      </>}
       { <>
-        <group scale={[0.7,0.7,0.7]} position={[0.3,0,-1.5]}>
+        <group scale={[0.7,0.7,0.7]} >
           <ChartBox boundaries={[1,0.1,0.04]} score={{score:0}} timeframe={selectedTimeframe.toLowerCase() || "1d"}
             position={[0,0,0]} velocityX={0}  theToken={form.id.split("USDT")[0]} askAI={(data:any)=>{askAI(data)}}
-            velocityY={0} setVelocityX={()=>{}} setVelocityY={()=>{}}
+            velocityY={0} setVelocityX={()=>{}} setVelocityY={()=>{}} {...{chartBoxPos, s__chartBoxPos}}
+            tokensArrayObj={tokensArrayObj}
           />
         </group>
       </>}
-      <group position={[-0.6,-0.1,-0.5]}>
+      <group position={[-0.6,btcBoxPos,-0.5]} rotation={[0,0,0]}>
         <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="btc" ref={$bitcoin}
           tokensArrayArray={"btc" in tokensArrayObj ? tokensArrayObj["btc"] : null}
           refetchInterval={selectedToken == "btc" ? 1000 : 60000}

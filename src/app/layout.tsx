@@ -3,7 +3,7 @@ import '@/../style/reset.css'
 import '@/../style/theme.css'
 import '@/../style/css.css'
 import { fetchSession } from '@/../script/state/repository/session'
-import ClientProviders from "@/dom/template/ClientProviders"
+import ClientProviders from '@/dom/organ/layout/ClientProviders'
 
 export const metadata = {
   title: 'IMS',

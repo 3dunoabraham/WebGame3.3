@@ -1,32 +1,27 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest } from "next/server"
+
+
 import { JWTNAME, fetchLogin } from '@/../script/state/repository/auth';
-import { cookies } from 'next/headers';
 
-export async function GET(request: Request) {
-  console.log("hello from get server")
-  return new Response('login')
-}
 export async function POST(request: NextRequest) {
-  const cookieStore = cookies();
-  const oldJWTjwt = cookieStore.get(JWTNAME);
-  console.log("oldJWTjwt", oldJWTjwt)
+  const { email, password } = await request.json()
 
-  const body:any = await request.json()
-  const reqRes:any = await fetchLogin({
-    email: body.email,
-    password: body.password,
-  })
-  if (!reqRes) {
-    console.log("no ok from server")
-    return null
-  }
-
-  const fullRes = new Response(JSON.stringify(reqRes));
+  const jwt:any = await fetchLogin({ email, password, })
+  if (!jwt) { throw new Error() }
+  
+  let bodyResponse = { jwt, user: { email }, }
+  const fullRes:any = new Response(JSON.stringify(bodyResponse), {
+    status: 200,
+    headers: {
+      'Set-Cookie': [
+        `${JWTNAME}=${jwt}; Path=/; Secure; HttpOnly; SameSite=None; Max-Age=3600`,
+      ].join('; ') // Convert array to string
+    }
+  });
   fullRes.headers.append(
-    'Set-Cookie', JWTNAME + '=' + reqRes.jwt +
-    '; Path=/; Secure; HttpOnly; SameSite=None; Max-Age=3600'
+    'Set-Cookie',
+    `user=${JSON.stringify(bodyResponse.user)}; Path=/; Secure; HttpOnly; SameSite=None; Max-Age=3600`
   );
-
-  return fullRes
+    return fullRes
+  
 }
-
