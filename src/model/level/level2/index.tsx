@@ -351,7 +351,7 @@ function Component ({}) {
         })}
       </group>
       </>}
-      { <>
+      {hasAnyToken && <>
         <group scale={[0.7,0.7,0.7]} >
           <ChartBox boundaries={[1,0.1,0.04]} score={{score:0}} timeframe={selectedTimeframe.toLowerCase() || "1d"}
             position={[0,0,0]} velocityX={0}  theToken={form.id.split("USDT")[0]} askAI={(data:any)=>{askAI(data)}}

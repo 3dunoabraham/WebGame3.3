@@ -42,7 +42,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
           <Plane rotation={[-Math.PI/2,0,0]} position={new Vector3(0,-0.3495,-0.04)} 
             args={[0.9,0.57]}
           >
-            <meshStandardMaterial color={!!tokensArrayArray ? "#000000" : "#666666"} />
+            <meshStandardMaterial color={!!tokensArrayArray ? "#222222" : "#666666"} />
           </Plane>
         </>
       }
@@ -93,12 +93,12 @@ function Component ({tokensArrayArray, state, calls}:any) {
         <DynaText color={"#ffffff"} // LIVE / DEMO
           text={"LIVE"} 
           // position={new Vector3(-0.31,-0.345,+0.46)}
-          position={new Vector3(-0.43,-0.345,+0.46)}
+          position={new Vector3(0.43,-0.345,+0.46)}
           isSelected={state.isSelectedId}  font={0.04} onClick={()=>{}}
         />
       }
       {!!tokensArrayArray && state.isSelectedId && state.selectedHasArray &&
-      <DynaText text={!state.clicked ? "Send <BUY> Order" : "Send <SELL> Order"} // BUY / SELL
+      <DynaText text={!state.clicked ? "Send  BUY  Order" : "Send  SELL  Order"} // BUY / SELL
         color={!state.clicked ?  0x33ff33 : 0xff3333}
         position={new Vector3(!state.clicked ?  - 0.05 :  + 0.27,-0.34,0.455)}
         isSelected={state.isSelectedId}  font={0.05} onClick={()=>{}}

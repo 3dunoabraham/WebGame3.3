@@ -14,10 +14,22 @@ function Component ({}) {
     })
 
     return (<group ref={$textGroup}>
-        <Text position={[0.6,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>Then click</Text>
-        <Text position={[-0.6,0,0]} fontSize={0.25} rotation={[0,0,0]} material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>Then click</Text>
-        <Text position={[-0.5,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} material={new MeshStandardMaterial({ side: 0, color: "#990000" })}>red to Sell</Text>
-        <Text position={[0.5,0,0]} fontSize={0.25} rotation={[0,0,0]} material={new MeshStandardMaterial({ side: 0, color: "#990000" })}>red to Sell</Text>
+        <Text position={[0.6,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
+            material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>
+            Then click
+        </Text>
+        <Text position={[-0.6,0,0]} fontSize={0.25} rotation={[0,0,0]} 
+            material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>
+            Then click
+        </Text>
+        <Text position={[-0.5,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
+            material={new MeshStandardMaterial({ side: 0, color: "#990000" })}>red 
+        to Sell
+    </Text>
+        <Text position={[0.5,0,0]} fontSize={0.25} rotation={[0,0,0]} 
+            material={new MeshStandardMaterial({ side: 0, color: "#990000" })}>red 
+        to Sell
+    </Text>
     </group>)
 }
 export default Component

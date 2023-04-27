@@ -10,25 +10,25 @@ function Component ({}) {
     useFrame((ctx, delta)=>{
         if (!$textGroup.current) return
 
-        $textGroup.current.position.y = Math.sin(Date.now()/500)/10
+        $textGroup.current.position.y = Math.sin(Date.now()/500)/10-0.3
     })
 
-    return (<group ref={$textGroup}>
-        <Text position={[0.6,0,0.6]} fontSize={0.25} rotation={[0,Math.PI,0]} 
-            material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>
-                Click button
+    return (<group ref={$textGroup} position={[0.4,0,0.5]} rotation={[-0.5,0,0]}>
+        <Text position={[0.4,0,0.6]} fontSize={0.25} rotation={[0,Math.PI,0]} 
+            material={new MeshStandardMaterial({ side: 0, color: "#aa0099" })}>
+                Click here to
         </Text>
-        <Text position={[-0.6,0,0.6]} fontSize={0.25} rotation={[0,0,0]} 
-            material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>
-                Click button
+        <Text position={[-0.4,0,0.6]} fontSize={0.25} rotation={[0,0,0]} 
+            material={new MeshStandardMaterial({ side: 0, color: "#aa0099" })}>
+                Click here to
         </Text>
-        <Text position={[-0.5,0,0.6]} fontSize={0.25} rotation={[0,Math.PI,0]} 
+        <Text position={[-0.55,0,0.6]} fontSize={0.25} rotation={[0,Math.PI,0]} 
             material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>
-                to Buy
+                Buy
         </Text>
-        <Text position={[0.5,0,0.6]} fontSize={0.25} rotation={[0,0,0]} 
+        <Text position={[0.55,0,0.6]} fontSize={0.25} rotation={[0,0,0]} 
             material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>
-                to Buy
+                Buy
         </Text>
     </group>)
 }
