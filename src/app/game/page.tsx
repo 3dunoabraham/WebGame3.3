@@ -1,17 +1,17 @@
 import Image from 'next/image'
 import { fetchUser } from '@/../script/state/repository/auth';
 import { TICKER_SYMBOLS, Ticker, fetchTicker } from '@/../script/state/repository/ticker'
-import TickerCard from '@/dom/atom/TickerCard'
-import LoginForm from '@/dom/molecule/LoginForm';
 import Scene from '@/model/core/Scene';
 import Head from 'next/head';
 import Level1 from '@/model/level/level1';
-import { fetchJWT } from '../../../script/state/repository/session';
+import { getJWTCookie } from '../../../script/state/repository/session';
+import TickerCard from '@/model/extra/TickerCard';
+import LoginForm from '@/dom/cell/form/LoginForm';
 
 
 export default async function Home() {
   
-  const foundJWT:any = await fetchJWT()
+  const foundJWT:any = await getJWTCookie()
   const foundUser:any = !!foundJWT ? (
     foundJWT.length > 42 ? await fetchUser(foundJWT) : {
       email:"example@example.com",
