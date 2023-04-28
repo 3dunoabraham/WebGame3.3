@@ -88,7 +88,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
         
       {state.clicked && // CLICKED PRICE 
         <>
-        <DynaText text={"Order Entry Price"+"" || ""}  color={0xffffff}
+        <DynaText text={"Order Entry Price"+"" || ""}  color={0x000000}
           position={new Vector3(+0.28,-0.349,-0.28)}
           isSelected={state.isSelectedId} font={0.05} 
         />

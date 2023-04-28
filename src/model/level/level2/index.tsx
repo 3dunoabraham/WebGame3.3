@@ -416,11 +416,12 @@ function Component ({}) {
     </group> */}
     {hasAnyToken &&
       <group position={[-0.3,-0.1,0.5]}>
+        <group position={[1,0,-1]} rotation={[0,0,0]}>
         {("eth" in tokensArrayObj || "btc" in tokensArrayObj) && <>
           <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="eth"
             tokensArrayArray={"eth" in tokensArrayObj ? tokensArrayObj["eth"] : null}
             refetchInterval={selectedToken == "eth" ? 1000 : 60000}
-            position={[1,0,-1]} unselectedColor={"#50545B"}
+             unselectedColor={"#50545B"}
             onTextClick={()=>{onTextClick("eth")}} 
             setVelocityY={(data:any)=>{toggleTrade("eth",data)}}
             turnOn={()=>{turnOn("eth")}} turnOff={()=>{turnOff("eth")}}
@@ -429,6 +430,7 @@ function Component ({}) {
             onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("eth",tf)}}
           /> 
         </>}
+        </group>
         {/* PIPE 1 */}
         {"btc" in tokensArrayObj && <> <MovingBox1 /> </>}
         <Box args={[0.03,0.05,0.06]} position={[0.19,-0.4,-1]} castShadow receiveShadow>

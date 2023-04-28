@@ -29,8 +29,9 @@ export default async function Page() {
         <div className='flex '>
           <a href="/game" rel="noopener noreferrer" className='nodeco  w-min-80px z-800 pos-rel pt-3 ' >
             <h1 className='tx-center flex-col tx-bold-2 tx-white bg-black py-2 z-800 pos-rel bord-r-5 box-shadow-5-b '>
-              <span className='tx-'><b>B</b>it</span>
-              <span className='tx-md'><b>C</b>ity</span>
+              <span className='tx-sm tx-bold-8 tx-ls-4 opaci-50' title='Gamified Trading App'>G T A</span>
+              <span className='tx-lg'><b>B</b>yte</span>
+              <span className='tx-lgx'><b>C</b>ity</span>
             </h1>
           </a>
         </div>

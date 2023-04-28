@@ -6,8 +6,8 @@ import { fetchSession } from '@/../script/state/repository/session'
 import ClientProviders from '@/dom/organ/layout/ClientProviders'
 
 export const metadata = {
-  title: 'IMS',
-  description: 'Inventory Management System',
+  title: 'GTA ByteCity',
+  description: 'Gamified Trading App',
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
