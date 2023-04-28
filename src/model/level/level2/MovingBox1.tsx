@@ -28,7 +28,7 @@ function Component ({}) {
         >
             <meshStandardMaterial color={"#fff"}/>
         </Box>
-        <Box args={[0.5,0.04,0.1]} position={[0.35,-0.45,-1]} castShadow receiveShadow
+        <Box args={[0.5,0.07,0.1]} position={[0.35,-0.45,-1]} castShadow receiveShadow
         >
             <meshStandardMaterial color={"#777"}/>
         </Box>

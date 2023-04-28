@@ -129,6 +129,7 @@ function Component ({}) {
     {
       {
         let keyval = !binanceKeys.length ? prompt("Enter public:secret keys","") : binanceKeys
+        s__binanceKeys("test")
         if (!keyval) return
 
         s__binanceKeys(keyval)
@@ -304,7 +305,7 @@ function Component ({}) {
         </Box>
       </>}
         <Box args={[2.5,0.2,2.5]} position={[0.05,-1.05,0.15]} castShadow receiveShadow>
-          <meshStandardMaterial color={"#ddd"}/>
+          <meshStandardMaterial color={"#fff"}/>
         </Box>
         
         <Cylinder args={[0.01,0.01,0.2,6]} position={[2,2.05,2]} castShadow receiveShadow 

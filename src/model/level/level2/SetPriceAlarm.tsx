@@ -15,12 +15,12 @@ function Component ({}) {
 
   return (<group ref={$textGroup} rotation={[-1,0,0]} position={[0,0,0.5]}>
     <Text position={[1.1,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
-      material={new MeshStandardMaterial({ side: 0, color: "#888888" })}
+      material={new MeshStandardMaterial({ side: 0, color: "#ff00ff" })}
     >
       Click          to Trade
     </Text>
     <Text position={[1.1,0,0]} fontSize={0.25} rotation={[0,0,0]} 
-      material={new MeshStandardMaterial({ side: 0, color: "#888888" })}
+      material={new MeshStandardMaterial({ side: 0, color: "#ff00ff" })}
     >
       Click          to Trade
     </Text>
