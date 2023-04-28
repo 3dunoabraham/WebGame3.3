@@ -10,7 +10,7 @@ function Component ({}) {
     useFrame((ctx, delta)=>{
         if (!$textGroup.current) return
 
-        $textGroup.current.position.y = Math.sin(Date.now()/500)/10 - 0.3
+        $textGroup.current.position.y = Math.sin(Date.now()/500)/10 - 0.16
     })
 
     return (<group ref={$textGroup} position={[1.2,0,1]} rotation={[-1,0,0]}>

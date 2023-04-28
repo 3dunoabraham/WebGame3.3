@@ -23,6 +23,7 @@ import ClickToStart from "./ClickToStart";
 import { Vector3 } from "three";
 import { useFrame } from "@react-three/fiber";
 import BitcoinTradingBox from "./BitcoinTradingBox";
+import TutorialGoal from "./TutorialGoal";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -30,7 +31,7 @@ const DEFAULT_TOKEN_OBJ = {
 }
 const selectedTimeframeIndex = 0
 const selectedTimeframe = "3m"
-const feePercent = 0.1
+const feePercent = 0.0
 function Component ({}) {
   const [btcBoxPos, s__btcBoxPos]:any = useState([-0.6,-0.1,-0.5])
   const [chartBoxPos, s__chartBoxPos] = useState([0,0,0])
@@ -292,12 +293,18 @@ function Component ({}) {
     </group>
       }
 
-      {hasAnyToken && tutoStage.lvl == 2 &&
+{hasAnyToken && tutoStage.lvl == 2 &&
         
-      <group position={[-0.7,-0.24,-0.5]} scale={0.35} >
-      <SellHigh />
-    </group>
-      }
+        <group position={[-0.7,-0.24,-0.5]} scale={0.35} >
+        <SellHigh />
+      </group>
+        }
+        {hasAnyToken && tutoStage.lvl == 3 &&
+          
+        <group position={[-0.31,-0.35,-1.9]} scale={0.35} >
+        <TutorialGoal />
+      </group>
+        }
 
       {hasAllTokens && <>
         <Box args={[4,0.25,5]} position={[0,-1.2,-0.5]} castShadow receiveShadow>
@@ -330,6 +337,28 @@ function Component ({}) {
         >        
       </DynaText>
       </>}
+
+
+      {/* goal post */}
+      {hasAnyToken && <group position={[0,0,-1.5]}>
+        <Cylinder args={[0.25,0.25,0.75,12]} position={[0,-0.9,0]} castShadow receiveShadow 
+        >
+          <meshStandardMaterial color={"#ccc"}/>
+        </Cylinder>
+        
+        {/* <DynaText
+          // onClick={()=>{join("btc")}}
+          text={"Reward"}
+          color={!enablePan ? "#a55" : "#977"}
+          font={0.06}
+          position={[0,-0.94,-0.17]} 
+          
+        >        
+      </DynaText> */}
+      </group>}
+
+
+
         {/* <Box args={[0.1,0.1,0.4]} position={[0.05,-1,-1.7]} castShadow receiveShadow rotation={[enablePan ? 0.5 : -0.5,0,0]}
           onClick={()=>{s__enablePan(!enablePan)}}
         >
@@ -346,23 +375,35 @@ function Component ({}) {
         >        
       </DynaText> */}
       {hasAnyToken && <>
-      <group position={[-1.05,-0.9,1.32]}>
-        {profitHistory.slice(0,12).map((anOrder:any, index:any)=>{
+      <group position={[-0.15,-0.55,-1.5]}>
+        {profitHistory.slice(0,5).map((anOrder:any, index:any)=>{
           return (
-            <Box args={[0.19,0.1,0.07]} position={[index*0.2,0.2,0]}  castShadow receiveShadow key={index}>
-              <meshStandardMaterial color={anOrder[1] == "profit" ? "#cac" : "#ccc"}/>
+            <Box args={[0.07,0.11,0.07]} position={[index*0.075,0.01,0]}  castShadow receiveShadow key={index}>
+              <meshStandardMaterial color={anOrder[1] != "profit" ? "#f00" : "#ccc"}/>
             </Box>
           )
         })}
-        {[0,1,2,3,4,5,6,7,8,9,0,1].map((anOrder:any, index:any)=>{
+        {profitHistory.slice(0,5).map((anOrder:any, index:any)=>{
           return (
-            <Box args={[0.04,0.5,0.08]} position={[index*0.2,0.01,0]}  castShadow receiveShadow key={index}>
-              <meshStandardMaterial color={"#bbb"}/>
+            <Box args={[0.065,0.1,0.18]} position={[index*0.075,0.01,0]}  castShadow receiveShadow key={index}>
+              <meshStandardMaterial color={anOrder[1] != "profit"  ? "#aaaaaa" : "#33aa33"}
+              />
+            </Box>
+          )
+        })}
+        {[0,1,2,3,4].map((anOrder:any, index:any)=>{
+          return (
+            <Box args={[0.065,0.1,0.18]} position={[index*0.075,0.01,0]}  castShadow receiveShadow key={index}>
+              <meshStandardMaterial color={"#339933"}
+                transparent={true} opacity={0.33}
+              />
             </Box>
           )
         })}
       </group>
       </>}
+
+
       {hasAnyToken && <>
         <group scale={[0.7,0.7,0.7]} >
           <ChartBox boundaries={[1,0.1,0.04]} score={{score:0}} timeframe={selectedTimeframe.toLowerCase() || "1d"}

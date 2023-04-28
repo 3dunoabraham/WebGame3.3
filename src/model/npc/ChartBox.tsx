@@ -193,8 +193,8 @@ const Component = forwardRef(({
     <group position={[0.3,0,-3]}>
       
       {<>
-        <Box args={[2,0.3,0.5]} position={[-0.5,-1.5,0]} castShadow receiveShadow>
-          <meshStandardMaterial color={"#ddd"}/>
+        <Box args={[2,0.25,3]} position={[-0.5,-1.5,1.5]} castShadow receiveShadow>
+          <meshStandardMaterial color={"#f0f0f0"}/>
         </Box>
       </>}
       <DynaText text={!!theToken ? theToken.toUpperCase() : ""} color={0xaaaaaa}
