@@ -1,7 +1,7 @@
 import { Vector3 } from "three"
 import DynaText from "./DynaText"
 import { useState } from "react"
-import { Plane } from "@react-three/drei"
+import { Cylinder, Plane, Torus } from "@react-three/drei"
 
 function Component ({tokensArrayArray, state, calls}:any) {
   const [translation,s__translation]:any = useState({
@@ -10,8 +10,66 @@ function Component ({tokensArrayArray, state, calls}:any) {
     link:"silver",
     ftm:"spirit",
   })
-  
+  const [DisplayPosition,s__DisplayPosition]:any = useState([0.4,0.02,-0.05])
     return (<>
+
+{/* <group position={[0,-1,0]}>
+
+<DynaText text={"n"}  color={0x000}
+  position={new Vector3(0,0,-2.5)}
+  isSelected={state.isSelectedId} font={0.6} 
+/>
+</group>
+    <group position={[0,-1,0]} rotation={[0,Math.PI,0]}>
+
+      <DynaText text={"s"}  color={0x000}
+        position={new Vector3(0,0,-2.5)}
+        isSelected={state.isSelectedId} font={0.6} 
+      />
+    </group> */}
+
+
+
+{
+      // small screen surface
+        <> 
+
+
+        <group position={DisplayPosition}>
+          
+        <mesh castShadow receiveShadow position={[-0.0165,0.03,0]} >
+          <boxGeometry args={[0.03, 0.28, 0.4]} />
+          <meshStandardMaterial color={!state.isSelectedId ? "#888" : "#888"}  />
+        </mesh>        
+        
+        <mesh castShadow receiveShadow position={[-0.03,-0.2,0]} // stand
+        > 
+          <boxGeometry args={[0.03, 0.4, 0.1]} />
+          <meshStandardMaterial color={!state.isSelectedId ? "#888" : "#888"}  />
+        </mesh>        
+
+
+          <Plane rotation={[0,Math.PI/2,0]} position={[-0.001,-0.0,0]}  args={[0.35,0.18]}>
+            <meshStandardMaterial color={!!tokensArrayArray ? "#222222" : "#666666"} />
+          </Plane>
+          
+          {!!tokensArrayArray && // CURRENT PRICE
+              <DynaText text={state.queryUSDT.data+"" || ""} color={state.isSelectedId ? 0xaa0099 : 0xaaaaaa}
+                onClick={()=>{}} font={0.13} rotation={[0,Math.PI/2,0]} isSelected={state.isSelectedId} 
+                position={new Vector3( 0,0,0)} 
+              />
+          }
+          {!!tokensArrayArray && 
+            <DynaText text={"Current Price"+"" || ""}  color={0xffffff} position={[0,0.125,0.02]}
+              isSelected={state.isSelectedId} font={0.06}  rotation={[0,Math.PI/2,0]} 
+              />
+          }
+        </group>
+            
+        </>
+      }
+
+
       {state.clicked && // PROFIT LOSS
         <DynaText text={state.clickedPrice/state.queryUSDT.data < 1 ? "profit %" : "loss %"}  
           color={state.clickedPrice/state.queryUSDT.data < 1 ? 0x009900 : 0xff0000}
@@ -30,22 +88,12 @@ function Component ({tokensArrayArray, state, calls}:any) {
         
       {state.clicked && // CLICKED PRICE 
         <>
-        <DynaText text={"Bought Price"+"" || ""}  color={0xffffff}
+        <DynaText text={"Order Entry Price"+"" || ""}  color={0xffffff}
           position={new Vector3(+0.28,-0.349,-0.28)}
-          isSelected={state.isSelectedId} font={0.06} 
+          isSelected={state.isSelectedId} font={0.05} 
         />
           </>
         }
-        {
-        <>
-
-          <Plane rotation={[-Math.PI/2,0,0]} position={new Vector3(0,-0.3495,-0.04)} 
-            args={[0.9,0.57]}
-          >
-            <meshStandardMaterial color={!!tokensArrayArray ? "#222222" : "#666666"} />
-          </Plane>
-        </>
-      }
       {state.clicked &&
         <DynaText text={""+state.clickedPrice+"" || ""}  color={0x006600}
           position={new Vector3(+0.28,-0.345,-0.18)}
@@ -58,30 +106,57 @@ function Component ({tokensArrayArray, state, calls}:any) {
           isSelected={state.isSelectedId}  font={0.16} onClick={()=>{}}
         />
       }
-      {state.isSelectedId && !!tokensArrayArray && // ELEVATED TOKEN NAME
-        <DynaText text={state.token.toUpperCase()+"" || ""} color={state.isSelectedId ? state.tokenColor : state.tokenColor}
-          position={new Vector3(-0.28,-0.2,-0.2)} rotation={[-Math.PI/4,0,0]}
-          isSelected={state.isSelectedId}  font={0.22} onClick={()=>{}}
-        />
-      }
+
+
+
+
+      {/* CPU */}
+      { state.isSelectedId && // noELEVATED TOKEN NAME
+      <>
+      <group position={new Vector3(-0.15,0,-0.2)}>
+      <Cylinder args={[0.42, 0.3, 0.64, 4]} position={[0.0,0,-0.128]} 
+        rotation={[Math.PI/2,Math.PI/4*3,0]}
+      >
+          <meshStandardMaterial color={"#888"}  />
+        
+      </Cylinder>
+      <Cylinder args={[0.2, 0.3, 0.2, 4]} position={[0.0,-0.3,-0.05]} 
+        rotation={[0,Math.PI/4*3,0]}
+      >
+          <meshStandardMaterial color={"#888"}  />
+        
+      </Cylinder>
+      </group>
+      <group position={new Vector3(-0.15,-0.1,-0.)}>
+        
+        <mesh castShadow receiveShadow position={[0.0,0.1,-0.128]} >
+          <boxGeometry args={[0.5, 0.5, 0.25]} />
+          <meshStandardMaterial color={"#C7E4EC"}  />
+        </mesh>        
+
+        {state.isSelectedId && !!tokensArrayArray && // ELEVATED TOKEN NAME
+          <DynaText text={state.token.toUpperCase()+"" || ""} color={state.tokenColor}
+            position={new Vector3(0,0.2,0)}
+            // rotation={[-Math.PI/4,0,0]}
+            rotation={[0,0,0]}
+
+            isSelected={state.isSelectedId}  font={0.22} onClick={()=>{}}
+          />
+        }
+      </group>
+      </>}
       {state.isSelectedId && !tokensArrayArray && // noELEVATED TOKEN NAME
-        <DynaText text={state.token.toUpperCase()+"" || ""} color={state.isSelectedId ? state.tokenColor : state.tokenColor}
-          position={new Vector3(-0.24,-0.349,-0.18)}
-          isSelected={state.isSelectedId}  font={0.22} onClick={()=>{}}
-        />
+        <group position={new Vector3(-0.15,-0.1,-0.)}>
+          <DynaText text={state.token.toUpperCase()+"" || ""} color={"#888"}
+            position={new Vector3(0,0.2,0)}
+            // position={new Vector3(-0.24,-0.349,-0.18)}
+            rotation={[0,0,0]}
+            isSelected={state.isSelectedId}  font={0.22} onClick={()=>{}}
+          />
+        </group>
       }
-      {!!tokensArrayArray && // CURRENT PRICE
-        <DynaText text={state.queryUSDT.data+"" || ""} color={state.isSelectedId ? 0xaa0099 : 0xaaaaaa}
-          onClick={()=>{}} font={0.29}
-          position={new Vector3( + 0.06,-0.349,+0.1)} isSelected={state.isSelectedId} 
-        />
-      }
-      {!!tokensArrayArray && 
-      <DynaText text={"Current Price"+"" || ""}  color={0xffffff}
-        position={new Vector3(+0.28,-0.349,-0.1)}
-        isSelected={state.isSelectedId} font={0.06} 
-      />
-      }
+
+      
 
       
       {/* <DynaText text={!!tokensArrayArray ? "SYNC" : "OFF"} // SYNC ON / OFF
@@ -100,7 +175,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
       {!!tokensArrayArray && state.isSelectedId && state.selectedHasArray &&
       <DynaText text={!state.clicked ? "Send  BUY  Order" : "Send  SELL  Order"} // BUY / SELL
         color={!state.clicked ?  0x33ff33 : 0xff3333}
-        position={new Vector3(!state.clicked ?  - 0.05 :  + 0.27,-0.34,0.455)}
+        position={new Vector3(!state.clicked ?  - 0.05 :  + 0.175,-0.34,0.455)}
         isSelected={state.isSelectedId}  font={0.05} onClick={()=>{}}
         />   
       } 

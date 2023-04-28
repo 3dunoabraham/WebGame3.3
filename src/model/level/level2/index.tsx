@@ -20,6 +20,9 @@ import SellHigh from "./SellHigh";
 import MetaOrbitControls from "@/model/core/MetaOrbitControls";
 import { fetchPost } from "../../../../script/util/helper/fetchHelper";
 import ClickToStart from "./ClickToStart";
+import { Vector3 } from "three";
+import { useFrame } from "@react-three/fiber";
+import BitcoinTradingBox from "./BitcoinTradingBox";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -29,7 +32,7 @@ const selectedTimeframeIndex = 0
 const selectedTimeframe = "3m"
 const feePercent = 0.1
 function Component ({}) {
-  const [btcBoxPos, s__btcBoxPos] = useState(-0.1)
+  const [btcBoxPos, s__btcBoxPos]:any = useState([-0.6,-0.1,-0.5])
   const [chartBoxPos, s__chartBoxPos] = useState([0,0,0])
   const $bitcoin:any = useRef()
   const [_tutoStage, s__LS_tutoStage] = useLocalStorage('level2tutorialstage', "{}")
@@ -249,6 +252,9 @@ function Component ({}) {
     // $bitcoin.current.toggleGame()
     // setTutoStage(3)
   }
+
+
+
   return (<>
     <Scene>
       {enablePan &&
@@ -274,7 +280,7 @@ function Component ({}) {
       </>}
       {hasAnyToken && !tutoStage.lvl &&
       
-        <group position={[-0.86,-0.4,-0.24]} scale={0.3} onClick={()=>{turnOffDemo()}}>
+        <group position={[-0.42,-0.35,-0.24]} scale={0.3} onClick={()=>{turnOffDemo()}}>
           <SetPriceAlarm />
         </group>
       }
@@ -365,19 +371,48 @@ function Component ({}) {
           />
         </group>
       </>}
-      <group position={[-0.6,btcBoxPos,-0.5]} rotation={[0,0,0]}>
-        <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="btc" ref={$bitcoin}
+      <group position={[0,-1,0]}>
+
+{/* <DynaText text={"n"}  color={0x000}
+  position={new Vector3(0,0,-2.5)}
+   font={0.6} 
+/> */}
+</group>
+    <group position={[0,-1,0]} rotation={[0,Math.PI,0]}>
+
+      <DynaText text={"s"}  color={0x000}
+        position={new Vector3(0,0,-2.5)}
+         font={0.6} 
+      />
+    </group>
+
+        <BitcoinTradingBox tokensArrayObj={tokensArrayObj} selectedToken={selectedToken}
+          toggleTrade={toggleTrade}
+          hasAnyToken={hasAnyToken} $bitcoin={$bitcoin}
+          form={form} timeframe={form.id.split("USDT")[1]} token="btc" 
           tokensArrayArray={"btc" in tokensArrayObj ? tokensArrayObj["btc"] : null}
           refetchInterval={selectedToken == "btc" ? 1000 : 60000}
           unselectedColor={"#50545B"}
           onTextClick={()=>{onTextClick("btc")}} 
           setVelocityY={(data:any)=>{toggleTrade("btc",data)}}
-          turnOn={(e:any)=>{turnOn("btc");  e.stopPropagation()}} turnOff={(e:any)=>{turnOff("btc");  e.stopPropagation()}}
-          join={(e:any)=>{join("btc");  e.stopPropagation()}} leave={(e:any)=>{leave("btc");  e.stopPropagation()}}
+          turnOn={(e:any)=>{turnOn("btc");  e.stopPropagation && e.stopPropagation()}} turnOff={(e:any)=>{turnOff("btc");  e.stopPropagation && e.stopPropagation()}}
+          join={(e:any)=>{join("btc");  e.stopPropagation && e.stopPropagation()}} leave={(e:any)=>{leave("btc");  e.stopPropagation && e.stopPropagation()}}
+          trendDown={()=>{trendDown("btc")}} trendUp={()=>{trendUp("btc")}} 
+          onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("btc",tf)}}
+        />
+      {/* <group position={btcBoxPos} rotation={[0,0,0]} ref={$bitcoin}>
+        <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="btc" 
+          tokensArrayArray={"btc" in tokensArrayObj ? tokensArrayObj["btc"] : null}
+          refetchInterval={selectedToken == "btc" ? 1000 : 60000}
+          unselectedColor={"#50545B"}
+          onTextClick={()=>{onTextClick("btc")}} 
+          setVelocityY={(data:any)=>{toggleTrade("btc",data)}}
+          turnOn={(e:any)=>{turnOn("btc");  e.stopPropagation && e.stopPropagation()}} turnOff={(e:any)=>{turnOff("btc");  e.stopPropagation && e.stopPropagation()}}
+          join={(e:any)=>{join("btc");  e.stopPropagation && e.stopPropagation()}} leave={(e:any)=>{leave("btc");  e.stopPropagation && e.stopPropagation()}}
           trendDown={()=>{trendDown("btc")}} trendUp={()=>{trendUp("btc")}} 
           onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("btc",tf)}}
         /> 
-    </group>
+    </group> */}
     {hasAnyToken &&
       <group position={[-0.3,-0.1,0.5]}>
         {("eth" in tokensArrayObj || "btc" in tokensArrayObj) && <>

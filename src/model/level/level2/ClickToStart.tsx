@@ -15,11 +15,12 @@ function Component ({calls}:any) {
     })
 
     return (<>
+        <group position={[0.4,0,0.5]}>
         <group ref={$textGroup}>
             <DynaText
             onClick={()=>{calls.join("btc")}}
             text="Here"
-            color="#f00"
+            color="#ff0000"
             font={0.15}
             position={[-0.65,-0.34,-0.95]}
             rotation={[0,0.4,0]}
@@ -28,7 +29,7 @@ function Component ({calls}:any) {
             <DynaText
             onClick={()=>{calls.join("btc")}}
             text="Here"
-            color="#f00"
+            color="#ff0000"
             font={0.15}
             position={[-0.65,-0.34,-0.95]}
             rotation={[0,Math.PI+0.4,0]}
@@ -38,7 +39,7 @@ function Component ({calls}:any) {
         <DynaText
             onClick={()=>{calls.join("btc")}}
             text="Click            to Start"
-            color="#000"
+            color="#B93CE8"
             font={0.15}
             position={[-0.56,-0.3,-0.95]}
             rotation={[0,0.4,0]}
@@ -47,12 +48,13 @@ function Component ({calls}:any) {
             <DynaText
             onClick={()=>{calls.join("btc")}}
             text="Click            to Start"
-            color="#000"
+            color="#B93CE8"
             font={0.15}
             position={[-0.56,-0.3,-0.95]}
             rotation={[0,Math.PI+0.4,0]}
             >        
         </DynaText>
+        </group>
     </>)
 }
 export default Component

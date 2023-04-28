@@ -34,12 +34,12 @@ export default async function Page() {
             </h1>
           </a>
         </div>
-        <div className='pos-abs top-0 right-0 pt-3'>
+        {/* <div className='pos-abs top-0 right-0 pt-3'>
           {!foundUser && <LoginForm />}
           {foundUser && <>
             <div className='flex-col tx-lx opaci-10 py-8'>Welcome Back!</div>
           </>}
-        </div>
+        </div> */}
       </div>
       <div className='pos-abs top-0 w-100 h-100'>
         <Level2 />

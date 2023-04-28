@@ -193,7 +193,7 @@ const Component = forwardRef(({
 
       
 
-      <group position={position} /* rotation={[Math.PI/2,0,0]} */ >
+      <group position={position}>
         <TextContainer tokensArrayArray={tokensArrayArray}
           state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray}}
           calls={{onTextClick,}}
@@ -252,7 +252,7 @@ const Component = forwardRef(({
       {isSelectedId && selectedHasArray && <>
       <mesh castShadow receiveShadow onClick={() => toggleGame()} scale={score.score ? 1 : 3}
         position={[
-          !clicked ? position[0] - 0.05 : position[0] + 0.18,
+          !clicked ? position[0] - 0.05 : position[0] + 0.27,
           clicked ? position[1] - 0.33 : position[1] - 0.3,
           position[2]+0.34,
         ]}        
@@ -281,10 +281,9 @@ const Component = forwardRef(({
           <meshStandardMaterial color={"red"} />
         </mesh>
       </>}
-      {/* mini  yellow button */}
       {isSelectedId && !!tokensArrayArray &&  clicked && 
         <mesh castShadow receiveShadow scale={score.score ? 1 : 3}
-          position={[ position[0] - 0.4, position[1] - 0.35, position[2] + 0.1]}
+          position={[ position[0] - 0.42, position[1] - 0.35, position[2] + 0.01]}
         >
           <boxGeometry args={[0.02, 0.09, 0.02]} />
           <meshStandardMaterial color={"#FEEA4D"} />
