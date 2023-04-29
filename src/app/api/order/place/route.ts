@@ -72,6 +72,8 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
 
     // throw new Error
     // return
+  } else {
+    asdasd = existingStart
   }
   let orderObj:any = {
     symbol: symbol,
@@ -82,11 +84,17 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
   }
   
   let attempts = asdasd.attempts
-  if (!!attempts) {
-    const { data: order, error } = await supabase
+    console.log("user attempts...",new_uid, asdasd.attempts)
+    if (!!attempts) {
+    const { data: order, error:error2 } = await supabase
               .from<any, any>('order')
               .insert(orderObj)
               .single()
+      if (error2) {
+      console.log("error 2")
+      throw error2
+    }
+    console.log("order request...",order)
   }
 
   // // Construct message
