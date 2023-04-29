@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { MapOrEntries, useLocalStorage, useMap } from "usehooks-ts";
 import { InputSelect } from "@/dom/atom/inputs/InputSelect";
 
-export default function Component({up__Value=(arg1:any)=>{}}) {
+function Component({up__Value=(arg1:any)=>{}}) {
     const [LS_itemsPerPage, s__LS_itemsPerPage] = useLocalStorage('itemsPerPage', 25)
     const [itemsPerPage,s__itemsPerPage] = useState<number>(LS_itemsPerPage)
     
@@ -31,3 +31,4 @@ export default function Component({up__Value=(arg1:any)=>{}}) {
         </div>
     )
 }
+export default Component

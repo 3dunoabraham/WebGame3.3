@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { BottomSectionInputModule } from '@/module/unit/BottomSectionInputModule'
 import { BottomSectionOutputModule } from '@/module/unit/BottomSectionOutputModule'
 import { fetchJsonArray } from '@/../script/util/helper/fetchHelper'
-import { API_PEOPLE_BASE, API_UNIT_OPTS_BASE } from '@/../script/constant/api'
+import { API_PEOPLE_BASE, API_UNIT_OPTS_BASE } from '../../../script/constant/index'
 import { DEFAULT_COLOR_OBJARRAY } from '@/../script/constant/unit'
 // ReactFunctionComponent
 export const UnitBottomForm =({

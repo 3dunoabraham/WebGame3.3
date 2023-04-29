@@ -12,7 +12,7 @@ const Component = ({
     password:"",
     isForm: false,
   })
-  const { user, login, demo, jwt }:any = useAuth()
+  const { user, do:{login, demo}, jwt }:any = useAuth()
   const triggerDemo = async () => {
     let res = await demo()
   }

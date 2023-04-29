@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server"
 
 
+import CONSTANTS from '@/../script/constant/json/api.json'
 import { JWTNAME, fetchLogin } from '@/../script/state/repository/auth';
 
 export async function POST(request: NextRequest) {
@@ -9,7 +10,12 @@ export async function POST(request: NextRequest) {
   const jwt:any = await fetchLogin({ email, password, })
   if (!jwt) { throw new Error() }
   
-  let bodyResponse = { jwt, user: { email }, }
+  let bodyResponse = { jwt,
+    user: {
+      email, apiname: process.env.AUTH_API_NAME || CONSTANTS.AUTH_API_NAME,
+      rolname: "root",
+    },
+  }
   const fullRes:any = new Response(JSON.stringify(bodyResponse), {
     status: 200,
     headers: {

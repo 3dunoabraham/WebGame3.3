@@ -2,8 +2,9 @@ import { cookies } from "next/headers";
 
 
 import { JWTNAME, USERCOOKIENAME, fetchUser } from "@/../script/state/repository/auth";
+import { GRANTTREE } from "../../constant";
 
-export const DEFAULT_SESSION_OBJ = {jwt:null,user:null}
+export const DEFAULT_SESSION_OBJ = {jwt:null,user:null,can:null}
 
 export function parseJwt(token: any) {
   const base64Url = token.split('.')[1];
@@ -28,9 +29,10 @@ export const fetchSession = async (isFetching:boolean = false) => {
   const cookieUser:any = getUserCookie()
   if (!foundJWT) return DEFAULT_SESSION_OBJ
   let foundUser:any = isFetching ? await fetchUser(foundJWT) : cookieUser
-  
+  let can = GRANTTREE[foundUser.apiname || "sp"][foundUser.rolname || "root"]
   return {
     jwt: foundJWT,
     user: foundUser,
+    can,
   }
 }

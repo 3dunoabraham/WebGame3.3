@@ -3,7 +3,7 @@ import { useMap } from "usehooks-ts"
 import { BsTrash } from "react-icons/bs"
 
 
-import { API_NOTES } from "@/../script/constant/api"
+import { API_NOTES } from "../../../script/constant/index"
 import { fetchDelete, fetchPost } from "@/../script/util/helper/fetchHelper"
 import { AppContext } from "@/../script/state/context/AppContext"
 // ReactFunctionComponent

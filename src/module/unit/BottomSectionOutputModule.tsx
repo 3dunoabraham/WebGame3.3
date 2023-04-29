@@ -3,7 +3,7 @@ import { useMap } from 'usehooks-ts'
 
 
 // import { dlog, dd } from '@/scripts/helpers/devHelper'
-import { useDeviceXS_LG } from '@/../script/util/helper/useHooksHelper'
+import { useDeviceXS_LG } from '../../../script/util/hook/useHooksHelper'
 import { jss, jssWSwitch } from '@/../script/util/type/stringHelper'
 export interface BottomSectionOutputModuleProps {
     uid: any; label: string; sublabel?: string; flex?: string;

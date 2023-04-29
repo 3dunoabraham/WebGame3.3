@@ -3,7 +3,7 @@ import '@/../style/reset.css'
 import '@/../style/theme.css'
 import '@/../style/css.css'
 import { fetchSession } from '@/../script/state/repository/session'
-import ClientProviders from '@/dom/organ/layout/ClientProviders'
+import AppClientProvider from '@/dom/organ/layout/AppClientProvider'
 
 export const metadata = {
   title: 'GTA ByteCity',
@@ -23,9 +23,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
       </head>
       <body className="ma-0 h-min-90vh " > 
-        <ClientProviders session={session}>
+        <AppClientProvider session={session}>
           <> {children}  </>
-        </ClientProviders>
+        </AppClientProvider>
         <div className='pos-abs bottom-0  flex-justify-end pb-1 tx-bold tx- tx-ls-1 tx-italic h-5 w-100 flex-col tx-sm box-shadow-i-2-t bg-black tx-white'>
           this app is under heavy development
         </div>

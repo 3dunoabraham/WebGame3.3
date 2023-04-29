@@ -5,7 +5,7 @@ import { dd } from '@/../script/util/helper/devHelper'
 import { FileJustUploaded } from "@/dom/atom/inputs/FileJustUploaded"
 import { InputFile } from "@/dom/atom/inputs/InputFile"
 import { API_DOCS, API_DOC_UPLOAD_BASE, API_INVALID_DOC_FILETYPE, API_INVALID_IMAGE_CORRUPT
-} from '@/../script/constant/api'
+} from '../../../script/constant/index'
 import { DEFAULT_DOC_CATEGORIES } from '@/../script/constant/unit'
 import { filename2Extension, filename2Type, isValidDocExt } from '@/../script/util/type/stringHelper'
 import { BsExclamationCircle } from 'react-icons/bs'

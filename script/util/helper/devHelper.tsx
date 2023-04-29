@@ -1,13 +1,13 @@
 let isDevEnvironment = false;
 
 if (process && process.env.NODE_ENV === 'development') {
-    isDevEnvironment = true;
+  isDevEnvironment = true;
 }
 export const dd = (...args:any)=>{
-    if (process.env.ddInConsole) {
-        console.log("🖥️→",args.shift());
-        console.log(...args)
-    }
+  if (process.env.ddInConsole) {
+    console.log("🖥️→",args.shift());
+    console.log(...args)
+  }
 }
 export const dlog = (...args:any)=>{ if (isDevEnvironment && process.env.logInConsole) { console.log("#",...args) } }
 export const dtable = (args:any)=>{ if (isDevEnvironment) { console.table(args) } }
@@ -23,7 +23,7 @@ export {isDevEnvironment};
 
 
 export const getRandomUID = ()=>{
-    let rdm0 = parseInt(`${(Math.random()*9000 ) + 1000}`)    
-    let rdm1 = parseInt(`${(Math.random()*9000 ) + 1000}`)    
-    return `${rdm0}-${rdm1}`
+  let rdm0 = parseInt(`${(Math.random()*9000 ) + 1000}`)    
+  let rdm1 = parseInt(`${(Math.random()*9000 ) + 1000}`)    
+  return `${rdm0}-${rdm1}`
 }

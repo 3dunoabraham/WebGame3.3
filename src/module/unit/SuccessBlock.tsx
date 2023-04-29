@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useCopyToClipboard } from "usehooks-ts";
 
 
-import { OFFICIAL_URL } from "@/../script/constant/api";
+import { OFFICIAL_URL } from "../../../script/constant/index";
 import { AppContext } from "@/../script/state/context/AppContext";
 import { BsClipboard } from "react-icons/bs";
 export const UnitSuccessBlock = ({

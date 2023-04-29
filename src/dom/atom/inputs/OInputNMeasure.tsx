@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useEffectOnce, useMap, MapOrEntries } from 'usehooks-ts'
 
 
-import { useDeviceXS_LG } from '@/../script/util/helper/useHooksHelper';
+import { useDeviceXS_LG } from '../../../../script/util/hook/useHooksHelper';
 import { validateInteger } from '@/../script/util/helper/validationHelper'
 import { InputSelect } from '@/dom/atom/inputs/InputSelect'
 import CSS from '@/../style/module/NMeasure.module.css'

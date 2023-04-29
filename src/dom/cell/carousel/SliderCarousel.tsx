@@ -2,8 +2,8 @@ import { forwardRef, useImperativeHandle, useMemo, useRef, useState } from 'reac
 import { useEventListener, useInterval, useMap, useOnClickOutside } from 'usehooks-ts';
 
 
-import { useDeviceXS_LG, useDeviceXS_MD, useDeviceXS_SM, useDeviceXS_XL } from '@/../script/util/helper/useHooksHelper';
-import { STATIC_IMAGE_BASE } from '@/../script/constant/api';
+import { useDeviceXS_LG, useDeviceXS_MD, useDeviceXS_SM, useDeviceXS_XL } from '../../../../script/util/hook/useHooksHelper';
+import { STATIC_IMAGE_BASE } from '../../../../script/constant/index';
 import { ImageSlider } from '@/dom/cell/carousel/ImageSlider';
 import CSS from '@/../style/module/Slider.module.css'
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';

@@ -1,24 +1,21 @@
+"use client";
 import { useQuery } from "@tanstack/react-query";
 import { useContext, useEffect, useMemo } from "react";
 import { BsChevronUp, BsCircle } from "react-icons/bs";
+import { useRouter } from "next/router";
+
 
 import { DEFAULT_UNIT_FOREIGNS, fetchUnitForeigns } from "@/../script/util/helper/fetchHelper";
-// import { SidebarFilterSection } from "@/src/items/templates/SidebarFilterSection";
-// import SidebarHeader from "@/src/items/templates/SidebarHeader";
 import { AppContext } from "@/../script/state/context/AppContext";
 import { InventoryContext } from "@/../script/state/context/InventoryContext";
-import { useRouter } from "next/router";
 import { FAKE_UNIT_FOREIGNS } from "@/../script/constant";
 import SidebarHeader from "@/dom/organ/layout/SidebarHeader";
 import { SidebarFilterSection } from "@/dom/organ/layout/SidebarFilterSection";
-// import { FAKE_UNIT_FOREIGNS } from "@/scripts/constants";
 
-export default function Component({ online=true }) {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const { query } = useRouter()
+function Component({ online=true }) {
+    // const { query } = useRouter()
     const inv = useContext(InventoryContext)
     const app:any = useContext(AppContext)
-    // console.log("online", app.online)
     const INVENTORY_FILTERS_OBJ = {
         sales_status:{
             filter: {title: "Sales Status",optField: "label", optName:"sales_status", fieldName:"label"},
@@ -35,6 +32,11 @@ export default function Component({ online=true }) {
     const q__foreigns = useMemo(()=> (
         q_foreigns.error || !q_foreigns.data || q_foreigns.isLoading) ? DEFAULT_UNIT_FOREIGNS : q_foreigns.data
     ,[q_foreigns])
+
+
+
+
+
 
 
     // const filtersObj = useMemo(()=>{
@@ -60,6 +62,10 @@ export default function Component({ online=true }) {
     //     // eslint-disable-next-line react-hooks/exhaustive-deps
     // },[q__foreigns, inv.unitsArray])
 
+
+
+
+    
 
     const filtersObj = useMemo(() => {
         const lookupTable:any = {
@@ -98,12 +104,10 @@ export default function Component({ online=true }) {
     useEffect(()=>{
         let freshFilters:any = {}
         let sales_status = app.query.stts
-        // console.log("q__foreigns", q__foreigns)
         if (sales_status && q__foreigns.sales_statuses) {
             let theLabel = q__foreigns.sales_statuses.filter((anItem:any, index:any)=>{
                 return anItem.id == sales_status
             })
-            // console.log(theLabel)
             if (theLabel.length > 0)
             {
                 freshFilters["sales_status"] = {
@@ -115,7 +119,6 @@ export default function Component({ online=true }) {
     },[q__foreigns])
 
     const handleFilterClick = (data:any)=> {
-        // console.log("handleFilterClick", data)
         let newFiltersObj = {...app.filters,...{
             [data.optName]: { on: true, id: data.id, label: data.label, title: data.title}
         }}
@@ -127,16 +130,16 @@ export default function Component({ online=true }) {
     }
 
     return (<>
-    <div className="flex-center py-4 clickble  px-4 bg-w-hov-10  invisible Q_lg_x">
+    {/* <div>qwe</div> */}
+    {/* <div className="flex-center py-4 clickble  px-4 bg-w-hov-10  invisible Q_lg_x">
         <div className=" pr-3 invisible  Q_lg_x"><BsCircle /></div>
         <div className="px-1 tx-center tx-lg opaci-hov--50"></div>
         <div className="flex-1 pl-3 Q_lg_x w-min-200px"></div>
         <div className=" tx-center   tx-mdl Q_lg_x" ><BsChevronUp /></div>
     </div>
     <div className="pos-fix top-0  flex-col Q_lg_x">
-        <SidebarHeader />
+        <SidebarHeader /> */}
         <div className='flex-1 w-100'>
-            {/* {inv.unitsArray.length} */}
             {!q_foreigns.data && 
                 <div className="pl-8 pt-6 opaci-50 w-300px Q_lg_x">Loading Filters...</div>
             }
@@ -150,6 +153,8 @@ export default function Component({ online=true }) {
                 )
             })}
         </div>
-    </div>
+    {/* </div> */}
     </>)
 }
+
+export default Component

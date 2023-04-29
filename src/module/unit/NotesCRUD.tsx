@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react"
 import { BsTrash } from "react-icons/bs"
 
 
-import { API_NOTES } from "@/../script/constant/api"
+import { API_NOTES } from "../../../script/constant/index"
 import { fetchDelete, fetchPost } from "@/../script/util/helper/fetchHelper"
 import { useMap } from "usehooks-ts"
 import { AppContext } from "@/../script/state/context/AppContext"

@@ -2,7 +2,7 @@ import { useState, useMemo, useRef } from 'react'
 import { useOnClickOutside, useInterval, useEventListener } from 'usehooks-ts'
 
 
-import { STATIC_IMAGE_BASE } from '@/../script/constant/api'
+import { STATIC_IMAGE_BASE } from '../../../../script/constant/index'
 import CSS from '@/../style/module/Slider.module.css'
 export const ImageSlider = ({
     GW, filteredFileList, loadedImages, loadedImages_do,

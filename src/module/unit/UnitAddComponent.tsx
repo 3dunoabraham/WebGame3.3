@@ -8,9 +8,9 @@ import Link from 'next/link'
 
 
 import { DEFAULT_UNIT, IUnit, DEFAULT_DOC_CATEGORIES } from '@/../script/constant/unit'
-import { useUnloadHandler } from '@/../script/util/helper/useHooksHelper';
+import { useUnloadHandler } from '../../../script/util/hook/useHooksHelper';
 import { unit2Form } from '@/../script/util/type/unitHelper';
-import { API_UNITS } from '@/../script/constant/api';
+import { API_UNITS } from '../../../script/constant/index';
 import { AppContext } from '@/../script/state/context/AppContext';
 import { fetchPost, parseChangedDataToAddObj } from '@/../script/util/helper/fetchHelper';
 import { UnitMainForm } from '@/module/unit/MainForm'

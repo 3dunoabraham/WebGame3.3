@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BsBox, BsHouse, BsStack, BsPeople } from 'react-icons/bs'
+import { BsBox, BsHouse, BsStack, BsPeople, BsFiles } from 'react-icons/bs'
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
@@ -9,7 +9,8 @@ function Component ({ links } : any) {
 
   const IconSwitch:any = {
     home: <BsHouse />,
-    agreements: <BsStack />,
+    agreements: <BsFiles />,
+    inventory: <BsStack />,
     users: <BsPeople />,
     unit: <BsBox />,
   }

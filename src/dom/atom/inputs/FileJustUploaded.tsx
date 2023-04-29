@@ -2,7 +2,7 @@ import { BsTrash, BsCloudArrowDown, BsExclamationTriangle } from 'react-icons/bs
 import { AiOutlineLoading } from 'react-icons/ai'
 
 
-import { STATIC_DOC_BASE } from '@/../script/constant/api'
+import { STATIC_DOC_BASE } from '../../../../script/constant/index'
 import Link from 'next/link'
 // ReactFunctionComponent
 export const FileJustUploaded = ({

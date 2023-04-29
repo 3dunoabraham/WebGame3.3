@@ -8,7 +8,7 @@ import { DEFAULT_UNIT_FOREIGNS, fetchDelete, fetchUnitForeigns, parsedFetchedUni
 from "@/../script/util/helper/fetchHelper";
 import { sortIDDesc } from "@/../script/util/type/arrayHelper";
 // import { SidebarFilterToolbar } from "@/src/items/templates/SidebarFilterToolbar";
-import { API_UNITS } from "@/../script/constant/api";
+import { API_UNITS } from "../../../script/constant/index";
 import { SidebarFilterToolbar } from "@/dom/organ/layout/SidebarFilterToolbar";
 // import LOCAL_SETTINGS_JSON from '@/../script/constant/json/localSettings.json'
 

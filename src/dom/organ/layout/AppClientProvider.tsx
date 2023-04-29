@@ -10,6 +10,7 @@ import AuthProvider from '@/../script/state/context/AuthContext'
 import { AppContext } from "@/../script/state/context/AppContext";
 import AlertContainer from '@/dom/atom/common/AlertContainer';
 import { useNavigationEvent } from '@/../script/util/hook/useNavigationEvent';
+import { InventoryProvider } from '@/../script/state/context/InventoryContext';
 
 function Component({ session, children, }: { session: any, children: React.ReactElement }) {
   const searchParams:any = useSearchParams();
@@ -46,30 +47,32 @@ function Component({ session, children, }: { session: any, children: React.React
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[alertMap, filters, searchParams,sidebarLinks, sidebarPages])
-  useNavigationEvent( ()=>{ console.log("loaded page") }, () => ()=>{ console.log("navigated") });
+  // useNavigationEvent( ()=>{ console.log("loaded page") }, () => ()=>{ console.log("navigated") });
 
   return (
-    <AuthProvider {...{session}}>
-      <AppContext.Provider value={appValue}>
+    <AppContext.Provider value={appValue}>
+      <AuthProvider {...{session}}>
         <QueryClientProvider client={queryClient}>
-          {children}        
-          <div>
-            <AlertContainer {...{ s__msg: (val:any)=>(alertMap__do.set("neutral", val)), msg:alertMap.get("neutral")}} />
-            <AlertContainer {...{ s__msg: (val:any)=>(alertMap__do.set("success", val)), msg:alertMap.get("success")}}
-                badgeClass="ims-badge-success"
-            />
-            <AlertContainer {...{
-                s__msg: (val:any)=>(alertMap__do.set("warn", val)), msg:alertMap.get("warn")}}
-                badgeClass="ims-badge-secondary" 
-            />
-            <AlertContainer {...{
-                s__msg: (val:any)=>(alertMap__do.set("error", val)), msg:alertMap.get("error")}}
-                badgeClass="ims-badge-error" 
-            />
-          </div>
+          <InventoryProvider>
+            {children}        
+            <div>
+              <AlertContainer {...{ s__msg: (val:any)=>(alertMap__do.set("neutral", val)), msg:alertMap.get("neutral")}} />
+              <AlertContainer {...{ s__msg: (val:any)=>(alertMap__do.set("success", val)), msg:alertMap.get("success")}}
+                  badgeClass="ims-badge-success"
+              />
+              <AlertContainer {...{
+                  s__msg: (val:any)=>(alertMap__do.set("warn", val)), msg:alertMap.get("warn")}}
+                  badgeClass="ims-badge-secondary" 
+              />
+              <AlertContainer {...{
+                  s__msg: (val:any)=>(alertMap__do.set("error", val)), msg:alertMap.get("error")}}
+                  badgeClass="ims-badge-error" 
+              />
+            </div>
+          </InventoryProvider>
         </QueryClientProvider>
-      </AppContext.Provider>
-    </AuthProvider>
+      </AuthProvider>
+    </AppContext.Provider>
   )
 }
 

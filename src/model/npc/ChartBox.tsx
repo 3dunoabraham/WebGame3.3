@@ -9,8 +9,8 @@ import { AppContext } from "../../../script/state/context/AppContext";
 import DynaText from "@/model/npc/TradingBox/DynaText";
 import { parseDecimals } from "../../../script/util/helper";
 import { tokenColors } from "@/model/npc/TradingBox";
-import { useQueryPlus } from "@/../script/util/helper/useHooksHelper";
 import KLineChart3d from "@/model/extra/KLineChart3d";
+import { useQueryPlus } from "@/../script/util/hook/useHooksHelper";
 
 type BoxProps = {
   position: [number, number, number];

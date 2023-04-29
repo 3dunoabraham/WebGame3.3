@@ -11,6 +11,7 @@ const Component = ({
   const app:any = useContext(AppContext)
   const router = useRouter()
   const $email:any = useRef()
+  const $password:any = useRef()
   const [ loadings, t__loadings, s__loading ]:any = useBools({
     login: false
   })
@@ -19,7 +20,7 @@ const Component = ({
     password:"",
     isForm: false,
   })
-  const { user, login, demo, jwt }:any = useAuth()
+  const { user, do:{login, demo}, jwt }:any = useAuth()
   const triggerDemo = async () => {
     let res = await demo()
     // console.log("res", res)
@@ -42,7 +43,21 @@ const Component = ({
     if (!$email.current) return
     $email.current.focus()
   },[forms.isForm])
-
+  const handleEmailKeyPress = (event:any) => {
+    if(['Enter','Tab'].includes(event.key)){
+      // console.log('enter press here! ')
+      if (!$password.current) return
+      $password.current.focus()
+    }
+  }
+  const handlePwKeyPress = (event:any) => {
+    // console.log("event.key",event.key)
+    if(['Enter'].includes(event.key)){
+      // console.log('enter press here! ')
+      triggerLogin()
+    }
+  }
+  
   return (<>
     <div className='flex-col '>
         
@@ -56,10 +71,12 @@ const Component = ({
           <div className='flex-col flex-align-stretch gap-3 box-shadow-1-t pa-2 bord-r- mt-8 z-100'>
             <input value={forms.email} onChange={(e:any)=>s__forms({...forms,...{email:e.target.value}})}
               type="text" placeholder='Email'  ref={$email}
+              onKeyUp ={handleEmailKeyPress} 
               className='bord-r- noborder opaci-50 opaci-hov-75  py-1 px-2 tx-md  bg-trans '
             />
             <input value={forms.password} onChange={(e:any)=>s__forms({...forms,...{password:e.target.value}})}
-              type="password" placeholder='Password' 
+              type="password" placeholder='Password'  ref={$password}
+              onKeyUp ={handlePwKeyPress} 
               className='bord-r- noborder opaci-50 opaci-hov-75  py-1 px-2 tx-lg bg-trans'
             />
           </div>

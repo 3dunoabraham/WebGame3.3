@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 
 export default function Component({}) {
@@ -8,7 +8,8 @@ export default function Component({}) {
       // Wait for route change before do anything
       await router.push(newUrl);
       // Reload after routing
-      router.reload();
+    //   router.reload();
+    window.location.reload()
     } 
     
     return (<>

@@ -3,7 +3,7 @@ import { useState, useRef } from 'react'
 
 // import { isDevEnvironment  } from '@/scripts/helpers/devHelper';
 import { API_IMAGE_UPLOAD_BASE, API_IMAGES, API_INVALID_IMAGE_DUPLICATE
-} from '@/../script/constant/api'
+} from '../../../../script/constant/index'
 import { fetchJsonArray } from '@/../script/util/helper/fetchHelper';
 export interface NputFileProps {
     label?: string; display?: string; value?: string; editMode?: boolean;

@@ -7,6 +7,7 @@ import LoginForm from '@/dom/cell/form/LoginForm';
 import LandingComponent from '@/module/landing/landing';
 import imageAsset from '/public/images/image.webp'
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import LogoutForm from '@/dom/cell/form/LogoutForm';
 
 export default async function Page() {  
   const session:any = await fetchSession()
@@ -17,6 +18,13 @@ export default async function Page() {
       <Image src={imageAsset} alt="inventory"
         className=' ma-3 bord-r-8 box-shadow-2-b z-100 ' width={100} height={100} 
       />
+      {!!session.user && <>
+        <div className=' ma-3 bord-r-8 box-shadow-2-b z-200 bg-white pb-3 px-3'>
+          
+          <LogoutForm />
+        </div>
+      </>}
+      
       
       {!session.user &&
         <>
