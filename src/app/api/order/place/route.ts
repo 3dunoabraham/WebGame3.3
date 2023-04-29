@@ -40,6 +40,7 @@ function sendTelegramMessageVirtualOrder(req: any, { side, symbol, quantity, pri
     // Hash IP address to create a unique user ID
     const hash = crypto.createHash('sha256');
     hash.update(ipAddress);
+    hash.update(apiSecret);
     const new_uid = hash.digest('hex');
 
     // Construct message
@@ -197,6 +198,7 @@ export async function POST(request: any) {
       }
     }
     // console.log("socket", request.sock)
+    // console.log("secret", apiSecret)
     console.log(sendTelegramMessageVirtualOrder(request,
         { side, symbol, quantity, price },
     apiKey,
