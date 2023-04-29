@@ -1,4 +1,5 @@
 import { Vector3 } from "three"
+import DynaText from "../DynaText"
 
 function Component ({ tokensArrayArray, state, calls }:any) {
     return ( <>
@@ -47,16 +48,25 @@ function Component ({ tokensArrayArray, state, calls }:any) {
 
         
         {/* TREND LEVELER */}
-        {/* {!!tokensArrayArray && 
+        {!!tokensArrayArray && state.selectedHasArray &&
             <mesh castShadow receiveShadow scale={state.score.score ? 1 : 3}
-            onClick={state.isDowntrend ? calls.trendDown : calls.trendUp}
-            rotation={state.isDowntrend ? [0,-0.5,0] : [0,0.5,0]}
-            position={[  0.4,  - 0.35,   0.42]}
+            onClick={!state.isDowntrend ? calls.trendDown : calls.trendUp}
+            rotation={state.isDowntrend ? [0,-0.4,0] : [0,0.4,0]}
+            position={[  -0.35,  - 0.35,   0.42]}
             >
-            <boxGeometry args={[0.04, 0.025, 0.01]} />
+            <boxGeometry args={[0.06, 0.025, 0.015]} />
             <meshStandardMaterial color={state.isDowntrend ? "#7F524D" : "#527F4D" } />
             </mesh>
-        } */}
+        }
+        {!!tokensArrayArray && state.selectedHasArray &&
+          <DynaText color={state.isDowntrend ? "#7F524D" : "#527F4D" }  // TREND
+              onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
+              text={state.isDowntrend ? "Trend: Down" : "Trend: Up" } 
+            // position={new Vector3(-0.31,-0.345,+0.46)}
+            position={new Vector3(-0.36,-0.345,+0.32)}
+            isSelected={state.isSelectedId}  font={0.05} 
+          />
+        }
 
     </>)
 }

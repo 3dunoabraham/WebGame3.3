@@ -10,26 +10,26 @@ function Component ({}) {
   useFrame((ctx, delta)=>{
       if (!$textGroup.current) return
 
-      $textGroup.current.position.x = Math.sin(Date.now()/500)/10
+      $textGroup.current.position.x = Math.sin(Date.now()/500)/10 + 0.1
   })
 
-  return (<group ref={$textGroup} rotation={[-1,0,0]} position={[0,0,0.5]}>
-    <Text position={[1.1,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
-      material={new MeshStandardMaterial({ side: 0, color: "#ff00ff" })}
+  return (<group ref={$textGroup} rotation={[-1,0,0]} position={[0,0,0.2]}>
+    <Text position={[0.85,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
+      material={new MeshStandardMaterial({ side: 0, color: "#cc00cc" })}
     >
-      Click          to Trade
+      Click              to continue
     </Text>
-    <Text position={[1.1,0,0]} fontSize={0.25} rotation={[0,0,0]} 
-      material={new MeshStandardMaterial({ side: 0, color: "#ff00ff" })}
+    <Text position={[0.85,0,0]} fontSize={0.25} rotation={[0,0,0]} 
+      material={new MeshStandardMaterial({ side: 0, color: "#cc00cc" })}
     >
-      Click          to Trade
+      Click              to continue
     </Text>
-    <Text position={[0.9,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
+    <Text position={[0.5,0,0]} fontSize={0.4} rotation={[0,Math.PI,0]} 
       material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}
     >
       LIVE 
     </Text>
-    <Text position={[0.9,0,0]} fontSize={0.25} rotation={[0,0,0]} 
+    <Text position={[0.5,0,0]} fontSize={0.4} rotation={[0,0,0]} 
       material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}
     >
       LIVE 

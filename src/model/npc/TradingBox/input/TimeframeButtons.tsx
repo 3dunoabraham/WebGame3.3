@@ -26,7 +26,7 @@ function Component ({ tokensArrayArray, state, calls }:any) {
             {state.isSelectedId && !!tokensArrayArray && ["3m","15m","4h"].map((aTimeframe, index) => {
             return (<group key={index}>
 
-            <DynaText text={aTimeframe} color={index == state.selectedTimeframeIndex ? 0xaa9900 : 0x888888}
+            <DynaText text={aTimeframe} color={index == state.selectedTimeframeIndex ? 0xff00ff : 0x333333}
             position={new Vector3(
                 0.25 +(index*0.04),
                 - (index == index ? 0.34 : 0.37),

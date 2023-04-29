@@ -20,7 +20,7 @@ function Component ({calls}:any) {
             <DynaText
             onClick={()=>{calls.join("btc")}}
             text="Start"
-            color="#ff9900"
+            color="#aa0000"
             font={0.15}
             position={[-0.65,-0.34,-0.95]}
             rotation={[0,0.4,0]}
@@ -29,7 +29,7 @@ function Component ({calls}:any) {
             <DynaText
             onClick={()=>{calls.join("btc")}}
             text="Start"
-            color="#ff9900"
+            color="#aa0000"
             font={0.15}
             position={[-0.65,-0.34,-0.95]}
             rotation={[0,Math.PI+0.4,0]}
@@ -38,9 +38,9 @@ function Component ({calls}:any) {
         </group>
         <DynaText
             onClick={()=>{calls.join("btc")}}
-            text="Click the button to start"
-            color="#ff0000"
-            font={0.07}
+            text="Click the start button"
+            color="#cc00cc"
+            font={0.08}
             position={[-0.84,-0.445,-0.78]}
             rotation={[-Math.PI/2,0,0]}
             >        

@@ -67,8 +67,18 @@ function Component ({}) {
       s__LS_tokensArrayObj((prevValue) => JSON.stringify(new_tokensArrayObj));
       s__tokensArrayObj(new_tokensArrayObj)
   }
-  const trendDown = (x:any) => {  }
-  const trendUp = (x:any) => {  }
+  const trendDown = (x:any) => { 
+    console.log("trendDown")
+    s__selectedToken(x)
+    updateTokenOrder(x,selectedTimeframeIndex,"mode",1)
+
+   }
+  const trendUp = (x:any) => { 
+    console.log("trendUp")
+    s__selectedToken(x)
+    updateTokenOrder(x,selectedTimeframeIndex,"mode",0)
+
+   }
   const turnOn = (x:any) => { 
     // console.log("turnon",tutoStage)
     s__selectedToken(x)
@@ -129,9 +139,12 @@ function Component ({}) {
     // if (newTradeObj.side == "buy")
     {
       {
-        let keyval = !binanceKeys.length ? prompt("Enter public:secret keys","") : binanceKeys
-        s__binanceKeys("test")
-        if (!keyval) return
+        let keyval = !binanceKeys.length ? prompt("Enter public:secret keys","test") : binanceKeys
+        
+        if (!keyval) {
+          s__binanceKeys("test")
+          return
+        }
 
         s__binanceKeys(keyval)
         // side, symbol, quantity:_quantity, price:_price,apiKey,apiSecret
@@ -171,13 +184,17 @@ function Component ({}) {
       tokensArrayObj[_token] = new_tokensArrayObj
     }
     let old_tokensArrayObjArray = [...tokensArrayObj[_token]]
+    console.log("old", old_tokensArrayObjArray[timeframeIndex])
+    console.log("mid", {[substate]:value})
     let newCrystal = {
+      ...old_tokensArrayObjArray[timeframeIndex],
       ...{[substate]:value},
       ...getComputedLevels({
         ...old_tokensArrayObjArray[timeframeIndex],
         ...{[substate]:value}
       }),
     }
+    console.log("new", newCrystal)
     old_tokensArrayObjArray[timeframeIndex] = {...old_tokensArrayObj,...newCrystal}
     let bigTokensObj = {...tokensArrayObj, ...{[_token]:old_tokensArrayObjArray}}
     s__tokensArrayObj(bigTokensObj)
@@ -198,7 +215,7 @@ function Component ({}) {
         // console.log("token", token)
         return token in tokensArrayObj
     })
-    console.log("asdasdasdas", interestCount.length , Object.keys(tokensArrayObj).length)
+    // console.log("asdasdasdas", interestCount.length , Object.keys(tokensArrayObj).length)
     return interestCount.length == 4
 },[tokensArrayObj])
   useEffect(()=>{
