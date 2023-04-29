@@ -1,5 +1,6 @@
 import { Vector3 } from "three"
 import DynaText from "../DynaText"
+import { Torus } from "@react-three/drei"
 
 function Component ({ tokensArrayArray, state, calls }:any) {
     return ( <>
@@ -49,24 +50,29 @@ function Component ({ tokensArrayArray, state, calls }:any) {
         
         {/* TREND LEVELER */}
         {!!tokensArrayArray && state.selectedHasArray &&
-            <mesh castShadow receiveShadow scale={state.score.score ? 1 : 3}
+            <mesh castShadow receiveShadow scale={!state.isDowntrend ? 1 : 2}
             onClick={!state.isDowntrend ? calls.trendDown : calls.trendUp}
-            rotation={state.isDowntrend ? [0,-0.4,0] : [0,0.4,0]}
-            position={[  -0.35,  - 0.35,   0.42]}
+            rotation={state.isDowntrend ? [0,Math.PI/4,0] : [0,0,0]}
+            position={[  -0.34,  state.isDowntrend ? - 0.32 : -0.35,   0.37]}
             >
-            <boxGeometry args={[0.06, 0.025, 0.015]} />
-            <meshStandardMaterial color={state.isDowntrend ? "#7F524D" : "#527F4D" } />
+            <boxGeometry args={[0.033, 0.025, 0.033]} />
+            <meshStandardMaterial color={state.isDowntrend ? "#009900" : "#aaaaaa" } />
             </mesh>
         }
-        {!!tokensArrayArray && state.selectedHasArray &&
-          <DynaText color={state.isDowntrend ? "#7F524D" : "#527F4D" }  // TREND
-              onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
-              text={state.isDowntrend ? "Trend: Down" : "Trend: Up" } 
+        {!!tokensArrayArray && state.selectedHasArray && <>
+            <Torus args={[0.05,0.01,3,4]} rotation={[Math.PI/2,0,0]} position={[-0.34,-0.354,0.37]}
+            >
+                <meshStandardMaterial color={state.isDowntrend ? "#009900" : "#888888" } />
+
+            </Torus>
+          <DynaText color={state.isDowntrend ? "#009900" : "#666666" }  // TREND
+              onClick={state.selectedHasArray ? calls.trendDown : calls.trendUp}
+              text={state.isDowntrend ? "Watching" : "Waiting" } 
             // position={new Vector3(-0.31,-0.345,+0.46)}
-            position={new Vector3(-0.36,-0.345,+0.32)}
-            isSelected={state.isSelectedId}  font={0.05} 
+            position={new Vector3(-0.34,-0.345,+0.45)}
+            isSelected={state.isSelectedId}  font={0.035} 
           />
-        }
+        </>}
 
     </>)
 }

@@ -17,8 +17,8 @@ function Component ({tokensArrayArray, state, calls}:any) {
       {// non-hovered TOKEN NAME  
         <>
         <DynaText text={translation[state.token]+"" || ""} color={0x888888}   
-          position={new Vector3(-0.35,-0.349,0.1)} rotation={[-Math.PI/2,0,Math.PI/2]}
-          isSelected={state.isSelectedId}  font={0.12} onClick={()=>{}}
+          position={new Vector3(-0.35,-0.349,0.09)} rotation={[-Math.PI/2,0,Math.PI/2]}
+          isSelected={state.isSelectedId}  font={0.11} onClick={()=>{}}
         />
       </>
     }
@@ -63,7 +63,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
             text={"LIVE" } 
           // position={new Vector3(-0.31,-0.345,+0.46)}
           position={new Vector3(0.38,-0.345,+0.44)}
-          isSelected={state.isSelectedId}  font={0.07} 
+          isSelected={state.isSelectedId}  font={0.08} 
         />
       }
       {!!tokensArrayArray && state.isSelectedId && state.selectedHasArray &&

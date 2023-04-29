@@ -148,7 +148,7 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
 
 }
 async function sendTelegramMessageVirtualOrder(req: any, { side, symbol, quantity, price, recvWindow = 5000, timestamp = Date.now() }: any, apiKey: string, apiSecret: string, callback: Function) {
-  if (apiKey === "demo") {
+  if (apiKey === "user") {
     const chatId = process.env.TELEGRAM_CHAT_ID;
     const token = process.env.TELEGRAM_BOT_TOKEN;
 
@@ -179,7 +179,7 @@ async function sendTelegramMessageVirtualOrder(req: any, { side, symbol, quantit
 }
 
 function makeLimitOrder({ side, symbol, quantity, price, recvWindow = 5000, timestamp = Date.now() }:any, apiKey: string, apiSecret: string, callback: Function) {
-  if (apiKey === "demo") {
+  if (apiKey === "user") {
     const chatId = process.env.TELEGRAM_CHAT_ID;
     const token = process.env.TELEGRAM_BOT_TOKEN;
 
@@ -304,7 +304,7 @@ export async function POST(request: any) {
   const { side, symbol, quantity:_quantity, price:_price,apiKey,apiSecret } = body;
   const { quantity, price } = adjustOrderParams(body);
   // console.log("apiKey", apiKey)
-  if (apiKey == "demo") {
+  if (apiKey !== "user" && apiSecret !== "0000") {
     if (request.headers && 'x-forwarded-for' in request.headers ) {
       // console.log("headers", request.headers['x-forwarded-for'])
     } else {
@@ -338,18 +338,20 @@ export async function POST(request: any) {
     // )
 
     // GOOD IT DOES SEND IN VERCEL
-    // let rrreeesss = await sendSupabaseVirtualOrder(request,
-    //   { side, symbol, quantity, price },
-    //   apiKey,
-    //   apiSecret,
-    //   (callbackRes: any) => {
-    //     // console.log("finally sendTelegramMessageVirtualOrder resulttt?", callbackRes)
-    //     if (!callbackRes) {
-    //       throw Error
-    //     }
-    //   }
-    // )
-    // console.log("res sendSupabaseVirtualOrder", rrreeesss)
+    console.log("sendSupabaseVirtualOrder sending...", )
+
+    let rrreeesss = await sendSupabaseVirtualOrder(request,
+      { side, symbol, quantity, price },
+      apiKey,
+      apiSecret,
+      (callbackRes: any) => {
+        // console.log("finally sendTelegramMessageVirtualOrder resulttt?", callbackRes)
+        if (!callbackRes) {
+          throw Error
+        }
+      }
+    )
+    console.log("res ", rrreeesss)
 
 
 
@@ -360,22 +362,22 @@ export async function POST(request: any) {
     // throw new Error
   }
 
-  console.log("req body", { side, symbol, quantity:_quantity, price:_price })
+  // console.log("req body", { side, symbol, quantity:_quantity, price:_price })
   // Call the makeLimitOrder function with the retrieved parameters
-  console.log("makelimitorder", { side, symbol, quantity, price })
-  makeLimitOrder(
-    { side, symbol, quantity, price },
-    apiKey,
-    apiSecret,
-    (result: any) => {
-      console.log("resulttt?", result)
-      if (!result) {
-        throw Error
-      }
-    }
-  );
+  // console.log("makelimitorder", { side, symbol, quantity, price })
+  // makeLimitOrder(
+  //   { side, symbol, quantity, price },
+  //   apiKey,
+  //   apiSecret,
+  //   (result: any) => {
+  //     console.log("resulttt?", result)
+  //     if (!result) {
+  //       throw Error
+  //     }
+  //   }
+  // );
 
-    const fullRes = new Response(JSON.stringify({message:"success"}));
+    const fullRes = new Response(JSON.stringify({message:"no success"}));
   
     return fullRes
   }

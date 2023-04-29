@@ -25,6 +25,7 @@ import { useFrame } from "@react-three/fiber";
 import BitcoinTradingBox from "./BitcoinTradingBox";
 import TutorialGoal from "./TutorialGoal";
 import { useAuth } from "@/../script/state/context/AuthContext";
+import TutorialLogin from "./TutorialLogin";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -50,7 +51,7 @@ const chartRotLookup:any = {
 
 
 function Component ({}) {
-  const { session }:any = useAuth()
+  const { session, login }:any = useAuth()
   const [chartPos, s__chartPos]:any = useState(chartPosLookup["btc"])
   const [chartRot, s__chartRot]:any = useState(chartRotLookup["btc"])
   const [btcBoxPos, s__btcBoxPos]:any = useState([-0.6,-0.1,-0.5])
@@ -66,7 +67,8 @@ function Component ({}) {
   const [currentOrders, s__currentOrders] = useState<any>({})
   const [orderHistory, s__orderHistory] = useState<any>([])
   const [profitHistory, s__profitHistory] = useState<any>([])
-  const [binanceKeys, s__binanceKeys] = useState<any>("")
+  const [LS_binanceKeys, s__LS_binanceKeys] = useLocalStorage('binanceKeys', "user:0000")
+  const [binanceKeys, s__binanceKeys] = useState<any>(LS_binanceKeys)
   const [form,s__form] = useState({
     id:"BTCUSDT3M",
   })
@@ -92,6 +94,11 @@ function Component ({}) {
     s__selectedToken(x)
     updateTokenOrder(x,selectedTimeframeIndex,"mode",1)
 
+    // let randomThousand = parseInt(`${(Math.random()*9000) + 1000}`)
+    // let arandomkey = "user:"+randomThousand
+
+    // let keyval =  prompt("Copy or Paste your secret code | user:"+randomThousand,arandomkey) 
+    // s__binanceKeys(keyval)
    }
   const trendUp = (x:any) => { 
     console.log("trendUp")
@@ -161,17 +168,19 @@ function Component ({}) {
     // if (newTradeObj.side == "buy")
     {
       {
-        let randomThousand = parseInt(`${(Math.random()*9000) + 1000}`)
-        let arandomkey = "demo:"+randomThousand
-        let keyval = arandomkey
-        // let keyval = !binanceKeys.length ? prompt("Copy or Paste your secret code | demo:"+randomThousand,arandomkey) : binanceKeys
-        
-        // if (!keyval) {
-        //   s__binanceKeys(arandomkey)
-        //   return
-        // }
+        // let randomThousand = parseInt(`${(Math.random()*9000) + 1000}`)
+        // let arandomkey = "user:"+randomThousand
+        let keyval = binanceKeys
 
-        s__binanceKeys(keyval)
+        // let keyval = !binanceKeys.length ? prompt("Copy or Paste your secret code | user:"+randomThousand,arandomkey) : binanceKeys
+        
+        const splitKey = keyval.split(":")
+        if (splitKey[0] == "user" && splitKey[1] == "0000") {
+          // s__binanceKeys(arandomkey)
+          return
+        }
+
+        // s__binanceKeys(keyval)
         // side, symbol, quantity:_quantity, price:_price,apiKey,apiSecret
         let fetchObjData = {
           side: newTradeObj.side,
@@ -298,8 +307,49 @@ function Component ({}) {
     // $bitcoin.current.toggleGame()
     // setTutoStage(3)
   }
+  const triggerLogout = () => {
+    if (prompt("Sign out from: <"+binanceKeys+"> (yes/no)","ye") !== "yes") return
+    
+    s__LS_binanceKeys("user:0000")
+    window.location.reload()
+  }
+    const triggerLogin = () => {
+    console.log("tutoStage", tutoStage)
+    if (tutoStage.lvl == 3) {
 
+      // setTutoStage(4)
+      firstLogin()
+      return
+    }
+    // login()
+    let keyval:any =  prompt("Paste your credentials","") 
+    if (keyval.split(":").length < 2) return
+    s__binanceKeys(keyval)
+    s__LS_binanceKeys(keyval)
+  }
+  const firstLogin = () => {
+    setTutoStage(4)
+    // login()
+    console.log("binancekeys", binanceKeys)
+        let randomThousand = parseInt(`${(Math.random()*9000) + 1000}`)
+    let arandomkey = "user:"+randomThousand
 
+    let keyval:any =  prompt("Copy or Paste your secret credentials | user:"+randomThousand,arandomkey) 
+    if (!keyval) return
+    if (keyval.split(":").length < 2) return
+    s__binanceKeys(keyval)
+    s__LS_binanceKeys(keyval)
+  }
+  const isDefaultUser = useMemo(()=>{
+    
+    const splitKey = binanceKeys.split(":")
+    // console.log("splitKey")
+    if (splitKey[0] == "user" && splitKey[1] == "0000") {
+      // s__binanceKeys(arandomkey)
+      return true
+    }
+    return false
+  },[binanceKeys])
 
   return (<>
     <Scene>
@@ -332,7 +382,7 @@ function Component ({}) {
       }
       {hasAnyToken && tutoStage.lvl == 1 &&
       
-      <group position={[-0.7,-0.24,-0.5]} scale={0.35} /* onClick={()=>{clickFirstBuy()}} */ >
+      <group position={[-0.7,-0.24,-0.5]} scale={0.35} >
       <BuyLowSellHigh  />
     </group>
       }
@@ -343,13 +393,20 @@ function Component ({}) {
         <SellHigh />
       </group>
         }
-        {hasAnyToken && tutoStage.lvl == 3 &&
+        {hasAnyToken && tutoStage.lvl == 4 &&
           
-        <group position={[-0.31,-0.35,-1.9]} scale={0.35} >
+        <group position={[-0.31,-0.35,-1.9]} scale={0.35}  onClick={()=>{setTutoStage(3)}}>
         <TutorialGoal />
       </group>
         }
 
+{hasAnyToken && tutoStage.lvl == 3 &&
+          
+          <group position={[-0.6,-1.3,1.]} rotation={[0,Math.PI/2,0]} scale={0.35} onClick={()=>{firstLogin()}}  >
+          <TutorialLogin />
+        </group>
+          }
+  
       {hasAllTokens && <>
         <Box args={[4,0.25,5]} position={[0,-1.2,-0.5]} castShadow receiveShadow>
           <meshStandardMaterial color={ "#fff"}/>
@@ -364,7 +421,8 @@ function Component ({}) {
         >
           <meshStandardMaterial color={"#f00"}/>
         </Cylinder>
-      {hasAnyToken && <>
+        
+      {/* {hasAnyToken && <>
         <Cylinder args={[0.1,0.1,0.2,6]} position={[0,!enablePan?-1:-0.95,0]} castShadow receiveShadow 
           onClick={()=>{s__enablePan(!enablePan)}}
         >
@@ -372,9 +430,51 @@ function Component ({}) {
         </Cylinder>
         
         <DynaText
-          // onClick={()=>{join("btc")}}
           text={"Lock Camera"}
           color={!enablePan ? "#a55" : "#977"}
+          font={0.06}
+          position={[0,-0.94,-0.17]} 
+          
+        >        
+      </DynaText>
+      </>} */}
+
+
+{isDefaultUser && <>
+        <Cylinder args={[0.1,0.1,0.2,6]} position={[0,!enablePan?-1:-0.95,0]} castShadow receiveShadow 
+          onClick={()=>{
+            triggerLogin()
+          }}
+          // onClick={()=>{s__enablePan(!enablePan)}}
+        >
+          <meshStandardMaterial color={ "#fff"}/>
+        </Cylinder>
+        
+        <DynaText
+          // onClick={()=>{join("btc")}}
+          text={"Sign In"}
+          color={"#5a5"}
+          font={0.06}
+          position={[0,-0.94,-0.17]} 
+          
+        >        
+      </DynaText>
+      </>}
+
+      {!isDefaultUser && <>
+        <Cylinder args={[0.1,0.1,0.2,6]} position={[0,!isDefaultUser?-1:-0.95,0]} castShadow receiveShadow 
+          onClick={()=>{
+            triggerLogout()
+          }}
+          // onClick={()=>{s__enablePan(!enablePan)}}
+        >
+          <meshStandardMaterial color={ "#ddd"}/>
+        </Cylinder>
+        
+        <DynaText
+          // onClick={()=>{join("btc")}}
+          text={"Sign out"}
+          color={"#a55"}
           font={0.06}
           position={[0,-0.94,-0.17]} 
           
