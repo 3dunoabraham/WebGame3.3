@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import https from 'https';
 import crypto from 'crypto';
 import { NextRequest } from 'next/server';
+import { getSupabaseClient } from '@/../script/state/repository/supabase';
 
 type LimitOrderParams = {
   side: string,
@@ -26,6 +27,80 @@ function getCryptoPriceDecimals(symbol: string): number {
     'SOL': 4
   };
   return lookupTable[symbol] || 2;
+}
+async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, price, recvWindow = 5000, timestamp = Date.now() }: any, apiKey: string, apiSecret: string, callback: Function) {
+
+  // Get user's IP address
+  let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
+  const ipAddressRegex = /(?:[0-9]{1,3}\.){3}[0-9]{1,3}/g;
+  ipAddress = ipAddress.match(ipAddressRegex)[0]
+
+  // Hash IP address to create a unique user ID
+  const hash = crypto.createHash('sha256');
+  hash.update(ipAddress);
+  console.log("ipAddress", ipAddress)
+  hash.update(apiSecret);
+  const new_uid = hash.digest('hex');
+
+
+  
+  let asdasd:any = {
+    name: "someone",
+    ipv4: ipAddress,
+    hash: new_uid,
+    attempts: 3,
+    datenow: Date.now(),
+  }
+
+  const supabase = getSupabaseClient()
+  const { data: existingStart, error: selectError } = await supabase
+  .from<any, any>('start')
+  .select('*')
+  .match({ hash: new_uid })
+  .single()
+
+  if (!existingStart) {
+    console.log("user start not found")
+
+    const { data: start, error } = await supabase
+              .from('start')
+              .insert(asdasd)
+              .single()
+            if (error) {
+              throw error
+            }
+
+    // throw new Error
+    // return
+  }
+  let orderObj:any = {
+    symbol: symbol,
+    price: price,
+    trigger: price,
+    startHash: new_uid,
+    datenow: Date.now(),
+  }
+  
+  let attempts = asdasd.attempts
+  if (!!attempts) {
+    const { data: order, error } = await supabase
+              .from<any, any>('order')
+              .insert(orderObj)
+              .single()
+  }
+
+  // // Construct message
+  // const message = `📈 Demo API Key @${chatId} | 🔑 ${token} \n\n👤 User ID: ${new_uid}\n\n💰 Placed an order:\nSide: ${side}\nSymbol: ${symbol}\nQuantity: ${quantity}\nPrice: ${price}\n`;
+  // // console.log("sending message ", message)
+  // // Send message to Telegram
+  // const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+  
+  // let sendmesres = await fetch(url)
+  // // console.log("sendmesres status",sendmesres.status)
+  // // Invoke the callback function
+  
+  // callback(await sendmesres.json());
+
 }
 async function sendTelegramMessageVirtualOrder(req: any, { side, symbol, quantity, price, recvWindow = 5000, timestamp = Date.now() }: any, apiKey: string, apiSecret: string, callback: Function) {
   if (apiKey === "demo") {
@@ -200,17 +275,39 @@ export async function POST(request: any) {
     }
     // console.log("socket", request.sock)
     // console.log("secret", apiSecret)
-    sendTelegramMessageVirtualOrder(request,
-        { side, symbol, quantity, price },
-    apiKey,
-    apiSecret,
-    (callbackRes: any) => {
-      // console.log("finally sendTelegramMessageVirtualOrder resulttt?", callbackRes)
-      if (!callbackRes) {
-        throw Error
+
+    
+
+
+    // TELEGRAM MESSAGE DOESNT SEND IN VERCEL
+    // sendTelegramMessageVirtualOrder(request,
+    //   { side, symbol, quantity, price },
+    //   apiKey,
+    //   apiSecret,
+    //   (callbackRes: any) => {
+    //     // console.log("finally sendTelegramMessageVirtualOrder resulttt?", callbackRes)
+    //     if (!callbackRes) {
+    //       throw Error
+    //     }
+    //   }
+    // )
+    sendSupabaseVirtualOrder(request,
+      { side, symbol, quantity, price },
+      apiKey,
+      apiSecret,
+      (callbackRes: any) => {
+        // console.log("finally sendTelegramMessageVirtualOrder resulttt?", callbackRes)
+        if (!callbackRes) {
+          throw Error
+        }
       }
-    }
     )
+
+
+
+
+
+
     return new Response()
     // throw new Error
   }
