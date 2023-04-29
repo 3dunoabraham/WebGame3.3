@@ -72,6 +72,14 @@ function Component ({_bouncingThing, tokensArrayArray, isSelectedId, token, clic
 
     return ( <>
         
+        {!!tokensArrayArray && !clicked && <>
+          <mesh   // BOUNCING THING CASE
+            position={[ +0.325, -0.37, -0.38, ]}          
+          >
+            <boxGeometry args={[0.15, 0.18, 0.1]} />
+            <meshStandardMaterial transparent={true} opacity={0.5} color={!isSelectedId ? "#777777" : "#777777"}  />
+          </mesh>
+        </>}
         <group position={[0,-0.3,0]}>
           <mesh castShadow receiveShadow ref={bouncingThing}
             position={[ 0.33, 0, -0.36, ]}          

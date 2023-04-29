@@ -1,20 +1,19 @@
-import { Cylinder, SpotLight, Torus, useDepthBuffer } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useDepthBuffer } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
 import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
-import { Mesh, Box3, Vector3 } from "three";
-import * as THREE from "three";
-import DynaText from "./DynaText";
+import { Mesh } from "three";
 import { useLocalStorage } from "usehooks-ts";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMultipleJsonArray, parseDecimals } from "@/../script/util/helper";
-import TableLegs from "./TableLegs";
-import Toggles from "./Toggles";
-import TableBody from "./TableBody";
+import TableLegs from "./machine/TableLegs";
+import TableBody from "./machine/TableBody";
 import BouncingThing from "./BouncingThing";
-import TimeframeButtons from "./TimeframeButtons";
-import TextContainer from "./TextContainer";
-// import { tokenColors } from "../../core/Scene";
-// import { DEFAULT_TIMEFRAME_ARRAY } from "@/components/scripts/constants";
+import TimeframeButtons from "./input/TimeframeButtons";
+import TextContainer from "./output/TextContainer";
+import DeskToggles from "./input/DeskToggles";
+import DeskButtons from "./input/DeskButtons";
+import Computer from "./machine/Computer";
+import MiniScreen from "./output/MiniScreen";
 
 export const DEFAULT_TIMEFRAME_ARRAY = ["3m","15m","4h","1d","1w"]  
 export const tokenColors:any = {
@@ -23,67 +22,21 @@ export const tokenColors:any = {
   "link": "#2A5ADA",
   "ftm": "#1A6AFF",
 }
-
-type BoxProps = {
-  position?: [number, number, number];
-  camera?: any;
-  boundaries?: any;
-  wallWidth?: any;
-  score?: any;
-  s__score?: any;
-  velocityX?: any;
-  setVelocityX?: any;
-  velocityY?: any;
-  setVelocityY?: any;
-  timeframe: any;
-  token: any;
-  onTextClick: any;
-  form: any;
-  refetchInterval?: any;
-  unselectedColor?: any;
-  tokensArrayArray?: any;
-  turnOn?: any;
-  turnOff?: any;
-  leave?: any;
-  join?: any;
-  trendUp?: any;
-  trendDown?: any;
-  onTimeframeClick?: any;
-};
-
 const Component = forwardRef(({
-
-// export default function Component({
-  turnOn,
-  turnOff,
-  leave,
-  join,
-  trendDown,
-  trendUp,
+  turnOn, turnOff, leave, join,
+  trendDown, trendUp,
   tokensArrayArray,
   unselectedColor="#48721E",
   refetchInterval=3000,
-  form= null,
-  token= "btc",
-  timeframe= "3m",
+  form= null, token= "btc", timeframe= "3m",
   wallWidth=0.1,
-  position=[0,0,0],
-  boundaries=[1,1,1],
-  onTextClick=()=>{},
-  onTimeframeClick=()=>{},
-  score=0,s__score=()=>{},
-  velocityX=0, setVelocityX=()=>{},
-  velocityY=0, setVelocityY=()=>{},
+  position=[0,0,0], boundaries=[1,1,1],
+  onTextClick=()=>{}, onTimeframeClick=()=>{},score=0,s__score=()=>{},
+  velocityX=0, setVelocityX=()=>{}, velocityY=0, setVelocityY=()=>{},
 }: any, ref:any) => {
   const API_PRICE_BASEURL = "https://api.binance.com/api/v3/ticker/price?symbol="
   const baseToken = "USDT"
-  
-  // const tokensReqObj:any = useMemo(()=>{
-  //   return ( [token].reduce((acc, aToken) => (
-  //     { ...acc, [aToken]: [`${API_PRICE_BASEURL}${(aToken+baseToken).toUpperCase()}`] }
-  //     ), {}))
-  // },[token])
-  
+    
     const [LS_tokensArrayObj, s__LS_tokensArrayObj] = useLocalStorage('localTokensArrayObj', "{}")
     const [LS_uid, s__LS_uid] = useLocalStorage('uid', "")
     const [clickedPrice, s__clickedPrice] = useState(0)
@@ -175,42 +128,41 @@ const Component = forwardRef(({
     return !!tokensArrayArray && !!tokensArrayArray[selectedTimeframeIndex] && !!tokensArrayArray[selectedTimeframeIndex].mode
   },[selectedTimeframeIndex,tokensArrayArray])
 
+
+
   return (
     <group>
 
-      {!!tokensArrayArray && !clicked && <>
-        <mesh  ref={playerMesh}
-          position={[ position[0]+0.325, -0.37, position[2]-0.38, ]}          
-        >
-          <boxGeometry args={[0.15, 0.18, 0.1]} />
-          <meshStandardMaterial transparent={true} opacity={0.5} color={!isSelectedId ? "#777777" : "#777777"}  />
-        </mesh>
-      </>}
-
-
-      {/* platform */}
-
-
-      
-
-      <group position={position} /* rotation={[Math.PI/2,0,0]} */ >
+      <group position={position} >
         <TextContainer tokensArrayArray={tokensArrayArray}
           state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
           calls={{onTextClick,turnOff,turnOn}}
         />
-        
-
+      </group>
+      <group position={position} /* rotation={[Math.PI/2,0,0]} */ >
+        <Computer tokensArrayArray={tokensArrayArray}
+          state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
+          calls={{onTextClick,turnOff,turnOn}}
+        />
+      </group>
+      <group position={position} >
+        <MiniScreen tokensArrayArray={tokensArrayArray}
+          state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
+          calls={{onTextClick,turnOff,turnOn}}
+        />
       </group>
       <group position={position}>
         <BouncingThing tokensArrayArray={tokensArrayArray} _bouncingThing={bouncingThing}
           isSelectedId={isSelectedId} token={token} clicked={clicked}
         />
-
-{/*         
-        <TimeframeButtons tokensArrayArray={tokensArrayArray}
-          state={{isSelectedId, score, token, selectedTimeframe, selectedTimeframeIndex}}
-          calls={{onTimeframeClick,onTextClick,}}
-        /> */}
+        {!!tokensArrayArray && selectedHasArray &&
+          <group position={[-0.25,0,0.15]}>
+            <TimeframeButtons tokensArrayArray={tokensArrayArray}
+              state={{isSelectedId, score, token, selectedTimeframe, selectedTimeframeIndex}}
+              calls={{onTimeframeClick,onTextClick,}}
+            />
+          </group>
+        }
         
         
         <TableBody state={{boundaries, wallWidth, isSelectedId, clicked, hasAnyToken:!!tokensArrayArray}}
@@ -221,9 +173,14 @@ const Component = forwardRef(({
         <TableLegs />
         
         {/* toggles sync join trend */}
-        <Toggles state={{score, isSelectedId, selectedHasArray,isDowntrend,}}
+        <DeskToggles state={{score, isSelectedId, selectedHasArray,isDowntrend,}}
             tokensArrayArray={tokensArrayArray}
             calls={{join, leave, onTextClick, turnOff, turnOn,trendDown,trendUp}}
+          />
+          
+        <DeskButtons state={{score, isSelectedId, selectedHasArray,isDowntrend,clicked}}
+            tokensArrayArray={tokensArrayArray}
+            calls={{join, leave, onTextClick, turnOff, turnOn,trendDown,trendUp,toggleGame}}
           />
           
         
@@ -248,20 +205,6 @@ const Component = forwardRef(({
 
 
 
-      {/* buy/sell button */}
-      {isSelectedId && selectedHasArray && <>
-      <mesh castShadow receiveShadow onClick={() => toggleGame()} scale={score.score ? 1 : 3}
-        position={[
-          !clicked ? position[0] - 0.05 : position[0] + 0.11,
-          clicked ? position[1] - 0.33 : position[1] - 0.3,
-          position[2]+0.34,
-        ]}        
-      >
-        <boxGeometry args={[0.1, clicked ? 0.015 : 0.04, 0.05]} />
-        <meshStandardMaterial color={clicked ? "red" : "#00ff00"}  />
-      </mesh>
-      
-      </>}
 
 
       {/* mini buttons */}

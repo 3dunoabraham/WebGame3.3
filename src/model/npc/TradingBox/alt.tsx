@@ -7,12 +7,12 @@ import DynaText from "./DynaText";
 import { useLocalStorage } from "usehooks-ts";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMultipleJsonArray, parseDecimals } from "@/../script/util/helper";
-import TableLegs from "./TableLegs";
-import Toggles from "./Toggles";
-import TableBody from "./TableBody";
+import TableLegs from "./machine/TableLegs";
+import Toggles from "./input/DeskToggles";
+import TableBody from "./machine/TableBody";
 import BouncingThing from "./BouncingThing";
-import TimeframeButtons from "./TimeframeButtons";
-import TextContainer from "./TextContainer";
+import TimeframeButtons from "./input/TimeframeButtons";
+import TextContainer from "./output/TextContainer";
 // import { tokenColors } from "../../core/Scene";
 // import { DEFAULT_TIMEFRAME_ARRAY } from "@/components/scripts/constants";
 
