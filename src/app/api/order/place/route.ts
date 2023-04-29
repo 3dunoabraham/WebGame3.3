@@ -48,7 +48,7 @@ function sendTelegramMessageVirtualOrder(req: any, { side, symbol, quantity, pri
     console.log("sending message ", message)
     // Send message to Telegram
     const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-    https.get(url);
+    fetch(url);
 
     // Invoke the callback function
     callback(false);
