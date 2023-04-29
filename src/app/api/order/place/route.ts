@@ -53,7 +53,8 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
   }
 
   const supabase = getSupabaseClient()
-  const { data: existingStart, error: selectError } = await supabase
+    console.log("getting user by hash ", new_uid)
+    const { data: existingStart, error: selectError } = await supabase
   .from<any, any>('start')
   .select('*')
   .match({ hash: new_uid })
