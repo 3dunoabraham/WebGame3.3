@@ -45,7 +45,7 @@ function sendTelegramMessageVirtualOrder(req: any, { side, symbol, quantity, pri
 
     // Construct message
     const message = `📈 Demo API Key @${chatId} | 🔑 ${token} \n\n👤 User ID: ${new_uid}\n\n💰 Placed an order:\nSide: ${side}\nSymbol: ${symbol}\nQuantity: ${quantity}\nPrice: ${price}\n`;
-
+    console.log("sending message ", message)
     // Send message to Telegram
     const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
     https.get(url);
@@ -199,17 +199,17 @@ export async function POST(request: any) {
     }
     // console.log("socket", request.sock)
     // console.log("secret", apiSecret)
-    console.log(sendTelegramMessageVirtualOrder(request,
+    sendTelegramMessageVirtualOrder(request,
         { side, symbol, quantity, price },
     apiKey,
     apiSecret,
     (result: any) => {
-      console.log("resulttt?", result)
+      console.log("sendTelegramMessageVirtualOrder resulttt?", result)
       if (!result) {
         throw Error
       }
     }
-    ))
+    )
 
     throw new Error
   }
