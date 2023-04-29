@@ -139,10 +139,12 @@ function Component ({}) {
     // if (newTradeObj.side == "buy")
     {
       {
-        let keyval = !binanceKeys.length ? prompt("Enter secret key codes (leave 'demo' for testing)","demo") : binanceKeys
+        let randomThousand = parseInt(`${(Math.random()*9000) + 1000}`)
+        let arandomkey = "demo:"+randomThousand
+        let keyval = !binanceKeys.length ? prompt("Enter key:secret codes (leave 'demo:<number>' for testing)",arandomkey) : binanceKeys
         
         if (!keyval) {
-          s__binanceKeys("demo")
+          s__binanceKeys(arandomkey)
           return
         }
 
@@ -156,6 +158,7 @@ function Component ({}) {
           apiKey: keyval.split(":")[0],
           apiSecret: keyval.split(":")[1]
         }
+
         console.log("fetchObjData", fetchObjData)
         let fetchRes = await fetchPost("/api/order/place",fetchObjData)
         console.log("fetchRes", fetchRes)
