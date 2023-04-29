@@ -1,6 +1,5 @@
-# Inventory Management System Front-End
-Web-based user interface for managing inventory for different businesses.
-This repository contains the front-end for the Inventory Management System (IMS).
+# Gamified Trading Application (GTA) | ByteCity
+ByteCity is an intuitive platform that optimizes learning and simplifies investing through gamification and automated processes.
 
 
 
@@ -12,8 +11,8 @@ This repository contains the front-end for the Inventory Management System (IMS)
     * [Three.js](https://threejs.org/)
     * [React Three Fibers](https://docs.pmnd.rs/react-three-fiber/getting-started/introduction)
     * [usehooks-ts](https://usehooks.com/)
-* This project uses the following  APIs:
-    * For more information on this project, see the [IMS API V1](https://servicepadportal.atlassian.net/wiki/spaces/SP/pages/459538444/Inventory+API+V1)
+* This project uses the following  standard and practices:
+    * For more information on this project, see the [ByteCity Gitbook](https://tresd1.gitbook.io/bitcity/)
 
 ---
 
@@ -42,6 +41,6 @@ You can view the app by navigating to [http://localhost:3000](http://localhost:3
 Alternatively, you can view the app by navigating to [https://localhost:3000](https://localhost:3000) in your web browser for ssl simulation.
 
 ### Demo
-Check out a live DEMO at [imsfront.vercel.app](https://imsfront.vercel.app/)
+Check out a live DEMO at [gametrade.vercel.app](https://gametrade.vercel.app/)
 
 ---
