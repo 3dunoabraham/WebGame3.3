@@ -190,13 +190,13 @@ const Component = forwardRef(({
 
   return (
     <group  ref={chartRef}>
-    <group position={[0.3,0,-3]}>
+    <group >
       
-      {<>
+      {/* {<>
         <Box args={[2,0.25,3]} position={[-0.5,-1.5,1.5]} castShadow receiveShadow>
           <meshStandardMaterial color={"#f0f0f0"}/>
         </Box>
-      </>}
+      </>} */}
       <DynaText text={!!theToken ? theToken.toUpperCase() : ""} color={0xaaaaaa}
         position={new Vector3(-0.17,0.95+0.36,0.19)} rotation={[0, 0, 0]}
 
@@ -267,10 +267,10 @@ const Component = forwardRef(({
       <Box args={[1.5,1.7,.1]}  position={new Vector3(-0.5, 0.37, 0.09)} receiveShadow castShadow >
           <meshStandardMaterial  attach="material" color="#666666" />
       </Box>
-      <Box args={[0.05,2.2,.05]}  position={new Vector3(0, -0.5, 0.09)} receiveShadow castShadow >
+      <Box args={[0.05,1.4,.05]}  position={new Vector3(0, -0.5, 0.09)} receiveShadow castShadow >
           <meshStandardMaterial  attach="material" color="#888888" />
       </Box>
-      <Box args={[0.05,2.2,.05]}  position={new Vector3(-1, -0.5, 0.09)} receiveShadow castShadow >
+      <Box args={[0.05,1.4,.05]}  position={new Vector3(-1, -0.5, 0.09)} receiveShadow castShadow >
           <meshStandardMaterial  attach="material" color="#888888" />
       </Box>
     </group>

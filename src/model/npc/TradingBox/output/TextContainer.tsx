@@ -5,18 +5,28 @@ import { Cylinder, Plane, Torus } from "@react-three/drei"
 
 function Component ({tokensArrayArray, state, calls}:any) {
   const [translation,s__translation]:any = useState({
-    btc:"gold",
-    eth:"dola",
-    link:"silver",
-    ftm:"spirit",
+    btc:"Bitcoin",
+    eth:"Ethereum",
+    link:"Chainlink",
+    ftm:"Fantom",
   })
   const [DisplayPosition,s__DisplayPosition]:any = useState([0.4,0.02,-0.05])
     return (<>
 
+      {/* COMPUTER */}
+      {// non-hovered TOKEN NAME  
+        <>
+        <DynaText text={translation[state.token]+"" || ""} color={0x888888}   
+          position={new Vector3(-0.35,-0.349,0.1)} rotation={[-Math.PI/2,0,Math.PI/2]}
+          isSelected={state.isSelectedId}  font={0.12} onClick={()=>{}}
+        />
+      </>
+    }
+
       {state.clicked && // PROFIT LOSS
         <DynaText text={state.clickedPrice/state.queryUSDT.data < 1 ? "profit %" : "loss %"}  
           color={state.clickedPrice/state.queryUSDT.data < 1 ? 0x009900 : 0xff0000}
-          position={new Vector3(+0.33,-0.15,-0.38)} rotation={[0,0,0]}
+          position={new Vector3(+0.33,-0.23,-0.38)} rotation={[0,0,0]}
           isSelected={state.isSelectedId} font={0.07} 
         />
       }
@@ -24,23 +34,23 @@ function Component ({tokensArrayArray, state, calls}:any) {
       {state.clicked && // PRICE DIFFERENCE PERCENT
         <DynaText text={(((state.clickedPrice/state.queryUSDT.data)-1)*-100).toFixed(3)}  
           color={state.clickedPrice/state.queryUSDT.data < 1 ? 0x009900 : 0xff0000}
-          position={new Vector3(+0.33,-0.25,-0.38)} rotation={[0,0,0]}
+          position={new Vector3(+0.33,-0.31,-0.38)} rotation={[0,0,0]}
           isSelected={state.isSelectedId} font={0.09} 
         />
       }
         
       {state.clicked && // CLICKED PRICE 
         <>
-        <DynaText text={"Order Entry Price"+"" || ""}  color={0x000000}
-          position={new Vector3(+0.28,-0.349,-0.28)}
-          isSelected={state.isSelectedId} font={0.05} 
+        <DynaText text={"Entry Price"+"" || ""}  color={0x000000}
+          position={new Vector3(+0.33,-0.1,-0.38)} rotation={[0,0,0]}
+          isSelected={state.isSelectedId} font={0.04} 
         />
           </>
         }
       {state.clicked &&
-        <DynaText text={""+state.clickedPrice+"" || ""}  color={0x006600}
-          position={new Vector3(+0.28,-0.345,-0.18)}
-          isSelected={state.isSelectedId} font={0.12} 
+        <DynaText text={""+state.clickedPrice+"" || ""}  color={0x660066}
+          position={new Vector3(+0.33,-0.165,-0.38)} rotation={[0,0,0]}
+          isSelected={state.isSelectedId} font={0.09} 
         />
       }
 
@@ -48,7 +58,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
 
 
       {!!tokensArrayArray &&
-        <DynaText color={state.selectedHasArray ? "#009900" : "#ff0000"} // LIVE / DEMO
+        <DynaText color={state.selectedHasArray ? "#009900" : "#cc0000"} // LIVE / DEMO
             onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
             text={"LIVE" } 
           // position={new Vector3(-0.31,-0.345,+0.46)}

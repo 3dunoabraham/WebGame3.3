@@ -25,12 +25,12 @@ function Component ({}) {
       Click              to continue
     </Text>
     <Text position={[0.5,0,0]} fontSize={0.4} rotation={[0,Math.PI,0]} 
-      material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}
+      material={new MeshStandardMaterial({ side: 0, color: "#cc0000" })}
     >
       LIVE 
     </Text>
     <Text position={[0.5,0,0]} fontSize={0.4} rotation={[0,0,0]} 
-      material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}
+      material={new MeshStandardMaterial({ side: 0, color: "#cc0000" })}
     >
       LIVE 
     </Text>

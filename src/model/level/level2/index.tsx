@@ -32,7 +32,25 @@ const DEFAULT_TOKEN_OBJ = {
 const selectedTimeframeIndex = 0
 const selectedTimeframe = "3m"
 const feePercent = 0.0
+
+const chartPosLookup:any = {
+  "btc": [-1.1,0,-0.45],
+  "eth": [0.2,0,-0.45],
+  "link": [-1.1,0,0.85],
+  "ftm": [0.2,0,0.85],
+}
+
+const chartRotLookup:any = {
+  "btc": [0,Math.PI/2,0],
+  "eth": [0,Math.PI/2,0],
+  "link": [0,Math.PI/2,0],
+  "ftm": [0,Math.PI/2,0],
+}
+
+
 function Component ({}) {
+  const [chartPos, s__chartPos]:any = useState(chartPosLookup["btc"])
+  const [chartRot, s__chartRot]:any = useState(chartRotLookup["btc"])
   const [btcBoxPos, s__btcBoxPos]:any = useState([-0.6,-0.1,-0.5])
   const [chartBoxPos, s__chartBoxPos] = useState([0,0,0])
   const $bitcoin:any = useRef()
@@ -101,6 +119,8 @@ function Component ({}) {
     console.log("newId", newId)
     s__form({id:newId})
     __selectedToken(val)
+    s__chartPos(chartPosLookup[val])
+    s__chartRot(chartRotLookup[val])
   }
   const toggleTrade = async (x:any, y:any) => {
     
@@ -267,6 +287,7 @@ function Component ({}) {
     setTutoStage(1)
   }
   const clickFirstBuy = () => {
+    if (!$bitcoin.current) return
     $bitcoin.current.toggleGame()
     setTutoStage(2)
   }
@@ -308,8 +329,8 @@ function Component ({}) {
       }
       {hasAnyToken && tutoStage.lvl == 1 &&
       
-      <group position={[-0.7,-0.24,-0.5]} scale={0.35} >
-      <BuyLowSellHigh />
+      <group position={[-0.7,-0.24,-0.5]} scale={0.35} /* onClick={()=>{clickFirstBuy()}} */ >
+      <BuyLowSellHigh  />
     </group>
       }
 
@@ -361,7 +382,7 @@ function Component ({}) {
 
       {/* goal post */}
       {hasAnyToken && <group position={[0,0,-1.5]}>
-        <Cylinder args={[0.25,0.25,0.75,12]} position={[0,-0.9,0]} castShadow receiveShadow 
+        <Cylinder args={[0.25,0.25,0.75,12]} position={[0,-0.32,0]} castShadow receiveShadow 
         >
           <meshStandardMaterial color={"#ccc"}/>
         </Cylinder>
@@ -398,14 +419,14 @@ function Component ({}) {
       <group position={[-0.15,-0.55,-1.5]}>
         {profitHistory.slice(0,5).map((anOrder:any, index:any)=>{
           return (
-            <Box args={[0.07,0.11,0.07]} position={[index*0.075,0.01,0]}  castShadow receiveShadow key={index}>
+            <Box args={[0.07,0.11,0.07]} position={[index*0.075,0.6,0]}  castShadow receiveShadow key={index}>
               <meshStandardMaterial color={anOrder[1] != "profit" ? "#f00" : "#ccc"}/>
             </Box>
           )
         })}
         {profitHistory.slice(0,5).map((anOrder:any, index:any)=>{
           return (
-            <Box args={[0.065,0.1,0.18]} position={[index*0.075,0.01,0]}  castShadow receiveShadow key={index}>
+            <Box args={[0.065,0.1,0.18]} position={[index*0.075,0.6,0]}  castShadow receiveShadow key={index}>
               <meshStandardMaterial color={anOrder[1] != "profit"  ? "#aaaaaa" : "#33aa33"}
               />
             </Box>
@@ -413,7 +434,7 @@ function Component ({}) {
         })}
         {[0,1,2,3,4].map((anOrder:any, index:any)=>{
           return (
-            <Box args={[0.065,0.1,0.18]} position={[index*0.075,0.01,0]}  castShadow receiveShadow key={index}>
+            <Box args={[0.065,0.1,0.18]} position={[index*0.075,0.6,0]}  castShadow receiveShadow key={index}>
               <meshStandardMaterial color={"#339933"}
                 transparent={true} opacity={0.33}
               />
@@ -425,7 +446,7 @@ function Component ({}) {
 
 
       {hasAnyToken && <>
-        <group scale={[0.7,0.7,0.7]} >
+        <group scale={[0.4,0.4,0.4]}  position={chartPos} rotation={chartRot}>
           <ChartBox boundaries={[1,0.1,0.04]} score={{score:0}} timeframe={selectedTimeframe.toLowerCase() || "1d"}
             position={[0,0,0]} velocityX={0}  theToken={form.id.split("USDT")[0]} askAI={(data:any)=>{askAI(data)}}
             velocityY={0} setVelocityX={()=>{}} setVelocityY={()=>{}} {...{chartBoxPos, s__chartBoxPos}}

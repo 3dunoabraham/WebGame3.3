@@ -45,8 +45,8 @@ function Component ({
       })
       
     return (
-        <group position={btcBoxPos} rotation={[0,0,0]} ref={$bitcoin}>
-            <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="btc" 
+        <group position={btcBoxPos} rotation={[0,0,0]} >
+            <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="btc"  ref={$bitcoin}
             tokensArrayArray={"btc" in tokensArrayObj ? tokensArrayObj["btc"] : null}
             refetchInterval={selectedToken == "btc" ? 4000 : 60000}
             unselectedColor={"#50545B"}

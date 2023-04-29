@@ -156,7 +156,7 @@ const Component = forwardRef(({
           isSelectedId={isSelectedId} token={token} clicked={clicked}
         />
         {!!tokensArrayArray && selectedHasArray &&
-          <group position={[-0.25,0,0.15]}>
+          <group position={[-0.25,0,0.13]}>
             <TimeframeButtons tokensArrayArray={tokensArrayArray}
               state={{isSelectedId, score, token, selectedTimeframe, selectedTimeframeIndex}}
               calls={{onTimeframeClick,onTextClick,}}

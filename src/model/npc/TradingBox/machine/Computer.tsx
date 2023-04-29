@@ -16,15 +16,6 @@ function Component ({tokensArrayArray, state, calls}:any) {
 
 
 
-      {/* COMPUTER */}
-      {// non-hovered TOKEN NAME  
-        <>
-        <DynaText text={translation[state.token]+"" || ""} color={0x888888}   
-          position={new Vector3(-0.4,-0.349,0.1)} rotation={[-Math.PI/2,0,Math.PI/2]}
-          isSelected={state.isSelectedId}  font={0.12} onClick={()=>{}}
-        />
-      </>
-    }
       {<>
 
         {  // hovered active button
