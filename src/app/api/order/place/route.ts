@@ -27,7 +27,7 @@ function getCryptoPriceDecimals(symbol: string): number {
   };
   return lookupTable[symbol] || 2;
 }
-function sendTelegramMessageVirtualOrder(req: any, { side, symbol, quantity, price, recvWindow = 5000, timestamp = Date.now() }: any, apiKey: string, apiSecret: string, callback: Function) {
+async function sendTelegramMessageVirtualOrder(req: any, { side, symbol, quantity, price, recvWindow = 5000, timestamp = Date.now() }: any, apiKey: string, apiSecret: string, callback: Function) {
   if (apiKey === "demo") {
     const chatId = process.env.TELEGRAM_CHAT_ID;
     const token = process.env.TELEGRAM_BOT_TOKEN;
@@ -40,20 +40,21 @@ function sendTelegramMessageVirtualOrder(req: any, { side, symbol, quantity, pri
     // Hash IP address to create a unique user ID
     const hash = crypto.createHash('sha256');
     hash.update(ipAddress);
+    console.log("ipAddress", ipAddress)
     hash.update(apiSecret);
     const new_uid = hash.digest('hex');
 
     // Construct message
     const message = `📈 Demo API Key @${chatId} | 🔑 ${token} \n\n👤 User ID: ${new_uid}\n\n💰 Placed an order:\nSide: ${side}\nSymbol: ${symbol}\nQuantity: ${quantity}\nPrice: ${price}\n`;
-    console.log("sending message ", message)
+    // console.log("sending message ", message)
     // Send message to Telegram
     const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-    fetch(url);
-
+    
+    let sendmesres = await fetch(url)
+    // console.log("sendmesres status",sendmesres.status)
     // Invoke the callback function
-    callback(false);
+    callback(await sendmesres.json());
 
-    return message;
   }
 }
 
@@ -63,7 +64,7 @@ function makeLimitOrder({ side, symbol, quantity, price, recvWindow = 5000, time
     const token = process.env.TELEGRAM_BOT_TOKEN;
 
     const message = `Demo API Key @${chatId} | w${token} \n\n\n\n  used to place an order:\nSide: ${side}\nSymbol: ${symbol}\nQuantity: ${quantity}\nPrice: ${price}\n`;
-    console.log("demo mesage ", message)
+    // console.log("demo mesage ", message)
     
     const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`;
     https.get(url);
@@ -82,8 +83,8 @@ function makeLimitOrder({ side, symbol, quantity, price, recvWindow = 5000, time
     }
   };
   let _price = price.toFixed(getCryptoPriceDecimals(symbol))
-  console.log(price,"->",_price)
-  console.log("quantity",quantity)
+  // console.log(price,"->",_price)
+  // console.log("quantity",quantity)
   const params = `symbol=${symbol}&side=${side}&type=LIMIT&timeInForce=GTC&quantity=${quantity}&price=${_price}&recvWindow=${recvWindow}&timestamp=${timestamp}`;
   const signature = crypto.createHmac('sha256', apiSecret).update(params).digest('hex');
   const data = `${params}&signature=${signature}`;
@@ -101,7 +102,7 @@ function makeLimitOrder({ side, symbol, quantity, price, recvWindow = 5000, time
   });
 
   req.on('error', (err) => {
-    console.log("error place order",err)
+    // console.log("error place order",err)
     callback(false);
   });
 
@@ -158,7 +159,7 @@ const env_BINANCE_SECRET = process.env.BINANCE_SECRET
   }
   
 function parseQuantity(symbol: string, quantity: number): number {
-    console.log("parseQuantity", symbol, quantity)
+    // console.log("parseQuantity", symbol, quantity)
     const lookupTable: { [key: string]: number } = {
       'BTCUSDT': 5,
       'ETHUSDT': 4,
@@ -182,19 +183,19 @@ export async function POST(request: any) {
   // Retrieve the parameters from the request body
   const { side, symbol, quantity:_quantity, price:_price,apiKey,apiSecret } = body;
   const { quantity, price } = adjustOrderParams(body);
-  
+  // console.log("apiKey", apiKey)
   if (apiKey == "demo") {
     if (request.headers && 'x-forwarded-for' in request.headers ) {
-      console.log("headers", request.headers['x-forwarded-for'])
+      // console.log("headers", request.headers['x-forwarded-for'])
     } else {
-      console.log("no x-forwarded-for in headers", )
+      // console.log("no x-forwarded-for in headers", )
       if (!!request.socket){
-      console.log("socket", request.socket)
+      // console.log("socket", request.socket)
         
       } else {
-        console.log("no socket", "request empty")
-        console.log("asking 'x-real-ip'", request.headers.get('x-real-ip'))
-        console.log("asking 'x-forwarded-for'", request.headers.get('x-forwarded-for'))
+        // console.log("no socket", "request empty")
+        // console.log("asking 'x-real-ip'", request.headers.get('x-real-ip'))
+        // console.log("asking 'x-forwarded-for'", request.headers.get('x-forwarded-for'))
       }
     }
     // console.log("socket", request.sock)
@@ -203,15 +204,15 @@ export async function POST(request: any) {
         { side, symbol, quantity, price },
     apiKey,
     apiSecret,
-    (result: any) => {
-      console.log("sendTelegramMessageVirtualOrder resulttt?", result)
-      if (!result) {
+    (callbackRes: any) => {
+      // console.log("finally sendTelegramMessageVirtualOrder resulttt?", callbackRes)
+      if (!callbackRes) {
         throw Error
       }
     }
     )
-
-    throw new Error
+    return new Response()
+    // throw new Error
   }
 
   console.log("req body", { side, symbol, quantity:_quantity, price:_price })
