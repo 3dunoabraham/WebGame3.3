@@ -66,7 +66,7 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
     return {selectError}
   }
   console.log("checking user ... ")
-  if (!existingStart) {
+  if (!existingStart || selectError) {
     console.log("user start not found")
 
     const { data: start, error } = await supabase
