@@ -100,83 +100,105 @@ function Component ({tokensArrayArray, state, calls}:any) {
           isSelected={state.isSelectedId} font={0.12} 
         />
       }
-      {!state.isSelectedId && // TOKEN NAME
-        <DynaText text={state.token.toUpperCase()+"" || ""} color={0xbbbbbb}
-          position={new Vector3(-0.28,-0.349,-0.21)}
+
+
+
+      {/* COMPUTER */}
+      {// non-hovered TOKEN NAME  
+        <>
+        <DynaText text={state.token.toUpperCase()+"" || ""} color={0x888888}   
+          position={new Vector3(-0.2,-0.349,-0.21)}
           isSelected={state.isSelectedId}  font={0.16} onClick={()=>{}}
         />
-      }
+      </>
+    }
+      {<>
 
-
-
-
-      {/* CPU */}
-      { state.isSelectedId && // noELEVATED TOKEN NAME
-      <>
-      <group position={new Vector3(-0.15,0,-0.2)} >
-      <Cylinder args={[0.42, 0.3, 0.64, 4]} position={[0.0,0.05,-0.128]} 
-        rotation={[Math.PI/2,Math.PI/4*3,0]} receiveShadow castShadow
-      >
-          <meshStandardMaterial color={"#888"}  />
-        
-      </Cylinder>
-      <Cylinder args={[0.2, 0.3, 0.2, 4]} position={[0.0,-0.3,-0.05]} receiveShadow castShadow
-        rotation={[0,Math.PI/4*3,0]}
-      >
-          <meshStandardMaterial color={"#888"}  />
-        
-      </Cylinder>
-      </group>
-      <group position={new Vector3(-0.15,-0.1,-0.)} >
-        
-        <mesh castShadow receiveShadow position={[0.0,0.15,-0.128]} >
-          <boxGeometry args={[0.5, 0.5, 0.25]} />
-          <meshStandardMaterial color={!!tokensArrayArray ? "#C7E4EC" : "#777777"}  />
-        </mesh>        
-
-          <group position={new Vector3(-0.12,0.02,-0.)}>
-        {state.isSelectedId && !!tokensArrayArray && // ELEVATED TOKEN NAME
-          <DynaText text={state.token.toUpperCase()+"" || ""} color={state.tokenColor}
-              position={new Vector3(0.1,0.25,0.01)}
-              // position={new Vector3(0,0.25,0)}
-            // rotation={[-Math.PI/4,0,0]}
-            rotation={[0,0,0]}
-
-            isSelected={state.isSelectedId}  font={0.22} onClick={()=>{}}
-          />
-        }
-        {state.isSelectedId && !tokensArrayArray && // noELEVATED TOKEN NAME
-            <DynaText text={state.token.toUpperCase()+"" || ""} color={"#888"}
-              position={new Vector3(0.1,0.25,0.01)}
-              // position={new Vector3(-0.24,-0.349,-0.18)}
-              rotation={[0,0,0]}
-              isSelected={state.isSelectedId}  font={0.22} onClick={()=>{}}
-            />
-        }
+        {  // hovered active button
+        <>
+          <group position={new Vector3(-0.15,-0.1,-0.)} >
+            <group position={new Vector3(-0.12,0.02,-0.)}>
+              { // north facing
+                <DynaText text={state.token.toUpperCase()+"" || ""} 
+                  color={ !!tokensArrayArray ? state.tokenColor : "#444444"}
+                  position={new Vector3(0.1,0.25,0.01)}
+                  rotation={[0,0,0]}
+                  isSelected={state.isSelectedId}  font={0.22} onClick={()=>{}}
+                />
+              }
+              { // south facing
+                <DynaText text={state.token.toUpperCase()+"" || ""} 
+                  color={ !!tokensArrayArray ? state.tokenColor : "#444444"}
+                  position={new Vector3(0.1,0.25,0.01)}
+                  rotation={[0,Math.PI,0]}
+                  isSelected={state.isSelectedId}  font={0.22} onClick={()=>{}}
+                />
+              }
+            </group>
           </group>
+        </>}
+      </>}
+      { (state.isSelectedId || !!tokensArrayArray) && <>
+        <group position={new Vector3(-0.15,-0.1,-0.)} // big monitor SCREEN
+        >
+          <mesh castShadow receiveShadow position={[0.0,0.15,-0.015]} >
+            <boxGeometry args={[0.5, 0.5, 0.025]} />
+            <meshStandardMaterial color={!!tokensArrayArray ? "#C7E4EC" : "#666666"}  />
+          </mesh>        
+        </group>
+      </>}
+      <group position={new Vector3(-0.15,0,-0.2)} >
+        { // big monitor BASE
+          <>
+          <Cylinder args={[0.2, 0.3, 0.2, 4]} position={[0.0,-0.3,-0.05]} // base base
+            receiveShadow castShadow
+            rotation={[0,Math.PI/4*3,0]}
+          >
+            <meshStandardMaterial color={"#888"}  />
+          </Cylinder>
+            <Cylinder args={[0.02, 0.03, 0.35, 4]} position={[0.0,-0.1,-0.05]} // base connector
+              receiveShadow castShadow
+              rotation={[0,Math.PI/4*3,0]}
+            >
+              <meshStandardMaterial color={"#888"}  />
+            </Cylinder>
+            <Cylinder args={[0.02, 0.05, 0.28, 4]} position={[0.0,0.1,0.05]} // monitor connector
+              receiveShadow castShadow
+              rotation={[0,Math.PI/2,Math.PI/2]}
+            >
+              <meshStandardMaterial color={"#888"}  />
+            </Cylinder>
+          </>
+        }
       </group>
+
+      {state.isSelectedId && <>
+        <group position={new Vector3(-0.15,0,-0.2)} >
+          <Cylinder args={[0.42, 0.3, 0.64, 4]} position={[0.0,0.05,-0.128]} // big monitor CASE
+            rotation={[Math.PI/2,Math.PI/4*3,0]} receiveShadow castShadow
+          >
+            <meshStandardMaterial color={"#888"}  />
+          </Cylinder>
+        </group>
       </>}
 
-      
 
-      
-      {/* <DynaText text={!!tokensArrayArray ? "SYNC" : "OFF"} // SYNC ON / OFF
-        color={0xffffff}
-        position={new Vector3(-0.43,-0.345,+0.46)}
-        isSelected={state.isSelectedId}  font={0.04} onClick={()=>{}}
-      /> */}
+
+
+
       {!!tokensArrayArray &&
-        <DynaText color={"#ff0000"} // LIVE / DEMO
-          text={"LIVE"} 
+        <DynaText color={state.selectedHasArray ? "#009900" : "#ff0000"} // LIVE / DEMO
+            onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
+            text={"LIVE" } 
           // position={new Vector3(-0.31,-0.345,+0.46)}
-          position={new Vector3(0.43,-0.345,+0.46)}
-          isSelected={state.isSelectedId}  font={0.04} onClick={()=>{}}
+          position={new Vector3(0.38,-0.345,+0.44)}
+          isSelected={state.isSelectedId}  font={0.07} 
         />
       }
       {!!tokensArrayArray && state.isSelectedId && state.selectedHasArray &&
       <DynaText text={!state.clicked ? "Send  BUY  Order" : "Send  SELL  Order"} // BUY / SELL
         color={!state.clicked ?  0x339933 : 0xff3333}
-        position={new Vector3(!state.clicked ?  - 0.05 :  + 0.175,-0.34,0.455)}
+        position={new Vector3(!state.clicked ?  - 0.05 :  + 0.115,-0.34,0.455)}
         isSelected={state.isSelectedId}  font={0.05} onClick={()=>{}}
         />   
       } 

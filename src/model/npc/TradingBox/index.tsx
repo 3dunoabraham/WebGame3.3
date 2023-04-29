@@ -195,8 +195,8 @@ const Component = forwardRef(({
 
       <group position={position} /* rotation={[Math.PI/2,0,0]} */ >
         <TextContainer tokensArrayArray={tokensArrayArray}
-          state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray}}
-          calls={{onTextClick,}}
+          state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
+          calls={{onTextClick,turnOff,turnOn}}
         />
         
 
@@ -252,7 +252,7 @@ const Component = forwardRef(({
       {isSelectedId && selectedHasArray && <>
       <mesh castShadow receiveShadow onClick={() => toggleGame()} scale={score.score ? 1 : 3}
         position={[
-          !clicked ? position[0] - 0.05 : position[0] + 0.18,
+          !clicked ? position[0] - 0.05 : position[0] + 0.11,
           clicked ? position[1] - 0.33 : position[1] - 0.3,
           position[2]+0.34,
         ]}        

@@ -18,22 +18,22 @@ function Component ({}) {
                 material={new MeshStandardMaterial({ side: 0, color: "#ff00ff" })}>
                 Fee: 0
             </Text>
-        <group ref={$textGroup} position={[1.2,0,1]} rotation={[-1,0,0]}>
-            <Text position={[0.9,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
-                material={new MeshStandardMaterial({ side: 0, color: "#FF0000" })}>
-                Make 5 good orders
+        <group ref={$textGroup} position={[1,0,1]} rotation={[-1,0,0]}>
+            <Text position={[1.05,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
+                material={new MeshStandardMaterial({ side: 0, color: "#ff00ff" })}>
+                Profit from 5 orders
             </Text>
-            <Text position={[-0.9,0,0]} fontSize={0.25} rotation={[0,0,0]} 
-                material={new MeshStandardMaterial({ side: 0, color: "#FF0000" })}>
-                Make 5 good orders
+            <Text position={[-1.05,0,0]} fontSize={0.25} rotation={[0,0,0]} 
+                material={new MeshStandardMaterial({ side: 0, color: "#ff00ff" })}>
+                Profit from 5 orders
             </Text>
             <Text position={[-0.7,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
                 material={new MeshStandardMaterial({ side: 0, color: "#009900" })}> 
-            to claim
+            to level up
         </Text>
             <Text position={[0.7,0,0]} fontSize={0.25} rotation={[0,0,0]} 
                 material={new MeshStandardMaterial({ side: 0, color: "#009900" })}> 
-            to claim
+            to level up
         </Text>
         </group>
     </>)

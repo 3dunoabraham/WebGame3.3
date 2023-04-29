@@ -37,10 +37,10 @@ function Component ({ tokensArrayArray, state, calls }:any) {
         {!!tokensArrayArray &&
             <mesh castShadow receiveShadow scale={state.score.score ? 1 : 3}
             onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
-            position={[   0.43,  state.selectedHasArray ? - 0.35 : -0.33,  + 0.37, ]}
+            position={[   0.38,  state.selectedHasArray ? - 0.35 : -0.32,  + 0.31, ]}
             // rotation={[state.selectedHasArray ? -0.25 : 0.25 ,0,0]}          
             >
-            <boxGeometry args={[0.03, 0.01, 0.03]} />
+            <boxGeometry args={[0.045, 0.02, 0.045]} />
             <meshStandardMaterial color={state.selectedHasArray ? "#558855" : "#776666"
                 } />
             </mesh>
