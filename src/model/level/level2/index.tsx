@@ -450,7 +450,7 @@ function Component ({}) {
           hasAnyToken={hasAnyToken} $bitcoin={$bitcoin}
           form={form} timeframe={form.id.split("USDT")[1]} token="btc" 
           tokensArrayArray={"btc" in tokensArrayObj ? tokensArrayObj["btc"] : null}
-          refetchInterval={selectedToken == "btc" ? 3000 : 60000}
+          refetchInterval={selectedToken == "btc" ? 4000 : 60000}
           unselectedColor={"#50545B"}
           onTextClick={()=>{onTextClick("btc")}} 
           setVelocityY={(data:any)=>{toggleTrade("btc",data)}}
@@ -462,7 +462,7 @@ function Component ({}) {
       {/* <group position={btcBoxPos} rotation={[0,0,0]} ref={$bitcoin}>
         <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="btc" 
           tokensArrayArray={"btc" in tokensArrayObj ? tokensArrayObj["btc"] : null}
-          refetchInterval={selectedToken == "btc" ? 3000 : 60000}
+          refetchInterval={selectedToken == "btc" ? 4000 : 60000}
           unselectedColor={"#50545B"}
           onTextClick={()=>{onTextClick("btc")}} 
           setVelocityY={(data:any)=>{toggleTrade("btc",data)}}
@@ -478,7 +478,7 @@ function Component ({}) {
         {("eth" in tokensArrayObj || "btc" in tokensArrayObj) && <>
           <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="eth"
             tokensArrayArray={"eth" in tokensArrayObj ? tokensArrayObj["eth"] : null}
-            refetchInterval={selectedToken == "eth" ? 3000 : 60000}
+            refetchInterval={selectedToken == "eth" ? 4000 : 60000}
              unselectedColor={"#50545B"}
             onTextClick={()=>{onTextClick("eth")}} 
             setVelocityY={(data:any)=>{toggleTrade("eth",data)}}
@@ -509,7 +509,7 @@ function Component ({}) {
           <group position={[-0.3,0,0.3]} >
             <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="link"
               tokensArrayArray={"link" in tokensArrayObj ? tokensArrayObj["link"] : null}
-              refetchInterval={selectedToken == "link" ? 3000 : 60000}
+              refetchInterval={selectedToken == "link" ? 4000 : 60000}
               position={[0,0,0]} unselectedColor={"#50545B"}
               onTextClick={()=>{onTextClick("link")}} 
               setVelocityY={(data:any)=>{toggleTrade("link",data)}}
@@ -524,7 +524,7 @@ function Component ({}) {
           <group position={[1,0,0.3]}  >
             <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="ftm"
               tokensArrayArray={"ftm" in tokensArrayObj ? tokensArrayObj["ftm"] : null}
-              refetchInterval={selectedToken == "ftm" ? 3000 : 60000}
+              refetchInterval={selectedToken == "ftm" ? 4000 : 60000}
               position={[0,0,0]} unselectedColor={"#50545B"}
               onTextClick={()=>{onTextClick("ftm")}} 
               setVelocityY={(data:any)=>{toggleTrade("ftm",data)}}
