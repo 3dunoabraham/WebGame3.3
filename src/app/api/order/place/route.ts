@@ -83,6 +83,7 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
   let orderObj:any = {
     symbol: symbol,
     price: price,
+    isBuyer: side.toLowerCase() == "buy",
     trigger: price,
     startHash: new_uid,
     datenow: Date.now(),
