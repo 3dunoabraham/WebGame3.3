@@ -63,7 +63,9 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
   console.log("checking result ... ")
   if (selectError) {
     console.log("selectError user")
+    return {selectError}
   }
+  console.log("checking user ... ")
   if (!existingStart) {
     console.log("user start not found")
 
@@ -102,7 +104,7 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
     }
     console.log("order request...",order)
   }
-
+  return orderObj
   // // Construct message
   // const message = `📈 Demo API Key @${chatId} | 🔑 ${token} \n\n👤 User ID: ${new_uid}\n\n💰 Placed an order:\nSide: ${side}\nSymbol: ${symbol}\nQuantity: ${quantity}\nPrice: ${price}\n`;
   // // console.log("sending message ", message)
@@ -305,7 +307,7 @@ export async function POST(request: any) {
     //     }
     //   }
     // )
-    sendSupabaseVirtualOrder(request,
+    let rrreeesss = await sendSupabaseVirtualOrder(request,
       { side, symbol, quantity, price },
       apiKey,
       apiSecret,
@@ -316,6 +318,7 @@ export async function POST(request: any) {
         }
       }
     )
+    console.log("res sendSupabaseVirtualOrder", rrreeesss)
 
 
 
