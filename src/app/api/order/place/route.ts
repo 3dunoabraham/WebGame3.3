@@ -27,37 +27,35 @@ function getCryptoPriceDecimals(symbol: string): number {
   };
   return lookupTable[symbol] || 2;
 }
-
-function getLimitOrderParams(req:any, { side, symbol, quantity, price, recvWindow = 5000, timestamp = Date.now() }:any, apiKey: string, apiSecret: string, callback: Function) {
+function sendTelegramMessageVirtualOrder(req: any, { side, symbol, quantity, price, recvWindow = 5000, timestamp = Date.now() }: any, apiKey: string, apiSecret: string, callback: Function) {
   if (apiKey === "demo") {
     const chatId = process.env.TELEGRAM_CHAT_ID;
     const token = process.env.TELEGRAM_BOT_TOKEN;
 
-
-    
-    // const ipAddress:any = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-    let ipAddress:any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
+    // Get user's IP address
+    let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
     const ipAddressRegex = /(?:[0-9]{1,3}\.){3}[0-9]{1,3}/g;
-
     ipAddress = ipAddress.match(ipAddressRegex)[0]
-    
-    // return ipAddress
+
+    // Hash IP address to create a unique user ID
     const hash = crypto.createHash('sha256');
     hash.update(ipAddress);
     const new_uid = hash.digest('hex');
 
+    // Construct message
+    const message = `📈 Demo API Key @${chatId} | 🔑 ${token} \n\n👤 User ID: ${new_uid}\n\n💰 Placed an order:\nSide: ${side}\nSymbol: ${symbol}\nQuantity: ${quantity}\nPrice: ${price}\n`;
 
-    const message = `Demo API Key @${chatId} | w${token} \n\n\n\n\n\n  from${new_uid}  \n\n\n\n\n\n  used to place an order:\nSide: ${side}\nSymbol: ${symbol}\nQuantity: ${quantity}\nPrice: ${price}\n`;
-    console.log("demo mesage ", message)
-    
-    const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`;
+    // Send message to Telegram
+    const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
     https.get(url);
+
+    // Invoke the callback function
     callback(false);
 
-    
-    return message
+    return message;
   }
 }
+
 function makeLimitOrder({ side, symbol, quantity, price, recvWindow = 5000, timestamp = Date.now() }:any, apiKey: string, apiSecret: string, callback: Function) {
   if (apiKey === "demo") {
     const chatId = process.env.TELEGRAM_CHAT_ID;
@@ -199,7 +197,7 @@ export async function POST(request: any) {
       }
     }
     // console.log("socket", request.sock)
-    console.log(getLimitOrderParams(request,
+    console.log(sendTelegramMessageVirtualOrder(request,
         { side, symbol, quantity, price },
     apiKey,
     apiSecret,
