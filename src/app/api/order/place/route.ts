@@ -54,19 +54,30 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
 
   const supabase = getSupabaseClient()
     console.log("getting user by hash ", new_uid)
-    const { data: existingStart, error: selectError } = await supabase
-  .from<any, any>('start')
-  .select('*')
-  .match({ hash: new_uid })
-  .single()
 
-  console.log("checking result ... ")
-  if (selectError) {
-    console.log("selectError user")
-    return {selectError}
-  }
-  console.log("checking user ... ")
-  if (!existingStart || selectError) {
+    
+    // const { data:exists, error:errorexists } = await supabase
+    
+    // .from('your-table-name')
+    // .select('*')
+    // .filter(hash, 'eq', new_uid)
+    // .single()
+    const { data:exists, count } = await supabase
+    .from('start')
+    
+    .select('*', { count: 'exact', head: true })
+    .filter("hash", 'eq', new_uid)
+
+  
+
+  console.log("checking result ... ", count)
+  // if (selectError) {
+  //   console.log("selectError user")
+  //   return {selectError}
+  // }
+  // console.log("checking user ... ")
+  if (!count) {
+
     console.log("user start not found")
 
     const { data: start, error } = await supabase
@@ -80,6 +91,13 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
     // throw new Error
     // return
   } else {
+    console.log("exists")
+    const { data: existingStart, error: selectError }:any = await supabase
+  .from<any, any>('start')
+  .select('*')
+  .match({ hash: new_uid })
+  .single()
+  
     asdasd = existingStart
   }
   let orderObj:any = {
