@@ -60,6 +60,10 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
   .match({ hash: new_uid })
   .single()
 
+  console.log("checking result ... ")
+  if (selectError) {
+    console.log("selectError user")
+  }
   if (!existingStart) {
     console.log("user start not found")
 
