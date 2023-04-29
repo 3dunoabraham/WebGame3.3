@@ -139,10 +139,10 @@ function Component ({}) {
     // if (newTradeObj.side == "buy")
     {
       {
-        let keyval = !binanceKeys.length ? prompt("Enter public:secret keys","test") : binanceKeys
+        let keyval = !binanceKeys.length ? prompt("Enter secret key codes (leave 'demo' for testing)","demo") : binanceKeys
         
         if (!keyval) {
-          s__binanceKeys("test")
+          s__binanceKeys("demo")
           return
         }
 
