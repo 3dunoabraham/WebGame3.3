@@ -112,6 +112,17 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
   let attempts = asdasd.attempts
     console.log("user attempts...",new_uid, asdasd.attempts)
     if (!!attempts) {
+      
+      const { data: removeattempt, error:error_removeattempt } = await supabase
+      .from<any, any>('start')
+      .update({
+        attempts: attempts - 1,
+        datenow: `${Date.now()}`,
+      })
+      .match({ hash: new_uid })
+      .single()
+      console.log("removeattempt", removeattempt)
+
     const { data: order, error:error2 } = await supabase
               .from<any, any>('order')
               .insert(orderObj)
@@ -325,18 +336,20 @@ export async function POST(request: any) {
     //     }
     //   }
     // )
-    let rrreeesss = await sendSupabaseVirtualOrder(request,
-      { side, symbol, quantity, price },
-      apiKey,
-      apiSecret,
-      (callbackRes: any) => {
-        // console.log("finally sendTelegramMessageVirtualOrder resulttt?", callbackRes)
-        if (!callbackRes) {
-          throw Error
-        }
-      }
-    )
-    console.log("res sendSupabaseVirtualOrder", rrreeesss)
+
+    // GOOD IT DOES SEND IN VERCEL
+    // let rrreeesss = await sendSupabaseVirtualOrder(request,
+    //   { side, symbol, quantity, price },
+    //   apiKey,
+    //   apiSecret,
+    //   (callbackRes: any) => {
+    //     // console.log("finally sendTelegramMessageVirtualOrder resulttt?", callbackRes)
+    //     if (!callbackRes) {
+    //       throw Error
+    //     }
+    //   }
+    // )
+    // console.log("res sendSupabaseVirtualOrder", rrreeesss)
 
 
 

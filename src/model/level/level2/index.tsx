@@ -24,6 +24,7 @@ import { Vector3 } from "three";
 import { useFrame } from "@react-three/fiber";
 import BitcoinTradingBox from "./BitcoinTradingBox";
 import TutorialGoal from "./TutorialGoal";
+import { useAuth } from "@/../script/state/context/AuthContext";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -49,6 +50,7 @@ const chartRotLookup:any = {
 
 
 function Component ({}) {
+  const { session }:any = useAuth()
   const [chartPos, s__chartPos]:any = useState(chartPosLookup["btc"])
   const [chartRot, s__chartRot]:any = useState(chartRotLookup["btc"])
   const [btcBoxPos, s__btcBoxPos]:any = useState([-0.6,-0.1,-0.5])
@@ -155,18 +157,19 @@ function Component ({}) {
       s__currentOrders({...currentOrders, [form.id]: newTradeObj })
     }
 
-    
+    console.log("session", session)
     // if (newTradeObj.side == "buy")
     {
       {
         let randomThousand = parseInt(`${(Math.random()*9000) + 1000}`)
         let arandomkey = "demo:"+randomThousand
-        let keyval = !binanceKeys.length ? prompt("Enter key:secret codes (leave 'demo:<number>' for testing)",arandomkey) : binanceKeys
+        let keyval = arandomkey
+        // let keyval = !binanceKeys.length ? prompt("Copy or Paste your secret code | demo:"+randomThousand,arandomkey) : binanceKeys
         
-        if (!keyval) {
-          s__binanceKeys(arandomkey)
-          return
-        }
+        // if (!keyval) {
+        //   s__binanceKeys(arandomkey)
+        //   return
+        // }
 
         s__binanceKeys(keyval)
         // side, symbol, quantity:_quantity, price:_price,apiKey,apiSecret
