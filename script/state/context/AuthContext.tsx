@@ -135,8 +135,8 @@ const AuthProvider:FC<{
   return (
     <Auth.Provider value={{
       jwt: session.jwt,  user, // isValidating,
-      localuser,
-      do:{login, demo, logout, s__localuser},
+      superuser,
+      do:{login, demo, logout, },
       can,
 
     }}>
@@ -164,7 +164,7 @@ interface IAuthContext {
   // isValidating: boolean;
   jwt: string | undefined;
   user: IUser | undefined;
-  localuser: any;
+  superuser: any;
   do:any;
   can:any;
   // login: (body: ILoginForm) => Promise<void>;
