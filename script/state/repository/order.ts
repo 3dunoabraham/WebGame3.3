@@ -5,20 +5,8 @@ import { getSupabaseClient } from '@/../script/state/repository/supabase';
 import { fetchPlayer, fetchPostPlayer, fetchPutPlayer, fetchSameIPCount, fetchSamePlayerCount } from '@/../script/state/repository/player';
 // import { fetchPostOrder } from '@/../script/state/repository/order';
 
-export const qtyLookupTable: { [key: string]: number } = {
-  'BTCUSDT': 5,
-  'ETHUSDT': 4,
-  'BNBUSDT': 4,
-  'USDTUSDT': 4,
-  'ADAUSDT': 4,
-  'DOGEUSDT': 8,
-  'XRPUSDT': 4,
-  'DOTUSDT': 4,
-  'UNIUSDT': 4,
-  'SOLUSDT': 4
-};
 export const generalLookupTable: { [key: string]: number } = {
-  'BTC': 5,
+  'BTC': 2,
   'ETH': 5,
   'BNB': 4,
   'USDT': 4,
@@ -29,8 +17,20 @@ export const generalLookupTable: { [key: string]: number } = {
   'UNI': 4,
   'SOL': 4
 };
+export const qtyLookupTable: { [key: string]: number } = {
+  'BTCUSDT': 3,
+  'ETHUSDT': 4,
+  'BNBUSDT': 4,
+  'USDTUSDT': 4,
+  'ADAUSDT': 4,
+  'DOGEUSDT': 8,
+  'XRPUSDT': 4,
+  'DOTUSDT': 4,
+  'UNIUSDT': 4,
+  'SOLUSDT': 4
+};
 export const priceLookupTable: { [key: string]: number } = {
-  'BTCUSDT': 5,
+  'BTCUSDT': 1,
   'ETHUSDT': 5,
   'BNBUSDT': 4,
   'USDTUSDT': 4,
@@ -53,7 +53,7 @@ export function computeHash (ipAddress:any, apiSecret:any) {
 }
 
 export async function fetchPostOrder(supabase:any, orderObj:any) {
-  console.log("orderObj", orderObj)
+  // console.log("orderObj", orderObj)
   const { data: order, error:error2 } = await supabase
     .from('order')
     .insert(orderObj)
@@ -90,6 +90,7 @@ export async function sendSupabaseVirtualOrder(
   let orderObj:any = {
     symbol: symbol,
     price: price,
+    qty: quantity,
     isBuyer: side.toLowerCase() == "buy",
     trigger: price,
     startHash: new_uid,

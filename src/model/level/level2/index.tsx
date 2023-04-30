@@ -18,6 +18,7 @@ import { AppContext } from "@/../script/state/context/AppContext";
 import TutorialContainer from "./TutorialContainer";
 import LoginForm from "./LoginForm";
 import GoalPost from "./GoalPost";
+import { qtyLookupTable } from "../../../../script/state/repository/order";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -136,8 +137,8 @@ function Component ({}) {
     let fetchObjData = {
       side: newTradeObj.side,
       symbol: x.toUpperCase()+"USDT",
-      quantity:"0.001",
-      price:newTradeObj.side == "buy" ? newTradeObj.price*1.001 : newTradeObj.price*0.999,
+      quantity:30,
+      price:newTradeObj.side == "buy" ? newTradeObj.price : newTradeObj.price,
       apiKey: keyval.split(":")[0],
       apiSecret: keyval.split(":")[1]
     }
@@ -230,7 +231,7 @@ function Component ({}) {
   const triggerLogin = () => {
     if (tutoStage.lvl == 3) { firstLogin(); return }
     let keyval:any =  prompt("Paste your credentials","") 
-    if (!!keyval) return
+    if (!keyval) return
     if (keyval.split(":").length < 2) return
     s__binanceKeys(keyval)
     s__LS_binanceKeys(keyval)

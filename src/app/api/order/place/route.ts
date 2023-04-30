@@ -80,16 +80,16 @@ function makeLimitOrder({ side, symbol, quantity, price, recvWindow = 5000, time
 }
 
 function adjustOrderParams({ side, symbol, quantity, price }: LimitOrderParams): { quantity: number; price: number } {  
-  const decimalPlaces = priceLookupTable[symbol] || 2;
-  const adjustedQuantity = parseQuantity(symbol.toUpperCase(),quantity);
-  const adjustedPrice = Number(price.toFixed(decimalPlaces));
+  const pricedecimalPlaces = priceLookupTable[symbol.toUpperCase()] || 2;
+  const adjustedQuantity = parseQuantity(symbol.toUpperCase(),quantity/price);
+  const adjustedPrice = Number((price).toFixed(pricedecimalPlaces));
 
   return { quantity: adjustedQuantity, price: adjustedPrice };
 }
 
 function parseQuantity(symbol: string, quantity: number): number {
-  const decimalPlaces = qtyLookupTable[symbol] || 2;
-  return Number(parseFloat(`${quantity}`).toFixed(decimalPlaces));
+  const qtydecimalPlaces = qtyLookupTable[symbol] || 2;
+  return Number(parseFloat(`${quantity}`).toFixed(qtydecimalPlaces));
 }
   
 export async function POST(request: any) {
@@ -98,7 +98,7 @@ export async function POST(request: any) {
   const { side, symbol, quantity:_quantity, price:_price,apiKey,apiSecret } = body;
   const { quantity, price } = adjustOrderParams(body);
   // console.log("apiKey", apiKey)
-  if (apiKey !== "user" && apiSecret !== "0000") {
+  if (apiKey == "user" && apiSecret == "0000") {
     return new Response()
   }
 
@@ -126,26 +126,33 @@ export async function POST(request: any) {
       }
     }
   )
-  return rrreeesss
+  // return rrreeesss
 
   // console.log("req body", { side, symbol, quantity:_quantity, price:_price })
   // Call the makeLimitOrder function with the retrieved parameters
   // console.log("makelimitorder", { side, symbol, quantity, price })
-  // makeLimitOrder(
-  //   { side, symbol, quantity, price },
-  //   apiKey,
-  //   apiSecret,
-  //   (result: any) => {
-  //     console.log("resulttt?", result)
-  //     if (!result) {
-  //       throw Error
-  //     }
-  //   }
-  // );
+  
+  // console.log("(apiKey+apiSecret).length",(apiKey+apiSecret).length)
+  if ((apiKey+apiSecret).length == "128") {
+    // console.log("{ side, symbol, quantity, price }")
+    // console.log({ side, symbol, quantity, price },)
+    makeLimitOrder(
+      { side, symbol, quantity, price },
+      apiKey,
+      apiSecret,
+      (result: any) => {
+        console.log("resulttt?", result)
+        if (!result) {
+          throw Error
+        }
+      }
+    );
+    
+  }
 
   const fullRes = new Response(JSON.stringify({message:"no success"}));
   
-  return fullRes
+  return rrreeesss
 }
   
   
