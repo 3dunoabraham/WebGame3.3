@@ -13,6 +13,7 @@ import { useNavigationEvent } from '@/../script/util/hook/useNavigationEvent';
 import { InventoryProvider } from '@/../script/state/context/InventoryContext';
 
 function Component({ session, children, }: { session: any, children: React.ReactElement }) {
+  
   const searchParams:any = useSearchParams();
   const queryClient = new QueryClient()
   const [filters,s__filters] = useState({})

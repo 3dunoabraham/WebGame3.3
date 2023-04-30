@@ -21,22 +21,24 @@ function Component ({calls, state}:any) {
 
   return (<>
     
-    <group position={[0,0,-1.5]} rotation={[Math.PI/2,0,0]}>
-        <Cylinder args={[0.14,0.14,0.1,6]} position={[0,0.25,0.15]} castShadow receiveShadow ref={$claimButton}
-          onClick={calls.claim}
-        >
-          <meshStandardMaterial color={realProfitCount >= 4 ? "#00cc00" : "#f66"}/>
-        </Cylinder>
-        <Cylinder args={[0.16,0.16,0.12,12]} position={[0,0.22,0.15]} castShadow receiveShadow 
-        >
-          <meshStandardMaterial color={"#ccc"}/>
-        </Cylinder>
-      </group>
-    <DynaText text={realProfitCount+"/4"} color={!!realProfitCount ? "#006600"   : "#fff"}
-      rotation={[0,0,0]}
+    {state.hasAnyToken && <>
+      <group position={[0,0,-1.5]} rotation={[Math.PI/2,0,0]}>
+          <Cylinder args={[0.14,0.14,0.1,6]} position={[0,0.25,0.15]} castShadow receiveShadow ref={$claimButton}
+            onClick={calls.claim}
+          >
+            <meshStandardMaterial color={realProfitCount >= 4 ? "#00cc00" : "#f66"}/>
+          </Cylinder>
+          <Cylinder args={[0.16,0.16,0.12,12]} position={[0,0.22,0.15]} castShadow receiveShadow 
+          >
+            <meshStandardMaterial color={"#ccc"}/>
+          </Cylinder>
+        </group>
+      <DynaText text={realProfitCount+"/4"} color={!!realProfitCount ? "#006600"   : "#fff"}
+        rotation={[0,0,0]}
 
-      position={[0,-0.15,-1.19]} font={0.15}
-    />
+        position={[0,-0.15,-1.19]} font={0.15}
+      />
+  </>}
 
     {state.hasAnyToken &&
       <group position={[0,0,-1.5]}>

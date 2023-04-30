@@ -201,3 +201,30 @@ export async function sendSupabaseVirtualOrder(
   return new Response(JSON.stringify(orderObj))
 }
   
+
+export async function getSupabasePlayer(
+  req: any, { side, symbol, quantity, price, recvWindow = 5000, timestamp = Date.now() }: any, apiKey: string, apiSecret: string, callback: Function
+) {
+  // Get user's IP address
+  let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
+  const new_uid = computeHash(ipAddress, apiSecret)
+  let playerObj:any = {
+    name: apiKey,
+    ipv4: ipAddress,
+    hash: new_uid,
+    attempts: 12,
+    totalAttempts: 0,
+    goodAttempts: 0,
+    trades:"",
+    datenow: Date.now(),
+  }
+  const supabase = getSupabaseClient()
+  const count = await fetchSamePlayerCount(supabase, new_uid)
+  if (!count) {
+    throw new Error()
+  } else {
+    playerObj = await fetchPlayer(supabase,new_uid)
+  }
+  
+  return new Response(JSON.stringify(playerObj))
+}

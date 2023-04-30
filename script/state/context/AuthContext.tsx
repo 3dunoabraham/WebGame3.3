@@ -5,6 +5,10 @@ import { createContext, FC, useContext, useEffect, useMemo, useState } from "rea
 import UserService from "@/../script/state/service/User";
 import { AppContext } from "./AppContext";
 import { GRANTTREE } from "../../constant";
+import { useLocalStorage } from "usehooks-ts";
+import { fetchPlayer } from "../repository/player";
+import { getSupabaseClient } from "../repository/supabase";
+import PlayerService from '@/../script/state/service/Player'
 
 export const Auth = createContext<IAuthContext | null>(null);
 
@@ -14,11 +18,56 @@ const AuthProvider:FC<{
 }> = (props) => {
   const app:any = useContext(AppContext)
   const { session: session, children } = props;
+
+
   // const [isValidating, s__isValidating] = useState<boolean>(false);
   const [user, setUser] = useState<IUser | undefined>(session.user);
   const [userInfo, s__userInfo] = useState<IUser>(session.user)
-  useEffect(() => {
+
+  const [LH_superuser, s__LH_superuser]:any = useLocalStorage("superuser","{}")
+  const [superuser, __superuser] = useState()
+
+  const [LH_localuser, s__LH_localuser]:any = useLocalStorage("binanceKeys","user:0000")
+  const [localuser, __localuser] = useState()
+
+
+  const s__localuser = (a:any) => {
+    __localuser(a)
+  }
+  const fetchUserByKey = async (key:any,secret:any) => {
+    console.log("fetchUserByKey, key", localuser, key)
+    // asd
+    // const supabase = getSupabaseClient()
+    // const theplayer = fetchPlayer(supabase, )
+    let thePlayer = await PlayerService.getPlayer(key,secret)
+    console.log("thePlayer", thePlayer)
+
+    __superuser(thePlayer)
+      s__LH_superuser(JSON.stringify(thePlayer))
+    // return thePlayer
+  }
+  useEffect( () => {
+    __superuser(JSON.parse(LH_superuser))
+    
+
+    if (!localuser) {
+      s__localuser(LH_localuser);
+      let creds = LH_localuser.split(":")
+      console.log("LH_localuser, creds", LH_localuser, creds)
+      let key = creds[0]
+      let secret  = creds[1]
+      fetchUserByKey(key,secret)
+      
+
+    } else {
+      console.log("localuser", localuser)
+    }
+
+  }, []);
+  useEffect( () => {
     if (!userInfo) return
+
+
     
     setUser(userInfo);
     const intervalId = setInterval(async ()=>{
@@ -86,7 +135,8 @@ const AuthProvider:FC<{
   return (
     <Auth.Provider value={{
       jwt: session.jwt,  user, // isValidating,
-      do:{login, demo, logout},
+      localuser,
+      do:{login, demo, logout, s__localuser},
       can,
 
     }}>
@@ -114,6 +164,7 @@ interface IAuthContext {
   // isValidating: boolean;
   jwt: string | undefined;
   user: IUser | undefined;
+  localuser: any;
   do:any;
   can:any;
   // login: (body: ILoginForm) => Promise<void>;
