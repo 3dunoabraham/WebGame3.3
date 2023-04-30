@@ -1,9 +1,11 @@
 import DynaText from "@/model/npc/TradingBox/DynaText"
 import { Box, Cylinder } from "@react-three/drei"
-import { useMemo } from "react"
+import { useFrame } from "@react-three/fiber"
+import { useMemo, useRef } from "react"
 
 
 function Component ({calls, state}:any) {
+  const $claimButton:any = useRef()
   const realProfitCount = useMemo(()=>{
     return state.profitHistory.filter((atrade:any, index:any) => {
       // console.log("atrade[1]", atrade[1])
@@ -11,19 +13,26 @@ function Component ({calls, state}:any) {
     }).length
   },[state.profitHistory])
 
+  useFrame(()=>{
+    if (!$claimButton.current) return
+    if (realProfitCount < 4) return
+    $claimButton.current.rotation.y += 0.01
+  })
+
   return (<>
     
     <group position={[0,0,-1.5]} rotation={[Math.PI/2,0,0]}>
-        <Cylinder args={[0.14,0.14,0.1,12]} position={[0,0.25,0.15]} castShadow receiveShadow 
+        <Cylinder args={[0.14,0.14,0.1,12]} position={[0,0.25,0.15]} castShadow receiveShadow ref={$claimButton}
+          onClick={calls.claim}
         >
-          <meshStandardMaterial color={"#f33"}/>
+          <meshStandardMaterial color={realProfitCount >= 4 ? "#00cc00" : "#f66"}/>
         </Cylinder>
         <Cylinder args={[0.16,0.16,0.12,12]} position={[0,0.22,0.15]} castShadow receiveShadow 
         >
           <meshStandardMaterial color={"#ccc"}/>
         </Cylinder>
       </group>
-    <DynaText text={realProfitCount+"/4"} color={realProfitCount ? "#009900"   : "#fff"}
+    <DynaText text={realProfitCount+"/4"} color={!!realProfitCount ? "#006600"   : "#fff"}
       rotation={[0,0,0]}
 
       position={[0,-0.15,-1.19]} font={0.15}

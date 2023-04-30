@@ -112,7 +112,10 @@ function Component ({}) {
   }
   const toggleTrade = async (x:any, y:any) => {
     if (tutoStage.lvl == 1) { setTutoStage(2) }
-    if (tutoStage.lvl == 2) { setTutoStage(3) }
+    if (tutoStage.lvl == 2) {
+      if (isDefaultUser) { setTutoStage(3) }
+      else { setTutoStage(4) }
+    }
 
     let newTradeObj = {side:!!y.value ? "buy" : "sell",token:x,price:y.price}
     let isBuying = newTradeObj.side == "buy"
@@ -207,6 +210,7 @@ function Component ({}) {
     clipbloard__do(AI_BASE + JSON.stringify(newPrompt))
   }
   const setTutoStage = (lvl:any) => {
+
     s__LS_tutoStage(JSON.stringify({...tutoStage,lvl}))
   }
   const turnOffDemo = () => {
@@ -250,8 +254,18 @@ function Component ({}) {
     s__LS_tokensArrayObj("{}");
     window.location.reload()
   }
+  const claim = () => {
+    if (realProfitCount < 4) { return }
+    app.alert("success", "Please contact support with your ID")
+    prompt("Please contact support with your ID",binanceKeys)
+  }
 
-
+  const realProfitCount = useMemo(()=>{
+    return profitHistory.filter((atrade:any, index:any) => {
+      // console.log("atrade[1]", atrade[1])
+      return atrade[1] == "profit"
+    }).length
+  },[profitHistory])
 
   useEffect(()=>{
     s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
@@ -302,7 +316,7 @@ function Component ({}) {
 
       <LoginForm state={{isDefaultUser, }} calls={{triggerLogout, triggerLogin}} />
       
-      <GoalPost calls={{}}
+      <GoalPost calls={{claim}}
         state={{hasAnyToken, profitHistory}}
       />
 
