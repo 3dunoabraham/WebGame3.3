@@ -13,12 +13,10 @@ import MovingBox2 from "./MovingBox2";
 import MetaOrbitControls from "@/model/core/MetaOrbitControls";
 import { fetchPost } from "@/../script/util/helper/fetchHelper";
 import BitcoinTradingBox from "./BitcoinTradingBox";
-import { useAuth } from "@/../script/state/context/AuthContext";
 import { AppContext } from "@/../script/state/context/AppContext";
 import TutorialContainer from "./TutorialContainer";
 import LoginForm from "./LoginForm";
 import GoalPost from "./GoalPost";
-import { qtyLookupTable } from "../../../../script/state/repository/order";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -27,42 +25,55 @@ const DEFAULT_TOKEN_OBJ = {
 const selectedTimeframeIndex = 0
 const selectedTimeframe = "3m"
 const feePercent = 0.0
-
 const chartPosLookup:any = {
-  "btc": [-1.1,0,-0.45],
-  "eth": [0.2,0,-0.45],
-  "link": [-1.1,0,0.85],
-  "ftm": [0.2,0,0.85],
+  "btc": [-1.1,0,-0.45], "eth": [0.2,0,-0.45], "link": [-1.1,0,0.85], "ftm": [0.2,0,0.85],
 }
-
 const chartRotLookup:any = {
-  "btc": [0,Math.PI/2,0],
-  "eth": [0,Math.PI/2,0],
-  "link": [0,Math.PI/2,0],
-  "ftm": [0,Math.PI/2,0],
+  "btc": [0,Math.PI/2,0], "eth": [0,Math.PI/2,0], "link": [0,Math.PI/2,0], "ftm": [0,Math.PI/2,0],
 }
-
 
 function Component ({}) {
   const app:any = useContext(AppContext)
+  const $bitcoin:any = useRef()
   const [chartPos, s__chartPos]:any = useState(chartPosLookup["btc"])
   const [chartRot, s__chartRot]:any = useState(chartRotLookup["btc"])
-  const [chartBoxPos, s__chartBoxPos] = useState([0,0,0])
-  const $bitcoin:any = useRef()
+  const [LS_binanceKeys, s__LS_binanceKeys] = useLocalStorage('binanceKeys', "user:0000")
   const [_tutoStage, s__LS_tutoStage] = useLocalStorage('level2tutorialstage', "{}")
-  const tutoStage:any = useMemo(()=> JSON.parse(_tutoStage) , [_tutoStage])
-  const [enablePan, s__enablePan] = useState(true)
   const [LS_tokensArrayObj, s__LS_tokensArrayObj] = useLocalStorage('localTokensArrayObj', "{}")
+  const [chartBoxPos, s__chartBoxPos] = useState([0,0,0])
+  const [enablePan, s__enablePan] = useState(true)
   const [tokensArrayObj,s__tokensArrayObj] = useState<any>({})
   const [selectedToken, __selectedToken] = useState("btc")
   const [currentOrders, s__currentOrders] = useState<any>({})
   const [orderHistory, s__orderHistory] = useState<any>([])
   const [profitHistory, s__profitHistory] = useState<any>([])
-  const [LS_binanceKeys, s__LS_binanceKeys] = useLocalStorage('binanceKeys', "user:0000")
   const [binanceKeys, s__binanceKeys] = useState<any>(LS_binanceKeys)
   const [form,s__form] = useState({
     id:"BTCUSDT3M",
   })
+  const AI_BASE = `
+    analyze this data and make a report:
+    include trend direction, resistance and support levels.
+    each array of the json represents the latest candlestick chart data with only the closing price
+    generate the report including all 4 timeframes  \n\n candles data:
+  `
+  const [AIdata, s__AIdata] = useState({})
+  const tutoStage:any = useMemo(()=> JSON.parse(_tutoStage) , [_tutoStage])
+  const hasAnyToken = useMemo(()=>{
+    let interestCount = Object.keys(tokensArrayObj).filter((token)=>{
+      return token in tokensArrayObj
+    })
+    return interestCount.length > 0
+  },[tokensArrayObj])
+  const hasAllTokens = useMemo(()=>{
+    let interestCount = Object.keys(tokensArrayObj).filter((token)=>{
+      return token in tokensArrayObj
+    })
+    return interestCount.length == 4
+  },[tokensArrayObj])
+
+
+
   const onTimeframeClick = (x:any, y:any) => {  }
   const join = (x:any) => {
       s__selectedToken(x)
@@ -181,40 +192,19 @@ function Component ({}) {
     s__tokensArrayObj(bigTokensObj)
     s__LS_tokensArrayObj((prevValue) => JSON.stringify(bigTokensObj))
   }
-  const hasAnyToken = useMemo(()=>{
-    let interestCount = Object.keys(tokensArrayObj).filter((token)=>{
-      return token in tokensArrayObj
-    })
-    return interestCount.length > 0
-  },[tokensArrayObj])
-  const hasAllTokens = useMemo(()=>{
-    let interestCount = Object.keys(tokensArrayObj).filter((token)=>{
-      return token in tokensArrayObj
-    })
-    return interestCount.length == 4
-},[tokensArrayObj])
-  useEffect(()=>{
-    s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
-  },[])
   const [clipbloardValue, clipbloard__do] = useCopyToClipboard()
-  const AI_BASE = `
-  analyze this data and make a report:
-  include trend direction, resistance and support levels.
-  each array of the json represents the latest candlestick chart data with only the closing price
-  generate the report including all 4 timeframes  \n\n candles data:`
-  const [AIdata, s__AIdata] = useState({})
   const askAI = (data:any) => {
-      let verbose:any = {
-          "3m": "3 minutes between prices",
-          "15m": "15 minutes between prices",
-          "4h": "4 hours between prices",
-          "1d": "1 day between prices",
-      }
-      let newPrompt:any = AIdata
-      newPrompt[verbose[selectedTimeframe.toLowerCase()]] = ([...data]).splice(400,499)
-      s__AIdata(newPrompt)
-      console.log("newPrompt", newPrompt)
-      clipbloard__do(AI_BASE + JSON.stringify(newPrompt))
+    let verbose:any = {
+      "3m": "3 minutes between prices",
+      "15m": "15 minutes between prices",
+      "4h": "4 hours between prices",
+      "1d": "1 day between prices",
+    }
+    let newPrompt:any = AIdata
+    newPrompt[verbose[selectedTimeframe.toLowerCase()]] = ([...data]).splice(400,499)
+    s__AIdata(newPrompt)
+    console.log("newPrompt", newPrompt)
+    clipbloard__do(AI_BASE + JSON.stringify(newPrompt))
   }
   const setTutoStage = (lvl:any) => {
     s__LS_tutoStage(JSON.stringify({...tutoStage,lvl}))
@@ -260,6 +250,12 @@ function Component ({}) {
   }
 
 
+
+  useEffect(()=>{
+    s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
+  },[])
+
+  
 
   return (<>
     <Scene>
