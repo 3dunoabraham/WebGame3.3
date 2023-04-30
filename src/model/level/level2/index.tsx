@@ -341,7 +341,7 @@ function Component ({}) {
       </>}
 
       <BitcoinTradingBox tokensArrayObj={tokensArrayObj} selectedToken={selectedToken}
-        toggleTrade={toggleTrade}
+        toggleTrade={(tokenname:any,data:any)=>{toggleTrade("btc",data)}}
         hasAnyToken={hasAnyToken} $bitcoin={$bitcoin}
         form={form} timeframe={form.id.split("USDT")[1]} token="btc" 
         tokensArrayArray={"btc" in tokensArrayObj ? tokensArrayObj["btc"] : null}
