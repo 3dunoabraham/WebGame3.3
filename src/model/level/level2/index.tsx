@@ -143,15 +143,20 @@ function Component ({}) {
     }
 
     let newTradeObj = {side:!!y.value ? "buy" : "sell",token:x,price:y.price}
-
+    let isBuying = newTradeObj.side == "buy"
     s__orderHistory([...orderHistory, newTradeObj])
-    if (form.id in currentOrders) {
+    updateTokenOrder(x,selectedTimeframeIndex,"buy",isBuying ? "1" : "0",{["price"]:y.price})
+    // updateTokenOrder(x,selectedTimeframeIndex,"price",y.price)
+    console.log("newTradeObj, currentOrders, form.id in currentOrders", newTradeObj, form.id,currentOrders,form.id in currentOrders)
+    if (form.id in currentOrders)
+    {
       let oldOrders = {...currentOrders}
       if (newTradeObj.side == "sell") {
         let theindex = profitHistory.length
+        console.log("theindex",theindex)
         let newprofithi:any = [...profitHistory, [oldOrders[form.id],newTradeObj]]
         let percentChange:any = newprofithi.price == oldOrders[form.id].price ? 0 : parseFloat(`${newTradeObj.price/oldOrders[form.id].price*100}`).toFixed(2)
-        // console.log(newprofithi, newprofithi.price , oldOrders[form.id].price)
+        console.log("newprofithi",newprofithi, newprofithi.price , oldOrders[form.id].price)
         
         newprofithi[theindex].unshift((percentChange-100) > feePercent ? "profit" : "loss")
         newprofithi[theindex].unshift((percentChange-100).toFixed(3))
@@ -161,7 +166,9 @@ function Component ({}) {
       delete oldOrders[form.id]
       s__currentOrders(oldOrders)
     } else {
-      s__currentOrders({...currentOrders, [form.id]: newTradeObj })
+      if (newTradeObj.side == "buy") {
+          s__currentOrders({...currentOrders, [form.id]: newTradeObj })
+        } 
     }
 
     console.log("session", session)
@@ -202,7 +209,7 @@ function Component ({}) {
     s__selectedToken(x)
 
   }
-  const updateTokenOrder = async (_token:string, timeframe:any, substate:string,val:any="") => {
+  const updateTokenOrder = async (_token:string, timeframe:any, substate:string,val:any="",subobj:any=null) => {
     if (!_token) return
     // let promptVal = !val ? prompt("Enter Value") : val
     let promptVal = val
@@ -223,10 +230,11 @@ function Component ({}) {
     console.log("mid", {[substate]:value})
     let newCrystal = {
       ...old_tokensArrayObjArray[timeframeIndex],
-      ...{[substate]:value},
+      ...{[substate]:value,...(subobj || {})},
       ...getComputedLevels({
         ...old_tokensArrayObjArray[timeframeIndex],
-        ...{[substate]:value}
+        ...{[substate]:value},
+        ...(subobj || {})
       }),
     }
     console.log("new", newCrystal)

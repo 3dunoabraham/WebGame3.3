@@ -39,7 +39,6 @@ const Component = forwardRef(({
     
     const [LS_tokensArrayObj, s__LS_tokensArrayObj] = useLocalStorage('localTokensArrayObj', "{}")
     const [LS_uid, s__LS_uid] = useLocalStorage('uid', "")
-    const [clickedPrice, s__clickedPrice] = useState(0)
     const [uid, s__uid] = useState("")
     const [showAllTokens,s__showAllTokens] = useState<any>(true)
     const [chopAmount,s__chopAmount] = useState<any>(0)
@@ -67,8 +66,20 @@ const Component = forwardRef(({
       return prr
     }
 })
+const selectedTimeframe = useMemo(()=>{
+  return form.id.split("USDT")[1].toLowerCase()
+},[form.id])
+const selectedTimeframeIndex = useMemo(()=>{
+  return DEFAULT_TIMEFRAME_ARRAY.indexOf(selectedTimeframe)
+},[selectedTimeframe])
 
-  const [clicked, setClicked] = useState(false);
+
+const selectedHasArray = useMemo(()=>{
+  return !!tokensArrayArray && !!tokensArrayArray[selectedTimeframeIndex] && !!tokensArrayArray[selectedTimeframeIndex].state
+},[tokensArrayArray, selectedTimeframeIndex])
+
+    const [clickedPrice, s__clickedPrice] = useState(selectedHasArray ? parseFloat(`${tokensArrayArray[selectedTimeframeIndex].price}`) : 0)
+    const [clicked, setClicked] = useState(selectedHasArray ? !!tokensArrayArray[selectedTimeframeIndex].buy : false);
   const meshRef = useRef<Mesh>();
   const bouncingThing:any = useRef<Mesh>();
   const playerMesh:any = useRef<Mesh>();
@@ -113,16 +124,9 @@ const Component = forwardRef(({
   const selectedToken = useMemo(()=>{
     return form.id.split("USDT")[0].toLowerCase()
   },[form.id])
-  const selectedTimeframe = useMemo(()=>{
-    return form.id.split("USDT")[1].toLowerCase()
-  },[form.id])
-  const selectedTimeframeIndex = useMemo(()=>{
-    return DEFAULT_TIMEFRAME_ARRAY.indexOf(selectedTimeframe)
-  },[selectedTimeframe])
-  
-  const selectedHasArray = useMemo(()=>{
-    return !!tokensArrayArray && !!tokensArrayArray[selectedTimeframeIndex] && !!tokensArrayArray[selectedTimeframeIndex].state
-  },[tokensArrayArray, selectedTimeframeIndex])
+  // const selectedHasArray = useMemo(()=>{
+  //   return !!tokensArrayArray && !!tokensArrayArray[selectedTimeframeIndex] && !!tokensArrayArray[selectedTimeframeIndex].state
+  // },[tokensArrayArray, selectedTimeframeIndex])
 
   const isDowntrend = useMemo(()=>{
     return !!tokensArrayArray && !!tokensArrayArray[selectedTimeframeIndex] && !!tokensArrayArray[selectedTimeframeIndex].mode
