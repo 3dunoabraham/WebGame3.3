@@ -32,8 +32,9 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
 
   // Get user's IP address
   let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
-  const ipAddressRegex = /(?:[0-9]{1,3}\.){3}[0-9]{1,3}/g;
-  ipAddress = ipAddress.match(ipAddressRegex)[0]
+  // const ipAddressRegex = /(?:[0-9]{1,3}\.){3}[0-9]{1,3}/g;
+  // console.log("ipAddress.match(ipAddressRegex) length", ipAddress.match(ipAddressRegex).length, ipAddress.match(ipAddressRegex))
+  // ipAddress = ipAddress.match(ipAddressRegex)[0]
 
   // Hash IP address to create a unique user ID
   const hash = crypto.createHash('sha256');
@@ -48,7 +49,8 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
     name: "someone",
     ipv4: ipAddress,
     hash: new_uid,
-    attempts: 6,
+    attempts: 12,
+    totalAttempts: 0,
     datenow: Date.now(),
   }
 
@@ -110,13 +112,33 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
   }
   
   let attempts = asdasd.attempts
-    console.log("user attempts...",new_uid, asdasd.attempts)
+  // let attemptsList = [asdasd.attempts]
+
+  const { data:ipexists, count:ipcount } = await supabase
+  .from('start')
+  
+  .select('totalAttempts', { count: 'exact', head: true })
+  .filter("ipv4", 'eq', ipAddress)
+
+  // const { data: attemptsData, count: attemptsCount, error: attemptsError }:any = await supabase
+  // .from<any, any>('start')
+  // .select('*, max(totalAttempts)')
+  // .eq('ipv4', asdasd.ipAddress)
+  // .single()
+
+  // const maxScore = attemptsData // get the max score from the attempts data
+
+    console.log("user attempts...ipexists, ipcount",new_uid, asdasd.attempts, ipexists, ipcount)
+    if (Number(ipcount) > 5) { 
+      throw new Error()
+    }
     if (!!attempts) {
       
       const { data: removeattempt, error:error_removeattempt } = await supabase
       .from<any, any>('start')
       .update({
         attempts: attempts - 1,
+        totalAttempts: asdasd.totalAttempts + 1,
         datenow: `${Date.now()}`,
       })
       .match({ hash: new_uid })
@@ -259,20 +281,22 @@ const env_BINANCE_SECRET = process.env.BINANCE_SECRET
 
   function adjustOrderParams({ side, symbol, quantity, price }: LimitOrderParams): { quantity: number; price: number } {
     const lookupTable: { [key: string]: number } = {
-      BTC: 5,
-      ETH: 5,
-      BNB: 4,
-      USDT: 4,
-      ADA: 4,
-      DOGE: 8,
-      XRP: 4,
-      DOT: 4,
-      UNI: 4,
-      SOL: 4,
+      'BTCUSDT': 5,
+      'ETHUSDT': 5,
+      'BNBUSDT': 4,
+      'USDTUSDT': 4,
+      'ADAUSDT': 4,
+      'DOGEUSDT': 8,
+      'XRPUSDT': 4,
+      'DOTUSDT': 4,
+      'UNIUSDT': 4,
+      'SOLUSDT': 4,
     };
+    console.log("lookupTable[symbol", lookupTable, symbol)
   
     const decimalPlaces = lookupTable[symbol] || 2;
     const adjustedQuantity = parseQuantity(symbol.toUpperCase(),quantity);
+    console.log("tofix", price, decimalPlaces)
     const adjustedPrice = Number(price.toFixed(decimalPlaces));
   
     return { quantity: adjustedQuantity, price: adjustedPrice };
