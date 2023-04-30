@@ -48,7 +48,7 @@ async function sendSupabaseVirtualOrder(req: any, { side, symbol, quantity, pric
     name: "someone",
     ipv4: ipAddress,
     hash: new_uid,
-    attempts: 3,
+    attempts: 6,
     datenow: Date.now(),
   }
 
@@ -305,6 +305,10 @@ export async function POST(request: any) {
   const { quantity, price } = adjustOrderParams(body);
   // console.log("apiKey", apiKey)
   if (apiKey !== "user" && apiSecret !== "0000") {
+    return new Response()
+  }
+  // if (apiKey !== "user" && apiSecret !== "0000")
+  {
     if (request.headers && 'x-forwarded-for' in request.headers ) {
       // console.log("headers", request.headers['x-forwarded-for'])
     } else {
