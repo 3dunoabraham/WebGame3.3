@@ -36,7 +36,7 @@ function Component ({state, calls}:any) {
         }
         {state.hasAnyToken && state.tutoStage.lvl == 4 &&
           
-        <group position={[-0.31,-0.35,-1.9]} scale={0.35}  onClick={()=>{calls.setTutoStage(3)}}>
+        <group position={[-0.31,-0.35,-1.9]} scale={0.35}  >
         <TutorialGoal />
       </group>
         }

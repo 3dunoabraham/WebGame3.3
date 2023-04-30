@@ -230,7 +230,9 @@ function Component ({}) {
     setTutoStage(4)
     let randomThousand = parseInt(`${(Math.random()*9000) + 1000}`)
     let arandomkey = "user:"+randomThousand
-
+    // if (!isDefaultUser) {
+    //   if (prompt("Change user? (yes/no)","no") != "yes") { return }
+    // }
     let keyval:any =  prompt("Copy or Paste your secret credentials | user:"+randomThousand,arandomkey) 
     if (!keyval) return
     if (keyval.split(":").length < 2) return
@@ -299,7 +301,7 @@ function Component ({}) {
       />
 
       <LoginForm state={{isDefaultUser, }} calls={{triggerLogout, triggerLogin}} />
-
+      
       <GoalPost calls={{}}
         state={{hasAnyToken, profitHistory}}
       />

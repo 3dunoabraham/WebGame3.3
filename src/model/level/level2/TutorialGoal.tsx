@@ -29,11 +29,11 @@ function Component ({}) {
             </Text>
             <Text position={[-0.,0.28,0]} fontSize={0.35} rotation={[0,Math.PI,0]} 
                 material={new MeshStandardMaterial({ side: 0, color: "#cc00cc" })}> 
-                min. 3 orders
+                4 orders 
             </Text>
                 <Text position={[0.,0.28,0]} fontSize={0.35} rotation={[0,0,0]} 
                     material={new MeshStandardMaterial({ side: 0, color: "#cc00cc" })}> 
-                min. 3 orders
+                4 orders 
             </Text>
             
             <Text position={[-0.4,0.,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 

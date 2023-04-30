@@ -122,7 +122,11 @@ export function makeLimitOrder({ side, symbol, quantity, price, recvWindow = 500
       'X-MBX-APIKEY': apiKey
     }
   };
-  let _price = price.toFixed(getCryptoPriceDecimals(symbol))
+  let _price = !!price ? price.toFixed(getCryptoPriceDecimals(symbol)) : 0
+  if (!_price) {
+    console.log("bad price: ", _price)
+    return null
+  }
   const params = `symbol=${symbol}&side=${side}&type=LIMIT&timeInForce=GTC&quantity=${quantity}&price=${_price}&recvWindow=${recvWindow}&timestamp=${timestamp}`;
   const signature = crypto.createHmac('sha256', apiSecret).update(params).digest('hex');
   const data = `${params}&signature=${signature}`;

@@ -20,7 +20,7 @@ function Component ( {
       });
 
     return (
-        <Canvas camera={{ fov: 50, position: [1, 0.5, 1], }}  shadows 
+        <Canvas camera={{ fov: 50, position: [1, 0.75, 1], }}  shadows 
             
         >
             {/* <Effects /> */}
