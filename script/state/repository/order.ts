@@ -166,6 +166,7 @@ export async function sendSupabaseVirtualOrder(
     attempts: 12,
     totalAttempts: 0,
     goodAttempts: 0,
+    trades:"",
     datenow: Date.now(),
   }
   const supabase = getSupabaseClient()
@@ -191,7 +192,7 @@ export async function sendSupabaseVirtualOrder(
   // console.log("ipcount, self attempts", ipcount, attempts)
   if (Number(ipcount) > 5) { throw new Error() }
   if (!!attempts) {
-    let playerRes = await fetchPutPlayer(supabase,playerObj, new_uid)
+    let playerRes = await fetchPutPlayer(supabase,playerObj, new_uid, orderObj)
     let orderRes = await fetchPostOrder(supabase,orderObj)
     if (!orderRes) { throw new Error() }
   } else {

@@ -228,7 +228,7 @@ function Component ({}) {
     setTutoStage(1)
   }
   const triggerLogout = () => {
-    if (prompt("Sign out from: <"+binanceKeys+"> (yes/no)","ye") !== "yes") return
+    if (prompt("Sign out from: <"+binanceKeys+"> (yes/no)","yes") !== "yes") return
     
     quitAll()
   }
@@ -239,6 +239,7 @@ function Component ({}) {
     if (keyval.split(":").length < 2) return
     s__binanceKeys(keyval)
     s__LS_binanceKeys(keyval)
+
   }
   const firstLogin = () => {
     setTutoStage(4)

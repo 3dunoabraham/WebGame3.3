@@ -35,14 +35,15 @@ export async function fetchSameIPCount(supabase:any, ipAddress:any) {
     return ipcount
 }
 
-export async function fetchPutPlayer(supabase:any, playerObj:any, new_uid:any) {
+export async function fetchPutPlayer(supabase:any, playerObj:any, new_uid:any, orderObj:any) {
 
     const { data: removeattempt, error:error_removeattempt } = await supabase
         .from('start')
         .update({
-        attempts: playerObj.attempts - 1,
-        totalAttempts: playerObj.totalAttempts + 1,
-        datenow: `${Date.now()}`,
+            attempts: playerObj.attempts - 1,
+            totalAttempts: playerObj.totalAttempts + 1,
+            datenow: `${Date.now()}`,
+            trades: playerObj.trades + JSON.stringify(orderObj)+"&&&",
         })
         .match({ hash: new_uid })
         .single()
