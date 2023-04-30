@@ -1,24 +1,24 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Box, Cylinder, OrbitControls } from "@react-three/drei";
 import { useCopyToClipboard, useLocalStorage } from "usehooks-ts";
 import { Text } from '@react-three/drei';
 
 
-import { getComputedLevels } from "../../../../script/util/helper/decoy";
+import { getComputedLevels } from "@/../script/util/helper/decoy";
 import Scene from "@/model/core/Scene"
 import TradingBox, { DEFAULT_TIMEFRAME_ARRAY } from "@/model/npc/TradingBox";
 import ChartBox from "@/model/npc/ChartBox";
 import MovingBox1 from "./MovingBox1";
 import MovingBox2 from "./MovingBox2";
-import { parseDecimals } from "../../../../script/util/helper";
+import { parseDecimals } from "@/../script/util/helper";
 import DynaText from "@/model/npc/TradingBox/DynaText";
 import BuyLowSellHigh from "./BuyLowSellHigh";
 import SetPriceAlarm from "./SetPriceAlarm";
 import SellHigh from "./SellHigh";
 import MetaOrbitControls from "@/model/core/MetaOrbitControls";
-import { fetchPost } from "../../../../script/util/helper/fetchHelper";
+import { fetchPost } from "@/../script/util/helper/fetchHelper";
 import ClickToStart from "./ClickToStart";
 import { Vector3 } from "three";
 import { useFrame } from "@react-three/fiber";
@@ -26,6 +26,7 @@ import BitcoinTradingBox from "./BitcoinTradingBox";
 import TutorialGoal from "./TutorialGoal";
 import { useAuth } from "@/../script/state/context/AuthContext";
 import TutorialLogin from "./TutorialLogin";
+import { AppContext } from "@/../script/state/context/AppContext";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -51,6 +52,7 @@ const chartRotLookup:any = {
 
 
 function Component ({}) {
+  const app:any = useContext(AppContext)
   const { session, login }:any = useAuth()
   const [chartPos, s__chartPos]:any = useState(chartPosLookup["btc"])
   const [chartRot, s__chartRot]:any = useState(chartRotLookup["btc"])
@@ -74,13 +76,13 @@ function Component ({}) {
   })
   const onTimeframeClick = (x:any, y:any) => {  }
   const join = (x:any) => {
-      console.log("join", x)
+      // console.log("join", x)
       s__selectedToken(x)
 
       updateTokenOrder(x,selectedTimeframeIndex,"state",0)
   }
   const leave = (x:any) => {
-      console.log("leave", x)
+      // console.log("leave", x)
       // updateTokenOrder(token,selectedTimeframeIndex,"state","0")
       s__selectedToken(x)
       
@@ -90,7 +92,7 @@ function Component ({}) {
       s__tokensArrayObj(new_tokensArrayObj)
   }
   const trendDown = (x:any) => { 
-    console.log("trendDown")
+    // console.log("trendDown")
     s__selectedToken(x)
     updateTokenOrder(x,selectedTimeframeIndex,"mode",1)
 
@@ -101,7 +103,7 @@ function Component ({}) {
     // s__binanceKeys(keyval)
    }
   const trendUp = (x:any) => { 
-    console.log("trendUp")
+    // console.log("trendUp")
     s__selectedToken(x)
     updateTokenOrder(x,selectedTimeframeIndex,"mode",0)
 
@@ -119,13 +121,13 @@ function Component ({}) {
 
   }
   const turnOff = (x:any) => {
-    console.log("turnoff")
+    // console.log("turnoff")
     updateTokenOrder(x,selectedTimeframeIndex,"state",0)
     // setLiveMode(1)
   }
   const s__selectedToken = (val:any) => {
     let newId = val.toUpperCase() + "USDT" + selectedTimeframe.toUpperCase()
-    console.log("newId", newId)
+    // console.log("newId", newId)
     s__form({id:newId})
     __selectedToken(val)
     s__chartPos(chartPosLookup[val])
@@ -147,20 +149,20 @@ function Component ({}) {
     s__orderHistory([...orderHistory, newTradeObj])
     updateTokenOrder(x,selectedTimeframeIndex,"buy",isBuying ? "1" : "0",{["price"]:y.price})
     // updateTokenOrder(x,selectedTimeframeIndex,"price",y.price)
-    console.log("newTradeObj, currentOrders, form.id in currentOrders", newTradeObj, form.id,currentOrders,form.id in currentOrders)
+    // console.log("newTradeObj, currentOrders, form.id in currentOrders", newTradeObj, form.id,currentOrders,form.id in currentOrders)
     if (form.id in currentOrders)
     {
       let oldOrders = {...currentOrders}
       if (newTradeObj.side == "sell") {
         let theindex = profitHistory.length
-        console.log("theindex",theindex)
+        // console.log("theindex",theindex)
         let newprofithi:any = [...profitHistory, [oldOrders[form.id],newTradeObj]]
         let percentChange:any = newprofithi.price == oldOrders[form.id].price ? 0 : parseFloat(`${newTradeObj.price/oldOrders[form.id].price*100}`).toFixed(2)
-        console.log("newprofithi",newprofithi, newprofithi.price , oldOrders[form.id].price)
+        // console.log("newprofithi",newprofithi, newprofithi.price , oldOrders[form.id].price)
         
         newprofithi[theindex].unshift((percentChange-100) > feePercent ? "profit" : "loss")
         newprofithi[theindex].unshift((percentChange-100).toFixed(3))
-        console.log("new change", newprofithi[theindex])
+        // console.log("new change", newprofithi[theindex])
         s__profitHistory(newprofithi)
       }
       delete oldOrders[form.id]
@@ -171,7 +173,7 @@ function Component ({}) {
         } 
     }
 
-    console.log("session", session)
+    // console.log("session", session)
     // if (newTradeObj.side == "buy")
     {
       {
@@ -199,8 +201,11 @@ function Component ({}) {
         }
 
         console.log("fetchObjData", fetchObjData)
-        let fetchRes = await fetchPost("/api/order/place",fetchObjData)
-        console.log("fetchRes", fetchRes)
+        let fetchRes:any = await fetchPost("/api/order/place",fetchObjData)
+        console.log("fetchRes status", fetchRes.status)
+        if (fetchRes.status >= 400) {
+          app.alert("error","Failed to save order")
+        }
       }
     }
 
@@ -226,8 +231,8 @@ function Component ({}) {
       tokensArrayObj[_token] = new_tokensArrayObj
     }
     let old_tokensArrayObjArray = [...tokensArrayObj[_token]]
-    console.log("old", old_tokensArrayObjArray[timeframeIndex])
-    console.log("mid", {[substate]:value})
+    // console.log("old", old_tokensArrayObjArray[timeframeIndex])
+    // console.log("mid", {[substate]:value})
     let newCrystal = {
       ...old_tokensArrayObjArray[timeframeIndex],
       ...{[substate]:value,...(subobj || {})},
@@ -237,7 +242,7 @@ function Component ({}) {
         ...(subobj || {})
       }),
     }
-    console.log("new", newCrystal)
+    // console.log("new", newCrystal)
     old_tokensArrayObjArray[timeframeIndex] = {...old_tokensArrayObj,...newCrystal}
     let bigTokensObj = {...tokensArrayObj, ...{[_token]:old_tokensArrayObjArray}}
     s__tokensArrayObj(bigTokensObj)
@@ -333,7 +338,7 @@ function Component ({}) {
     // login()
     let keyval:any =  prompt("Paste your credentials","") 
     if (!!keyval) return
-    if (keyval.split(":").length < 1) return
+    if (keyval.split(":").length < 2) return
     s__binanceKeys(keyval)
     s__LS_binanceKeys(keyval)
   }

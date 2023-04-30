@@ -104,6 +104,8 @@ export async function sendSupabaseVirtualOrder(
     let playerRes = await fetchPutPlayer(supabase,playerObj, new_uid)
     let orderRes = await fetchPostOrder(supabase,orderObj)
     if (!orderRes) { throw new Error() }
+  } else {
+    throw new Error()
   }
   return new Response(JSON.stringify(orderObj))
 }
