@@ -23,11 +23,18 @@ function Component ({tokensArrayArray, state, calls}:any) {
       </>
     }
 
+{state.clicked && // PROFIT LOSS
+        <DynaText text={"profit"}  
+          color={state.clickedPrice/state.queryUSDT.data < 1 ? 0x009900 : 0x777777}
+          position={new Vector3(+0.28,-0.23,-0.38)} rotation={[0,0,0]}
+          isSelected={state.isSelectedId} font={0.06} 
+        />
+      }
       {state.clicked && // PROFIT LOSS
-        <DynaText text={state.clickedPrice/state.queryUSDT.data < 1 ? "profit %" : "loss %"}  
-          color={state.clickedPrice/state.queryUSDT.data < 1 ? 0x009900 : 0xff0000}
-          position={new Vector3(+0.33,-0.23,-0.38)} rotation={[0,0,0]}
-          isSelected={state.isSelectedId} font={0.07} 
+        <DynaText text={"loss"}  
+          color={state.clickedPrice/state.queryUSDT.data < 1 ? 0x777777 : 0xff0000}
+          position={new Vector3(+0.4,-0.23,-0.38)} rotation={[0,0,0]}
+          isSelected={state.isSelectedId} font={0.06} 
         />
       }
       
