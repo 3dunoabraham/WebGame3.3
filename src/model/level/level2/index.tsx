@@ -319,9 +319,10 @@ function Component ({}) {
     if (prompt("Sign out from: <"+binanceKeys+"> (yes/no)","ye") !== "yes") return
     
     s__LS_binanceKeys("user:0000")
+    s__LS_tokensArrayObj("{}")
     window.location.reload()
   }
-    const triggerLogin = () => {
+  const triggerLogin = () => {
     console.log("tutoStage", tutoStage)
     if (tutoStage.lvl == 3) {
 
@@ -331,7 +332,8 @@ function Component ({}) {
     }
     // login()
     let keyval:any =  prompt("Paste your credentials","") 
-    if (keyval.split(":").length < 2) return
+    if (!!keyval) return
+    if (keyval.split(":").length < 1) return
     s__binanceKeys(keyval)
     s__LS_binanceKeys(keyval)
   }
@@ -358,7 +360,12 @@ function Component ({}) {
     }
     return false
   },[binanceKeys])
-
+  const quitAll = () => {
+    s__LS_binanceKeys("user:0000");
+    s__LS_tutoStage("{}");
+    s__LS_tokensArrayObj("{}");
+    window.location.reload()
+  }
   return (<>
     <Scene>
       {enablePan &&
@@ -425,7 +432,7 @@ function Component ({}) {
         </Box>
         
         <Cylinder args={[0.01,0.01,0.2,6]} position={[2,2.05,2]} castShadow receiveShadow 
-          onClick={()=>{s__LS_tutoStage("{}");s__LS_tokensArrayObj("{}");window.location.reload()}}
+          onClick={()=>{quitAll()}}
         >
           <meshStandardMaterial color={"#f00"}/>
         </Cylinder>
