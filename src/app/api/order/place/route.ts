@@ -4,6 +4,7 @@ import { adjustOrderParams, makeLimitOrder, sendSupabaseVirtualOrder } from '@/.
 export async function POST(request: any) {
   const body:any = await request.json()
   const { side, symbol, quantity:_quantity, price:_price,apiKey,apiSecret } = body;
+  console.log("{ quantity, price } = adjustOrderParams", _quantity, _price )
   const { quantity, price } = adjustOrderParams(body);
   if (apiKey == "user" && apiSecret == "0000") {
     return new Response()

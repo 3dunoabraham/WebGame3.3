@@ -65,7 +65,7 @@ type LimitOrderParams = {
 export function adjustOrderParams({ side, symbol, quantity, price }: LimitOrderParams): { quantity: number; price: number } {  
   const pricedecimalPlaces = priceLookupTable[symbol.toUpperCase()] || 2;
   const adjustedQuantity = parseQuantity(symbol.toUpperCase(),quantity/price);
-  const adjustedPrice = Number((price).toFixed(pricedecimalPlaces));
+  const adjustedPrice = Number((parseFloat(`${price}`)).toFixed(pricedecimalPlaces));
 
   return { quantity: adjustedQuantity, price: adjustedPrice };
 }
