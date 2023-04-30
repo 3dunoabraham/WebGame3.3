@@ -134,6 +134,13 @@ function Component ({}) {
         newprofithi[theindex].unshift((percentChange-100) > feePercent ? "profit" : "loss")
         newprofithi[theindex].unshift((percentChange-100).toFixed(3))
         s__profitHistory(newprofithi)
+        let counting = newprofithi.filter((atrade:any, index:any) => {
+          // console.log("atrade[1]", atrade[1])
+          return atrade[1] == "profit"
+        }).length
+        if (counting >= 4) {
+          setTutoStage(5)
+        }
       }
       delete oldOrders[form.id]
       s__currentOrders(oldOrders)
@@ -157,10 +164,13 @@ function Component ({}) {
       apiSecret: keyval.split(":")[1]
     }
 
+    // app.alert("neutral", "Saving Order")
     let fetchRes:any = await fetchPost("/api/order/place",fetchObjData)
     if (fetchRes.status >= 400) {
       app.alert("error","Failed to save order")
+      return
     }
+    app.alert("success", "Order saved")
   }
   const onTextClick = (x:any) => { 
     s__selectedToken(x)

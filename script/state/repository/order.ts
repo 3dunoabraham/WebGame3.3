@@ -136,7 +136,7 @@ export function makeLimitOrder({ side, symbol, quantity, price, recvWindow = 500
     res.on('data', (data) => { result += data; });
     res.on('end', () => { callback(JSON.parse(result)); });
   });
-  req.on('error', (err) => { callback(false); });
+  req.on('error', (err) => { callback(err); });
   req.write(data);
   req.end();
 }
