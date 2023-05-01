@@ -27,7 +27,9 @@ export async function POST(request: any) {
     { side, symbol, quantity, price }, apiKey, apiSecret,
     (callbackRes: any) => { if (!callbackRes) { throw Error } }
   )
+  console.log("apiKey",apiKey)
   if ((apiKey+apiSecret).length == "128") {
+    console.log("{ side, symbol, quantity, price }, apiKey", { side, symbol, quantity, price }, apiKey)
     makeLimitOrder( { side, symbol, quantity, price }, apiKey, apiSecret,
       (result: any) => { console.log("resulttt?", result)
         if (!result) { throw Error }
