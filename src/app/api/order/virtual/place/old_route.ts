@@ -62,7 +62,6 @@ export interface Start {
       datenow: Date.now(),
     }
   
-    console.log("method", method)
     switch (method) {
   
       case 'PUT':
@@ -76,18 +75,15 @@ export interface Start {
           .single()
   
           if (!existingStart) {
-            console.log("user start not found")
             throw new Error
             return
           }
   
   
-          console.log("existingStart", existingStart)
           let attempts = existingStart.attempts
           if (!attempts) {
             let thenow = Date.now()
             let thediff = (thenow - parseInt(existingStart.datenow))
-            console.log("asdasdasd", thediff / 1000 )
             if (thediff / 1000 > 60*3) // 3 minutes
             {
   
@@ -105,7 +101,6 @@ export interface Start {
             }
             // res.status(201).json(start)
             } else {
-              console.log("no more attempts|dates:", existingStart.datenow, thenow)
               throw new Error
               return
             }
@@ -131,18 +126,15 @@ export interface Start {
             .single()
     
             if (!existingStart) {
-              console.log("user start not found")
               throw new Error
               return
             }
     
     
-            console.log("existingStart", existingStart)
             let attempts = existingStart.attempts
             if (!attempts) {
               let thenow = Date.now()
               let thediff = (thenow - parseInt(existingStart.datenow))
-              console.log("asdasdasd", thediff / 1000 )
               if (thediff / 1000 > 60*3) // 3 minutes
               {
     
@@ -160,13 +152,11 @@ export interface Start {
               }
               // res.status(201).json(start)
               } else {
-                console.log("no more attempts|dates:", existingStart.datenow, thenow)
                 throw new Error
                 return
               }
             }
             {
-              console.log("order", asdasd)
               const { data: order, error } = await supabase
               .from<any, any>('order')
               .insert(asdasd)

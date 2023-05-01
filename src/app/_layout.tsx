@@ -12,7 +12,9 @@ export const metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await fetchSession()
-  // console.log("session", session)
+  
+  
+  
   return (
     <html lang="en">
       <head>

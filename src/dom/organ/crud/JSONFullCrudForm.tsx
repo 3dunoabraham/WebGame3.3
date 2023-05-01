@@ -29,7 +29,6 @@ const Component = forwardRef(({masterKeyName, theUrl, q__queriedObj, queriedArra
         })
         if (response) {
             const updatedItem = await response.json();
-            console.log(updatedItem);
         }
         // q__queriedObj.refetch()
     }

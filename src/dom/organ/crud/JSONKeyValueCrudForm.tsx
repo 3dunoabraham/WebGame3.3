@@ -31,7 +31,6 @@ const Component = forwardRef(({masterKeyName, theUrl, queriedArray, backup = [],
         const response:any = await fetchPut(theUrl, theData)
         if (response) {
             const updatedItem = await response.json();
-            console.log(updatedItem);
         }
         // q__queriedObj.refetch()
     }
@@ -69,7 +68,6 @@ const Component = forwardRef(({masterKeyName, theUrl, queriedArray, backup = [],
         // let selectedItem = !theSelectedItem[0].colVal ? "{}" : theSelectedItem[0].colVal
         // let oldColVal = JSON.parse(selectedItem)
         let oldColVal = selectedItem
-        console.log(form.id, theSelectedItem[0][keyProperty], form.colValue)
         await updateData(form.id, theSelectedItem[0][keyProperty], form.colValue)
         e.preventDefault()
     }    

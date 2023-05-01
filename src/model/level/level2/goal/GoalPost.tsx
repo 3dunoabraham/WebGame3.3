@@ -8,7 +8,6 @@ function Component ({calls, state}:any) {
   const $claimButton:any = useRef()
   const realProfitCount = useMemo(()=>{
     return state.profitHistory.filter((atrade:any, index:any) => {
-      // console.log("atrade[1]", atrade[1])
       return atrade[1] == "profit"
     }).length
   },[state.profitHistory])

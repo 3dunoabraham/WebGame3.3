@@ -23,7 +23,6 @@ const Component = ({
   const { user, do:{login, demo}, jwt }:any = useAuth()
   const triggerDemo = async () => {
     let res = await demo()
-    // console.log("res", res)
     window.location.reload()
   }
   const triggerLogin = async () => {
@@ -45,15 +44,12 @@ const Component = ({
   },[forms.isForm])
   const handleEmailKeyPress = (event:any) => {
     if(['Enter','Tab'].includes(event.key)){
-      // console.log('enter press here! ')
       if (!$password.current) return
       $password.current.focus()
     }
   }
   const handlePwKeyPress = (event:any) => {
-    // console.log("event.key",event.key)
     if(['Enter'].includes(event.key)){
-      // console.log('enter press here! ')
       triggerLogin()
     }
   }

@@ -30,7 +30,6 @@ export const getStrategyResult = (tokenConfig:any, livePrice:number) => {
   if (livePrice > minMedian) {
       if (isfull) return -1
   }
-  // console.log(livePrice , minMedian)
   if (livePrice < min) {
       if (isEmpty) return 2
       if (isHalf) return 1
@@ -55,7 +54,6 @@ try {
 export async function fetchMultipleJsonArray(requestsObj:any) {
   let reqKeys =  Object.keys(requestsObj)
   let requests =  Object.keys(requestsObj).map((reqKey) => {
-    // console.log("requestsObj[reqKey][0]", requestsObj[reqKey][0])
     return fetch(requestsObj[reqKey][0])
   })
   return Promise.all(requests).then((responsesArray) => {
@@ -72,7 +70,6 @@ x = parseFloat(`${x}`)
   }
   if (x < 0.00001)
   {
-    // console.log("*number* TOO LOW", x)
     return x.toFixed(8)
   }
   if (x < 0.0001)
@@ -160,7 +157,6 @@ export const parseUTCDateString = (_theDate:any) => {
 }
 export const timeDifference = (date1:any,date2:any) => {
   var difference = parseInt(date1) - parseInt(date2);
-  // console.log("difference", difference)
   var weeksDifference = Math.floor(difference/1000/60/60/24/7);
   difference -= weeksDifference*1000*60*60*24*7
 

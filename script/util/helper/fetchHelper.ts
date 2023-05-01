@@ -127,15 +127,13 @@ export async function fetchPostWjwt (url:any,body:any,jwt:any) {
     let awaitedRes = (await reqRes.clone().json())
     return awaitedRes
   } catch (e:any) {
-    console.log("reqRes catch (e:any)", e)
-    return null
+    return e
   }
 }
 export const fetchPostImage = async (url:any,file:any,config:any)=>{
     return new Promise(async (resolve, reject) => {
         try {
             const payload = new FormData();
-            console.log("config", config)
             payload.append(config.fieldName || "img", file, file.name);
 
             const req = new XMLHttpRequest();
@@ -167,7 +165,6 @@ export async function fetchJsonArray(theUrl:any, propName = "", returnNull = fal
         if (propName != "" && !(propName in theJsonResult)) { return returnError([],{},theUrl,returnNull) }
         return theParsedResult
     } catch (err) {
-        console.log("returnNull?????????")
         return returnNull ? null : returnError([],err,theUrl,returnNull)
     }
 }

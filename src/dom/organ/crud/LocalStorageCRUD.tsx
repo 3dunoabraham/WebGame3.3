@@ -17,7 +17,7 @@ export default function Component ({updateQueriedToLocalstorage, updateClientToL
             <ItemsTable  displayConfigObj={tableConfigObj} boolConfig={["isActionable", "isCompact"]}
                 actionCard={(id:any)=>(
                     <button className={`ims-button-faded  tx-green  `}
-                        onClick={async (evt)=>{console.log("id, evt",id,evt)}}
+                        onClick={async (evt)=>{}}
                     >
                         <span className="">Delete Unit</span>
                     </button>

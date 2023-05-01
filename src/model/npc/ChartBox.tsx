@@ -85,7 +85,6 @@ const Component = forwardRef(({
           let lastUnix:any =  parseInt(theList[0][0])
           s__liveUnix(firstUnix - 2)
           s__diffUnix(lastUnix - firstUnix)
-          // console.log("thelist[0]: ", theList[499][0])
           
       const closingPrices = theList.map((item: any) => parseFloat(item[4]));
       setPrices(closingPrices);
@@ -94,7 +93,6 @@ const Component = forwardRef(({
           return theList
       }
   },[theToken])
-  // refetched(theList)
 
 
   useImperativeHandle(ref, ()=>({
@@ -103,20 +101,15 @@ const Component = forwardRef(({
     }
   }))
   const hasAnyToken = useMemo(()=>{
-    // console.log("tokensArrayObj", tokensArrayObj)
     let interestCount = Object.keys(tokensArrayObj).filter((token)=>{
-        // console.log("token", token)
         return token in tokensArrayObj
     })
-    // console.log("interestCount", interestCount)
     return interestCount.length > 0
 },[tokensArrayObj])
   useFrame((state: any, delta) => {
     if (chartRef.current) {
       if(!hasAnyToken)
       { 
-        // console.log("asd")
-        // chartRef.current.rotation.y = Math.sin(Date.now()/50000)
       }
     }
     if (score.score <= 0)
@@ -128,7 +121,6 @@ const Component = forwardRef(({
       meshRef.current.position.y += velocityY;
       let parsedElapsed = parseInt((5*delta) + elapsed)
         if (parsedElapsed > liveId) {
-          console.log("asqweqwed", parsedElapsed, (5*delta) + elapsed, initUnix, liveUnix)
           meshRef.current.position.x += wallWidth * 2 / 10
           s__liveId(liveId+1)
 

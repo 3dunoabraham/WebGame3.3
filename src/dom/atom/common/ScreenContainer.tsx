@@ -16,7 +16,6 @@ function Component({
     
 
     useEffect(()=>{
-        // console.log("test here")
         if (app.alertMap.get("wait") == "") return
         
     },[app.alertMap])

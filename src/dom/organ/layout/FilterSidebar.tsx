@@ -45,7 +45,6 @@ function Component({ online=true }) {
     //     let filtersObj = {...INVENTORY_FILTERS_OBJ}
     //     filtersObj["sales_status"].optsArray = q__foreigns.sales_statuses
     //     if (inv.unitsArray.length > 0) {
-    //         // console.log("inv.unitsArray.length", inv.unitsArray.length)
     //         filtersObj["sales_status"].optsArray = filtersObj["sales_status"].optsArray.map((anItem:any, index:any)=>{
     //             let theCount = inv.unitsArray.filter((theUnit,i)=> theUnit.sales_status == anItem.id  )
     //             return {...anItem, ...{ _COUNT: theCount.length }}

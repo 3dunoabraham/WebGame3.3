@@ -24,19 +24,13 @@ import { Canvas } from "@react-three/fiber";
 const Component = forwardRef(({}:any, ref)=>{
     
     useImperativeHandle(ref, ()=>({
-        // testConnect: () => {
-        //     console.log("connected")
-        // },
         resize: (size:any) => {
             let oldNewSize = {...sizeForm}
-            console.log("resize with this", size)
             if (size.width && size.width.feet) {
-                console.log("width connected", size.width.feet)
                 oldNewSize.x = size.width.feet
                 // be_size(size.width.feet, "x")
             } // else { be_size(10, "x") }
             if (size.length && size.length.feet) {
-                console.log("length connected", size.length.feet)
                 oldNewSize.z = size.length.feet
                 // be_size(size.length.feet, "z")
             } // else { be_size(10, "z") }
@@ -94,9 +88,7 @@ const Component = forwardRef(({}:any, ref)=>{
     }
     ,[sizeForm.y])
     const be_size = (e:any, propName:any) => {
-        // console.log(sizeForm, "be_size", {[propName]:e})
         let theNewSize = {...sizeForm,...{[propName]:e}}
-        // console.log("the new size", theNewSize)
         s__sizeForm(theNewSize)
     }
     const boundaryBox = useMemo(()=>{

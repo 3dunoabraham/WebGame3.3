@@ -60,7 +60,6 @@ export default function Component({ unitsArray=[], fetchConfig=null, tableConfig
     },[isSelectable])
     const [selectedUnits, s__selectedUnits]:any = useState([])
     const updateSelectedArray = (id:any)=> {
-        console.log("id", id)
         const theIndex = selectedUnits.indexOf(id)
         if (theIndex != -1) {
             s__selectedUnits(selectedUnits.filter((x:any)=>id!=x))
@@ -119,7 +118,6 @@ export default function Component({ unitsArray=[], fetchConfig=null, tableConfig
                     actionCard={(id:any)=>(
                         <button className={`ims-button-faded  tx-green block `}
                             onClick={async (evt)=>{
-                                console.log("id, evt",id,evt)
                                 s__selectedItem(id)
                                 // deleteUnit(id)
                             }}
@@ -127,16 +125,6 @@ export default function Component({ unitsArray=[], fetchConfig=null, tableConfig
                             <span className="">Quick Edit</span>
                         </button>
                     )}
-                    // actionCard={(id:any)=>(
-                    //     <button className={`ims-button-faded  tx-green block `}
-                    //         onClick={async (evt)=>{
-                    //             console.log("id, evt",id,evt)
-                    //             deleteUnit(id)
-                    //         }}
-                    //     >
-                    //         <span className="">Delete Unit</span>
-                    //     </button>
-                    // )}
                 />
             </div>
         }

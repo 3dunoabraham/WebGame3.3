@@ -35,16 +35,12 @@ const AuthProvider:FC<{
     __localuser(a)
   }
   const fetchUserByKey = async (key:any,secret:any) => {
-    console.log("fetchUserByKey, key", localuser, key)
-    // asd
     // const supabase = getSupabaseClient()
     // const theplayer = fetchPlayer(supabase, )
     let thePlayer = await PlayerService.getPlayer(key,secret)
-    console.log("thePlayer", thePlayer)
 
     __superuser(thePlayer)
       s__LH_superuser(JSON.stringify(thePlayer))
-    // return thePlayer
   }
   useEffect( () => {
     __superuser(JSON.parse(LH_superuser))
@@ -53,14 +49,9 @@ const AuthProvider:FC<{
     if (!localuser) {
       s__localuser(LH_localuser);
       let creds = LH_localuser.split(":")
-      console.log("LH_localuser, creds", LH_localuser, creds)
       let key = creds[0]
       let secret  = creds[1]
       fetchUserByKey(key,secret)
-      
-
-    } else {
-      console.log("localuser", localuser)
     }
 
   }, []);

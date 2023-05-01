@@ -8,12 +8,10 @@ export const useNavigationEvent = (onStart: () => void, onPathnameChange: () => 
   const savedPathNameRef = useRef(pathname);
 
   useEffect(() => {
-    // console.log("navigating...", )
     onStart();
     if (savedPathNameRef.current !== pathname) {
       onPathnameChange();
       savedPathNameRef.current = pathname;
-      // console.log("Updated REF pathname")
     }
   }, [pathname, onPathnameChange]);
 };

@@ -26,7 +26,6 @@ export const getUserHash = (req:any,apiSecret:any) => {
   // Hash IP address to create a unique user ID
   const hash = crypto.createHash('sha256');
   hash.update(ipAddress);
-  console.log("ipAddress", ipAddress)
   hash.update(apiSecret);
   const new_uid = hash.digest('hex');
 
@@ -55,16 +54,13 @@ export async function POST(request: any, res:any) {
     .single()
 
   if (!existingStart) {
-    console.log("user start not found")
     throw new Error
     return
   }
-  console.log("existingStart", existingStart)
   let attempts = existingStart.attempts
   if (!attempts) {
     let thenow = Date.now()
     let thediff = (thenow - parseInt(existingStart.datenow))
-    console.log("asdasdasd", thediff / 1000 )
     if (thediff / 1000 > 60*3) // 3 minutes
     {
       attempts += ATTEMPTS_PER_CYCLE
@@ -82,14 +78,12 @@ export async function POST(request: any, res:any) {
     }
     // res.status(201).json(start)
     } else {
-      console.log("no more attempts|dates:", existingStart.datenow, thenow)
       throw new Error
       return
     }
   }
   let asdasd = getElement(body, new_uid)
   {
-    console.log("order", asdasd)
     // @ts-ignore
     const { data: order, error } = await supabase
       .from<any, any>('order')

@@ -9,7 +9,6 @@ const AppDataProvider:any = (props:any) => {
   
   useEffect(() => {
     const intervalId = setInterval(async ()=>{
-        console.log("asd")
     }, 123450);
     return () => clearInterval(intervalId);
   }, []);

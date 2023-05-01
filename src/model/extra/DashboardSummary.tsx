@@ -5,7 +5,6 @@ import { analyzeKlineData } from "../../../script/util/helper/kline"
 function Component ({ theArray }:any) {
     const analizedData = analyzeKlineData(theArray)
     
-    console.log("analizedData", analizedData)
 
     return (
         <div className="flex-wrap gap-4">

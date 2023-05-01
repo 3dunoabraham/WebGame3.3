@@ -5,11 +5,6 @@ import FlexTable from "@/dom/cell/form/FlexTable";
 
 
 function Component ({ initialArray }:any) {
-    // const queryArray:any = useTicker("EURUSDT", 10000);
-    // const activeArray = useMemo(()=>{
-    //     console.log("queryArray", queryArray)
-    //     return []
-    // },[queryArray]) 
 
     return (
         <FlexTable theArray={initialArray} bools={[]}

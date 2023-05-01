@@ -13,7 +13,6 @@ function Component ({ initialArray }:any) {
     const latestCandles = useMemo(()=>{
         return queryArray
         let latestLatest = queryArray.slice(500-candleLength,500)
-        console.log("latestLatest", latestLatest)
         return latestLatest
     },[queryArray]) 
     const latestArray = useMemo(()=>{
@@ -78,7 +77,6 @@ function Component ({ initialArray }:any) {
 
     const latestSummary = useMemo(()=>{
         if (initialArray.length == 0 && latestCandles.length == 0) return null
-        // console.log("initialArray", initialArray.slice(500-candleLength,500))
         let theArray = (!latestCandles) || (!!latestCandles && latestCandles.length == 0) ? initialArray : latestCandles
         let slicedArray = theArray.slice(500-candleLength,500)
         let stats = findMaxAndMinValues(slicedArray)

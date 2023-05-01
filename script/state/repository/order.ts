@@ -46,7 +46,6 @@ export function computeHash (ipAddress:any, apiSecret:any) {
   // Hash IP address to create a unique user ID
   const hash = crypto.createHash('sha256');
   hash.update(ipAddress);
-  // console.log("ipAddress", ipAddress)
 
   hash.update(apiSecret);
   
@@ -85,7 +84,6 @@ export async function sendTelegramMessageVirtualOrder(req: any, { side, symbol, 
 
     const hash = crypto.createHash('sha256');
     hash.update(ipAddress);
-    // console.log("ipAddress", ipAddress)
     hash.update(apiSecret);
     const new_uid = hash.digest('hex');
 
@@ -142,7 +140,6 @@ export function makeLimitOrder({ side, symbol, quantity, price, recvWindow = 500
 }
 
 export async function fetchPostOrder(supabase:any, orderObj:any) {
-  // console.log("orderObj", orderObj)
   const { data: order, error:error2 } = await supabase
     .from('order')
     .insert(orderObj)
@@ -189,7 +186,6 @@ export async function sendSupabaseVirtualOrder(
   
   let attempts = playerObj.attempts
   const ipcount = await fetchSameIPCount(supabase, ipAddress)
-  // console.log("ipcount, self attempts", ipcount, attempts)
   if (Number(ipcount) > 5) { throw new Error() }
   if (!!attempts) {
     let playerRes = await fetchPutPlayer(supabase,playerObj, new_uid, orderObj)

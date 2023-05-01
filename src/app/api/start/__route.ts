@@ -30,7 +30,6 @@ export const getUserHash = (req:any,apiSecret:any) => {
     // Hash IP address to create a unique user ID
     const hash = crypto.createHash('sha256');
     hash.update(ipAddress);
-    console.log("ipAddress", ipAddress)
     hash.update(apiSecret);
     const new_uid = hash.digest('hex');
 
@@ -62,7 +61,6 @@ export async function POST(request: any, res:any) {
       datenow: Date.now(),
     }
   
-    console.log("method", method)
     switch (method) {
       case 'GET':
         try {
@@ -96,12 +94,9 @@ export async function POST(request: any, res:any) {
             .single()
     
             if (existingStart) {
-              console.log("found")
               throw new Error
               return
             }
-            console.log("not found", existingStart, { hash: new_uid })
-    
     
             if (!existingStart) {
                 // @ts-ignore
@@ -134,11 +129,9 @@ export async function POST(request: any, res:any) {
               .single()
       
               if (!existingStart) {
-                console.log("not found")
                 throw new Error
                 return
               }
-              console.log("found", existingStart, { hash: new_uid })
       
       
               if (!!existingStart) {

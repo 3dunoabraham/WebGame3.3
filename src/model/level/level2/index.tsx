@@ -125,7 +125,6 @@ function Component ({}) {
 
     let newTradeObj = {side:!!y.value ? "buy" : "sell",token:x,price:y.price}
     let isBuying = newTradeObj.side == "buy"
-    console.log("tutoStage.lvl", tutoStage.lvl)
     if (tutoStage.lvl == 1) {
       if ( isBuying) { setTutoStage(2) }
     }
@@ -148,7 +147,6 @@ function Component ({}) {
         newprofithi[theindex].unshift((percentChange-100).toFixed(3))
         s__profitHistory(newprofithi)
         let counting = newprofithi.filter((atrade:any, index:any) => {
-          // console.log("atrade[1]", atrade[1])
           return atrade[1] == "profit"
         }).length
         if (counting >= 4) {
@@ -286,7 +284,6 @@ function Component ({}) {
 
   const realProfitCount = useMemo(()=>{
     return profitHistory.filter((atrade:any, index:any) => {
-      // console.log("atrade[1]", atrade[1])
       return atrade[1] == "profit"
     }).length
   },[profitHistory])
@@ -295,7 +292,6 @@ function Component ({}) {
     s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
 
     s__savedString(LH_superuser)
-    console.log("LH_superuser", JSON.parse(LH_superuser))
   },[])
 
   

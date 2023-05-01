@@ -64,7 +64,6 @@ export default function Component ({keyName, queriedObj, keyConfig, deleteUnit }
                 actionCard={(id:any)=>(
                     <button className={`ims-button-faded  tx-green block `}
                         onClick={async (evt)=>{
-                            console.log("id, evt",id,evt)
                             deleteUnit(id)
                         }}
                     >

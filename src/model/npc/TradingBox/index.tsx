@@ -60,9 +60,7 @@ const Component = forwardRef(({
       let theList = await fetchMultipleJsonArray(( [token].reduce((acc, aToken) => (
         { ...acc, [aToken]: [`${API_PRICE_BASEURL}${(aToken+baseToken).toUpperCase()}`] }
         ), {})))
-      // console.log("asd", theList[0])
       let prr = parseDecimals(theList[0].price)
-      // console.log("prr", token, prr)
       return prr
     }
 })

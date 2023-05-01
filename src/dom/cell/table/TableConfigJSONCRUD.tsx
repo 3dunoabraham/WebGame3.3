@@ -61,7 +61,6 @@ export default function Component ({keyName }:any) {
         })
         if (response) {
             const updatedItem = await response.json();
-            console.log(updatedItem);
         }
     }
     useEffect(()=>{

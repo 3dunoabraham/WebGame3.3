@@ -28,7 +28,6 @@ export default function Component({items, exportConfig, tableConfigObj, urlBase,
     },[items,itemsOffsetStart,itemsPerPage])
 
     const _updateSelectedArray = (id:any)=> {
-        console.log("id items table container", id)
         updateSelectedArray(id)
     }
 

@@ -25,7 +25,6 @@ function Component ({}) {
         {
             return
         }
-        console.log("forms.score", forms.score, totaldelta)
         $middlePart.current.rotation.y += 0.005
         if ($middlePart.current.position.y < -3.5) {
             $middlePart.current.position.x = Math.random()-0.5

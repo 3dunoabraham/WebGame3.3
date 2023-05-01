@@ -7,7 +7,6 @@ export const parseDecimals = (x:number) => {
   }
   if (x < 0.00001)
   {
-    // console.log("*number* TOO LOW", x)
     return x.toFixed(8)
   }
   if (x < 0.0001)
@@ -48,7 +47,6 @@ export const parseDecimals = (x:number) => {
 export async function fetchMultipleJsonArray(requestsObj:any) {
   let reqKeys =  Object.keys(requestsObj)
   let requests =  Object.keys(requestsObj).map((reqKey) => {
-    // console.log("requestsObj[reqKey][0]", requestsObj[reqKey][0])
     return fetch(requestsObj[reqKey][0])
   })
   return Promise.all(requests).then((responsesArray) => {

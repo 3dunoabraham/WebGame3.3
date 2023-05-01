@@ -11,7 +11,6 @@ export const InventoryContext = createContext<InventoryContextType>({
 });
 
 export function InventoryProvider({children}:any) {
-    // console.log("InventoryProvider")
     const [unitsArray, s__unitsArray] = useState([])
 
     return (
