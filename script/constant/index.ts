@@ -68,6 +68,10 @@ export const GRANTTREE:any = {
       },
     }
   },
+  "supa": {
+    "root": {
+    }
+  },
 }
 
 export interface IItemLabel {

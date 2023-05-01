@@ -14,7 +14,7 @@ function Component ({calls, state}: any) {
           <meshStandardMaterial color={ "#fff"}/>
         </Cylinder>
         
-        <DynaText text={"Sign In"} color={"#5a5"} font={0.06} position={[0,-0.94,-0.17]} >        
+        <DynaText text={"Connect"} color={"#5a5"} font={0.06} position={[0,-0.94,-0.17]} >        
         </DynaText>
       </>}
 
@@ -25,7 +25,7 @@ function Component ({calls, state}: any) {
           <meshStandardMaterial color={ "#ddd"}/>
         </Cylinder>
         
-        <DynaText text={"Sign out"} color={"#a55"} font={0.06} position={[0,-0.94,-0.17]} >        </DynaText>
+        <DynaText text={"Disconnect"} color={"#a55"} font={0.06} position={[0,-0.94,-0.17]} >        </DynaText>
       </>}
     </>)
 }

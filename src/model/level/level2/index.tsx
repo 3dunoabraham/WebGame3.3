@@ -17,6 +17,8 @@ import { AppContext } from "@/../script/state/context/AppContext";
 import TutorialContainer from "./TutorialContainer";
 import LoginForm from "./LoginForm";
 import GoalPost from "./GoalPost";
+import SavedGoalPost from "./SavedGoalPost";
+import { useAuth } from "@/../script/state/context/AuthContext";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -34,6 +36,9 @@ const chartRotLookup:any = {
 
 function Component ({}) {
   const app:any = useContext(AppContext)
+  const { user, do:{login, logout, demo,},  jwt }:any = useAuth()
+  
+
   const $bitcoin:any = useRef()
   const [chartPos, s__chartPos]:any = useState(chartPosLookup["btc"])
   const [chartRot, s__chartRot]:any = useState(chartRotLookup["btc"])
@@ -43,6 +48,7 @@ function Component ({}) {
   const [chartBoxPos, s__chartBoxPos] = useState([0,0,0])
   const [enablePan, s__enablePan] = useState(true)
   const [tokensArrayObj,s__tokensArrayObj] = useState<any>({})
+  const [savedString,s__savedString] = useState("")
   const [selectedToken, __selectedToken] = useState("btc")
   const [currentOrders, s__currentOrders] = useState<any>({})
   const [orderHistory, s__orderHistory] = useState<any>([])
@@ -71,7 +77,8 @@ function Component ({}) {
     })
     return interestCount.length == 4
   },[tokensArrayObj])
-
+  const [LH_superuser, s__LH_superuser]:any = useLocalStorage("superuser","{}")
+  const [superuser, __superuser] = useState()
 
 
   const onTimeframeClick = (x:any, y:any) => {  }
@@ -111,14 +118,19 @@ function Component ({}) {
     s__chartRot(chartRotLookup[val])
   }
   const toggleTrade = async (x:any, y:any) => {
-    if (tutoStage.lvl == 1) { setTutoStage(2) }
-    if (tutoStage.lvl == 2) {
-      if (isDefaultUser) { setTutoStage(3) }
-      else { setTutoStage(4) }
-    }
+    // if (tutoStage.lvl == 3) { setTutoStage(4) }
+    
+    //   else { setTutoStage(3) }
+    // }
 
     let newTradeObj = {side:!!y.value ? "buy" : "sell",token:x,price:y.price}
     let isBuying = newTradeObj.side == "buy"
+    if (tutoStage.lvl == 2) {
+      if (!isDefaultUser && isBuying) { setTutoStage(3) }
+    }
+    if (tutoStage.lvl == 3) {
+      if (!isDefaultUser && !isBuying) { setTutoStage(4) }
+    }
     s__orderHistory([...orderHistory, newTradeObj])
     updateTokenOrder(x,selectedTimeframeIndex,"buy",isBuying ? "1" : "0",{["price"]:y.price})
     if (form.id in currentOrders)
@@ -242,7 +254,7 @@ function Component ({}) {
 
   }
   const firstLogin = () => {
-    setTutoStage(4)
+    setTutoStage(2)
     let randomThousand = parseInt(`${(Math.random()*9000) + 1000}`)
     let arandomkey = "user:"+randomThousand
     // if (!isDefaultUser) {
@@ -280,6 +292,9 @@ function Component ({}) {
 
   useEffect(()=>{
     s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
+
+    s__savedString(LH_superuser)
+    console.log("LH_superuser", JSON.parse(LH_superuser))
   },[])
 
   
@@ -329,6 +344,9 @@ function Component ({}) {
       
       <GoalPost calls={{claim}}
         state={{hasAnyToken, profitHistory}}
+      />
+      <SavedGoalPost calls={{claim}}
+        state={{hasAnyToken, profitHistory, savedString }}
       />
 
       {hasAnyToken && <>

@@ -10,7 +10,7 @@ function Component ({}) {
     useFrame((ctx, delta)=>{
         if (!$textGroup.current) return
 
-        $textGroup.current.position.y = Math.sin(Date.now()/500)/10 - 0.26
+        $textGroup.current.position.y = Math.sin(Date.now()/500)/10 - 0.0
     })
 
     return (<group position={[2,1.7,1]}>
@@ -19,13 +19,13 @@ function Component ({}) {
                 Fee: 0
             </Text> */}
         <group ref={$textGroup} position={[1,0,1]} rotation={[-0.5,0,0]}>
-            <Text position={[0.25,0.6,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
+            <Text position={[0.,0.6,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
                 material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>
-                Sign in to save
+                Connect to save 
             </Text>
-            <Text position={[-0.25,0.6,0]} fontSize={0.25} rotation={[0,0,0]} 
+            <Text position={[-0.,0.6,0]} fontSize={0.25} rotation={[0,0,0]} 
                 material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>
-                Sign in to save
+                Connect to save 
             </Text>
             <Text position={[-0.,0.28,0]} fontSize={0.35} rotation={[0,Math.PI,0]} 
                 material={new MeshStandardMaterial({ side: 0, color: "#cc00cc" })}> 

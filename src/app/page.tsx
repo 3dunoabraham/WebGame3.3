@@ -4,6 +4,7 @@ import { Ticker, fetchTicker } from '@/../script/state/repository/ticker'
 import { getJWTCookie } from '@/../script/state/repository/session';
 import LoginForm from '@/dom/cell/form/LoginForm';
 import Level2 from '@/model/level/level2';
+import LogoutForm from '@/dom/cell/form/LogoutForm';
 
 export default async function Page() {  
   const foundJWT:any = await getJWTCookie()
@@ -36,12 +37,13 @@ export default async function Page() {
             </h1>
           </a>
         </div>
-        {/* <div className='pos-abs top-0 right-0 pt-3'>
+        <div className='pos-abs top-0 right-0 pt-3'>
           {!foundUser && <LoginForm />}
           {foundUser && <>
-            <div className='flex-col tx-lx opaci-10 py-8'>Welcome Back!</div>
+            <div className='flex-col tx-lx opaci-10 py-'>{foundUser.name} <small>(Verified)</small></div>
+            <LogoutForm />
           </>}
-        </div> */}
+        </div>
       </div>
       <div className='pos-abs top-0 w-100 h-100'>
         <Level2 />
