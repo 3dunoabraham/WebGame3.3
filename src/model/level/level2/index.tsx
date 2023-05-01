@@ -8,16 +8,16 @@ import { getComputedLevels } from "@/../script/util/helper/decoy";
 import Scene from "@/model/core/Scene"
 import TradingBox, { DEFAULT_TIMEFRAME_ARRAY } from "@/model/npc/TradingBox";
 import ChartBox from "@/model/npc/ChartBox";
-import MovingBox1 from "./MovingBox1";
-import MovingBox2 from "./MovingBox2";
+import MovingBox1 from "./decoration/MovingBox1";
+import MovingBox2 from "./decoration/MovingBox2";
 import MetaOrbitControls from "@/model/core/MetaOrbitControls";
 import { fetchPost } from "@/../script/util/helper/fetchHelper";
 import BitcoinTradingBox from "./BitcoinTradingBox";
 import { AppContext } from "@/../script/state/context/AppContext";
 import TutorialContainer from "./TutorialContainer";
 import LoginForm from "./LoginForm";
-import GoalPost from "./GoalPost";
-import SavedGoalPost from "./SavedGoalPost";
+import GoalPost from "./goal/GoalPost";
+import SavedGoalPost from "./goal/SavedGoalPost";
 import { useAuth } from "@/../script/state/context/AuthContext";
 
 const DEFAULT_TOKEN_OBJ = {
@@ -125,11 +125,12 @@ function Component ({}) {
 
     let newTradeObj = {side:!!y.value ? "buy" : "sell",token:x,price:y.price}
     let isBuying = newTradeObj.side == "buy"
-    if (tutoStage.lvl == 2) {
-      if (!isDefaultUser && isBuying) { setTutoStage(3) }
+    console.log("tutoStage.lvl", tutoStage.lvl)
+    if (tutoStage.lvl == 1) {
+      if ( isBuying) { setTutoStage(2) }
     }
-    if (tutoStage.lvl == 3) {
-      if (!isDefaultUser && !isBuying) { setTutoStage(4) }
+    if (tutoStage.lvl == 2) {
+      if ( !isBuying) { setTutoStage(3) }
     }
     s__orderHistory([...orderHistory, newTradeObj])
     updateTokenOrder(x,selectedTimeframeIndex,"buy",isBuying ? "1" : "0",{["price"]:y.price})
@@ -240,13 +241,13 @@ function Component ({}) {
     setTutoStage(1)
   }
   const triggerLogout = () => {
-    if (prompt("Sign out from: <"+binanceKeys+"> (yes/no)","yes") !== "yes") return
+    if (prompt("Sign out from: <"+binanceKeys.split(":")[0]+":****> (yes/no)","yes") !== "yes") return
     
     quitAll()
   }
   const triggerLogin = () => {
     if (tutoStage.lvl == 3) { firstLogin(); return }
-    let keyval:any =  prompt("Paste your credentials","") 
+    let keyval:any =  prompt("Enter USER:PASSWORD","") 
     if (!keyval) return
     if (keyval.split(":").length < 2) return
     s__binanceKeys(keyval)
@@ -254,13 +255,13 @@ function Component ({}) {
 
   }
   const firstLogin = () => {
-    setTutoStage(2)
+    // setTutoStage(2)
     let randomThousand = parseInt(`${(Math.random()*9000) + 1000}`)
     let arandomkey = "user:"+randomThousand
     // if (!isDefaultUser) {
     //   if (prompt("Change user? (yes/no)","no") != "yes") { return }
     // }
-    let keyval:any =  prompt("Copy or Paste your secret credentials | user:"+randomThousand,arandomkey) 
+    let keyval:any =  prompt("ENTER USER:PASSWORD",arandomkey) 
     if (!keyval) return
     if (keyval.split(":").length < 2) return
     s__binanceKeys(keyval)
@@ -337,7 +338,7 @@ function Component ({}) {
 
   
       <TutorialContainer  calls={{join,turnOffDemo,setTutoStage,firstLogin}} 
-        state={{hasAnyToken, tutoStage}}
+        state={{hasAnyToken, tutoStage, isDefaultUser}}
       />
 
       <LoginForm state={{isDefaultUser, }} calls={{triggerLogout, triggerLogin}} />
@@ -442,6 +443,14 @@ function Component ({}) {
       {hasAllTokens && <>
         <Box args={[4,0.25,5]} position={[0,-1.2,-0.5]} castShadow receiveShadow>
           <meshStandardMaterial color={ "#fff"}/>
+        </Box>
+      </>}
+      {hasAnyToken && <>
+       <Box args={[1,0.66,1]} position={[0.05,-0.81,-1.59]} castShadow receiveShadow>
+          <meshStandardMaterial color={"#fff"}/>
+        </Box>
+       <Box args={[1,0.66,1]} position={[0.05,-0.81,1.88]} castShadow receiveShadow>
+          <meshStandardMaterial color={"#fff"}/>
         </Box>
       </>}
       <Box args={[2.5,0.2,2.5]} position={[0.05,-1.05,0.15]} castShadow receiveShadow>

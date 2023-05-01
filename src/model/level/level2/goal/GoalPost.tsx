@@ -69,7 +69,7 @@ function Component ({calls, state}:any) {
             return (
               <Box args={[0.065,0.1,0.18]} position={[index*0.075,0.6,0]}  castShadow receiveShadow key={index}>
                 <meshStandardMaterial color={"#339933"}
-                  transparent={true} opacity={0.33}
+                  transparent={true} opacity={0.15}
                 />
               </Box>
             )

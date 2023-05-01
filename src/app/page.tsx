@@ -2,9 +2,9 @@ import { fetchUser } from '@/../script/state/repository/auth';
 import { Ticker, fetchTicker } from '@/../script/state/repository/ticker'
 // import Level2 from '@/model/level/level2';
 import { getJWTCookie } from '@/../script/state/repository/session';
-import LoginForm from '@/dom/cell/form/LoginForm';
 import Level2 from '@/model/level/level2';
-import LogoutForm from '@/dom/cell/form/LogoutForm';
+import LoginForm from '@/model/overlay/LoginForm';
+import LogoutForm from '@/model/overlay/LogoutForm';
 
 export default async function Page() {  
   const foundJWT:any = await getJWTCookie()

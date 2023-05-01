@@ -20,19 +20,19 @@ function Component ({}) {
             </Text> */}
         <group ref={$textGroup} position={[1,0,1]} rotation={[-0.5,0,0]}>
             <Text position={[0.,0.6,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
-                material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>
+                material={new MeshStandardMaterial({ side: 0, color: "#007700" })}>
                 Connect to save 
             </Text>
             <Text position={[-0.,0.6,0]} fontSize={0.25} rotation={[0,0,0]} 
-                material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>
+                material={new MeshStandardMaterial({ side: 0, color: "#007700" })}>
                 Connect to save 
             </Text>
             <Text position={[-0.,0.28,0]} fontSize={0.35} rotation={[0,Math.PI,0]} 
-                material={new MeshStandardMaterial({ side: 0, color: "#cc00cc" })}> 
+                material={new MeshStandardMaterial({ side: 0, color: "#ff6600" })}> 
                 your progress
             </Text>
                 <Text position={[0.,0.28,0]} fontSize={0.35} rotation={[0,0,0]} 
-                    material={new MeshStandardMaterial({ side: 0, color: "#cc00cc" })}> 
+                    material={new MeshStandardMaterial({ side: 0, color: "#ff6600" })}> 
                 your progress
             </Text>
             

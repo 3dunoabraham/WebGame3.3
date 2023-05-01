@@ -30,7 +30,7 @@ function Component ({calls, state}:any) {
   return (<>
     
     {state.hasAnyToken && <>
-      <group position={[0,0,1.5]} rotation={[Math.PI/2,0,0]}>
+      <group position={[0,0,1.95]} rotation={[Math.PI/2,0,0]}>
         <Cylinder args={[0.14,0.14,0.1,6]} position={[0,0.25,0.15]} castShadow receiveShadow ref={$claimButton}
           onClick={calls.claim}
         >
@@ -52,7 +52,7 @@ function Component ({calls, state}:any) {
   
 
     {state.hasAnyToken &&
-      <group position={[0,0,1.5]}>
+      <group position={[0,0,1.95]}>
         <Cylinder args={[0.25,0.25,0.75,6]} position={[0,-0.32,0]} castShadow receiveShadow 
         >
           <meshStandardMaterial color={"#ccc"}/>
@@ -60,7 +60,7 @@ function Component ({calls, state}:any) {
       </group>
     }
     {state.hasAnyToken && <>
-      <group position={[-0.15,-0.55,1.5]}>
+      <group position={[-0.15,-0.55,1.95]}>
           {state.profitHistory.slice(0,5).map((anOrder:any, index:any)=>{
             return (
               <Box args={[0.07,0.11,0.07]} position={[index*0.075,0.6,0]}  castShadow receiveShadow key={index}>
@@ -79,9 +79,9 @@ function Component ({calls, state}:any) {
           
           {[0,1,2,3,4].map((anOrder:any, index:any)=>{
             return (
-              <Box args={[0.065,0.1,0.18]} position={[index*0.075,0.6,0]}  castShadow receiveShadow key={index}>
+              <Box args={[0.065,0.1,0.18]} position={[index*0.075,0.6,0]}   key={index}>
                 <meshStandardMaterial color={"#ff9933"}
-                  transparent={true} opacity={0.33}
+                  transparent={true} opacity={0.15}
                 />
               </Box>
             )
