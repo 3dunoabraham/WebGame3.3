@@ -1,4 +1,4 @@
-import { SalesStatusBadgePlus } from '@/module/unit/SalesStatusBadgePlus';
+// import { SalesStatusBadgePlus } from '@/module/unit/SalesStatusBadgePlus';
 // ReactFunctionComponent
 export default function Component ({
     item, displayConfigObj, _boolConfig
@@ -22,10 +22,11 @@ export default function Component ({
                         item[displayConfigObj.rest[aKey].fieldName]
                     }
                     {(theWidget) == "badge" && displayConfigObj.rest[aKey].fieldName && 
-                        <SalesStatusBadgePlus
-                            value={item[displayConfigObj.rest[aKey].fieldName]}
-                            reference={[""]}
-                        />
+                        <>{item[displayConfigObj.rest[aKey].fieldName]}</>
+                        // <SalesStatusBadgePlus
+                        //     value={item[displayConfigObj.rest[aKey].fieldName]}
+                        //     reference={[""]}
+                        // />
                     }
                     {(theWidget) == "keys" && displayConfigObj.rest[aKey].fieldName && 
                         <>
