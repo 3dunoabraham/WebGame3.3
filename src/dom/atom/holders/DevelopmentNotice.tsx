@@ -56,6 +56,11 @@ function Component ({}) {
                             </div>
                         </div>
                     </div>
+                    
+                <div onClick={()=>{s__asd("")}} className="opaci-chov--50">
+
+                    <h1 className="tx-white pa-8 tx-xl" style={{color:"orange"}}>Back to Game</h1>
+                </div>
                 </div>
             </div>
         </>}
