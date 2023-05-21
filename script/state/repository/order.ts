@@ -42,14 +42,16 @@ export const priceLookupTable: { [key: string]: number } = {
   'UNIUSDT': 4,
   'SOLUSDT': 4,
 };
-export function computeHash (ipAddress:any, apiSecret:any) {
-  // Hash IP address to create a unique user ID
-  const hash = crypto.createHash('sha256');
-  hash.update(ipAddress);
-
-  hash.update(apiSecret);
+export function computeHash (firstValue:any, secondValue:any) {
   
-  return hash.digest('hex')
+  const hash = crypto.createHash('sha256');
+  console.log("hash values", firstValue, secondValue)
+  hash.update(firstValue);
+  hash.update(secondValue);
+  const hash_digest = hash.digest('hex');
+  console.log("hash_digest", hash_digest)
+
+  return hash_digest
 }
 
 type LimitOrderParams = {
@@ -155,7 +157,7 @@ export async function sendSupabaseVirtualOrder(
 ) {
   // Get user's IP address
   let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
-  const new_uid = computeHash(ipAddress, apiSecret)
+  const new_uid = computeHash(apiKey, apiSecret)
   let playerObj:any = {
     name: apiKey,
     ipv4: ipAddress,
@@ -203,7 +205,8 @@ export async function getSupabasePlayer(
 ) {
   // Get user's IP address
   let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
-  const new_uid = computeHash(ipAddress, apiSecret)
+  const new_uid = computeHash(apiKey, apiSecret)
+  console.log("new_uid", new_uid)
   let playerObj:any = {
     name: apiKey,
     ipv4: ipAddress,

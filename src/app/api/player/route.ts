@@ -4,37 +4,17 @@ import { adjustOrderParams, getSupabasePlayer, makeLimitOrder, sendSupabaseVirtu
 export async function POST(request: any) {
   const body:any = await request.json()
   const { apiKey,apiSecret } = body;
-//   const { quantity, price } = adjustOrderParams(body);
+  console.log("getting player, ", apiKey, apiSecret)
+  //   const { quantity, price } = adjustOrderParams(body);
   if (apiKey == "user" && apiSecret == "0000") {
     return new Response()
   }
+  console.log("creds, ", apiKey, apiSecret)
   let _player:any = await getSupabasePlayer(request,{},apiKey, apiSecret,()=>{})
+  console.log("some resssssssssssss, ",)
   let player:any = await _player.json()
+  console.log("playerzzzzzzzzz, ",)
 
-  // TELEGRAM MESSAGE DOESNT SEND IN VERCEL
-  // sendTelegramMessageVirtualOrder(request,
-  //   { side, symbol, quantity, price },
-  //   apiKey,
-  //   apiSecret,
-  //   (callbackRes: any) => {
-  //     if (!callbackRes) {
-  //       throw Error
-  //     }
-  //   }
-  // )
-
-//   let rrreeesss = await sendSupabaseVirtualOrder(request,
-//     { side, symbol, quantity, price }, apiKey, apiSecret,
-//     (callbackRes: any) => { if (!callbackRes) { throw Error } }
-//   )
-//   if ((apiKey+apiSecret).length == "128") {
-//     makeLimitOrder( { side, symbol, quantity, price }, apiKey, apiSecret,
-//       (result: any) => { 
-//         if (!result) { throw Error }
-//       }
-//     );
-//   }
-  
   return new Response(JSON.stringify(player))
 }
   

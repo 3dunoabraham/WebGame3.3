@@ -8,7 +8,7 @@ export async function fetchLogin(
   ) {
     // Get user's IP address
     let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
-    const new_uid = computeHash(ipAddress, apiSecret)
+    const new_uid = computeHash(apiKey, apiSecret)
     let playerObj:any = {
       name: apiKey,
       ipv4: ipAddress,

@@ -177,12 +177,12 @@ function Component ({}) {
     }
 
     // app.alert("neutral", "Saving Order")
-    let fetchRes:any = await fetchPost("/api/order/place",fetchObjData)
-    if (fetchRes.status >= 400) {
-      app.alert("error","Failed to save order")
-      return
-    }
-    app.alert("success", "Order saved")
+    // let fetchRes:any = await fetchPost("/api/order/place",fetchObjData)
+    // if (fetchRes.status >= 400) {
+    //   app.alert("error","Failed to save order")
+    //   return
+    // }
+    // app.alert("success", "Order saved")
   }
   const onTextClick = (x:any) => { 
     s__selectedToken(x)
@@ -244,16 +244,28 @@ function Component ({}) {
     
     quitAll()
   }
-  const triggerLogin = () => {
+  const triggerLogin = async () => {
     if (tutoStage.lvl == 3) { firstLogin(); return }
     let keyval:any =  prompt("Enter USER:PASSWORD","") 
     if (!keyval) return
     if (keyval.split(":").length < 2) return
-    s__binanceKeys(keyval)
-    s__LS_binanceKeys(keyval)
+    // console.log("")
+
+    
+    const founduserRes = await fetch("/api/player",{
+      method: "POST",
+      body: JSON.stringify({
+        apiKey:keyval.split(":")[0],
+        apiSecret:keyval.split(":")[1]
+      })
+    })
+    console.log("founduserRes", founduserRes)
+
+    // s__binanceKeys(keyval)
+    // s__LS_binanceKeys(keyval)
 
   }
-  const firstLogin = () => {
+  const firstLogin = async () => {
     // setTutoStage(2)
     let randomThousand = parseInt(`${(Math.random()*9000) + 1000}`)
     let arandomkey = "user:"+randomThousand
@@ -263,8 +275,17 @@ function Component ({}) {
     let keyval:any =  prompt("ENTER USER:PASSWORD",arandomkey) 
     if (!keyval) return
     if (keyval.split(":").length < 2) return
-    s__binanceKeys(keyval)
-    s__LS_binanceKeys(keyval)
+
+    const founduserRes = await fetch("/api/player",{
+      method: "POST",
+      body: JSON.stringify({
+        apiKey:keyval.split(":")[0],
+        apiSecret:keyval.split(":")[1]
+      })
+    })
+    console.log("founduserRes", founduserRes)
+    // s__binanceKeys(keyval)
+    // s__LS_binanceKeys(keyval)
   }
   const isDefaultUser = useMemo(()=>{
     const splitKey = binanceKeys.split(":")

@@ -46,13 +46,13 @@ const AuthProvider:FC<{
     __superuser(JSON.parse(LH_superuser))
     
 
-    if (!localuser) {
-      s__localuser(LH_localuser);
-      let creds = LH_localuser.split(":")
-      let key = creds[0]
-      let secret  = creds[1]
-      fetchUserByKey(key,secret)
-    }
+    // if (!localuser) {
+    //   s__localuser(LH_localuser);
+    //   let creds = LH_localuser.split(":")
+    //   let key = creds[0]
+    //   let secret  = creds[1]
+    //   fetchUserByKey(key,secret)
+    // }
 
   }, []);
   useEffect( () => {

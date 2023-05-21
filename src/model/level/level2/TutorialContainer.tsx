@@ -20,7 +20,9 @@ function Component ({state, calls}:any) {
       </group>
     }
     {state.hasAnyToken &&  state.isDefaultUser &&
-      <group position={[-0.6,-1.3,1.]} rotation={[0,Math.PI/2,0]} scale={0.35} onClick={()=>{calls.firstLogin()}}  >
+      <group onClick={()=>{calls.firstLogin()}}  
+        position={[-0.6,-1.3,1.]} rotation={[0,Math.PI/2,0]} scale={0.35} 
+      >
         <TutorialLogin />
       </group>
     }    
