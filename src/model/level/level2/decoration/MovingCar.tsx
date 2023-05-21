@@ -4,7 +4,7 @@ import { useRef, useState } from "react"
 
 
 function Component ({}) {
-    const [carSpeed, s__carSpeed] = useState(0.015)
+    const [carSpeed, s__carSpeed] = useState(0.018)
     const movingPart1:any = useRef()
     const movingPart2:any = useRef()
     
@@ -25,28 +25,33 @@ function Component ({}) {
     return (<>
         <group>
             {/* CAR */}
-            <group ref={movingPart1} position={[-5,-0.37,-0.33]}>
+            <group ref={movingPart1} position={[-5,-0.37,-0.33]} scale={[1,1.3,0.7]}>
                 {/* BODY */}
                 <Box args={[0.15,0.06,0.13]} position={[0,0.04,-0.]} castShadow receiveShadow
                     
                 >
-                    <meshStandardMaterial color={"#ccc"}/>
+                    <meshStandardMaterial color={"#6f7276"}/>
+                </Box>
+                <Box args={[0.14,0.05,0.12]} position={[0.01,0.04,-0.]} castShadow receiveShadow
+                    
+                >
+                    <meshStandardMaterial color={"#ddeeff"}/>
                 </Box>
                 <Box args={[0.3,0.04,0.15]} position={[0,0.025,-0.]} castShadow receiveShadow
                     
                 >
-                    <meshStandardMaterial color={"#bbb"}/>
+                    <meshStandardMaterial color={"#5f6063"}/>
                 </Box>
                 {/* WHEELS */}
-                <Box args={[0.04,0.05,0.18]} position={[0.09,0.0,-0.]} castShadow receiveShadow
+                <Box args={[0.04,0.03,0.18]} position={[0.09,0.005,-0.]} castShadow receiveShadow
                     
                 >
-                    <meshStandardMaterial color={"#777"}/>
+                    <meshStandardMaterial color={"#333"}/>
                 </Box>
-                <Box args={[0.04,0.05,0.18]} position={[-0.09,0.0,-0.]} castShadow receiveShadow
+                <Box args={[0.04,0.03,0.18]} position={[-0.09,0.005,-0.]} castShadow receiveShadow
                     
                 >
-                    <meshStandardMaterial color={"#777"}/>
+                    <meshStandardMaterial color={"#333"}/>
                 </Box>
             </group>
 
