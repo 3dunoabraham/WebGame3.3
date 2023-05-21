@@ -95,7 +95,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
             receiveShadow castShadow
             rotation={[0,Math.PI/4*3,0]}
           >
-            <meshStandardMaterial color={"#7a7070"}  />
+            <meshStandardMaterial color={"#8c8480"}  />
           </Cylinder>
           {/* STAIRS */}
           <group position={new Vector3(-0.17,-0.07,-0.)} >
@@ -167,14 +167,14 @@ function Component ({tokensArrayArray, state, calls}:any) {
               receiveShadow castShadow
               rotation={[0,Math.PI/4*3,0]}
             >
-              <meshStandardMaterial color={"#76707f"}  />
+              <meshStandardMaterial color={"#767072"}  />
             </Cylinder>
           <Cylinder args={[0.035, 0.04, 0.05, 4]}
               position={[-0.1,0.04,0.17]} // PILLAR
               receiveShadow castShadow
               rotation={[0,Math.PI/4*3,0]}
             >
-              <meshStandardMaterial color={"#726f69"}  />
+              <meshStandardMaterial color={"#796f69"}  />
             </Cylinder>
       
 

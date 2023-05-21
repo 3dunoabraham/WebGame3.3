@@ -25,25 +25,25 @@ function Component ({}) {
     return (<>
         <group>
             {/* CAR */}
-            <group ref={movingPart1} position={[-5,-0.34,-0.33]}>
+            <group ref={movingPart1} position={[-5,-0.37,-0.33]}>
                 {/* BODY */}
-                <Box args={[0.15,0.1,0.2]} position={[0,0.04,-0.]} castShadow receiveShadow
+                <Box args={[0.15,0.06,0.13]} position={[0,0.04,-0.]} castShadow receiveShadow
                     
                 >
                     <meshStandardMaterial color={"#ccc"}/>
                 </Box>
-                <Box args={[0.35,0.06,0.21]} position={[0,0.021,-0.]} castShadow receiveShadow
+                <Box args={[0.3,0.04,0.15]} position={[0,0.025,-0.]} castShadow receiveShadow
                     
                 >
                     <meshStandardMaterial color={"#bbb"}/>
                 </Box>
                 {/* WHEELS */}
-                <Box args={[0.06,0.05,0.22]} position={[0.13,0.0,-0.]} castShadow receiveShadow
+                <Box args={[0.04,0.05,0.18]} position={[0.09,0.0,-0.]} castShadow receiveShadow
                     
                 >
                     <meshStandardMaterial color={"#777"}/>
                 </Box>
-                <Box args={[0.06,0.05,0.22]} position={[-0.13,0.0,-0.]} castShadow receiveShadow
+                <Box args={[0.04,0.05,0.18]} position={[-0.09,0.0,-0.]} castShadow receiveShadow
                     
                 >
                     <meshStandardMaterial color={"#777"}/>

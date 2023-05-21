@@ -7,7 +7,7 @@ function Component ({state, calls }:any) {
           position={[ 0, (state.boundaries[1] / 2 + state.wallWidth) - (1 ), 0,]}
         >
           <boxGeometry args={[1, state.wallWidth, 1]} />
-          <meshStandardMaterial color={!state.isSelectedId ? "#BCACA5" : "#BCACA5"}  />
+          <meshStandardMaterial color={!state.isSelectedId ? "#B6AfA5" : "#B6AfA5"}  />
         </mesh>        
 
 

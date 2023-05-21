@@ -4,7 +4,7 @@ import { useRef, useState } from "react"
 
 
 function Component ({}) {
-    const [carSpeed, s__carSpeed] = useState(0.015)
+    const [carSpeed, s__carSpeed] = useState(0.01)
     const [randomLimit, s__randomLimit] = useState(1)
     const movingPart1:any = useRef()
     const movingPart2:any = useRef()
@@ -14,7 +14,7 @@ function Component ({}) {
         if (movingPart1.current.position.x > 5 + randomLimit)
         {
             s__randomLimit(Math.random()*5)
-            s__carSpeed(0.015 * (1+ (Math.random()/2+0.5)))
+            s__carSpeed(0.01 * (1+ (Math.random()/2+0.5)))
             movingPart1.current.scale.set(1 + (Math.random()/2+0.5)/2,1+ (Math.random()+0.5),0.3 + (Math.random()/3+0.3))
             movingPart1.current.position.x = 0 - (Math.random()+1.5)*2
             return
@@ -40,12 +40,12 @@ function Component ({}) {
                     <meshStandardMaterial color={"#bbb"}/>
                 </Box>
                 {/* WHEELS */}
-                <Box args={[0.06,0.05,0.22]} position={[0.13,0.0,-0.]} castShadow receiveShadow
+                <Box args={[0.06,0.05,0.24]} position={[0.13,0.0,-0.]} castShadow receiveShadow
                     
                 >
                     <meshStandardMaterial color={"#777"}/>
                 </Box>
-                <Box args={[0.06,0.05,0.22]} position={[-0.13,0.0,-0.]} castShadow receiveShadow
+                <Box args={[0.06,0.05,0.24]} position={[-0.13,0.0,-0.]} castShadow receiveShadow
                     
                 >
                     <meshStandardMaterial color={"#777"}/>

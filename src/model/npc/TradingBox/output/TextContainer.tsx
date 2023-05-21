@@ -65,9 +65,9 @@ function Component ({tokensArrayArray, state, calls}:any) {
 
 
       {!!tokensArrayArray &&
-        <DynaText color={state.selectedHasArray ? "#559933" : "#cc0000"} // LIVE / DEMO
+        <DynaText color={state.selectedHasArray ? "#337700" : "#cc00cc"} // LIVE / DEMO
             onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
-            text={"LIVE" } 
+            text={state.selectedHasArray ? "LIVE" : "LIVE" } 
           // position={new Vector3(-0.31,-0.345,+0.46)}
           position={new Vector3(0.38,-0.345,+0.44)}
           isSelected={state.isSelectedId}  font={0.08} 
