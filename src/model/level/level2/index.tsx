@@ -1,6 +1,6 @@
 "use client";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { Box, OrbitControls } from "@react-three/drei";
+import { Box, OrbitControls, Sphere } from "@react-three/drei";
 import { useCopyToClipboard, useLocalStorage } from "usehooks-ts";
 
 
@@ -20,6 +20,9 @@ import GoalPost from "./goal/GoalPost";
 import SavedGoalPost from "./goal/SavedGoalPost";
 import { useAuth } from "@/../script/state/context/AuthContext";
 import RoofContainer from "@/3d/RoofContainer";
+import RoadJack from "./decoration/RoadJack";
+import MovingCar from "./decoration/MovingCar";
+import { BackSide } from "three";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -353,22 +356,35 @@ function Component ({}) {
       <ambientLight intensity={0.25} />
       <pointLight intensity={1.5} position={[1.5, 1, 3]} castShadow />
 
-
+      <Sphere args={[3.5]}>
+        <meshStandardMaterial side={BackSide} emissive={"#ffffff"} />
+      </Sphere>
   
       <TutorialContainer  calls={{join,turnOffDemo,setTutoStage,firstLogin}} 
         state={{hasAnyToken, tutoStage, isDefaultUser}}
       />
 
       <LoginForm state={{isDefaultUser, }} calls={{triggerLogout, triggerLogin}} />
-      
-      <GoalPost calls={{claim}}
-        state={{hasAnyToken, profitHistory}}
-      />
-      <SavedGoalPost calls={{claim}}
-        state={{hasAnyToken, profitHistory, savedString }}
-      />
+      {hasAnyToken && 
+        <GoalPost calls={{claim}}
+          state={{hasAnyToken, profitHistory}}
+        />
+      }
+      <group position={[0,0,1.4]}>
+        <SavedGoalPost calls={{claim}}
+          state={{hasAnyToken, profitHistory, savedString }}
+        />
+        {hasAnyToken && <>
+         <Box args={[1,0.66,1]} position={[0.05,-0.81,1.88]} castShadow receiveShadow>
+            <meshStandardMaterial color={"#fff"}/>
+          </Box>
+         <Box args={[0.5,0.1,2.2]} position={[0.08,-1.12,1]} castShadow receiveShadow>
+            <meshStandardMaterial color={"#ccc"}/>
+          </Box>
+        </>}
+      </group>
 
-      {hasAnyToken && <>
+      {hasAnyToken && !isDefaultUser && <>
         <group scale={[0.4,0.4,0.4]}  position={chartPos} rotation={chartRot}>
           <ChartBox boundaries={[1,0.1,0.04]} score={{score:0}} timeframe={selectedTimeframe.toLowerCase() || "1d"}
             position={[0,0,0]} velocityX={0}  theToken={form.id.split("USDT")[0]} askAI={(data:any)=>{askAI(data)}}
@@ -396,7 +412,9 @@ function Component ({}) {
     {hasAnyToken &&
       <group position={[-0.3,-0.1,0.5]}>
         <group position={[1,0,-1]} rotation={[0,0,0]}>
-          {("eth" in tokensArrayObj || "btc" in tokensArrayObj) && <>
+          {("eth" in tokensArrayObj || ("btc" in tokensArrayObj && 
+            true // tokensArrayObj["btc"].state
+          )) && <>
             <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="eth"
               tokensArrayArray={"eth" in tokensArrayObj ? tokensArrayObj["eth"] : null}
               refetchInterval={selectedToken == "eth" ? 4000 : 60000}
@@ -411,7 +429,13 @@ function Component ({}) {
           </>}
         </group>
         {/* PIPE 1 */}
-        {"btc" in tokensArrayObj && <> <MovingBox1 /> </>}
+        {"btc" in tokensArrayObj && <> 
+          <RoadJack />
+          <MovingCar />
+          <group rotation={[0,Math.PI,0]} scale={[1,1,0.7]} position={[1,0,-0.3]}>
+            <MovingBox1 />
+          </group>
+         </>}
         <Box args={[0.03,0.05,0.06]} position={[0.19,-0.4,-1]} castShadow receiveShadow>
           <meshStandardMaterial color={"#333"}/>
         </Box>
@@ -427,7 +451,7 @@ function Component ({}) {
         {/* PIPE 3 */}
         {"ftm" in tokensArrayObj && <> <MovingBox2 /> </>}
         {("eth" in tokensArrayObj || "link" in tokensArrayObj) &&
-          <group position={[-0.3,0,0.3]} >
+          <group position={[-0.3,0,0.58]} >
             <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="link"
               tokensArrayArray={"link" in tokensArrayObj ? tokensArrayObj["link"] : null}
               refetchInterval={selectedToken == "link" ? 4000 : 60000}
@@ -442,7 +466,7 @@ function Component ({}) {
           </group>
         }
         {("eth" in tokensArrayObj || "ftm" in tokensArrayObj) &&
-          <group position={[1,0,0.3]}  >
+          <group position={[1,0,0.58]}  >
             <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="ftm"
               tokensArrayArray={"ftm" in tokensArrayObj ? tokensArrayObj["ftm"] : null}
               refetchInterval={selectedToken == "ftm" ? 4000 : 60000}
@@ -465,9 +489,6 @@ function Component ({}) {
       </>}
       {hasAnyToken && <>
        <Box args={[1,0.66,1]} position={[0.05,-0.81,-1.59]} castShadow receiveShadow>
-          <meshStandardMaterial color={"#fff"}/>
-        </Box>
-       <Box args={[1,0.66,1]} position={[0.05,-0.81,1.88]} castShadow receiveShadow>
           <meshStandardMaterial color={"#fff"}/>
         </Box>
       </>}

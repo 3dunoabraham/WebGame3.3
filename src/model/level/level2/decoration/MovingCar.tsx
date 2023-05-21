@@ -5,15 +5,13 @@ import { useRef, useState } from "react"
 
 function Component ({}) {
     const [carSpeed, s__carSpeed] = useState(0.015)
-    const [randomLimit, s__randomLimit] = useState(1)
     const movingPart1:any = useRef()
     const movingPart2:any = useRef()
     
     useFrame(({state,delta}:any) => {
         if (!movingPart1.current) return
-        if (movingPart1.current.position.x > 5 + randomLimit)
+        if (movingPart1.current.position.x > 5)
         {
-            s__randomLimit(Math.random()*5)
             s__carSpeed(0.015 * (1+ (Math.random()/2+0.5)))
             movingPart1.current.scale.set(1 + (Math.random()/2+0.5)/2,1+ (Math.random()+0.5),0.3 + (Math.random()/3+0.3))
             movingPart1.current.position.x = 0 - (Math.random()+1.5)*2
@@ -29,12 +27,12 @@ function Component ({}) {
             {/* CAR */}
             <group ref={movingPart1} position={[-5,-0.34,-0.33]}>
                 {/* BODY */}
-                <Box args={[0.3,0.1,0.2]} position={[0,0.04,-0.]} castShadow receiveShadow
+                <Box args={[0.15,0.1,0.2]} position={[0,0.04,-0.]} castShadow receiveShadow
                     
                 >
                     <meshStandardMaterial color={"#ccc"}/>
                 </Box>
-                <Box args={[0.4,0.06,0.21]} position={[0,0.021,-0.]} castShadow receiveShadow
+                <Box args={[0.35,0.06,0.21]} position={[0,0.021,-0.]} castShadow receiveShadow
                     
                 >
                     <meshStandardMaterial color={"#bbb"}/>

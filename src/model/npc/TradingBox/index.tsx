@@ -26,6 +26,7 @@ export const tokenColors:any = {
   "ftm": "#1A6AFF",
 }
 const Component = forwardRef(({
+  mainModel = "pc",
   turnOn, turnOff, leave, join,
   trendDown, trendUp,
   tokensArrayArray,
@@ -146,20 +147,23 @@ const selectedHasArray = useMemo(()=>{
         />
       </group>
 
-      
-      {/* <group position={position} >
-        <Computer tokensArrayArray={tokensArrayArray}
-          state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
-          calls={{onTextClick,turnOff,turnOn}}
-        />
-      </group> */}
-      
+      {mainModel == "pc" && 
+        <group position={position} >
+          <Computer tokensArrayArray={tokensArrayArray}
+            state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
+            calls={{onTextClick,turnOff,turnOn}}
+          />
+        </group>
+    }
+    {mainModel == "bank" && 
       <group position={position} >
         <Bank tokensArrayArray={tokensArrayArray}
           state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
           calls={{onTextClick,turnOff,turnOn}}
         />
       </group>
+    }
+      
       <group position={position} >
         <MiniCitySign tokensArrayArray={tokensArrayArray}
           state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
@@ -181,7 +185,7 @@ const selectedHasArray = useMemo(()=>{
           isSelectedId={isSelectedId} token={token} clicked={clicked}
         />
         {!!tokensArrayArray && selectedHasArray &&
-          <group position={[-0.25,0,0.13]}>
+          <group position={[-0.18,0,0.2]}>
             <TimeframeButtons tokensArrayArray={tokensArrayArray}
               state={{isSelectedId, score, token, selectedTimeframe, selectedTimeframeIndex}}
               calls={{onTimeframeClick,onTextClick,}}

@@ -81,7 +81,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
 
       {state.isSelectedId && <>
         <group position={new Vector3(-0.1,0,-0.2)} >
-          <Cylinder args={[0.42, 0.3, 0.64, 4]} position={[0.0,0.05,-0.128]} // big monitor CASE
+          <Cylinder args={[0.42, 0.2, 0.64, 4]} position={[0.0,0.05,-0.128]} // big monitor CASE
             rotation={[Math.PI/2,Math.PI/4*3,0]} receiveShadow castShadow
           >
             <meshStandardMaterial color={"#888"}  />

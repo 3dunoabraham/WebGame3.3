@@ -19,13 +19,13 @@ function Component ({state, calls}:any) {
         <SetPriceAlarm />
       </group>
     }
-    {state.hasAnyToken &&  state.isDefaultUser &&
+    {/* {state.hasAnyToken &&  state.isDefaultUser &&
       <group onClick={()=>{calls.firstLogin()}}  
         position={[-0.6,-1.3,1.]} rotation={[0,Math.PI/2,0]} scale={0.35} 
       >
         <TutorialLogin />
       </group>
-    }    
+    }     */}
         {state.hasAnyToken && state.tutoStage.lvl == 1  &&
 
       <group position={[-0.7,-0.24,-0.5]} scale={0.35} >

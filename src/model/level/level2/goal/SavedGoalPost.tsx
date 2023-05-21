@@ -43,7 +43,7 @@ function Component ({calls, state}:any) {
   </>}
 
   <DynaText text={!!state_savedStringObj ? state_savedStringObj.split("&&&").length : "0"} color={ "#ff9900"}
-    position={[0,-0.94,0.5]}
+    position={[0,-1.06,0.5]}
         rotation={[-Math.PI/2,0,0]}
 
         // position={[0,-0.15,-1.19]} font={0.15}
