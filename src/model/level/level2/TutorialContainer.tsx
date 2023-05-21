@@ -15,7 +15,7 @@ function Component ({state, calls}:any) {
       <ClickToStart calls={{join:calls.join}} />
       </>}
     {state.hasAnyToken && !state.tutoStage.lvl &&
-      <group position={[-0.42,-0.35,-0.24]} scale={0.3} onClick={()=>{calls.turnOffDemo()}}>
+      <group position={[-0.42,-0.35,-0.24]} scale={0.3} >
         <SetPriceAlarm />
       </group>
     }

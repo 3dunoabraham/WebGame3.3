@@ -9,7 +9,7 @@ export default function Component ({
   return (
         
         
-        <Text {...props} font='/font.ttf'>
+        <Text {...props} font='/marko.ttf'>
         {children}
       </Text>
   );

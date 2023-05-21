@@ -27,14 +27,14 @@ function Component ({tokensArrayArray, state, calls}:any) {
         <DynaText text={"profit"}  
           color={state.clickedPrice/state.queryUSDT.data < 1 ? 0x009900 : 0x777777}
           position={new Vector3(+0.28,-0.23,-0.38)} rotation={[0,0,0]}
-          isSelected={state.isSelectedId} font={0.06} 
+          isSelected={state.isSelectedId} font={0.05} 
         />
       }
       {state.clicked && // PROFIT LOSS
         <DynaText text={"loss"}  
           color={state.clickedPrice/state.queryUSDT.data < 1 ? 0x777777 : 0xff0000}
           position={new Vector3(+0.4,-0.23,-0.38)} rotation={[0,0,0]}
-          isSelected={state.isSelectedId} font={0.06} 
+          isSelected={state.isSelectedId} font={0.05} 
         />
       }
       
@@ -65,7 +65,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
 
 
       {!!tokensArrayArray &&
-        <DynaText color={state.selectedHasArray ? "#337700" : "#cc00cc"} // LIVE / DEMO
+        <DynaText color={state.selectedHasArray ? "#337700" : "#ff3300"} // LIVE / DEMO
             onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
             text={state.selectedHasArray ? "LIVE" : "LIVE" } 
           // position={new Vector3(-0.31,-0.345,+0.46)}
@@ -76,8 +76,8 @@ function Component ({tokensArrayArray, state, calls}:any) {
       {!!tokensArrayArray && state.isSelectedId && state.selectedHasArray &&
       <DynaText text={!state.clicked ? "Send  BUY  Order" : "Send  SELL  Order"} // BUY / SELL
         color={!state.clicked ?  0x339933 : 0xff3333}
-        position={new Vector3(!state.clicked ?  - 0.05 :  + 0.115,-0.34,0.455)}
-        isSelected={state.isSelectedId}  font={0.05} onClick={()=>{}}
+        position={new Vector3(!state.clicked ?  - 0.05 :  + 0.1,-0.34,0.455)}
+        isSelected={state.isSelectedId}  font={0.045} onClick={()=>{}}
         />   
       } 
     </>)

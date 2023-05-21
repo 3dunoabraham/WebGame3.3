@@ -34,6 +34,20 @@ function Component ({ tokensArrayArray, state, calls }:any) {
       </mesh>
       
       </group>}
+      
+      {/* STATIC GRASS */}
+      {!!tokensArrayArray && state.selectedHasArray &&
+      <mesh castShadow receiveShadow 
+            scale={3}
+            position={[  0.03,  -0.37,  0.335,]}
+        >
+            <boxGeometry args={[0.165, 0.025, 0.06]} />
+            <meshStandardMaterial color={"#A69284"} />
+        </mesh>
+}
+
+
+
       {!!tokensArrayArray &&
             <mesh castShadow receiveShadow scale={state.score.score ? 1 : 3}
             onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
@@ -45,6 +59,24 @@ function Component ({ tokensArrayArray, state, calls }:any) {
                 } />
             </mesh>
         }
+        {/* TREE */}
+        {!!tokensArrayArray && state.selectedHasArray && <>
+              <mesh castShadow receiveShadow scale={state.score.score ? 1 : 3}
+              position={[   0.38,  state.selectedHasArray ? - 0.35 : -0.32,  + 0.31, ]}
+              // rotation={[state.selectedHasArray ? -0.25 : 0.25 ,0,0]}          
+              >
+              <boxGeometry args={[0.01, 0.1, 0.01]} />
+              <meshStandardMaterial color={"#663300"} />
+              </mesh>
+              {/* LEAFS */}
+              <mesh castShadow receiveShadow scale={state.score.score ? 1 : 3}
+              position={[   0.38,  state.selectedHasArray ? - 0.15 : -0.12,  + 0.31, ]}
+              // rotation={[state.selectedHasArray ? -0.25 : 0.25 ,0,0]}          
+              >
+              <boxGeometry args={[0.025, 0.06, 0.025]} />
+              <meshStandardMaterial color={"#669F36"} opacity={0.8} transparent={true} />
+              </mesh>
+        </>}
         
         
         {/* DEMO MODE */}

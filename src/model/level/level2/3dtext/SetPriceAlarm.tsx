@@ -16,22 +16,22 @@ function Component ({}) {
 
   return (<group ref={$textGroup} rotation={[-1,0,0]} position={[0,0,1.4]}>
     <FontText position={[0.85,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
-      material={new MeshStandardMaterial({ side: 0, color: "#00dd00" })}
+      material={new MeshStandardMaterial({ side: 0, color: "#000000" })}
     >
-      Click              to continue
+      Click             to continue
     </FontText>
     <FontText position={[0.85,0,0]} fontSize={0.25} rotation={[0,0,0]} 
-      material={new MeshStandardMaterial({ side: 0, color: "#00dd00" })}
+      material={new MeshStandardMaterial({ side: 0, color: "#000000" })}
     >
-      Click              to continue
+      Click             to continue
     </FontText>
-    <FontText position={[0.5,0,0]} fontSize={0.35} rotation={[0,Math.PI,0]} 
-      material={new MeshStandardMaterial({ side: 0, color: "#cc00cc" })}
+    <FontText position={[0.4,0,0]} fontSize={0.4} rotation={[0,Math.PI,0]} 
+      material={new MeshStandardMaterial({ side: 0, color: "#ff3300" })}
     >
       LIVE 
     </FontText>
-    <FontText position={[0.5,0,0]} fontSize={0.35} rotation={[0,0,0]} 
-      material={new MeshStandardMaterial({ side: 0, color: "#cc00cc" })}
+    <FontText position={[0.4,0,0]} fontSize={0.4} rotation={[0,0,0]} 
+      material={new MeshStandardMaterial({ side: 0, color: "#ff3300" })}
     >
       LIVE 
     </FontText>
