@@ -16,7 +16,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
 
 
     
-      {state.isSelectedId && // big monitor BASE
+      {// state.isSelectedId && // big monitor BASE
           <group >
             <group scale={[0.24 ,0.12,0.24  ]} position={[0.03,0.0,0.29]}>
               <BankRoofContainer roofWidth={0.05} width={0.5} position={[-0.5, 2, -3]} wallWidth={0.05} 
@@ -46,7 +46,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
               { // south facing
                 <DynaText text={state.token.toUpperCase()+"" || ""} 
                   color={ !!tokensArrayArray ? state.tokenColor : "#222222"}
-                  position={new Vector3(0.1,0.235,0.01)}
+                  position={new Vector3(0.1,0.235,-0.485)}
                   rotation={[0,Math.PI,0]}
                   isSelected={state.isSelectedId}  font={0.13} onClick={()=>{}}
                 />

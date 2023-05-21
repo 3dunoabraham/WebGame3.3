@@ -33,7 +33,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
               { // south facing
                 <DynaText text={state.token.toUpperCase()+"" || ""} 
                   color={ !!tokensArrayArray ? state.tokenColor : "#222222"}
-                  position={new Vector3(0.1,0.25,0.01)}
+                  position={new Vector3(0.1,0.25,-0.035)}
                   rotation={[0,Math.PI,0]}
                   isSelected={state.isSelectedId}  font={0.22} onClick={()=>{}}
                 />
@@ -57,13 +57,15 @@ function Component ({tokensArrayArray, state, calls}:any) {
       <group position={new Vector3(-0.1,0,-0.2)} >
         { // big monitor BASE
           <>
-          <Cylinder args={[0.2, 0.3, 0.2, 4]} position={[0.0,-0.3,-0.05]} // base base
+         {!!tokensArrayArray && !!state.isSelectedId &&
+           <Cylinder args={[0.2, 0.3, 0.2, 4]} position={[0.0,-0.3,-0.05]} // base base
             receiveShadow castShadow
             rotation={[0,Math.PI/4*3,0]}
           >
             <meshStandardMaterial color={"#888"}  />
           </Cylinder>
-            <Cylinder args={[0.02, 0.03, 0.35, 4]} position={[0.0,-0.1,-0.05]} // base connector
+         }
+            <Cylinder args={[0.02, 0.03, 0.5, 4]} position={[0.0,-0.1,-0.05]} // base connector
               receiveShadow castShadow
               rotation={[0,Math.PI/4*3,0]}
             >

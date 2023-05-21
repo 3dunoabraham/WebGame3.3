@@ -353,11 +353,11 @@ function Component ({}) {
       </DynaText>
       </>} */}
 
-      <ambientLight intensity={0.25} />
+      <ambientLight intensity={0.25} color={"#FfF2d1"} />
       <pointLight intensity={1.5} position={[1.5, 1, 3]} castShadow />
 
       <Sphere args={[3.5]}>
-        <meshStandardMaterial side={BackSide} emissive={"#ffffff"} />
+        <meshStandardMaterial side={BackSide} color={"#9CC1D3"} emissive={"#9CC1D3"} />
       </Sphere>
   
       <TutorialContainer  calls={{join,turnOffDemo,setTutoStage,firstLogin}} 
@@ -436,9 +436,9 @@ function Component ({}) {
             <MovingBox1 />
           </group>
          </>}
-        <Box args={[0.03,0.05,0.06]} position={[0.19,-0.4,-1]} castShadow receiveShadow>
+        {/* <Box args={[0.03,0.05,0.06]} position={[0.19,-0.4,-1]} castShadow receiveShadow>
           <meshStandardMaterial color={"#333"}/>
-        </Box>
+        </Box> */}
         {/* PIPE 2 */}
         {"link" in tokensArrayObj && <>
           <Box args={[0.1,0.1,0.5]} position={[-0.2,-0.45,-0.3]} castShadow receiveShadow>
