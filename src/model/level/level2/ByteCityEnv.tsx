@@ -4,6 +4,7 @@ import { BackSide } from "three"
 function Component ({}) {
     return (
         <>
+            <fog attach="fog" args={['#72C0DD', 2, 8]} />
         
       <ambientLight intensity={0.25} color={"#ffeedd"} />
       <pointLight intensity={1.5} position={[1.5, 1, 2.5]} castShadow />
