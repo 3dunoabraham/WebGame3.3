@@ -1,4 +1,4 @@
-import { SalesStatusBadgePlus } from "@/module/unit/SalesStatusBadgePlus"
+// import { SalesStatusBadgePlus } from "@/module/unit/SalesStatusBadgePlus"
 
 
 function Component ({ theArray, bools, config, actionCard, actionHeader }:any) {
@@ -92,11 +92,11 @@ function Component ({ theArray, bools, config, actionCard, actionHeader }:any) {
                         return (
                             aChildren.widget == "badge" && (
                                 <div key={index}  className={`flex-col flex-align-start  w-25 ${aChildren.class}`}>
-                                    
-                                    <SalesStatusBadgePlus
+                                    {anObj[aChildren.key]}
+                                    {/* <SalesStatusBadgePlus
                                         value={anObj[aChildren.key]}
                                         reference={[""]}
-                                    />
+                                    /> */}
                                 </div>
                             )
                         )
