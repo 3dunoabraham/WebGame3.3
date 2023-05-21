@@ -14,6 +14,9 @@ import DeskToggles from "./input/DeskToggles";
 import DeskButtons from "./input/DeskButtons";
 import Computer from "./machine/Computer";
 import MiniScreen from "./output/MiniScreen";
+import BankRoofContainer from "@/3d/BankRoofContainer";
+import Bank from "./machine/Bank";
+import MiniCitySign from "./output/MiniCitySign";
 
 export const DEFAULT_TIMEFRAME_ARRAY = ["3m","15m","4h","1d","1w"]  
 export const tokenColors:any = {
@@ -135,24 +138,44 @@ const selectedHasArray = useMemo(()=>{
   return (
     <group>
 
+      
       <group position={position} >
         <TextContainer tokensArrayArray={tokensArrayArray}
           state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
           calls={{onTextClick,turnOff,turnOn}}
         />
       </group>
-      <group position={position} /* rotation={[Math.PI/2,0,0]} */ >
+
+      
+      {/* <group position={position} >
         <Computer tokensArrayArray={tokensArrayArray}
+          state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
+          calls={{onTextClick,turnOff,turnOn}}
+        />
+      </group> */}
+      
+      <group position={position} >
+        <Bank tokensArrayArray={tokensArrayArray}
           state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
           calls={{onTextClick,turnOff,turnOn}}
         />
       </group>
       <group position={position} >
-        <MiniScreen tokensArrayArray={tokensArrayArray}
+        <MiniCitySign tokensArrayArray={tokensArrayArray}
           state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
           calls={{onTextClick,turnOff,turnOn}}
         />
       </group>
+
+      {/* <group position={position} >
+        <MiniScreen tokensArrayArray={tokensArrayArray}
+          state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
+          calls={{onTextClick,turnOff,turnOn}}
+        />
+      </group> */}
+
+
+      
       <group position={position}>
         <BouncingThing tokensArrayArray={tokensArrayArray} _bouncingThing={bouncingThing}
           isSelectedId={isSelectedId} token={token} clicked={clicked}

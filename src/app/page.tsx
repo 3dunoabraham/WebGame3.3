@@ -5,6 +5,9 @@ import { getJWTCookie } from '@/../script/state/repository/session';
 import Level2 from '@/model/level/level2';
 import LoginForm from '@/model/overlay/LoginForm';
 import LogoutForm from '@/model/overlay/LogoutForm';
+import { Suspense } from 'react';
+import Image from 'next/image';
+import DevelopmentNotice from '@/dom/atom/holders/DevelopmentNotice';
 
 export default async function Page() {  
   const foundJWT:any = await getJWTCookie()
@@ -37,16 +40,21 @@ export default async function Page() {
             </h1>
           </a>
         </div>
-        <div className='pos-abs top-0 right-0 pt-3'>
+        {/* <div className='pos-abs top-0 right-0 pt-3'>
           {!foundUser && <LoginForm />}
           {foundUser && <>
             <div className='flex-col tx-lx opaci-10 py-'>{foundUser.name} <small>(Verified)</small></div>
             <LogoutForm />
           </>}
-        </div>
+        </div> */}
       </div>
       <div className='pos-abs top-0 w-100 h-100'>
-        <Level2 />
+        {/* <div className='pt-8 flex-col'><img src="/images/landing.jpg" alt="" /></div> */}
+        <Suspense>
+          <Level2 />
+        </Suspense>
+
+        <DevelopmentNotice />
       </div>
     </main>
   </>)

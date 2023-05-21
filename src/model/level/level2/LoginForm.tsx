@@ -11,7 +11,7 @@ function Component ({calls, state}: any) {
         <Cylinder args={[0.1,0.1,0.2,6]} position={[0,-0.95,0]} castShadow receiveShadow 
           onClick={()=>{ calls.triggerLogin() }}
         >
-          <meshStandardMaterial color={ "#fff"}/>
+          <meshStandardMaterial color={ "#eee"}/>
         </Cylinder>
         
         <DynaText text={"Connect"} color={"#5a5"} font={0.06} position={[0,-0.94,-0.17]} >        

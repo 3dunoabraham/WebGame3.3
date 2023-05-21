@@ -22,7 +22,7 @@ function Component ({calls}:any) {
             text="Start"
             color="#cc0000"
             font={0.15}
-            position={[-0.65,-0.34,-0.95]}
+            position={[-0.65,-0.34,-0.92]}
             rotation={[0,0.4,0]}
             >        
         </DynaText>
@@ -31,7 +31,7 @@ function Component ({calls}:any) {
             text="Start"
             color="#cc0000"
             font={0.15}
-            position={[-0.65,-0.34,-0.95]}
+            position={[-0.65,-0.34,-0.92]}
             rotation={[0,Math.PI+0.4,0]}
             >        
         </DynaText>

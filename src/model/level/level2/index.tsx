@@ -19,6 +19,7 @@ import LoginForm from "./LoginForm";
 import GoalPost from "./goal/GoalPost";
 import SavedGoalPost from "./goal/SavedGoalPost";
 import { useAuth } from "@/../script/state/context/AuthContext";
+import RoofContainer from "@/3d/RoofContainer";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,

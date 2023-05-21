@@ -26,9 +26,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <AppClientProvider session={session}>
           <> {children}  </>
         </AppClientProvider>
-        <div className='pos-abs bottom-0  flex-justify-end pb-1 tx-bold tx- tx-ls-1 tx-italic h-5 w-100 flex-col tx-sm box-shadow-i-2-t bg-black tx-white'>
-          this app is under heavy development
-        </div>
       </body>
     </html>
   )
