@@ -10,7 +10,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
     link:"silver",
     ftm:"spirit",
   })
-  const [DisplayPosition,s__DisplayPosition]:any = useState([0.4,0.02,-0.05])
+  const [DisplayPosition,s__DisplayPosition]:any = useState([0.4,0.05,-0.1])
     return (<>
 
 
@@ -20,7 +20,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
         <> 
 
 
-        <group position={DisplayPosition} rotation={[0,-0.4,0]}>
+        <group position={DisplayPosition} rotation={[0,-0.5,0]}>
           
         <mesh castShadow receiveShadow position={[-0.0165,0.03,0]} >
           <boxGeometry args={[0.03, 0.28, 0.4]} />
@@ -29,12 +29,12 @@ function Component ({tokensArrayArray, state, calls}:any) {
         
         <mesh castShadow receiveShadow position={[-0.03,-0.2,0.08]} // stand
         > 
-          <boxGeometry args={[0.03, 0.4, 0.02]} />
+          <boxGeometry args={[0.03, 0.45, 0.02]} />
           <meshStandardMaterial color={"#9a9999"}  />
         </mesh>        
         <mesh castShadow receiveShadow position={[-0.03,-0.2,-0.08]} // stand
         > 
-          <boxGeometry args={[0.03, 0.4, 0.02]} />
+          <boxGeometry args={[0.03, 0.45, 0.02]} />
           <meshStandardMaterial color={"#9c9999"}  />
         </mesh>        
 
@@ -45,7 +45,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
           
           {!!tokensArrayArray && // CURRENT PRICE
               <DynaText text={state.queryUSDT.data+"" || ""} color={state.isSelectedId ? 0xaa0099 : 0xaaaaaa}
-                onClick={()=>{}} font={0.12} rotation={[0,Math.PI/2,0]} isSelected={state.isSelectedId} 
+                onClick={()=>{}} font={0.11} rotation={[0,Math.PI/2,0]} isSelected={state.isSelectedId} 
                 position={new Vector3( 0,0,0)} 
               />
           }

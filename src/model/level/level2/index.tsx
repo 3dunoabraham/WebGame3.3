@@ -141,9 +141,11 @@ function Component ({}) {
     if (form.id in currentOrders)
     {
       let oldOrders = {...currentOrders}
-      if (newTradeObj.side == "sell") {
+        if (newTradeObj.side == "sell") {
         let theindex = profitHistory.length
         let newprofithi:any = [...profitHistory, [oldOrders[form.id],newTradeObj]]
+
+
         let percentChange:any = newprofithi.price == oldOrders[form.id].price ? 0 : (
           parseFloat(`${newTradeObj.price/oldOrders[form.id].price*100}`).toFixed(2)
         )
@@ -162,8 +164,11 @@ function Component ({}) {
       s__currentOrders(oldOrders)
     } else {
       if (newTradeObj.side == "buy") {
-          s__currentOrders({...currentOrders, [form.id]: newTradeObj })
-        } 
+        s__currentOrders({...currentOrders, [form.id]: newTradeObj })
+      } 
+      if (newTradeObj.side == "sell") {
+        app.alert("error","Missing live buy order")
+      } 
     }
     let keyval = binanceKeys
     
@@ -324,7 +329,8 @@ function Component ({}) {
   const claim = () => {
     if (realProfitCount < 4) { return }
     app.alert("success", "Please contact support with your ID")
-    prompt("Please contact support with your ID",binanceKeys)
+    alert("Please contact support with your ID: "+binanceKeys)
+    setTutoStage(4)
   }
 
   const realProfitCount = useMemo(()=>{
@@ -379,29 +385,42 @@ function Component ({}) {
       />
 
       <LoginForm state={{isDefaultUser, }} calls={{triggerLogout, triggerLogin}} />
-      {hasAnyToken && 
+      {hasAnyToken &&  tutoStage.lvl >= 3 &&
         <group position={[0,0.3,0]}> 
           <GoalPost calls={{claim}}
             state={{hasAnyToken, profitHistory}}
           />
         </group>
       }
-      <group position={[0,0,1.6]}>
-        <SavedGoalPost calls={{claim}}
-          state={{hasAnyToken, profitHistory, savedString }}
-        />
-        {hasAnyToken && <>
-         <Box args={[1,0.66,1]} position={[0.05,-0.81,1.88]} castShadow receiveShadow>
-            <meshStandardMaterial color={"#fff"}/>
-          </Box>
-         <Box args={[0.5,0.1,2.2]} position={[0.08,-1.12,1]} castShadow receiveShadow>
-            <meshStandardMaterial color={"#eee"}/>
-          </Box>
-         <Box args={[0.75,0.2,0.75]} position={[0.08,-1.12,-0.5]} castShadow receiveShadow>
-            <meshStandardMaterial color={"#ddd"}/>
-          </Box>
-        </>}
-      </group>
+      {hasAnyToken &&  tutoStage.lvl > 3 &&
+        <group position={[0,0,1.6]}>
+          <SavedGoalPost calls={{claim}}
+            state={{hasAnyToken, profitHistory, savedString }}
+          />
+          {hasAnyToken && <>
+          <Box args={[1,0.66,1]} position={[0.05,-0.81,1.88]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#fff"}/>
+            </Box>
+          <Box args={[0.5,0.1,2.2]} position={[0.08,-1.12,1]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#eee"}/>
+            </Box>
+          <Box args={[0.75,0.2,0.75]} position={[0.08,-1.12,-0.5]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#ddd"}/>
+            </Box>
+          </>}
+        </group>
+      }
+      
+      {hasAllTokens && <>
+        <Box args={[4,0.25,5]} position={[0,-1.2,-0.5]} castShadow receiveShadow>
+          <meshStandardMaterial color={ "#fff"}/>
+        </Box>
+      </>}
+      {hasAnyToken && tutoStage.lvl >= 3 && <>
+       <Box args={[1,0.8,1.1]} position={[0.05,-0.81,-1.59]} castShadow receiveShadow>
+          <meshStandardMaterial color={"#eee"}/>
+        </Box>
+      </>}
 
       {hasAnyToken && !isDefaultUser && <>
         <group scale={[0.4,0.4,0.4]}  position={chartPos} rotation={chartRot}>
@@ -432,7 +451,7 @@ function Component ({}) {
       <group position={[-0.3,-0.1,0.5]}>
         <group position={[1,0,-1]} rotation={[0,0,0]}>
           {("eth" in tokensArrayObj || ("btc" in tokensArrayObj && 
-            true // tokensArrayObj["btc"].state
+            tutoStage.lvl > 3 // tokensArrayObj["btc"].state
           )) && <>
             <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="eth"
               tokensArrayArray={"eth" in tokensArrayObj ? tokensArrayObj["eth"] : null}
@@ -501,16 +520,6 @@ function Component ({}) {
         }
       </group>}
       
-      {hasAllTokens && <>
-        <Box args={[4,0.25,5]} position={[0,-1.2,-0.5]} castShadow receiveShadow>
-          <meshStandardMaterial color={ "#fff"}/>
-        </Box>
-      </>}
-      {hasAnyToken && <>
-       <Box args={[1,0.8,1.1]} position={[0.05,-0.81,-1.59]} castShadow receiveShadow>
-          <meshStandardMaterial color={"#eee"}/>
-        </Box>
-      </>}
       <Box args={[2.5,0.2,2.5]} position={[0.05,-1.05,0.15]} castShadow receiveShadow>
         <meshStandardMaterial color={"#fff"}/>
       </Box>

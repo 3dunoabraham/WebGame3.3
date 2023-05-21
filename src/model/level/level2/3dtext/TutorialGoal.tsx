@@ -15,11 +15,11 @@ function Component ({}) {
     })
 
     return (<group position={[0,1.7,0]}>
-            <FontText position={[0.85,-0.49,1.6]} fontSize={0.25} rotation={[-Math.PI/2,0,0]} 
+            <FontText position={[0.9,0.33,1.6]} fontSize={0.2} rotation={[-Math.PI/2,0,0]} 
                 material={new MeshStandardMaterial({ side: 0, color: "#ff66ff" })}>
                 Fee: 0
             </FontText>
-        <group ref={$textGroup} position={[1,0,1]} rotation={[-0.5,0,0]}>
+        <group ref={$textGroup} position={[1,0,1]} rotation={[0.3,0,0]}>
             <FontText position={[0.25,0.6,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
                 material={new MeshStandardMaterial({ side: 0, color: "#000000" })}>
                 Send and Profit
