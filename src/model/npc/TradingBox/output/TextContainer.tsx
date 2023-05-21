@@ -65,17 +65,17 @@ function Component ({tokensArrayArray, state, calls}:any) {
 
 
       {!!tokensArrayArray &&
-        <DynaText color={state.selectedHasArray ? "#337700" : "#ff3300"} // LIVE / DEMO
+        <DynaText color={state.selectedHasArray ? "#338811" : "#9A7465"} // LIVE / DEMO
             onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
-            text={state.selectedHasArray ? "LIVE" : "LIVE" } 
+            text={state.selectedHasArray ? "LIVE" : "DEMO" } 
           // position={new Vector3(-0.31,-0.345,+0.46)}
           position={new Vector3(0.38,-0.345,+0.44)}
-          isSelected={state.isSelectedId}  font={0.08} 
+          isSelected={state.isSelectedId}  font={state.selectedHasArray ? 0.07 : 0.07} 
         />
       }
       {!!tokensArrayArray && state.isSelectedId && state.selectedHasArray &&
       <DynaText text={!state.clicked ? "Send  BUY  Order" : "Send  SELL  Order"} // BUY / SELL
-        color={!state.clicked ?  0x339933 : 0xff3333}
+        color={!state.clicked ?  "#006600" : "#990000"}
         position={new Vector3(!state.clicked ?  - 0.05 :  + 0.1,-0.34,0.455)}
         isSelected={state.isSelectedId}  font={0.045} onClick={()=>{}}
         />   

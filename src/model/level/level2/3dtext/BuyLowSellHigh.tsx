@@ -27,14 +27,14 @@ function Component ({}) {
           Click the green button
       </FontText>
       <FontText position={[-0.,-0.1,0.6]} fontSize={0.5} rotation={[0,Math.PI,0]} 
-        material={new MeshStandardMaterial({ side: 0, color: "#ff3300" })}
+        material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}
       >
-        to buy
+        to BUY
       </FontText>
       <FontText position={[0.,-0.1,0.6]} fontSize={0.5} rotation={[0,0,0]} 
-        material={new MeshStandardMaterial({ side: 0, color: "#ff3300" })}
+        material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}
       >
-        to buy
+        to BUY
       </FontText>
     </group>
   )

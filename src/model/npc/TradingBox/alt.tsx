@@ -246,7 +246,6 @@ const Component = forwardRef(({
 
 
 
-      {/* buy/sell button */}
       {isSelectedId && selectedHasArray && <>
       <mesh castShadow receiveShadow onClick={() => toggleGame()} scale={score.score ? 1 : 3}
         position={[

@@ -18,22 +18,22 @@ function Component ({}) {
     <FontText position={[0.85,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
       material={new MeshStandardMaterial({ side: 0, color: "#000000" })}
     >
-      Click             to continue
+      Click                    to continue
     </FontText>
     <FontText position={[0.85,0,0]} fontSize={0.25} rotation={[0,0,0]} 
       material={new MeshStandardMaterial({ side: 0, color: "#000000" })}
     >
-      Click             to continue
+      Click                    to continue
     </FontText>
     <FontText position={[0.4,0,0]} fontSize={0.4} rotation={[0,Math.PI,0]} 
-      material={new MeshStandardMaterial({ side: 0, color: "#ff3300" })}
+      material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}
     >
-      LIVE 
+      DEMO 
     </FontText>
     <FontText position={[0.4,0,0]} fontSize={0.4} rotation={[0,0,0]} 
-      material={new MeshStandardMaterial({ side: 0, color: "#ff3300" })}
+      material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}
     >
-      LIVE 
+      DEMO 
     </FontText>
   </group>)
 }

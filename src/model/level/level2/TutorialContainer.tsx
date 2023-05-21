@@ -28,7 +28,7 @@ function Component ({state, calls}:any) {
     }     */}
         {state.hasAnyToken && state.tutoStage.lvl == 1  &&
 
-      <group position={[-0.7,-0.24,-0.5]} scale={0.35} >
+      <group position={[-0.7,-0.24,-0.4]} scale={0.35}  rotation={[0,0.2,0]}>
         <BuyLowSellHigh  />
       </group>
     }

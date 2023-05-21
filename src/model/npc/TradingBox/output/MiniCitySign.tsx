@@ -45,7 +45,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
           
           {!!tokensArrayArray && // CURRENT PRICE
               <DynaText text={state.queryUSDT.data+"" || ""} color={state.isSelectedId ? 0xaa0099 : 0xaaaaaa}
-                onClick={()=>{}} font={0.13} rotation={[0,Math.PI/2,0]} isSelected={state.isSelectedId} 
+                onClick={()=>{}} font={0.12} rotation={[0,Math.PI/2,0]} isSelected={state.isSelectedId} 
                 position={new Vector3( 0,0,0)} 
               />
           }
