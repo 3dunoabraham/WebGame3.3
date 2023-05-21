@@ -2,6 +2,7 @@ import { Text } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 import { MeshStandardMaterial } from "three"
+import FontText from "../npc/TradingBox/FontText"
 
 function Component ({}) {
     let $text:any = useRef()

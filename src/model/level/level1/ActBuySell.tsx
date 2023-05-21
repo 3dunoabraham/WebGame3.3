@@ -1,5 +1,6 @@
 "use client";
 
+import FontText from "@/model/npc/TradingBox/FontText";
 import { Box, Cylinder, Text } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useRef, useState } from "react"

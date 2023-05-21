@@ -1,3 +1,4 @@
+import FontText from '@/model/npc/TradingBox/FontText';
 import { Text } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';

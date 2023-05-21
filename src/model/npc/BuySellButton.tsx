@@ -2,6 +2,7 @@ import { Box, Cylinder, Text } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useRef, useState } from "react"
 import { MeshStandardMaterial } from "three"
+import FontText from "./TradingBox/FontText"
 
 function Component ({}) {
     let $wormhole:any = useRef()
