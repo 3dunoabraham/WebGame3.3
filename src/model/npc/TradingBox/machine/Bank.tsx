@@ -101,17 +101,17 @@ function Component ({tokensArrayArray, state, calls}:any) {
           <group position={new Vector3(-0.17,-0.07,-0.)} >
           <mesh castShadow receiveShadow position={[0.1,-0.28,0.2]} >
             <boxGeometry args={[0.3, 0.1, 0.32]} />
-            <meshStandardMaterial color={"#8f8585"} 
+            <meshStandardMaterial color={"#8c8480"} 
              />
           </mesh>
           <mesh castShadow receiveShadow position={[0.1,-0.24,0.15]} >
             <boxGeometry args={[0.25, 0.1, 0.32]} />
-            <meshStandardMaterial color={"#8f8585"} 
+            <meshStandardMaterial color={"#8c8480"} 
              />
           </mesh>
           <mesh castShadow receiveShadow position={[0.1,-0.2,0.1]} >
             <boxGeometry args={[0.2, 0.1, 0.32]} />
-            <meshStandardMaterial color={"#8f8585"} 
+            <meshStandardMaterial color={"#8c8480"} 
              />
           </mesh>        
         </group>

@@ -90,7 +90,7 @@ export const NotesCRUD = ({
         </div>
         <hr className="w-100 my-2 "/>
         <div className="w-100 flex-col flex-align-end">
-            <textarea value={theMessage}  ref={inputRef}  placeholder="Enter a note"
+            <FontTextarea value={theMessage}  ref={inputRef}  placeholder="Enter a note"
                 className="w-100 bord-r-8 h-100px pa-1"
                 onKeyDown={onKeyDown} onChange={updateMessage}
                 readOnly={loadMap.get("create")} disabled={loadMap.get("create")}

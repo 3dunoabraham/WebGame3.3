@@ -103,7 +103,7 @@ export const LogsCRUD = ({
         <hr className="w-100 my-2 "/>
         {<div className="w-100 flex-col flex-align-end">
             {false && 
-                <textarea value={theMessage} onChange={updateMessage}
+                <FontTextarea value={theMessage} onChange={updateMessage}
                     className="w-100 bord-r-8 h-100px pa-1"
                     readOnly={loadMap.get("create")}
                     disabled={loadMap.get("create")}

@@ -14,26 +14,26 @@ function Component ({}) {
 
     return (            
         <group ref={$text}>
-            <Text position={[0.35,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
+            <FontText position={[0.35,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
                 material={new MeshStandardMaterial({ side: 0, color: "#009900" })}
             >
                 Hello
-            </Text>
-            <Text position={[-0.35,0,0]} fontSize={0.25} rotation={[0,0,0]} 
+            </FontText>
+            <FontText position={[-0.35,0,0]} fontSize={0.25} rotation={[0,0,0]} 
                 material={new MeshStandardMaterial({ side: 0, color: "#009900" })}
             >
                 Hello
-            </Text>
-            <Text position={[-0.35,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
+            </FontText>
+            <FontText position={[-0.35,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
                 material={new MeshStandardMaterial({ side: 0, color: "#0099ff" })}
             >
                 World
-            </Text>
-            <Text position={[0.35,0,0]} fontSize={0.25} rotation={[0,0,0]} 
+            </FontText>
+            <FontText position={[0.35,0,0]} fontSize={0.25} rotation={[0,0,0]} 
                 material={new MeshStandardMaterial({ side: 0, color: "#0099ff" })}
             >
                 World
-            </Text>
+            </FontText>
         </group>
     )    
 }

@@ -54,16 +54,16 @@ function Component ({}) {
             </Box>
             
 
-            <Text position={[0.5,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>Buy low</Text>
-            <Text position={[-0.5,0,0]} fontSize={0.25} rotation={[0,0,0]} material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>Buy low</Text>
-            <Text position={[-0.5,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}>Sell high</Text>
-            <Text position={[0.5,0,0]} fontSize={0.25} rotation={[0,0,0]} material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}>Sell high</Text>
+            <FontText position={[0.5,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>Buy low</FontText>
+            <FontText position={[-0.5,0,0]} fontSize={0.25} rotation={[0,0,0]} material={new MeshStandardMaterial({ side: 0, color: "#009900" })}>Buy low</FontText>
+            <FontText position={[-0.5,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}>Sell high</FontText>
+            <FontText position={[0.5,0,0]} fontSize={0.25} rotation={[0,0,0]} material={new MeshStandardMaterial({ side: 0, color: "#ff0000" })}>Sell high</FontText>
             {!!forms.score &&
                 <group ref={$text}  position={[0,1.2,0]}>
-                    <Text fontSize={0.5} material={new MeshStandardMaterial({ side: 0, color: "grey" })}>{forms.score}</Text>
-                    <Text fontSize={0.5} rotation={[0,Math.PI,0]} material={new MeshStandardMaterial({ side: 0, color: "grey" })}>{forms.score}</Text>
-                    <Text fontSize={0.5} rotation={[0,Math.PI/2,0]} material={new MeshStandardMaterial({ side: 0, color: "grey" })}>{forms.score}</Text>
-                    <Text fontSize={0.5} rotation={[0,-Math.PI/2,0]} material={new MeshStandardMaterial({ side: 0, color: "grey" })}>{forms.score}</Text>
+                    <FontText fontSize={0.5} material={new MeshStandardMaterial({ side: 0, color: "grey" })}>{forms.score}</FontText>
+                    <FontText fontSize={0.5} rotation={[0,Math.PI,0]} material={new MeshStandardMaterial({ side: 0, color: "grey" })}>{forms.score}</FontText>
+                    <FontText fontSize={0.5} rotation={[0,Math.PI/2,0]} material={new MeshStandardMaterial({ side: 0, color: "grey" })}>{forms.score}</FontText>
+                    <FontText fontSize={0.5} rotation={[0,-Math.PI/2,0]} material={new MeshStandardMaterial({ side: 0, color: "grey" })}>{forms.score}</FontText>
                 </group>
             }
 

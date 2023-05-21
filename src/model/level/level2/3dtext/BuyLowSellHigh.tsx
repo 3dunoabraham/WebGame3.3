@@ -1,3 +1,4 @@
+import FontText from '@/model/npc/TradingBox/FontText';
 import { Text } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
@@ -15,26 +16,26 @@ function Component ({}) {
 
   return (
     <group ref={$textGroup} position={[-0.5,0,0.9]} rotation={[-0.5,0,0]}>
-      <Text position={[0.2,0.28,0.6]} fontSize={0.3} rotation={[0,Math.PI,0]} 
+      <FontText position={[0.2,0.28,0.6]} fontSize={0.3} rotation={[0,Math.PI,0]} 
         material={new MeshStandardMaterial({ side: 0, color: "#005500" })}
       >
           Click green button
-      </Text>
-      <Text position={[-0.2,0.28,0.6]} fontSize={0.3} rotation={[0,0,0]} 
+      </FontText>
+      <FontText position={[-0.2,0.28,0.6]} fontSize={0.3} rotation={[0,0,0]} 
         material={new MeshStandardMaterial({ side: 0, color: "#005500" })}
       >
           Click green button
-      </Text>
-      <Text position={[-0.,0,0.6]} fontSize={0.35} rotation={[0,Math.PI,0]} 
+      </FontText>
+      <FontText position={[-0.,0,0.6]} fontSize={0.35} rotation={[0,Math.PI,0]} 
         material={new MeshStandardMaterial({ side: 0, color: "#cc00cc" })}
       >
         to buy
-      </Text>
-      <Text position={[0.,0,0.6]} fontSize={0.35} rotation={[0,0,0]} 
+      </FontText>
+      <FontText position={[0.,0,0.6]} fontSize={0.35} rotation={[0,0,0]} 
         material={new MeshStandardMaterial({ side: 0, color: "#cc00cc" })}
       >
         to buy
-      </Text>
+      </FontText>
     </group>
   )
 }

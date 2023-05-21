@@ -1,14 +1,19 @@
 import { Text } from '@react-three/drei';
 import { MeshBasicMaterial, MeshStandardMaterial, Vector3 } from 'three';
+import FontText from './FontText';
 
 export default function Component ({
   onClick= ()=> {},
   text="asd", position=new Vector3(), color , emissive="#000000", isSelected = false,font=0.35,
   ...props
 }:any)  {
+
   const material = new MeshStandardMaterial({ color: color, emissive: emissive });
+
+
+
   return (
-      <Text
+      <FontText
         receiveShadow
         // castShadow
         onClick={onClick}
@@ -17,6 +22,7 @@ export default function Component ({
         rotation={props.rotation || [-Math.PI/2,0,0]}
         // rotation={[-Math.PI/2,0,0]}
         // {...props,}
+        font='/font.ttf'
         fontSize={font}
         maxWidth={100}
         lineHeight={1}
@@ -25,6 +31,6 @@ export default function Component ({
 
       >
         {text}
-      </Text>
+      </FontText>
   );
 };

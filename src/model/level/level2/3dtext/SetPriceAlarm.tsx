@@ -1,3 +1,4 @@
+import FontText from '@/model/npc/TradingBox/FontText';
 import { Text } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
@@ -14,26 +15,26 @@ function Component ({}) {
   })
 
   return (<group ref={$textGroup} rotation={[-1,0,0]} position={[0,0,1.4]}>
-    <Text position={[0.85,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
+    <FontText position={[0.85,0,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
       material={new MeshStandardMaterial({ side: 0, color: "#00dd00" })}
     >
       Click              to continue
-    </Text>
-    <Text position={[0.85,0,0]} fontSize={0.25} rotation={[0,0,0]} 
+    </FontText>
+    <FontText position={[0.85,0,0]} fontSize={0.25} rotation={[0,0,0]} 
       material={new MeshStandardMaterial({ side: 0, color: "#00dd00" })}
     >
       Click              to continue
-    </Text>
-    <Text position={[0.5,0,0]} fontSize={0.35} rotation={[0,Math.PI,0]} 
+    </FontText>
+    <FontText position={[0.5,0,0]} fontSize={0.35} rotation={[0,Math.PI,0]} 
       material={new MeshStandardMaterial({ side: 0, color: "#cc00cc" })}
     >
       LIVE 
-    </Text>
-    <Text position={[0.5,0,0]} fontSize={0.35} rotation={[0,0,0]} 
+    </FontText>
+    <FontText position={[0.5,0,0]} fontSize={0.35} rotation={[0,0,0]} 
       material={new MeshStandardMaterial({ side: 0, color: "#cc00cc" })}
     >
       LIVE 
-    </Text>
+    </FontText>
   </group>)
 }
 export default Component

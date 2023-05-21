@@ -51,7 +51,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
           }
           { 
             <DynaText text={"Current Price"+"" || ""}  color={!!tokensArrayArray ? 0xffffff : 0x666666} position={[0,0.125,0.02]}
-              isSelected={state.isSelectedId} font={0.06}  rotation={[0,Math.PI/2,0]} 
+              isSelected={state.isSelectedId} font={0.05}  rotation={[0,Math.PI/2,0]} 
               />
           }
         </group>
