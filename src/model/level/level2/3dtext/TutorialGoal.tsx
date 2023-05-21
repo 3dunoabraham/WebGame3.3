@@ -10,7 +10,7 @@ function Component ({}) {
     useFrame((ctx, delta)=>{
         if (!$textGroup.current) return
 
-        $textGroup.current.position.y = Math.sin(Date.now()/500)/10 - 0.26
+        $textGroup.current.position.y = Math.sin(Date.now()/500)/10 + 0.65
     })
 
     return (<group position={[0,1.7,0]}>

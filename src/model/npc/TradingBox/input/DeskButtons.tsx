@@ -9,7 +9,7 @@ function Component ({ tokensArrayArray, state, calls }:any) {
             position={[  0.35,  - 0.34,  0.1,]}
         >
             <boxGeometry args={[0.07, 0.02, 0.03]} />
-            <meshStandardMaterial color={!tokensArrayArray ? "#776666" : "#558855"} />
+            <meshStandardMaterial color={!tokensArrayArray ? "#776666" : "#559933"} />
         </mesh>
         
         <mesh castShadow receiveShadow onClick={!tokensArrayArray ? calls.join : calls.leave}
@@ -21,7 +21,6 @@ function Component ({ tokensArrayArray, state, calls }:any) {
         </mesh>
 
         
-      {/* buy/sell button */}
       {state.isSelectedId && state.selectedHasArray && <group>
       <mesh castShadow receiveShadow onClick={() => calls.toggleGame()} scale={state.score.score ? 1 : 3}
         position={[
@@ -31,7 +30,7 @@ function Component ({ tokensArrayArray, state, calls }:any) {
         ]}        
       >
         <boxGeometry args={[0.1, state.clicked ? 0.015 : 0.04, 0.05]} />
-        <meshStandardMaterial color={state.clicked ? "red" : "#00ff00"}  />
+        <meshPhongMaterial color={state.clicked ? "red" : "#00ee00"} />
       </mesh>
       
       </group>}
@@ -42,7 +41,7 @@ function Component ({ tokensArrayArray, state, calls }:any) {
             // rotation={[state.selectedHasArray ? -0.25 : 0.25 ,0,0]}          
             >
             <boxGeometry args={[0.045, 0.02, 0.045]} />
-            <meshStandardMaterial color={state.selectedHasArray ? "#558855" : "#776666"
+            <meshStandardMaterial color={state.selectedHasArray ? "#559933" : "#776666"
                 } />
             </mesh>
         }

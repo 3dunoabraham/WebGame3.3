@@ -20,7 +20,7 @@ import MiniCitySign from "./output/MiniCitySign";
 
 export const DEFAULT_TIMEFRAME_ARRAY = ["3m","15m","4h","1d","1w"]  
 export const tokenColors:any = {
-  "btc": "#EE8E1B",
+  "btc": "#FE8E1B",
   "eth": "#3EDF5D",
   "link": "#2A5ADA",
   "ftm": "#1A6AFF",
@@ -254,7 +254,7 @@ const selectedHasArray = useMemo(()=>{
         </mesh>
       </>}
       {/* mini  yellow button */}
-      {isSelectedId &&
+      {isSelectedId && !!tokensArrayArray &&
         <mesh castShadow receiveShadow scale={score.score ? 1 : 3}
           position={[ position[0] - 0.23, position[1] - 0.27, position[2] + 0.2]}
         >

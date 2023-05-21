@@ -67,7 +67,7 @@ export default function Component({ position=[0,0,0], points=null,  length, widt
         ref={meshRef} // geometry={new THREE.BufferGeometry().setFromPoints(vertices)} material={basic_material}
     >
         <extrudeBufferGeometry attach="geometry" args={[shape, extrudeSettings]} />
-        <meshStandardMaterial color="#888888" side={DoubleSide} />
+        <meshStandardMaterial color="#afaaaa" side={DoubleSide} />
 
     </mesh>    
     )

@@ -30,7 +30,7 @@ function Component ({calls, state}:any) {
     
     {state.hasAnyToken && <>
       <group position={[0,0,1.95]} rotation={[Math.PI/2,0,0]}>
-        <Cylinder args={[0.14,0.14,0.1,6]} position={[0,0.25,0.15]} castShadow receiveShadow ref={$claimButton}
+        <Cylinder args={[0.14,0.14,0.1,3]} position={[0,0.25,0.15]} castShadow receiveShadow ref={$claimButton}
           onClick={calls.claim}
         >
           <meshStandardMaterial color={realProfitCount >= 4 ? "#00cc00" : "#f93"}/>

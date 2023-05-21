@@ -20,27 +20,27 @@ function Component ({tokensArrayArray, state, calls}:any) {
         <> 
 
 
-        <group position={DisplayPosition}>
+        <group position={DisplayPosition} rotation={[0,-0.4,0]}>
           
         <mesh castShadow receiveShadow position={[-0.0165,0.03,0]} >
           <boxGeometry args={[0.03, 0.28, 0.4]} />
-          <meshStandardMaterial color={!state.isSelectedId ? "#888" : "#888"}  />
+          <meshStandardMaterial color={"#aba099"}  />
         </mesh>        
         
         <mesh castShadow receiveShadow position={[-0.03,-0.2,0.08]} // stand
         > 
           <boxGeometry args={[0.03, 0.4, 0.02]} />
-          <meshStandardMaterial color={!state.isSelectedId ? "#888" : "#888"}  />
+          <meshStandardMaterial color={"#9a9999"}  />
         </mesh>        
         <mesh castShadow receiveShadow position={[-0.03,-0.2,-0.08]} // stand
         > 
           <boxGeometry args={[0.03, 0.4, 0.02]} />
-          <meshStandardMaterial color={!state.isSelectedId ? "#888" : "#888"}  />
+          <meshStandardMaterial color={"#9c9999"}  />
         </mesh>        
 
 
           <Plane rotation={[0,Math.PI/2,0]} position={[-0.001,-0.0,0]}  args={[0.35,0.18]}>
-            <meshStandardMaterial color={!!tokensArrayArray ? "#222222" : "#666666"} />
+            <meshStandardMaterial color={!!tokensArrayArray ? "#222222" : "#89827a"} />
           </Plane>
           
           {!!tokensArrayArray && // CURRENT PRICE

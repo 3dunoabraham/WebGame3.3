@@ -7,7 +7,7 @@ function Component ({state, calls }:any) {
           position={[ 0, (state.boundaries[1] / 2 + state.wallWidth) - (1 ), 0,]}
         >
           <boxGeometry args={[1, state.wallWidth, 1]} />
-          <meshStandardMaterial color={!state.isSelectedId ? "#bbbbbb" : "#bbbbbb"}  />
+          <meshStandardMaterial color={!state.isSelectedId ? "#BCACA5" : "#BCACA5"}  />
         </mesh>        
 
 
@@ -18,20 +18,20 @@ function Component ({state, calls }:any) {
           </Torus>
         </>}
         {<>
-          <Torus args={[0.7,0.013,4,4]}   rotation={[Math.PI/2,0,Math.PI/4]} position={[ 0, -0.355, 0, ]}
+          <Torus args={[0.71,0.013,4,4]}   rotation={[Math.PI/2,0,Math.PI/4]} position={[ 0, -0.45, 0, ]}
           >
-            <meshStandardMaterial  attach="material" color="#bbb" />
+            <meshStandardMaterial  attach="material" color="#A69284" />
           </Torus>
         </>}
         
         {/* selected ring */}
-        {state.clicked && <>
-          <Torus args={[0.7,0.04,4,4]}  rotation={[Math.PI/2,0,Math.PI/4]} position={[ 0, -0.45, 0, ]}
+        {state.clicked && <group scale={[1,1.4,1]} position={[ 0, -0.44, 0, ]}>
+          <Torus args={[0.7,0.04,4,4]}  rotation={[Math.PI/2,0,Math.PI/4]} 
             receiveShadow castShadow
           >
-            <meshStandardMaterial  attach="material" color="#55ff55" />
+            <meshStandardMaterial  attach="material" color="#615958" />
           </Torus>
-        </>}
+        </group>}
     </>)
 }
 export default Component

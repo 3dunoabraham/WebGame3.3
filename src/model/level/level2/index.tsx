@@ -380,11 +380,13 @@ function Component ({}) {
 
       <LoginForm state={{isDefaultUser, }} calls={{triggerLogout, triggerLogin}} />
       {hasAnyToken && 
-        <GoalPost calls={{claim}}
-          state={{hasAnyToken, profitHistory}}
-        />
+        <group position={[0,0.3,0]}> 
+          <GoalPost calls={{claim}}
+            state={{hasAnyToken, profitHistory}}
+          />
+        </group>
       }
-      <group position={[0,0,1.4]}>
+      <group position={[0,0,1.6]}>
         <SavedGoalPost calls={{claim}}
           state={{hasAnyToken, profitHistory, savedString }}
         />
@@ -393,7 +395,10 @@ function Component ({}) {
             <meshStandardMaterial color={"#fff"}/>
           </Box>
          <Box args={[0.5,0.1,2.2]} position={[0.08,-1.12,1]} castShadow receiveShadow>
-            <meshStandardMaterial color={"#ccc"}/>
+            <meshStandardMaterial color={"#eee"}/>
+          </Box>
+         <Box args={[0.75,0.2,0.75]} position={[0.08,-1.12,-0.5]} castShadow receiveShadow>
+            <meshStandardMaterial color={"#ddd"}/>
           </Box>
         </>}
       </group>
@@ -502,8 +507,8 @@ function Component ({}) {
         </Box>
       </>}
       {hasAnyToken && <>
-       <Box args={[1,0.66,1]} position={[0.05,-0.81,-1.59]} castShadow receiveShadow>
-          <meshStandardMaterial color={"#fff"}/>
+       <Box args={[1,0.8,1.1]} position={[0.05,-0.81,-1.59]} castShadow receiveShadow>
+          <meshStandardMaterial color={"#eee"}/>
         </Box>
       </>}
       <Box args={[2.5,0.2,2.5]} position={[0.05,-1.05,0.15]} castShadow receiveShadow>
