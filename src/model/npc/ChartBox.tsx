@@ -192,7 +192,7 @@ const Component = forwardRef(({
       <DynaText text={!!theToken ? theToken.toUpperCase() : ""} color={0xaaaaaa}
         position={new Vector3(-0.17,0.95+0.36,0.19)} rotation={[0, 0, 0]}
 
-        isSelected={false}  font={0.28} onClick={()=>{}}
+        isSelected={false}  font={0.26} onClick={()=>{}}
       />
       <DynaText text={!!timeframe ? timeframe.toLowerCase() : ""} color={0xaaaaaa}
         position={new Vector3(0,1.16,0.19)} rotation={[0, 0, 0]}
@@ -200,22 +200,22 @@ const Component = forwardRef(({
         isSelected={false}  font={0.1} onClick={()=>{}}
       />
       <DynaText text={"?"} color={0xaaaaaa}
-        position={new Vector3(-0.9,0.95+0.6,0.19)} rotation={[0, 0, 0]}
+        position={new Vector3(-0.9,0.95+0.63,0.19)} rotation={[0, 0, 0]}
 
         isSelected={false}  font={0.3} onClick={()=>{}}
       />
       {prices.length > 0 &&  <>
-        <DynaText text={`${maxPrice}`} color={0xaaaaaa}
+        <DynaText text={`${maxPrice}`} color={0x333333}
           position={new Vector3(-1.12,1.02,0.145)} rotation={[0, 0, 0]}
 
           isSelected={false}  font={0.05} onClick={()=>{}}
         />
-        <DynaText text={`${midPrice}`} color={0xaaaaaa}
+        <DynaText text={`${midPrice}`} color={0x333333}
           position={new Vector3(-1.16,((1.02)+(-0.4))/2,0.145)} rotation={[0, 0, 0]}
 
           isSelected={false}  font={0.05} onClick={()=>{}}
         />
-        <DynaText text={`${minPrice}`} color={0xaaaaaa}
+        <DynaText text={`${minPrice}`} color={0x333333}
           position={new Vector3(-1.12,-0.4,0.145)} rotation={[0, 0, 0]}
 
           isSelected={false}  font={0.05} onClick={()=>{}}
@@ -257,13 +257,13 @@ const Component = forwardRef(({
         </group>
 
       <Box args={[1.5,1.7,.1]}  position={new Vector3(-0.5, 0.37, 0.09)} receiveShadow castShadow >
-          <meshStandardMaterial  attach="material" color="#666666" />
+          <meshStandardMaterial  attach="material" color="#999999" />
       </Box>
       <Box args={[0.05,1.4,.05]}  position={new Vector3(0, -0.5, 0.09)} receiveShadow castShadow >
-          <meshStandardMaterial  attach="material" color="#888888" />
+          <meshStandardMaterial  attach="material" color="#aaaaaa" />
       </Box>
       <Box args={[0.05,1.4,.05]}  position={new Vector3(-1, -0.5, 0.09)} receiveShadow castShadow >
-          <meshStandardMaterial  attach="material" color="#888888" />
+          <meshStandardMaterial  attach="material" color="#aaaaaa" />
       </Box>
     </group>
     </group>

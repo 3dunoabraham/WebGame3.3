@@ -25,9 +25,9 @@ function Component ({tokensArrayArray, state, calls}:any) {
               { // north facing
                 <DynaText text={state.token.toUpperCase()+"" || ""} 
                   color={ !!tokensArrayArray ? state.tokenColor : "#222222"}
-                  position={new Vector3(0.1,0.25,0.01)}
+                  position={new Vector3(0.1,0.25,0.0)}
                   rotation={[0,0,0]}
-                  isSelected={state.isSelectedId}  font={0.22} onClick={()=>{}}
+                  isSelected={state.isSelectedId}  font={0.2} onClick={()=>{}}
                 />
               }
               { // south facing
@@ -35,7 +35,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
                   color={ !!tokensArrayArray ? state.tokenColor : "#222222"}
                   position={new Vector3(0.1,0.25,-0.035)}
                   rotation={[0,Math.PI,0]}
-                  isSelected={state.isSelectedId}  font={0.22} onClick={()=>{}}
+                  isSelected={state.isSelectedId}  font={0.2} onClick={()=>{}}
                 />
               }
             </group>

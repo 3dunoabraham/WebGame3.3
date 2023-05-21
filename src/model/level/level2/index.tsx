@@ -33,7 +33,7 @@ const selectedTimeframeIndex = 0
 const selectedTimeframe = "3m"
 const feePercent = 0.0
 const chartPosLookup:any = {
-  "btc": [-1.1,0,-0.45], "eth": [0.2,0,-0.45], "link": [-1.1,0,0.85], "ftm": [0.2,0,0.85],
+  "btc": [-1.115,0,-0.63], "eth": [0.2,0,-0.7], "link": [-1.11,0,1.15], "ftm": [0.2,0,0.85],
 }
 const chartRotLookup:any = {
   "btc": [0,Math.PI/2,0], "eth": [0,Math.PI/2,0], "link": [0,Math.PI/2,0], "ftm": [0,Math.PI/2,0],

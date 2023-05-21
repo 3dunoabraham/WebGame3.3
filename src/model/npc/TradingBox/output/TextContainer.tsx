@@ -42,7 +42,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
         <DynaText text={(((state.clickedPrice/state.queryUSDT.data)-1)*-100).toFixed(3)}  
           color={state.clickedPrice/state.queryUSDT.data < 1 ? 0x009900 : 0xff0000}
           position={new Vector3(+0.33,-0.31,-0.38)} rotation={[0,0,0]}
-          isSelected={state.isSelectedId} font={0.09} 
+          isSelected={state.isSelectedId} font={0.08} 
         />
       }
         
