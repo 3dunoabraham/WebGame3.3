@@ -13,7 +13,7 @@ function Component ({}) {
             >
                 <div onClick={()=>{s__asd("")}} className="opaci-chov--50">
 
-                    <h1 className="tx-white pa-8 tx-xl" style={{color:"orange"}}>Back to Game</h1>
+                    <h1 className="tx-white pa-4 tx-lg" style={{color:"orange"}}>Back to Game</h1>
                 </div>
                 <div className="py-8 px-8 Q_xs_px-2 tx-white flex-col flex-align-stretch">
                     <div className="flex" >
@@ -57,9 +57,9 @@ function Component ({}) {
                         </div>
                     </div>
                     
-                <div onClick={()=>{s__asd("")}} className="opaci-chov--50">
+                <div onClick={()=>{s__asd("")}} className="opaci-chov--50 tx-center">
 
-                    <h1 className="tx-white pa-8 tx-xl" style={{color:"orange"}}>Back to Game</h1>
+                    <h1 className="tx-white pa-8 underline tx-xl" style={{color:"orange"}}>Back to Game</h1>
                 </div>
                 </div>
             </div>

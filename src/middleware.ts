@@ -32,6 +32,8 @@ export async function middleware(req: NextRequest, context: GetServerSidePropsCo
 
 export const config = {
   matcher: [
-    '/unit/add', '/unit/:path*', '/inventory'
+    '/unit/add', '/unit/:path*',
+    '/inventory',
+    '/dashboard'
   ],
 }

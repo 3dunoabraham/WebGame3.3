@@ -29,20 +29,20 @@ const theArray = await (
   )); 
 
   return (
-    <main className='flex-col pos-rel ddg ' >
+    <main className='flex-col pos-rel ddg bg-white' >
       <div className='h-min-100vh pos-rel w-100 '>
 
 
         
-       <div className=' pos-fix h-100vh box-shadow-2'
+       {/* <div className=' pos-fix h-100vh box-shadow-2'
           style={{background: "linear-gradient(50deg, #E6EBEC, #ffffff, #E6EBEC)"}}
-        > {/* 3E5F58 */}
+        > 
         <Sidebar foundUser={foundUser} />
         
-      </div>
+      </div> */}
 
       <div className=' flex px-8 Q_xs_px-2 pt-8 '>
-        <div className='w-min-300px invisible'> invisible sidebar spacing </div>
+        {/* <div className='w-min-300px invisible'> invisible sidebar spacing </div> */}
         <div className='flex-1 flex-col  flex-align-start tx-sans pt-4'>
           
           {/* <div>
