@@ -55,6 +55,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
           </group>
         </>}
       </>}
+      {/* SMALL ROOF SEPARATOR */}
       {state.isSelectedId  &&
         <group position={new Vector3(-0.1,-0.1,-0.)} >
         <mesh castShadow receiveShadow position={[0.0,0.27,-0.2]} >
@@ -67,16 +68,19 @@ function Component ({tokensArrayArray, state, calls}:any) {
       { /* (state.isSelectedId || !!tokensArrayArray) && */ <>
         <group position={new Vector3(-0.1,-0.13,-0.)} // big monitor SCREEN
         >
+          {/* INNER ROOF SEPARATOR */}
         <mesh castShadow={state.isSelectedId} receiveShadow position={[0.0,0.35,-0.2]} >
           <boxGeometry args={[0.45, 0.1, 0.4]} />
           <meshStandardMaterial color={"#888888"} 
            />
         </mesh>  
+        {/* ROOF SEPARATOR */}
         <mesh castShadow receiveShadow position={[0.0,0.36,-0.2]} >
           <boxGeometry args={[0.58, 0.025, 0.52]} />
           <meshStandardMaterial color={"#777777"} 
            />
         </mesh>
+        {/* BUILDING BODY */}
           <mesh castShadow receiveShadow position={[0.0,0.15,-0.23]} >
             <boxGeometry args={[0.44, 0.5, 0.32]} />
             <meshStandardMaterial color={"#858585"} 
@@ -84,39 +88,62 @@ function Component ({tokensArrayArray, state, calls}:any) {
           </mesh>        
         </group>
       </>}
+
       <group position={new Vector3(-0.1,0,-0.2)} >
-          <Cylinder args={[0.33, 0.38, 0.2, 4]} position={[0.0,-0.3,-0.02]} // base base
+        {/* BUILDING BASE */}
+          <Cylinder args={[0.33, 0.38, 0.2, 4]} position={[0.0,-0.3,-0.02]}
             receiveShadow castShadow
             rotation={[0,Math.PI/4*3,0]}
           >
             <meshStandardMaterial color={"#888"}  />
           </Cylinder>
-        {state.isSelectedId && // big monitor BASE
+          {/* STAIRS */}
+          <group position={new Vector3(-0.17,-0.07,-0.)} >
+          <mesh castShadow receiveShadow position={[0.1,-0.28,0.2]} >
+            <boxGeometry args={[0.3, 0.1, 0.32]} />
+            <meshStandardMaterial color={"#858585"} 
+             />
+          </mesh>
+          <mesh castShadow receiveShadow position={[0.1,-0.24,0.15]} >
+            <boxGeometry args={[0.25, 0.1, 0.32]} />
+            <meshStandardMaterial color={"#858585"} 
+             />
+          </mesh>
+          <mesh castShadow receiveShadow position={[0.1,-0.2,0.1]} >
+            <boxGeometry args={[0.2, 0.1, 0.32]} />
+            <meshStandardMaterial color={"#858585"} 
+             />
+          </mesh>        
+        </group>
+
+
+
+        {state.isSelectedId && 
           <>
           
           <Cylinder args={[0.02, 0.03, 0.48, 4]}
-              position={[-0.2,0.04,0.17]} // base connector
+              position={[-0.2,0.04,0.17]} // PILLAR
               receiveShadow castShadow
               rotation={[0,Math.PI/4*3,0]}
             >
               <meshStandardMaterial color={"#888"}  />
             </Cylinder>
           <Cylinder args={[0.02, 0.03, 0.48, 4]}
-              position={[-0.1,0.04,0.17]} // base connector
+              position={[-0.1,0.04,0.17]} // PILLAR
               receiveShadow castShadow
               rotation={[0,Math.PI/4*3,0]}
             >
               <meshStandardMaterial color={"#888"}  />
             </Cylinder>
           <Cylinder args={[0.02, 0.03, 0.48, 4]}
-              position={[0.1,0.04,0.17]} // base connector
+              position={[0.1,0.04,0.17]} // PILLAR
               receiveShadow castShadow
               rotation={[0,Math.PI/4*3,0]}
             >
               <meshStandardMaterial color={"#888"}  />
             </Cylinder>
           <Cylinder args={[0.02, 0.03, 0.48, 4]}
-              position={[0.2,0.04,0.17]} // base connector
+              position={[0.2,0.04,0.17]} // PILLAR
               receiveShadow castShadow
               rotation={[0,Math.PI/4*3,0]}
             >
@@ -124,31 +151,15 @@ function Component ({tokensArrayArray, state, calls}:any) {
             </Cylinder>
 
             <Cylinder args={[0.02, 0.03, 0.48, 4]}
-              position={[0.0,0.04,0.17]} // base connector
+              position={[0.0,0.04,0.17]} // PILLAR
               receiveShadow castShadow
               rotation={[0,Math.PI/4*3,0]}
             >
               <meshStandardMaterial color={"#888"}  />
             </Cylinder>
-            {/* <Cylinder args={[0.02, 0.05, 0.28, 4]} position={[0.0,0.1,0.05]} // monitor connector
-              receiveShadow castShadow
-              rotation={[0,Math.PI/2,Math.PI/2]}
-            >
-              <meshStandardMaterial color={"#888"}  />
-            </Cylinder> */}
           </>
         }
       </group>
-
-      {state.isSelectedId && <>
-        <group position={new Vector3(-0.1,0,-0.2)} >
-          {/* <Cylinder args={[0.42, 0.3, 0.64, 4]} position={[0.0,0.05,-0.128]} // big monitor CASE
-            rotation={[Math.PI/2,Math.PI/4*3,0]} receiveShadow castShadow
-          >
-            <meshStandardMaterial color={"#888"}  />
-          </Cylinder> */}
-        </group>
-      </>}
 
 
     </>)

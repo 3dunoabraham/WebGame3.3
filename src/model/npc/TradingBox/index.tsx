@@ -254,12 +254,12 @@ const selectedHasArray = useMemo(()=>{
         </mesh>
       </>}
       {/* mini  yellow button */}
-      {isSelectedId && !!tokensArrayArray &&  clicked && 
+      {isSelectedId &&
         <mesh castShadow receiveShadow scale={score.score ? 1 : 3}
-          position={[ position[0] - 0.23, position[1] - 0.35, position[2] + 0.1]}
+          position={[ position[0] - 0.23, position[1] - 0.27, position[2] + 0.2]}
         >
-          <boxGeometry args={[0.02, 0.09, 0.02]} />
-          <meshStandardMaterial color={"#FEEA4D"} />
+          <boxGeometry args={[0.02, 0.06, 0.02]} />
+          <meshStandardMaterial color={ !!tokensArrayArray &&  clicked ? "#ffa066" : "#FEEA4D"} />
         </mesh>
       }
 

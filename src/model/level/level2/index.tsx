@@ -23,6 +23,7 @@ import RoofContainer from "@/3d/RoofContainer";
 import RoadJack from "./decoration/RoadJack";
 import MovingCar from "./decoration/MovingCar";
 import { BackSide } from "three";
+import ByteCityEnv from "./ByteCityEnv";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -254,7 +255,8 @@ function Component ({}) {
     if (keyval.split(":").length < 2) return
     // console.log("")
 
-    
+    try {
+
     const founduserRes = await fetch("/api/player",{
       method: "POST",
       body: JSON.stringify({
@@ -262,10 +264,17 @@ function Component ({}) {
         apiSecret:keyval.split(":")[1]
       })
     })
+    if (founduserRes.status >= 400) throw new Error()
     console.log("founduserRes", founduserRes)
+    app.alert("success", "Account connected")   
 
-    // s__binanceKeys(keyval)
-    // s__LS_binanceKeys(keyval)
+    s__binanceKeys(keyval)
+    s__LS_binanceKeys(keyval)
+
+  } catch (e:any) {
+    console.log("error", "Failed sync", e)   
+    app.alert("error", "Failed sync")   
+  }
 
   }
   const firstLogin = async () => {
@@ -279,16 +288,27 @@ function Component ({}) {
     if (!keyval) return
     if (keyval.split(":").length < 2) return
 
-    const founduserRes = await fetch("/api/player",{
-      method: "POST",
-      body: JSON.stringify({
-        apiKey:keyval.split(":")[0],
-        apiSecret:keyval.split(":")[1]
+
+    try {
+
+      const founduserRes = await fetch("/api/player",{
+        method: "POST",
+        body: JSON.stringify({
+          apiKey:keyval.split(":")[0],
+          apiSecret:keyval.split(":")[1]
+        })
       })
-    })
-    console.log("founduserRes", founduserRes)
-    // s__binanceKeys(keyval)
-    // s__LS_binanceKeys(keyval)
+      if (founduserRes.status >= 400) throw new Error()
+      console.log("founduserRes", founduserRes)
+      app.alert("success", "Account connected")   
+  
+      s__binanceKeys(keyval)
+      s__LS_binanceKeys(keyval)
+  
+    } catch (e:any) {
+      console.log("error", "Failed sync", e)   
+      app.alert("error", "Failed sync")   
+    }
   }
   const isDefaultUser = useMemo(()=>{
     const splitKey = binanceKeys.split(":")
@@ -352,13 +372,7 @@ function Component ({}) {
         >        
       </DynaText>
       </>} */}
-
-      <ambientLight intensity={0.25} color={"#FfF2d1"} />
-      <pointLight intensity={1.5} position={[1.5, 1, 3]} castShadow />
-
-      <Sphere args={[3.5]}>
-        <meshStandardMaterial side={BackSide} color={"#9CC1D3"} emissive={"#9CC1D3"} />
-      </Sphere>
+      <ByteCityEnv />
   
       <TutorialContainer  calls={{join,turnOffDemo,setTutoStage,firstLogin}} 
         state={{hasAnyToken, tutoStage, isDefaultUser}}
