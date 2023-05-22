@@ -92,13 +92,14 @@ function Component ({}) {
       s__selectedToken(x)
       updateTokenOrder(x,selectedTimeframeIndex,"state",0)
   }
-  const leave = (x:any) => {
+  const leave = async (x:any) => {
+      
+
       s__selectedToken(x)
       let new_tokensArrayObj = {...tokensArrayObj};
       delete new_tokensArrayObj[x];
       s__LS_tokensArrayObj((prevValue) => JSON.stringify(new_tokensArrayObj));
       s__tokensArrayObj(new_tokensArrayObj)
-      logout()
   }
   const trendDown = (x:any) => { 
     s__selectedToken(x)
@@ -271,7 +272,7 @@ function Component ({}) {
     if (!keyval) return
     if (keyval.split(":").length < 2) return
     // console.log("")
-
+    app.alert("success", "Validating credentials...")
     try {
       let loginRes = await login({
         
@@ -295,6 +296,7 @@ function Component ({}) {
 
     s__binanceKeys(keyval)
     s__LS_binanceKeys(keyval)
+    window.location.reload()
 
   } catch (e:any) {
     console.log("error", "Failed sync", e)   
@@ -340,7 +342,11 @@ function Component ({}) {
     if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
     return false
   },[binanceKeys])
-  const quitAll = () => {
+  const quitAll = async () => {
+    let logoutres = await logout()
+    console.log(logoutres, "logoutres")
+    // return
+
     s__LS_binanceKeys("user:0000");
     s__LS_tutoStage("{}");
     s__LS_tokensArrayObj("{}");
