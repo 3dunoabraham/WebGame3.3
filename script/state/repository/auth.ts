@@ -21,6 +21,7 @@ const ROUTES = EXT_ROUTES[api_name]
 
 export async function fetchLogin (credentials:any) {
   try {
+    console.log("routtt", api_url+ROUTES.login)
     const reqRes = await fetch(api_url+ROUTES.login,{
       method:"POST",
       headers:{"Content-Type":"application/json",},
@@ -35,7 +36,7 @@ export async function fetchLogin (credentials:any) {
     let jwt = null
     switch (api_name) {
       case "ims": jwt = reqResObj.access_token; break;
-      case "supa": jwt = reqResObj.data.jwt; break;
+      case "supa": jwt = reqResObj.jwt; break;
       case "sup": jwt = reqResObj.data.jwt; break;
     }
     return jwt 

@@ -24,6 +24,7 @@ import RoadJack from "./decoration/RoadJack";
 import MovingCar from "./decoration/MovingCar";
 import { BackSide } from "three";
 import ByteCityEnv from "./ByteCityEnv";
+import { signIn } from "next-auth/react";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -262,24 +263,33 @@ function Component ({}) {
     
     quitAll()
   }
+
   const triggerLogin = async () => {
     if (tutoStage.lvl == 3) { firstLogin(); return }
-    let keyval:any =  prompt("Enter USER:PASSWORD","") 
+    let keyval:any =  prompt("2 Enter USER:PASSWORD","") 
     if (!keyval) return
     if (keyval.split(":").length < 2) return
     // console.log("")
 
     try {
-
-    const founduserRes = await fetch("/api/player",{
-      method: "POST",
-      body: JSON.stringify({
-        apiKey:keyval.split(":")[0],
-        apiSecret:keyval.split(":")[1]
+      let loginRes = await login({
+        
+        email:keyval.split(":")[0],
+        password:keyval.split(":")[1]
       })
-    })
-    if (founduserRes.status >= 400) throw new Error()
-    console.log("founduserRes", founduserRes)
+      console.log("loginRes",loginRes)
+      if (!loginRes) return 
+    // const founduserRes = await fetch("/api/player",{
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     apiKey:keyval.split(":")[0],
+    //     apiSecret:keyval.split(":")[1]
+    //   })
+    // })
+    // if (founduserRes.status >= 400) throw new Error()
+    // console.log("founduserRes 1", founduserRes)
+
+
     app.alert("success", "Account connected")   
 
     s__binanceKeys(keyval)
@@ -298,7 +308,7 @@ function Component ({}) {
     // if (!isDefaultUser) {
     //   if (prompt("Change user? (yes/no)","no") != "yes") { return }
     // }
-    let keyval:any =  prompt("ENTER USER:PASSWORD",arandomkey) 
+    let keyval:any =  prompt("1 ENTER USER:PASSWORD",arandomkey) 
     if (!keyval) return
     if (keyval.split(":").length < 2) return
 
@@ -313,7 +323,7 @@ function Component ({}) {
         })
       })
       if (founduserRes.status >= 400) throw new Error()
-      console.log("founduserRes", founduserRes)
+      console.log("founduserRes 2", founduserRes)
       app.alert("success", "Account connected")   
   
       s__binanceKeys(keyval)
@@ -335,11 +345,28 @@ function Component ({}) {
     s__LS_tokensArrayObj("{}");
     window.location.reload()
   }
-  const claim = () => {
-    if (realProfitCount < 4) { return }
-    app.alert("success", "Please contact support with your ID")
-    alert("Please contact support with your ID: "+binanceKeys)
-    setTutoStage(4)
+  const claimOrSync = () => {
+
+    if (isDefaultUser) {
+      if (realProfitCount == 0) {
+        app.alert("neutral", "Tip: Buy low and sell high to get points!")
+        return
+      }
+
+      app.alert("error", "Please register w/Google to continue!")
+      alert("Please register w/Google to save progress!")
+    } else {
+      if (realProfitCount < 4) {
+        app.alert("neutral", "Trying to sync account")
+      } else {
+        app.alert("success", "Congratulations! Please contact support with your email and secret key code!")
+      }
+      // syncProfitTrades
+    }
+
+    if (tutoStage == 3) {
+      setTutoStage(4)
+    }
   }
 
   const realProfitCount = useMemo(()=>{
@@ -396,14 +423,14 @@ function Component ({}) {
       <LoginForm state={{isDefaultUser, }} calls={{triggerLogout, triggerLogin}} />
       {hasAnyToken &&  tutoStage.lvl >= 3 &&
         <group position={[0,0.3,0]}> 
-          <GoalPost calls={{claim}}
+          <GoalPost calls={{claim:claimOrSync}}
             state={{hasAnyToken, profitHistory}}
           />
         </group>
       }
-      {hasAnyToken &&  tutoStage.lvl > 3 &&
+      {hasAnyToken &&  tutoStage.lvl > 3 && !isDefaultUser &&
         <group position={[0,0,1.6]}>
-          <SavedGoalPost calls={{claim}}
+          <SavedGoalPost calls={{claim:claimOrSync}}
             state={{hasAnyToken, profitHistory, savedString }}
           />
           {hasAnyToken && <>

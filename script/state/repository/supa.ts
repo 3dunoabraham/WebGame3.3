@@ -20,10 +20,13 @@ export async function fetchLogin(
       datenow: Date.now(),
     }
     const supabase = getSupabaseClient()
+    console.log("playecount", new_uid)
     const count = await fetchSamePlayerCount(supabase, new_uid)
+
     if (!count) {
-      let addRes = await fetchPostPlayer(supabase,playerObj)
-      if (!addRes) { throw new Error() }
+      throw new Error()
+      // let addRes = await fetchPostPlayer(supabase,playerObj)
+      // if (!addRes) { throw new Error() }
     } else {
       playerObj = await fetchPlayer(supabase,new_uid)
     }

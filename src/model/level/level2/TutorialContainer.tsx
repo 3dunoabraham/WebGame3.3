@@ -37,7 +37,7 @@ function Component ({state, calls}:any) {
         <SellHigh />
       </group>
     }
-    { state.hasAnyToken && state.tutoStage.lvl > 2  &&
+    { state.hasAnyToken && state.tutoStage.lvl == 3  &&
       <group position={[-0.31,-0.35,-1.9]} scale={0.35}  >
         <TutorialGoal />
       </group>
