@@ -34,10 +34,10 @@ const selectedTimeframeIndex = 0
 const selectedTimeframe = "3m"
 const feePercent = 0.0
 const chartPosLookup:any = {
-  "btc": [-1.115,0,-0.63], "eth": [0.2,0,-0.7], "link": [-1.11,0,1.15], "ftm": [0.2,0,0.85],
+  "btc": [-1.115,0,-0.63], "eth": [1.22,0,-0.02], "link": [-1.11,0,1.15], "ftm": [0.2,0,0.85],
 }
 const chartRotLookup:any = {
-  "btc": [0,Math.PI/2,0], "eth": [0,Math.PI/2,0], "link": [0,Math.PI/2,0], "ftm": [0,Math.PI/2,0],
+  "btc": [0,Math.PI/2,0], "eth": [0,-Math.PI/2,0], "link": [0,Math.PI/2,0], "ftm": [0,Math.PI/2,0],
 }
 
 function Component ({}) {
@@ -497,7 +497,8 @@ function Component ({}) {
             true // tokensArrayObj["btc"].state
           )) && <>
             <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="eth"
-              tokensArrayArray={"eth" in tokensArrayObj ? tokensArrayObj["eth"] : null}
+            mainModel="tower"
+            tokensArrayArray={"eth" in tokensArrayObj ? tokensArrayObj["eth"] : null}
               refetchInterval={selectedToken == "eth" ? 4000 : 60000}
               unselectedColor={"#50545B"}
               onTextClick={()=>{onTextClick("eth")}} 

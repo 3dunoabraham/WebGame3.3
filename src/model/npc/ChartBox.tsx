@@ -222,7 +222,7 @@ const Component = forwardRef(({
         />
     </>}
       
-      <Box onClick={()=>{q__asd.refetch()}} args={[0.6,0.4,0.15]} 
+      <Box onClick={()=>{q__asd.refetch()}} args={[0.6,0.4,0.15]}  receiveShadow castShadow
         position={[-0.15,0.99+0.3,0.1]} 
 
           onPointerOver={() => setHovered2(true)}

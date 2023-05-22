@@ -129,11 +129,11 @@ function Component ({}) {
         {asd !== "landing" && <>
             <div className='pos-abs bottom-0 translate-y-50 z-999  w-100 tx-center   tx-white '
             >
-            <button className="pos-rel tx-white py-1 my-1 px-4 tx-mdl opaci-chov--50 bg-black"
+            <button className="pos-rel tx-white py-1 my-1 px-4 tx-mdl scale-hov-150 bg-black"
                 onClick={()=>{s__asd("landing")}}
                 style={{boxShadow:"inset 0 0 0 2px #ff9900",transform:"scale(0.9) rotate(-1deg)"}}
             >
-                Welcome to Alpha, {user.email}!
+                <small className="tx-smd">Welcome to <br /> Byte City Alpha</small>, <br /> {user.email}!
             </button>
             </div>
         </>}

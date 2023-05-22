@@ -17,6 +17,7 @@ import MiniScreen from "./output/MiniScreen";
 import BankRoofContainer from "@/3d/BankRoofContainer";
 import Bank from "./machine/Bank";
 import MiniCitySign from "./output/MiniCitySign";
+import Tower from "./machine/Tower";
 
 export const DEFAULT_TIMEFRAME_ARRAY = ["3m","15m","4h","1d","1w"]  
 export const tokenColors:any = {
@@ -149,7 +150,7 @@ const selectedHasArray = useMemo(()=>{
 
       {mainModel == "pc" && 
         <group position={position} >
-          <Computer tokensArrayArray={tokensArrayArray}
+        <Computer tokensArrayArray={tokensArrayArray}
             state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
             calls={{onTextClick,turnOff,turnOn}}
           />
@@ -158,6 +159,14 @@ const selectedHasArray = useMemo(()=>{
     {mainModel == "bank" && 
       <group position={position} >
         <Bank tokensArrayArray={tokensArrayArray}
+          state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
+          calls={{onTextClick,turnOff,turnOn}}
+        />
+      </group>
+    }
+    {mainModel == "tower" && 
+      <group position={position} >
+        <Tower tokensArrayArray={tokensArrayArray}
           state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
           calls={{onTextClick,turnOff,turnOn}}
         />
