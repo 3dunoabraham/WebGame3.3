@@ -36,7 +36,7 @@ function Component ({}) {
                 <div className="py-8 px-8 Q_xs_px-2 tx-white flex-col flex-align-stretch">
                     <div className="flex-center gap-3" >
                         <div className=" gap-1 flex flex-align-end">
-                            Register / Dashboard:
+                            Register:
                         </div>
                         <div>
                             <a href="https://tresduno.vercel.app/" target="_blank"

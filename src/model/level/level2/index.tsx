@@ -98,6 +98,7 @@ function Component ({}) {
       delete new_tokensArrayObj[x];
       s__LS_tokensArrayObj((prevValue) => JSON.stringify(new_tokensArrayObj));
       s__tokensArrayObj(new_tokensArrayObj)
+      logout()
   }
   const trendDown = (x:any) => { 
     s__selectedToken(x)

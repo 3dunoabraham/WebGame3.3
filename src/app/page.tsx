@@ -55,10 +55,10 @@ export default async function Page() {
         <Suspense>
           <Level2 />
         </Suspense>
-        {!foundUser && 
+        {!foundJWT && 
           <DevelopmentRegister />
         }
-        {!!foundUser && 
+        {!!foundJWT && 
           <DevelopmentProfile />
         }
       </div>
