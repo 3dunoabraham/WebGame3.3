@@ -25,6 +25,7 @@ import MovingCar from "./decoration/MovingCar";
 import { BackSide } from "three";
 import ByteCityEnv from "./ByteCityEnv";
 import { signIn } from "next-auth/react";
+import RoadJack2 from "./decoration/RoadJack2";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -34,10 +35,10 @@ const selectedTimeframeIndex = 0
 const selectedTimeframe = "3m"
 const feePercent = 0.0
 const chartPosLookup:any = {
-  "btc": [-1.115,0,-0.63], "eth": [1.22,0,-0.02], "link": [-1.11,0,1.15], "ftm": [0.2,0,0.85],
+  "btc": [-1.115,0,-0.63], "eth": [1.22,0,-0.02], "link": [-1.11,0,1.15], "ftm": [0.72,0,1.515],
 }
 const chartRotLookup:any = {
-  "btc": [0,Math.PI/2,0], "eth": [0,-Math.PI/2,0], "link": [0,Math.PI/2,0], "ftm": [0,Math.PI/2,0],
+  "btc": [0,Math.PI/2,0], "eth": [0,-Math.PI/2,0], "link": [0,Math.PI/2,0], "ftm": [0,0,0],
 }
 
 function Component ({}) {
@@ -441,13 +442,16 @@ function Component ({}) {
             state={{hasAnyToken, profitHistory, savedString }}
           />
           {hasAnyToken && <>
-          <Box args={[1,0.66,1]} position={[0.05,-0.81,1.88]} castShadow receiveShadow>
+            <Box args={[1,0.66,1]} position={[0.05,-0.81,1.88]} castShadow receiveShadow>
               <meshStandardMaterial color={"#fff"}/>
+            </Box>
+            <Box args={[0.9,0.6,0.9]} position={[0.05,-0.75,1.84]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#B6AfA5"}/>
             </Box>
           <Box args={[0.5,0.1,2.2]} position={[0.08,-1.12,1]} castShadow receiveShadow>
               <meshStandardMaterial color={"#eee"}/>
             </Box>
-          <Box args={[0.75,0.2,0.75]} position={[0.08,-1.12,-0.5]} castShadow receiveShadow>
+          <Box args={[0.85,0.2,0.85]} position={[0.08,-1.12,-0.5]} castShadow receiveShadow>
               <meshStandardMaterial color={"#ddd"}/>
             </Box>
           </>}
@@ -523,16 +527,17 @@ function Component ({}) {
         </Box> */}
         {/* PIPE 2 */}
         {"link" in tokensArrayObj && <>
-          <Box args={[0.1,0.1,0.5]} position={[-0.2,-0.45,-0.3]} castShadow receiveShadow>
+          {/* <Box args={[0.1,0.1,0.5]} position={[-0.2,-0.45,-0.3]} castShadow receiveShadow>
             <meshStandardMaterial color={"#888"}/>
-          </Box>
-          <Box args={[0.02,0.02,0.5]} position={[-0.2,-0.37,-0.3]} castShadow receiveShadow>
-            <meshStandardMaterial color={"#777"}/>
-          </Box>
+          </Box> */}
+          <RoadJack2 />
+          {/* <Box args={[0.02,0.02,0.5]} position={[-0.2,-0.37,-0.3]} castShadow receiveShadow>
+            <meshStandardMaterial color={"#f00"}/>
+          </Box> */}
         </>}
         {/* PIPE 3 */}
         {"ftm" in tokensArrayObj && <> <MovingBox2 /> </>}
-        {("eth" in tokensArrayObj || "link" in tokensArrayObj) && !isDefaultUser && tutoStage.lvl > 3 &&
+        {("eth" in tokensArrayObj || "link" in tokensArrayObj) && tutoStage.lvl >= 3 &&
           <group position={[-0.3,0,0.58]} >
             <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="link"
               tokensArrayArray={"link" in tokensArrayObj ? tokensArrayObj["link"] : null}
@@ -548,7 +553,7 @@ function Component ({}) {
           </group>
         }
         {("eth" in tokensArrayObj || "ftm" in tokensArrayObj) && !isDefaultUser && tutoStage.lvl > 3 &&
-          <group position={[1,0,0.58]}  >
+          <group position={[1,0,0.58]}  rotation={[0,Math.PI/2,0]}>
             <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="ftm"
               tokensArrayArray={"ftm" in tokensArrayObj ? tokensArrayObj["ftm"] : null}
               refetchInterval={selectedToken == "ftm" ? 4000 : 60000}
@@ -564,7 +569,7 @@ function Component ({}) {
         }
       </group>}
       
-      <Box args={[2.5,0.2,2.5]} position={[0.05,-1.05,0.15]} castShadow receiveShadow>
+      <Box args={[2.2,0.2,2.73]} position={[0.05,-1.05,0.15]} castShadow receiveShadow>
         <meshStandardMaterial color={"#fff"}/>
       </Box>
 
