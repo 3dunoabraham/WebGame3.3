@@ -123,6 +123,10 @@ function Component ({}) {
     s__chartRot(chartRotLookup[val])
   }
   const toggleTrade = async (x:any, y:any) => {
+    if (orderHistory.length > 9) {
+      alert("Simulation Bankrunptcy Error!")
+      return
+    }
     // if (tutoStage.lvl == 3) { setTutoStage(4) }
     
     //   else { setTutoStage(3) }
@@ -167,6 +171,7 @@ function Component ({}) {
         s__currentOrders({...currentOrders, [form.id]: newTradeObj })
       } 
       if (newTradeObj.side == "sell") {
+        s__orderHistory(orderHistory)
         app.alert("error","Missing live buy order")
       } 
     }
@@ -192,6 +197,10 @@ function Component ({}) {
     //   return
     // }
     // app.alert("success", "Order saved")
+    // if (orderHistory.length >= 9) {
+    //   alert("Simulation Bankrunptcy!")
+    //   return
+    // }
   }
   const onTextClick = (x:any) => { 
     s__selectedToken(x)
@@ -450,8 +459,8 @@ function Component ({}) {
     {hasAnyToken &&
       <group position={[-0.3,-0.1,0.5]}>
         <group position={[1,0,-1]} rotation={[0,0,0]}>
-          {("eth" in tokensArrayObj || ("btc" in tokensArrayObj && 
-            !!binanceKeys // tokensArrayObj["btc"].state
+          {!isDefaultUser && ("eth" in tokensArrayObj || ("btc" in tokensArrayObj && 
+            true // tokensArrayObj["btc"].state
           )) && <>
             <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="eth"
               tokensArrayArray={"eth" in tokensArrayObj ? tokensArrayObj["eth"] : null}
@@ -488,7 +497,7 @@ function Component ({}) {
         </>}
         {/* PIPE 3 */}
         {"ftm" in tokensArrayObj && <> <MovingBox2 /> </>}
-        {("eth" in tokensArrayObj || "link" in tokensArrayObj) && tutoStage.lvl > 3 &&
+        {("eth" in tokensArrayObj || "link" in tokensArrayObj) && !isDefaultUser && tutoStage.lvl > 3 &&
           <group position={[-0.3,0,0.58]} >
             <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="link"
               tokensArrayArray={"link" in tokensArrayObj ? tokensArrayObj["link"] : null}
@@ -503,7 +512,7 @@ function Component ({}) {
             /> 
           </group>
         }
-        {("eth" in tokensArrayObj || "ftm" in tokensArrayObj) && tutoStage.lvl > 3 &&
+        {("eth" in tokensArrayObj || "ftm" in tokensArrayObj) && !isDefaultUser && tutoStage.lvl > 3 &&
           <group position={[1,0,0.58]}  >
             <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="ftm"
               tokensArrayArray={"ftm" in tokensArrayObj ? tokensArrayObj["ftm"] : null}
