@@ -1,4 +1,4 @@
-# Gamified Trading Application (GTA) | ByteCity
+# Gamified Web-Based Application (#webgamed) | Byte City
 ByteCity is an intuitive platform that optimizes learning and simplifies investing through gamification and automated processes.
 
 

@@ -1,5 +1,5 @@
-# Gamified Trading Application (GTA) | ByteCity
-ByteCity is an intuitive platform that optimizes learning and simplifies investing through gamification and automated processes.
+# Gamified Web-Based Application (#webgamed) | Byte City
+Byte City is an intuitive platform that optimizes learning and simplifies investing through gamification and automated processes.
 
 
 
@@ -41,6 +41,6 @@ You can view the app by navigating to [http://localhost:3000](http://localhost:3
 Alternatively, you can view the app by navigating to [https://localhost:3000](https://localhost:3000) in your web browser for ssl simulation.
 
 ### Demo
-Check out a live DEMO at [gametrade.vercel.app](https://gametrade.vercel.app/)
+Check out a live DEMO at [bytecity.vercel.app](https://bytecity.vercel.app/)
 
 ---

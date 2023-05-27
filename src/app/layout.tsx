@@ -6,7 +6,7 @@ import { fetchSession } from '@/../script/state/repository/session'
 import AppClientProvider from '@/dom/organ/layout/AppClientProvider'
 
 export const metadata = {
-  title: 'GTA ByteCity',
+  title: 'Byte City',
   description: 'Gamified Trading App',
 }
 
