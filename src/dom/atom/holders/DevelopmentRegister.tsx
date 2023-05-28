@@ -2,6 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 function Component ({}) {
     // const [asd, s__asd] = useState("")
@@ -34,16 +35,16 @@ function Component ({}) {
                     <h1 className="tx-white pa-4 tx-lg" style={{color:"orange"}}>Go Back to the Game</h1>
                 </div>
                 <div className="py-8 px-8 Q_xs_px-2 tx-white flex-col flex-align-start ">
-                    <div className="flex gap-3" >
-                        <div className=" gap-1 flex flex-align-end">
-                            Register:
-                        </div>
-                        <div>
+                    <div className="flex gap-3"  style={{background:"orangered"}}>
+                        {/* <div className=" gap-1 flex flex-align-end">
+                            Register @
+                        </div> */}
+                        <div className="box-shadow-2-b">
                             <a href="https://webgamed.vercel.app/" target="_blank"
-                                style={{color:"#0099ff"}}
-                                className=" opaci-chov--50 tx-lgx py-1 block"
+                                className=" opaci-chov--50 tx-lgx py-1 block px-4 py-2 box-shadow-i-2-t tx-white"
                             >
-                                webgamed.vercel.app
+                                Register @WebGamed
+                                <span className="pa-2 opaci-50"><FaExternalLinkAlt/></span>
                             </a>
                         </div>
                         {/* <div className="pb-1 bg-w-10 flex-1"></div> */}

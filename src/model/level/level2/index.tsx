@@ -266,7 +266,7 @@ function Component ({}) {
 
   const triggerLogin = async () => {
     if (tutoStage.lvl == 3) { firstLogin(); return }
-    let keyval:any =  prompt("2 Enter USER:PASSWORD","") 
+    let keyval:any =  prompt("Enter your WebGamed Credentials! \n\n < Email : SecretKeyCode >","") 
     if (!keyval) return
     if (keyval.split(":").length < 2) return
     // console.log("")
