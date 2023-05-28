@@ -248,7 +248,7 @@ const selectedHasArray = useMemo(()=>{
       {/* mini buttons */}
       
 
-      {isSelectedId && isDowntrend && <>
+      {isDowntrend && <>
         <mesh castShadow receiveShadow scale={score.score ? 1 : 3}
           position={[ position[0] - 0.42, position[1] - 0, position[2] - 0.42 ]}
         >

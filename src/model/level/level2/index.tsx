@@ -405,7 +405,9 @@ function Component ({}) {
 
   },[user, superuser])
 
-  
+  const onFirstCarClicked = (e:any) => {
+    console.log("asd", e)
+  }
 
   return (<>
     <Scene>
@@ -530,10 +532,14 @@ function Component ({}) {
             /> 
           </>}
         </group>
+
+
+
+
         {/* PIPE 1 */}
         {"btc" in tokensArrayObj && <> 
           <RoadJack />
-          <MovingCar />
+          <MovingCar calls={{onClicked:onFirstCarClicked}} />
           <group rotation={[0,Math.PI,0]} scale={[1,1,0.7]} position={[1,0,-0.3]}>
             <MovingBox1 />
           </group>
@@ -553,6 +559,11 @@ function Component ({}) {
         </>}
         {/* PIPE 3 */}
         {"ftm" in tokensArrayObj && <> <MovingBox2 /> </>}
+
+
+
+
+
         {("eth" in tokensArrayObj || "link" in tokensArrayObj) && tutoStage.lvl >= 3 &&
           <group position={[-0.3,0,0.58]} >
             <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="link"
