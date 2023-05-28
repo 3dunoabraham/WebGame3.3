@@ -25,7 +25,7 @@ const AuthProvider:FC<{
   const [userInfo, s__userInfo] = useState<IUser>(session.user)
 
   const [LH_superuser, s__LH_superuser]:any = useLocalStorage("superuser","{}")
-  const [superuser, __superuser] = useState()
+  const [superuser, s__superuser] = useState()
 
   const [LH_localuser, s__LH_localuser]:any = useLocalStorage("binanceKeys","user:0000")
   const [localuser, __localuser] = useState()
@@ -38,21 +38,27 @@ const AuthProvider:FC<{
     // const supabase = getSupabaseClient()
     // const theplayer = fetchPlayer(supabase, )
     let thePlayer = await PlayerService.getPlayer(key,secret)
-
-    __superuser(thePlayer)
-      s__LH_superuser(JSON.stringify(thePlayer))
+// console.log("thePlayer", thePlayer)
+    s__superuser(thePlayer)
+      // s__LH_superuser(JSON.stringify(thePlayer))
   }
   useEffect( () => {
-    __superuser(JSON.parse(LH_superuser))
+    // if()
+    // s__superuser(JSON.parse(LH_superuser))
     
+    // console.log("session", session)
+    // console.log("jwt", jwt)
+    // console.log("user", user)
+    // console.log("LH_localuser", LH_localuser)
 
-    // if (!localuser) {
+    if (LH_localuser != "user:0000") {
     //   s__localuser(LH_localuser);
-    //   let creds = LH_localuser.split(":")
-    //   let key = creds[0]
-    //   let secret  = creds[1]
-    //   fetchUserByKey(key,secret)
-    // }
+      let creds = LH_localuser.split(":")
+      let key = creds[0]
+      let secret  = creds[1]
+      fetchUserByKey(key,secret)
+      
+    }
 
   }, []);
   useEffect( () => {

@@ -43,7 +43,7 @@ const chartRotLookup:any = {
 
 function Component ({}) {
   const app:any = useContext(AppContext)
-  const { user, do:{login, logout, demo,},  jwt }:any = useAuth()
+  const { user, superuser, do:{login, logout, demo,},  jwt }:any = useAuth()
   
 
   const $bitcoin:any = useRef()
@@ -85,7 +85,7 @@ function Component ({}) {
     return interestCount.length == 4
   },[tokensArrayObj])
   const [LH_superuser, s__LH_superuser]:any = useLocalStorage("superuser","{}")
-  const [superuser, __superuser] = useState()
+  // const [live_superuser, s__live_superuser] = useState()
 
 
   const onTimeframeClick = (x:any, y:any) => {  }
@@ -397,13 +397,13 @@ function Component ({}) {
     s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
 
     s__savedString(LH_superuser)
-
+    console.log("superuser", superuser)
     // console.log("LS_tokensArrayObj", JSON.parse(LS_tokensArrayObj))
     // console.log("LH_superuser", LH_superuser)
     // console.log("user", user)
 
 
-  },[user])
+  },[user, superuser])
 
   
 
@@ -452,7 +452,7 @@ function Component ({}) {
           />
         </group>
       }
-      {hasAnyToken &&  tutoStage.lvl > 3 && !isDefaultUser &&
+      {hasAnyToken &&  (tutoStage.lvl > 3 || !!superuser) && !isDefaultUser &&
         <group position={[0,0,1.6]}>
           <SavedGoalPost calls={{claim:claimOrSync}}
             state={{hasAnyToken, profitHistory, savedString }}
