@@ -2,6 +2,9 @@
 .pos-rel { position: relative; }
 .pos-abs { position: absolute; }.pos-fixed { position: fixed; }.pos-fix { position: fixed; }
 .top-0 { top: 0; } .left-0 { left: 0; } .right-0 { right: 0; } .bottom-0 { bottom: 0; }
+.top-5p {  top: 5%; }.left-5p {  left: 5%; }.right-5p {  right: 5%; }.bottom-5p {  bottom: 5%; }
+.top-10p {  top: 10%; }.left-10p {  left: 10%; }.right-10p {  right: 10%; }.bottom-10p {  bottom: 10%; }
+.top-20p {  top: 20%; }.left-20p {  left: 20%; }.right-20p {  right: 20%; }.bottom-20p {  bottom: 20%; }
 .top-25p {  top: 25%; }.left-25p {  left: 25%; }.right-25p {  right: 25%; }.bottom-25p {  bottom: 25%; }
 .top-50p {  top: 50%; }.left-50p {  left: 50%; }.right-50p {  right: 50%; }.bottom-50p {  bottom: 50%; }
 .top-75p {  top: 75%; }.left-75p {  left: 75%; }.right-75p {  right: 75%; }.bottom-75p {  bottom: 75%; }

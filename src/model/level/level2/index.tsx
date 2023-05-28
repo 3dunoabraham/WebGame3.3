@@ -454,7 +454,7 @@ function Component ({}) {
           />
         </group>
       }
-      {hasAnyToken &&  (tutoStage.lvl > 3 || !!superuser) && !isDefaultUser &&
+      {hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser &&
         <group position={[0,0,1.6]}>
           <SavedGoalPost calls={{claim:claimOrSync}}
             state={{hasAnyToken, profitHistory, savedString }}
