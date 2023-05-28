@@ -1,7 +1,7 @@
 import { fetchUser } from '@/../script/state/repository/auth';
 import { Ticker, fetchTicker } from '@/../script/state/repository/ticker'
 // import Level2 from '@/model/level/level2';
-import { getJWTCookie } from '@/../script/state/repository/session';
+import { fetchSession, getJWTCookie } from '@/../script/state/repository/session';
 import Level2 from '@/model/level/level2';
 import LoginForm from '@/model/overlay/LoginForm';
 import LogoutForm from '@/model/overlay/LogoutForm';
@@ -12,12 +12,9 @@ import DevelopmentProfile from '@/dom/atom/holders/DevelopmentProfile';
 
 export default async function Page() {  
   const foundJWT:any = await getJWTCookie()
-  const foundUser:any = !!foundJWT ? (
-    foundJWT.length > 42 ? await fetchUser(foundJWT) : {
-      email:"example@example.com",
-      name: "joe",
-    }
-  ) : null
+  const foundUser = await fetchSession()
+  // console.log("foundUser", foundUser)
+  // const foundUser:any = !!foundJWT ? await fetchUser(foundJWT) : null
   const LOCAL_TICKER_SYMBOLS:any = ["BTCUSDT","ETHUSDT"]
   const tickers: Ticker[] = await Promise.all(
     LOCAL_TICKER_SYMBOLS.map((aTicker:any)=>(fetchTicker(aTicker)))
@@ -35,19 +32,26 @@ export default async function Page() {
         <div className='flex '>
           <a href="/" rel="noopener noreferrer" className='nodeco  w-min-80px z-800 pos-rel pt-3 ' >
             <h1 className='tx-center flex-col tx-bold-2 tx-white bg-black py-2 z-800 pos-rel bord-r-5 box-shadow-5-b '>
-              <span className='tx-sm tx-bold-8 tx-ls-4 opaci-50' title='Gamified Trading App'>G T A</span>
+              {/* <span className='tx-sm tx-bold-8 tx-ls-4 opaci-50' title='Gamified Trading App'>G T A</span> */}
               <span className='tx-lg'><b>B</b>yte</span>
               <span className='tx-lgx'><b>C</b>ity</span>
             </h1>
           </a>
         </div>
-        {/* <div className='pos-abs top-0 right-0 pt-3'>
-          {!foundUser && <LoginForm />}
-          {foundUser && <>
-            <div className='flex-col tx-lx opaci-10 py-'>{foundUser.name} <small>(Verified)</small></div>
-            <LogoutForm />
+        {/* qwesdf */}
+        
+          {!foundJWT && <>
+            <div className='pos-abs top-0 right-0 pt-3'>
+              <LoginForm />
+            </div>
           </>}
-        </div> */}
+          {!!foundJWT && !!foundUser.user && <>
+            <div className='pos-abs top-0 right-0 pt-3'>
+              {/* <div className='flex-col tx-lx opaci-10 py-'>{foundUser.user.name} <small>(Verified)</small></div> */}
+              <LogoutForm />
+            </div>
+          </>}
+
       </div>
       {/* style={{filter: "saturate(1.3)"}} */}
       <div className='pos-abs top-0 w-100 h-100' >

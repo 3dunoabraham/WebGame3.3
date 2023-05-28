@@ -16,7 +16,7 @@ function Component ({}) {
             s__randomLimit(Math.random()*5)
             s__carSpeed(0.01 * (1+ (Math.random()/2+0.5)))
             let setofrandom = [0.5+1-Math.random()/2,0.5+Math.random()/2+0.5,1-Math.random()/2]
-            console.log("setofrandom", setofrandom)
+            // console.log("setofrandom", setofrandom)
             movingPart1.current.scale.set(...setofrandom)
             // movingPart1.current.scale.set(1 + (Math.random()/2+0.5)/2,1+ (Math.random()+0.5),0.3 + (Math.random()/3+0.3))
             movingPart1.current.position.x = 0 - (Math.random()+1.5)*2

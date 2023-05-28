@@ -5,6 +5,7 @@ import { useAuth } from "@/../script/state/context/AuthContext";
 import { useRouter } from 'next/navigation';
 import { useBools } from "@/../script/util/hook/useBools";
 import { AppContext } from "@/../script/state/context/AppContext";
+import { useLocalStorage } from "usehooks-ts";
 
 const Component = ({
 }: { }) => {
@@ -12,6 +13,7 @@ const Component = ({
   const router = useRouter()
   const $email:any = useRef()
   const $password:any = useRef()
+  const [LS_binanceKeys, s__LS_binanceKeys] = useLocalStorage('binanceKeys', "user:0000")
   const [ loadings, t__loadings, s__loading ]:any = useBools({
     login: false
   })
@@ -29,7 +31,9 @@ const Component = ({
     s__loading("login", true)
     let res = await login(forms)
     if (!!res) {
-      router.push("/inventory")
+      // router.push("/inventory")
+      s__LS_binanceKeys(`${forms.email}:${forms.password}`);
+      window.location.reload()
       return
     }
     s__loading("login", false)
@@ -66,12 +70,12 @@ const Component = ({
         {forms.isForm &&
           <div className='flex-col flex-align-stretch gap-3 box-shadow-1-t pa-2 bord-r- mt-8 z-100 bg-white'>
             <input value={forms.email} onChange={(e:any)=>s__forms({...forms,...{email:e.target.value}})}
-              type="text" placeholder='User'  ref={$email}
+              type="text" placeholder='Email'  ref={$email}
               onKeyUp ={handleEmailKeyPress} 
               className='bord-r- noborder opaci-50 opaci-hov-75  py-1 px-2 tx-md  bg-trans '
             />
             <input value={forms.password} onChange={(e:any)=>s__forms({...forms,...{password:e.target.value}})}
-              type="password" placeholder='Password'  ref={$password}
+              type="password" placeholder='Secret Key Code'  ref={$password}
               onKeyUp ={handlePwKeyPress} 
               className='bord-r- noborder opaci-50 opaci-hov-75  py-1 px-2 tx-lg bg-trans'
             />
@@ -94,7 +98,7 @@ const Component = ({
               style={{background:"#333333"}}
               onClick={forms.isForm ? triggerLogin : triggerIsForm}
             >
-              Verify
+              Connect
             </button>
           </div>
         }

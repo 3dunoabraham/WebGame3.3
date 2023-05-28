@@ -45,11 +45,11 @@ export const priceLookupTable: { [key: string]: number } = {
 export function computeHash (firstValue:any, secondValue:any) {
   
   const hash = crypto.createHash('sha256');
-  console.log("hash values", firstValue, secondValue)
+  // console.log("hash values", firstValue, secondValue)
   hash.update(firstValue);
   hash.update(secondValue);
   const hash_digest = hash.digest('hex');
-  console.log("hash_digest", hash_digest)
+  // console.log("hash_digest", hash_digest)
 
   return hash_digest
 }
@@ -146,9 +146,9 @@ export async function fetchPostOrder(supabase:any, orderObj:any) {
     .from('order')
     .insert(orderObj)
     .single()
-  if (!!error2) {
-    console.log("error2", error2)
-  }
+  // if (!!error2) {
+  //   console.log("error2", error2)
+  // }
   return !error2
 }
 
@@ -206,7 +206,7 @@ export async function getSupabasePlayer(
   // Get user's IP address
   let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
   const new_uid = computeHash(apiKey, apiSecret)
-  console.log("new_uid", new_uid)
+  // console.log("new_uid", new_uid)
   let playerObj:any = {
     name: apiKey,
     ipv4: ipAddress,

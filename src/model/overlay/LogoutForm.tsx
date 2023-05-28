@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from "@/../script/state/context/AuthContext";
 import { useBools } from "@/../script/util/hook/useBools";
 import { AppContext } from "@/../script/state/context/AppContext";
+import { useLocalStorage } from "usehooks-ts";
 
 const Component = ({
 }: { }) => {
@@ -22,9 +23,11 @@ const Component = ({
     if (!$email.current) return
     $email.current.focus()
   },[forms.isForm])
+  const [LS_binanceKeys, s__LS_binanceKeys] = useLocalStorage('binanceKeys', "user:0000")
   const triggerLogout = async () => {
     app.alert("neutral","Signin out, clearing cookies...")
     let res = await logout()
+    s__LS_binanceKeys("user:0000")
     window.location.reload()
   }
   return (<>
@@ -47,13 +50,13 @@ const Component = ({
       </>}
       {!loadings.login &&
         <div className="flex   ">
-          <button className='py-1 px-7 tx-lg tx-white opaci-chov--50 mt-3 noborder bord-r-5 z-100'
-            style={{background:"#3E5F58"}}
+          <button className='py-1 px-2 tx-lg tx-white opaci-chov--50  noborder bord-r-5 z-100'
+            style={{background:"#333333"}}
             onClick={triggerLogout}
           >
-            <div className="Q_lg_x">Sign out </div>
+            <div className="Q_lg_x">Disconnect </div>
             <div className="Q_xs_lg"><FaDoorClosed /></div>
-            <i className="tx-sm opaci-50">({user.apiname})</i>
+            {/* <i className="tx-sm opaci-50">({user.apiname})</i> */}
           </button>
         </div>
       }

@@ -7,7 +7,7 @@ import AppClientProvider from '@/dom/organ/layout/AppClientProvider'
 
 export const metadata = {
   title: 'Byte City',
-  description: 'Gamified Trading App',
+  description: 'Web Gamed App',
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

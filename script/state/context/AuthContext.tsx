@@ -71,7 +71,7 @@ const AuthProvider:FC<{
   const demo = async () => {
     try {
       const login = await UserService.demo()
-      console.log("demo login user attempt", login, )
+      // console.log("demo login user attempt", login, )
       if (!login) {
         return null
       }
@@ -86,9 +86,10 @@ const AuthProvider:FC<{
     } catch (error: any) {
       console.error(error);
       return error.response;
-    } finally {
-      console.log("Finally Login");
     }
+    // finally {
+    //   console.log("Finally Login");
+    // }
   }
 
   const login = async (body: ILoginForm) => {
@@ -119,7 +120,7 @@ const AuthProvider:FC<{
   };
   const can = useMemo (() => {
     if (!userInfo) return null
-    console.log("userInfo", userInfo)
+    // console.log("userInfo", userInfo)
     return GRANTTREE[userInfo.apiname || "sp"][userInfo.rolname || "root"]
   },[userInfo])
 

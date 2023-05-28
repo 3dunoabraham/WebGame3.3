@@ -7,10 +7,10 @@ export async function POST(request: any) {
   const body:any = await request.json()
   const { email,password } = body;
 
-  console.log("creds",email, password)
+  // console.log("creds",email, password)
   let rrreeesss = await fetchLogin(request, email, password,)
   const resObj = await rrreeesss.json()
-  console.log("res", resObj)
+  // console.log("res", resObj)
   
   return new Response(JSON.stringify(resObj))
 }

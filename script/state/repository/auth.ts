@@ -21,7 +21,7 @@ const ROUTES = EXT_ROUTES[api_name]
 
 export async function fetchLogin (credentials:any) {
   try {
-    console.log("routtt", api_url+ROUTES.login)
+    // console.log("routtt", api_url+ROUTES.login)
     const reqRes = await fetch(api_url+ROUTES.login,{
       method:"POST",
       headers:{"Content-Type":"application/json",},

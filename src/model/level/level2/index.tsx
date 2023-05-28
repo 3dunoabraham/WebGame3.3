@@ -131,10 +131,6 @@ function Component ({}) {
       alert("Simulation Bankrunptcy Error!")
       return
     }
-    // if (tutoStage.lvl == 3) { setTutoStage(4) }
-    
-    //   else { setTutoStage(3) }
-    // }
 
     let newTradeObj = {side:!!y.value ? "buy" : "sell",token:x,price:y.price}
     let isBuying = newTradeObj.side == "buy"
@@ -176,6 +172,7 @@ function Component ({}) {
       } 
       if (newTradeObj.side == "sell") {
         s__orderHistory(orderHistory)
+        if (tutoStage > 4)
         app.alert("error","Missing live buy order")
       } 
     }
@@ -280,7 +277,7 @@ function Component ({}) {
         email:keyval.split(":")[0],
         password:keyval.split(":")[1]
       })
-      console.log("loginRes",loginRes)
+      // console.log("loginRes",loginRes)
       if (!loginRes) return 
     // const founduserRes = await fetch("/api/player",{
     //   method: "POST",
@@ -295,6 +292,9 @@ function Component ({}) {
 
     app.alert("success", "Account connected")   
 
+    // if yes here check  and update tutorial stage
+    // add new button to programatically connect and sync
+
     s__binanceKeys(keyval)
     s__LS_binanceKeys(keyval)
     window.location.reload()
@@ -306,12 +306,9 @@ function Component ({}) {
 
   }
   const firstLogin = async () => {
-    // setTutoStage(2)
     let randomThousand = parseInt(`${(Math.random()*9000) + 1000}`)
     let arandomkey = "user:"+randomThousand
-    // if (!isDefaultUser) {
-    //   if (prompt("Change user? (yes/no)","no") != "yes") { return }
-    // }
+    
     let keyval:any =  prompt("1 ENTER USER:PASSWORD",arandomkey) 
     if (!keyval) return
     if (keyval.split(":").length < 2) return
@@ -327,7 +324,7 @@ function Component ({}) {
         })
       })
       if (founduserRes.status >= 400) throw new Error()
-      console.log("founduserRes 2", founduserRes)
+      // console.log("founduserRes 2", founduserRes)
       app.alert("success", "Account connected")   
   
       s__binanceKeys(keyval)
@@ -345,7 +342,7 @@ function Component ({}) {
   },[binanceKeys])
   const quitAll = async () => {
     let logoutres = await logout()
-    console.log(logoutres, "logoutres")
+    // console.log(logoutres, "logoutres")
     // return
 
     s__LS_binanceKeys("user:0000");
@@ -353,7 +350,7 @@ function Component ({}) {
     s__LS_tokensArrayObj("{}");
     window.location.reload()
   }
-  const claimOrSync = () => {
+  const claimOrSync = async () => {
 
     if (isDefaultUser) {
       if (realProfitCount == 0) {
@@ -366,6 +363,19 @@ function Component ({}) {
     } else {
       if (realProfitCount < 4) {
         app.alert("neutral", "Trying to sync account")
+
+        // console.log("tokensArrayObj", tokensArrayObj)
+        // console.log("tutoStage", tutoStage)
+        // console.log("binanceKeys", tutoStage, LS_binanceKeys)
+        // continue here
+        let loginRes = await login({
+        
+          email:LS_binanceKeys.split(":")[0],
+          password:LS_binanceKeys.split(":")[1]
+        })
+        // console.log("loginRes",loginRes)
+        if (!loginRes) return 
+
       } else {
         app.alert("success", "Congratulations! Please contact support with your email and secret key code!")
       }
@@ -387,7 +397,13 @@ function Component ({}) {
     s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
 
     s__savedString(LH_superuser)
-  },[])
+
+    // console.log("LS_tokensArrayObj", JSON.parse(LS_tokensArrayObj))
+    // console.log("LH_superuser", LH_superuser)
+    // console.log("user", user)
+
+
+  },[user])
 
   
 

@@ -20,7 +20,7 @@ export async function fetchLogin(
       datenow: Date.now(),
     }
     const supabase = getSupabaseClient()
-    console.log("playecount", new_uid)
+    // console.log("playecount", new_uid)
     const count = await fetchSamePlayerCount(supabase, new_uid)
 
     if (!count) {
