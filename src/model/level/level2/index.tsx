@@ -353,13 +353,20 @@ function Component ({}) {
   const claimOrSync = async () => {
 
     if (isDefaultUser) {
-      if (realProfitCount == 0) {
+      if (profitHistory.length  == 0) {
         app.alert("neutral", "Tip: Buy low and sell high to get points!")
         return
+      } else {
+        if (realProfitCount == 0) {
+          app.alert("neutral", "Tip: Remove bad orders (losses) by fixing (click) white-roofed cars!")
+        } else {
+          app.alert("neutral", "Tip: Buy and sell profitably 4 times to level up!")
+        }
+
       }
 
-      app.alert("error", "Please register w/Google to continue!")
-      alert("Please register w/Google to save progress!")
+      // app.alert("error", "Please register w/Google to continue!")
+      // alert("Please register w/Google to save progress!")
     } else {
       if (realProfitCount < 4) {
         app.alert("neutral", "Trying to sync account")
@@ -438,7 +445,7 @@ function Component ({}) {
       }
       if (theIndex == -1)  return
 
-      console.log("theIndex", theIndex, profitHistory.splice(theIndex, 1))
+      // console.log("theIndex", theIndex, profitHistory.splice(theIndex, 1))
       let aNewArray = [...profitHistory]
       aNewArray.splice(theIndex, 1)
       s__profitHistory(aNewArray)

@@ -25,7 +25,7 @@ function Component ({calls, state}:any) {
           <Cylinder args={[0.14,0.14,0.1,6]} position={[0,0.25,0.15]} castShadow receiveShadow ref={$claimButton}
             onClick={calls.claim}
           >
-            <meshStandardMaterial color={realProfitCount == 0 ? "#997777" : realProfitCount < 4 ? "#779977" : "#f66"}/>
+            <meshStandardMaterial color={realProfitCount == 0 ? "#777777" : realProfitCount < 4 ? "#676" : "#779977"}/>
           </Cylinder>
           <Cylinder args={[0.16,0.16,0.12,12]} position={[0,0.22,0.15]} castShadow receiveShadow 
           >
