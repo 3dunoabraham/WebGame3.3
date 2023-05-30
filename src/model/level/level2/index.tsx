@@ -127,7 +127,7 @@ function Component ({}) {
     s__chartRot(chartRotLookup[val])
   }
   const toggleTrade = async (x:any, y:any) => {
-    if (orderHistory.length > 9) {
+    if (profitHistory.length > 4) {
       alert("Simulation Bankrunptcy Error!")
       return
     }
@@ -389,7 +389,7 @@ function Component ({}) {
 
   const realProfitCount = useMemo(()=>{
     return profitHistory.filter((atrade:any, index:any) => {
-      return atrade[1] == "profit"
+      return !!atrade[1] && atrade[1] == "profit"
     }).length
   },[profitHistory])
 
@@ -407,6 +407,49 @@ function Component ({}) {
 
   const onFirstCarClicked = (e:any) => {
     console.log("asd", e)
+    if (e > 3) {
+      if (profitHistory.length > 0) {
+        if (realProfitCount == profitHistory.length) {
+          app.alert("error", "No losses found, bad karma!")
+        } else {
+          app.alert("success", "Successfully reduced debt, You claimed a job!")
+        }
+      } else {
+        app.alert("error", "No orders found, bad reputation!")
+      }
+      console.log("real order his", orderHistory)
+      console.log("real profit", profitHistory)
+      
+      // for (let index = profitHistory.length-1; index >= 0; index--) {
+      //   const element = profitHistory[index];
+      //   if (element[1] == "loss"){
+      //     s__profitHistory(profitHistory.splice(index, 1))
+      //     return
+      //   }
+      // }
+      let theIndex = -1
+      for (let index = 0; index < profitHistory.length; index++) {
+        const element = profitHistory[index];
+        if (element[1] == "loss"){
+          theIndex = index
+          // s__profitHistory(profitHistory.splice(index, 1))
+          // return
+        }
+      }
+      if (theIndex == -1)  return
+
+      console.log("theIndex", theIndex, profitHistory.splice(theIndex, 1))
+      let aNewArray = [...profitHistory]
+      aNewArray.splice(theIndex, 1)
+      s__profitHistory(aNewArray)
+
+      // profitHistory.map((anOrder:any, index:number) => {
+      //   if (anOrder[1] == "loss"){
+      //     // delete profitHistory[index]
+      //     return
+      //   }
+      // })
+    }
   }
 
   return (<>

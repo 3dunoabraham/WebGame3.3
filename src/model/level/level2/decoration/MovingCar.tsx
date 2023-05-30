@@ -8,16 +8,20 @@ function Component ({ calls }:any) {
     const movingPart1:any = useRef()
     const movingPart2:any = useRef()
     const [counter, s__counter]:any = useState(0)
-    const [carColor, s__carColor]:any = useState("#6f7276")
-    const carColorCycle = ["#6f7276","#afa2a6",]
+    const [carColor, s__carColor]:any = useState("#675A5F")
+    const carColorCycle = ["#675A5F","#afa2a6",]
     const clickHandler = (e:any)=> {
         console.log("counter", counter)
         if (carColor != "#afa2a6") return
+        // s__carColor(carColorCycle[Math.round(Math.random())])
         s__counter(counter+1)
-        calls.onClicked(e)
+        calls.onClicked(counter)
         if (counter > 3) {
             triggerReset()
+        } else {
+            s__carSpeed(carSpeed-0.003)
         }
+        e.stopPropagation && e.stopPropagation()
     }
 
     const triggerReset = () => {
@@ -62,16 +66,18 @@ function Component ({ calls }:any) {
                     <meshStandardMaterial color={"#5f6063"}/>
                 </Box>
                 {/* WHEELS */}
-                <Box args={[0.04,0.03,0.18]} position={[0.09,0.005,-0.]} castShadow receiveShadow
-                    onClick={clickHandler}
-                >
-                    <meshStandardMaterial color={"#333"}/>
-                </Box>
-                <Box args={[0.04,0.03,0.18]} position={[-0.09,0.005,-0.]} castShadow receiveShadow
-                    onClick={clickHandler}
-                >
-                    <meshStandardMaterial color={"#333"}/>
-                </Box>
+                <group
+                        onClick={clickHandler}
+                        >
+                    <Box args={[0.04,0.03,0.18]} rotation={[0,counter/9,0]} position={[0.09,0.005,-0.]} castShadow receiveShadow
+                    >
+                        <meshStandardMaterial color={"#333"}/>
+                    </Box>
+                    <Box args={[0.04,0.03,0.18]} rotation={[0,counter/9,0]} position={[-0.09,0.005,-0.]} castShadow receiveShadow
+                    >
+                        <meshStandardMaterial color={"#333"}/>
+                    </Box>
+                </group>
             </group>
 
             {/* ROAD */}
