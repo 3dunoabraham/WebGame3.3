@@ -160,6 +160,12 @@ function Component ({}) {
         newprofithi[theindex].unshift((percentChange-100) > feePercent ? "profit" : "loss")
         newprofithi[theindex].unshift((percentChange-100).toFixed(3))
         s__profitHistory(newprofithi)
+        
+        if (!!projectionMode) {
+          projectVirtualOrder(form.id, newTradeObj)
+          app.alert("success", "Sending SELL order with synced api keys")
+        }
+
         let counting = newprofithi.filter((atrade:any, index:any) => {
           return atrade[1] == "profit"
         }).length
@@ -175,7 +181,7 @@ function Component ({}) {
         
         if (!!projectionMode) {
           projectVirtualOrder(form.id, newTradeObj)
-          app.alert("success", "Sending order with synced api keys")
+          app.alert("success", "Sending BUY order with synced api keys")
         }
       } 
       if (newTradeObj.side == "sell") {
@@ -567,20 +573,6 @@ function Component ({}) {
           <SavedGoalPost calls={{claim:claimOrSyncDatabase}} {...{projectionMode, s__projectionMode: _s__projectionMode}}
             state={{hasAnyToken, profitHistory, savedString }}
           />
-          {hasAnyToken && <>
-            <Box args={[1,0.66,1]} position={[0.05,-0.81,1.88]} castShadow receiveShadow>
-              <meshStandardMaterial color={"#fff"}/>
-            </Box>
-            <Box args={[0.9,0.6,0.9]} position={[0.05,-0.75,1.84]} castShadow receiveShadow>
-              <meshStandardMaterial color={"#B6AfA5"}/>
-            </Box>
-          <Box args={[0.5,0.1,2.2]} position={[0.08,-1.12,1]} castShadow receiveShadow>
-              <meshStandardMaterial color={"#eee"}/>
-            </Box>
-          <Box args={[0.85,0.2,0.85]} position={[0.08,-1.12,-0.5]} castShadow receiveShadow>
-              <meshStandardMaterial color={"#ddd"}/>
-            </Box>
-          </>}
         </group>
       }
       

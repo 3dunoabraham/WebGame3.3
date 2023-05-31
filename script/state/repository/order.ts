@@ -134,10 +134,18 @@ export function makeLimitOrder({ side, symbol, quantity, price, recvWindow = 500
   console.log("bout to this keys", apiKey, apiSecret)
   const req = https.request(options, (res) => {
     let result = '';
-    res.on('data', (data) => { result += data; });
-    res.on('end', () => { callback(JSON.parse(result)); });
+    res.on('data', (data) => { 
+      console.log("data callbakc make limit order")
+      result += data;
+     });
+    res.on('end', () => {
+      console.log("end callback make limit order error")
+      callback(JSON.parse(result));
+    });
   });
-  req.on('error', (err) => { callback(err); });
+  req.on('error', (err) => {
+    console.log("console make limit order error")
+    callback(err); });
   req.write(data);
   req.end();
 }

@@ -4,6 +4,42 @@ import { useFrame } from "@react-three/fiber"
 import { useMemo, useRef, useState } from "react"
 import { useAuth } from "@/../script/state/context/AuthContext"
 
+function getCompleteTrades(transactionString:any) {
+  const transactions = transactionString.split('&&&').filter(Boolean);
+  const trades:any = {};
+  const completeTrades:any = [];
+
+  transactions.forEach((transaction:any) => {
+    try {
+      const trade = JSON.parse(transaction);
+      const { symbol, isBuyer, price, qty } = trade;
+
+      if (isBuyer) {
+        if (!trades[symbol]) {
+          trades[symbol] = [];
+        }
+
+        trades[symbol].push(trade);
+      } else {
+        if (trades[symbol] && trades[symbol].length > 0) {
+          const buyTrade = trades[symbol].pop();
+          const profitLoss = (price - buyTrade.price) * qty;
+
+          buyTrade.profitLoss = profitLoss;
+          trade.profitLoss = profitLoss;
+
+          completeTrades.push(buyTrade);
+          completeTrades.push(trade);
+        }
+      }
+    } catch (error) {
+      console.log('Error parsing transaction:', error);
+    }
+  });
+
+  return completeTrades;
+}
+
 
 function Component ({calls, state, projectionMode, s__projectionMode}:any) {
   const { superuser, do:{login, demo}, jwt }:any = useAuth()
@@ -33,12 +69,33 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
   }
   const userDatabaseArray = useMemo(()=>{
     try {
-      return JSON.parse(superuser.trades)
+      let fullarray = getCompleteTrades(superuser.trades)
+      console.log("getCompleteTrades", fullarray)
+      return fullarray
+      // return superuser.trades.split("&&&")
     } catch (e:unknown) {
 
     }
     return []
   },[superuser])
+  const databaseProfitCount = useMemo(()=>{
+    let filteredProfits = userDatabaseArray.filter((aTrade:any,index:number)=>{
+      return aTrade.profitLoss > 0
+    })
+    return filteredProfits.length
+  },[userDatabaseArray])
+  const databaseLossCount = useMemo(()=>{
+    let filteredProfits = userDatabaseArray.filter((aTrade:any,index:number)=>{
+      return aTrade.profitLoss <= 0
+    })
+    return filteredProfits.length
+  },[userDatabaseArray])
+
+
+  // const databaseProfitCount = useMemo(()=>{
+  //   return getCompleteTrades()
+  // },[userDatabaseArray])
+
   return (<>
     
     {state.hasAnyToken && !!superuser && superuser.subscription && <>
@@ -54,6 +111,57 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
         </Cylinder>
       </group>
     </>}
+
+
+
+    {userDatabaseArray.length > 0 && <group position={[0,0,-0.8]}>
+      <DynaText text={userDatabaseArray.length} color={ "#666666"} font={0.24}
+        position={[0.03,-.459,1]}
+          rotation={[-Math.PI/2,0,0]}
+
+          // position={[0,-0.15,-1.19]} font={0.15}
+        />
+        <DynaText text={userDatabaseArray.length == 1 ? "Trade" : "Trades"} color={ "#666666"} font={0.05}
+          position={[0.02,-.459,1.15]}
+            rotation={[-Math.PI/2,0,0]}
+
+            // position={[0,-0.15,-1.19]} font={0.15}
+        />
+    </group>}
+
+        
+    {databaseLossCount > 0 && <group position={[0,0,-0.3]}>
+      <DynaText text={databaseLossCount} color={ "#cc0000"} font={0.1}
+        position={[0.03,-.459,1]}
+          rotation={[-Math.PI/2,0,0]}
+
+          // position={[0,-0.15,-1.19]} font={0.15}
+        />
+        <DynaText text={databaseLossCount == 1 ? "Loss" : "Losses"} color={ "#cc0000"} font={0.06}
+          position={[0.02,-.459,1.07]}
+            rotation={[-Math.PI/2,0,0]}
+
+            // position={[0,-0.15,-1.19]} font={0.15}
+        />
+    </group>}
+
+
+    {databaseProfitCount > 0 && <>
+      <DynaText text={databaseProfitCount} color={ "#ff9933"} font={0.2}
+        position={[0.03,-.459,1.09]}
+          rotation={[-Math.PI/2,0,0]}
+
+          // position={[0,-0.15,-1.19]} font={0.15}
+        />
+        <DynaText text={databaseProfitCount == 1 ? "Profit" : "Profits"} color={ "#ff9933"} font={0.07}
+          position={[0.04,-.459,1.2]}
+            rotation={[-Math.PI/2,0,0]}
+  
+            // position={[0,-0.15,-1.19]} font={0.15}
+        />
+    </>}
+    
+        
     {!!superuser && superuser.subscription && 
     <group>
       <DynaText text={superuser.subscription} color={ "#cc33cc"}
@@ -75,7 +183,7 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
 
     {state.hasAnyToken &&
       <group position={[0,0,1.95]}>
-        <Cylinder args={[0.25,0.25,0.75,6]} position={[0,-0.32,0]} castShadow receiveShadow 
+        <Cylinder args={[0.25,0.38,0.75,6]} position={[0,-0.32,0]} castShadow receiveShadow 
         >
           <meshStandardMaterial color={"#ccc"}/>
         </Cylinder>
@@ -83,17 +191,17 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
     }
     {state.hasAnyToken && <>
       <group position={[-0.15,-0.55,1.95]}>
-          {userDatabaseArray.slice(0,5).map((anOrder:any, index:any)=>{
+          {/* {userDatabaseArray.filter((aTrade:any,index:number)=>(aTrade.profitLoss > 0)).slice(0,5).map((anOrder:any, index:any)=>{
             return (
               <Box args={[0.07,0.11,0.07]} position={[index*0.075,0.6,0]}  castShadow receiveShadow key={index}>
-                <meshStandardMaterial color={anOrder[1] != "profit" ? "#f990" : "#ccc"}/>
+                <meshStandardMaterial color={anOrder.profitLoss == 0 ? "#f990" : "#ccc"}/>
               </Box>
             )
-          })}
-          {userDatabaseArray.slice(0,5).map((anOrder:any, index:any)=>{
+          })} */}
+          {userDatabaseArray.filter((aTrade:any,index:number)=>(aTrade.profitLoss > 0)).slice(0,5).map((anOrder:any, index:any)=>{
             return (
               <Box args={[0.065,0.1,0.18]} position={[index*0.075,0.6,0]}  castShadow receiveShadow key={index}>
-                <meshStandardMaterial color={anOrder[1] != "profit"  ? "#aaaaaa" : "#ffaa33"}
+                <meshStandardMaterial color={anOrder.profitLoss == 0  ? "#aaaaaa" : "#ffaa33"}
                 />
               </Box>
             )
@@ -110,6 +218,27 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
           })}
         </group>
       </>}
+
+
+
+      
+      {state.hasAnyToken && <>
+            <Box args={[1.5,0.66,1.2]} position={[0.05,-0.81,1.88]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#fff"}/>
+            </Box>
+            <Box args={[0.9,0.6,0.95]} position={[0.05,-0.75,1.84]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#B6AfA5"}/>
+            </Box>
+          <Box args={[0.5,0.1,2.2]} position={[0.08,-1.12,1]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#eee"}/>
+            </Box>
+          <Box args={[0.85,0.2,0.85]} position={[0.08,-1.12,-0.5]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#ddd"}/>
+            </Box>
+          </>}
+
+
+
     </>
   )
 }

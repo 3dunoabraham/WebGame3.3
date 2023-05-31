@@ -42,7 +42,7 @@ export async function POST(request: any) {
     makeLimitOrder( { side, symbol, quantity, price }, apikeypublic, apikeysecret,
       (result: any) => { 
         console.log("actually did trade thru api")
-        if (!result) { throw Error }
+        if (!result) { throw Error("no result in make limit order") }
       }
     );
   }
