@@ -674,7 +674,7 @@ function Component ({}) {
           <meshStandardMaterial color={"#333"}/>
         </Box> */}
         {/* PIPE 2 */}
-        {"link" in tokensArrayObj && <>
+        {("link" in tokensArrayObj || (hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser))&& <>
           {/* <Box args={[0.1,0.1,0.5]} position={[-0.2,-0.45,-0.3]} castShadow receiveShadow>
             <meshStandardMaterial color={"#888"}/>
           </Box> */}
