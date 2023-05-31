@@ -1,7 +1,8 @@
 import CONSTANTS from '@/../script/constant/json/api.json'
 
 const api_name:any = process.env.AUTH_API_NAME || CONSTANTS.AUTH_API_NAME
-const api_url = process.env.AUTH_API_URL || CONSTANTS.AUTH_API_URL
+let api_url = process.env.AUTH_API_URL || CONSTANTS.AUTH_API_URL
+api_url = process.env.HOST+"/api/supa"
 
 export const USERCOOKIENAME = "user"
 export const JWTNAME = "session"
@@ -21,7 +22,7 @@ const ROUTES = EXT_ROUTES[api_name]
 
 export async function fetchLogin (credentials:any) {
   try {
-    // console.log("routtt", api_url+ROUTES.login)
+    console.log("routtt", api_url+ROUTES.login)
     const reqRes = await fetch(api_url+ROUTES.login,{
       method:"POST",
       headers:{"Content-Type":"application/json",},
