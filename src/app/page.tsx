@@ -59,17 +59,17 @@ export default async function Page() {
 
       </div>
       {/* style={{filter: "saturate(1.3)"}} */}
-      <div className='pos-abs top-0 w-100 h-100' >
+      <div className='pos-abs top-0 w-100 h-100 '  >
         {/* <div className='pt-8 flex-col'><img src="/images/landing.jpg" alt="" /></div> */}
         <Suspense>
           <Level2 />
         </Suspense>
-        {!foundJWT && 
+        {!foundJWT &&  <>
           <DevelopmentRegister />
-        }
-        {!!foundJWT && 
+        </>}
+        {!!foundJWT && <>
           <DevelopmentProfile />
-        }
+        </>}
       </div>
     </main>
   </>)

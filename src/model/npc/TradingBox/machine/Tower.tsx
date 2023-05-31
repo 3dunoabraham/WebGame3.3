@@ -84,7 +84,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
             <meshStandardMaterial color={"#707070"}  />
           </Cylinder>
          }
-         <Cylinder args={[0.12, 0.15, 1, 4]} position={[0.0,0.1,-0.05]} // base connector
+         <Cylinder args={[0.12, 0.15, 1, 4]} position={[0.0,0.08,-0.05]} // base connector
            receiveShadow castShadow
            rotation={[0,Math.PI/4*3,0]}
          >

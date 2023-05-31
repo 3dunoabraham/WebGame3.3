@@ -11,7 +11,22 @@ function Component ({}) {
     const [asd, s__asd] = useState("")
 
     return (<>
-    
+        
+        {/* <div className="tx-red w-100 flex flex-justify-between flex-1 _ddb ">
+            <div>test</div>
+            <div>test 1 </div>
+            <div>test 12</div>
+        </div>
+        {asd == "" && <>
+            <div className=' tx-white tx-shadow-2 _ddg z-1001 pos-abs bottom-0 left-0 w-100'>
+                <div className="flex w-100 flex-justify-between">
+                    <div>test</div>
+                    <div>test 1 </div>
+                    <div>test 12</div>
+                </div>
+            </div>
+        </>} */}
+
         {asd == "landing" && <>
             <div className="w-100 z-1001 h-min-100vh  75 bg-glass-5 pos-fixed flex-col top-0"
                 style={{background:"linear-gradient(180deg, #666666ee, #333333ee 50%, #000000ee 100%)"}}
@@ -114,9 +129,9 @@ function Component ({}) {
                         </div>
                     </details>
                     
-                <div onClick={()=>{s__asd("")}} className="opaci-chov--50 tx-center pos-abs bottom-0 right-0">
+                <div onClick={()=>{s__asd("")}} className="opaci-chov--50 tx-center pos-abs bottom-0 mb-8  right-0">
 
-                    <h1 className="tx-white pa-8 underline tx-xl" style={{color:"orange"}}>Back to Game</h1>
+                    <h1 className="tx-white pa-8  tx-xl" style={{color:"orange"}}>Back to Game</h1>
                 </div>
                 </div>
             </div>
