@@ -1,7 +1,11 @@
 import { Box, Cylinder } from "@react-three/drei"
+import { useAuth } from "@/../script/state/context/AuthContext"
 
 
 function Component ({calls, state}:any) {
+  const { user, do:{login, demo}, jwt }:any = useAuth()
+
+
   return (<>
     {state.hasAnyToken &&
       <group position={[0,0,-1.5]}>

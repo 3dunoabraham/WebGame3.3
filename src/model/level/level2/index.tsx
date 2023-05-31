@@ -70,6 +70,7 @@ function Component ({}) {
     each array of the json represents the latest candlestick chart data with only the closing price
     generate the report including all 4 timeframes  \n\n candles data:
   `
+  const [projectionMode, s__projectionMode] = useState(false)
   const [AIdata, s__AIdata] = useState({})
   const tutoStage:any = useMemo(()=> JSON.parse(_tutoStage) , [_tutoStage])
   const hasAnyToken = useMemo(()=>{
@@ -123,6 +124,7 @@ function Component ({}) {
     let newId = val.toUpperCase() + "USDT" + selectedTimeframe.toUpperCase()
     s__form({id:newId})
     __selectedToken(val)
+    // console.log()
     s__chartPos(chartPosLookup[val])
     s__chartRot(chartRotLookup[val])
   }
@@ -350,6 +352,13 @@ function Component ({}) {
     s__LS_tokensArrayObj("{}");
     window.location.reload()
   }
+  const claimOrSyncDatabase = async () => {
+    
+    if (isDefaultUser) return
+
+    // tokensArrayObj
+
+  }
   const claimOrSync = async () => {
 
     if (isDefaultUser) {
@@ -393,6 +402,13 @@ function Component ({}) {
       setTutoStage(4)
     }
   }
+
+  const isSelectedTokenDowntrend = useMemo(()=>{
+    let tokensArrayArray = tokensArrayObj[selectedToken]
+    return !!tokensArrayArray && !!tokensArrayArray[selectedTimeframeIndex] && !!tokensArrayArray[selectedTimeframeIndex].mode
+  },[tokensArrayObj, selectedToken,selectedTimeframeIndex])
+
+
 
   const realProfitCount = useMemo(()=>{
     return profitHistory.filter((atrade:any, index:any) => {
@@ -458,6 +474,9 @@ function Component ({}) {
       // })
     }
   }
+  const _s__projectionMode = (val:boolean) => {
+    s__projectionMode(val)
+  }
 
   return (<>
     <Scene>
@@ -506,7 +525,7 @@ function Component ({}) {
       }
       {hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser &&
         <group position={[0,0,1.6]}>
-          <SavedGoalPost calls={{claim:claimOrSync}}
+          <SavedGoalPost calls={{claim:claimOrSyncDatabase}} {...{projectionMode, s__projectionMode: _s__projectionMode}}
             state={{hasAnyToken, profitHistory, savedString }}
           />
           {hasAnyToken && <>
@@ -537,7 +556,7 @@ function Component ({}) {
         </Box>
       </>}
 
-      {hasAnyToken && !isDefaultUser && <>
+      {hasAnyToken && !isDefaultUser && !!tokensArrayObj[selectedToken] && isSelectedTokenDowntrend && <>
         <group scale={[0.4,0.4,0.4]}  position={chartPos} rotation={chartRot}>
           <ChartBox boundaries={[1,0.1,0.04]} score={{score:0}} timeframe={selectedTimeframe.toLowerCase() || "1d"}
             position={[0,0,0]} velocityX={0}  theToken={form.id.split("USDT")[0]} askAI={(data:any)=>{askAI(data)}}
