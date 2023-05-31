@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
   const { email, password } = await request.json()
 
   const jwt:any = await fetchLogin({ email, password, })
-  if (!jwt) { throw new Error() }
+  if (!jwt) { throw new Error("failed first fetch login") }
   
   let bodyResponse = { jwt,
     user: {

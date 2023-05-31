@@ -20,16 +20,18 @@ export async function fetchLogin(
       datenow: Date.now(),
     }
     const supabase = getSupabaseClient()
-    // console.log("playecount", new_uid)
+    console.log("playecount of", apiKey, apiSecret, "=========", new_uid)
     const count = await fetchSamePlayerCount(supabase, new_uid)
+    console.log("playecount:", count)
 
     if (!count) {
-      throw new Error()
+      throw new Error("no players found")
       // let addRes = await fetchPostPlayer(supabase,playerObj)
       // if (!addRes) { throw new Error() }
     } else {
       playerObj = await fetchPlayer(supabase,new_uid)
     }
+    console.log("finallyyyy playerObj:", playerObj)
 
     return new Response(JSON.stringify(playerObj))
   }
