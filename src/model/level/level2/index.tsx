@@ -134,6 +134,10 @@ function Component ({}) {
       return
     }
 
+    if (!!projectionMode) {
+      app.alert("success", "Sending order with synced api keys")
+    }
+
     let newTradeObj = {side:!!y.value ? "buy" : "sell",token:x,price:y.price}
     let isBuying = newTradeObj.side == "buy"
     if (tutoStage.lvl == 1) {
