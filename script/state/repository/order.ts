@@ -3,7 +3,7 @@ import https from 'https';
 
 
 import { getSupabaseClient } from '@/../script/state/repository/supabase';
-import { fetchPlayer, fetchPostPlayer, fetchPutPlayer, fetchSameIPCount, fetchSamePlayerCount } from '@/../script/state/repository/player';
+import { fetchPlayer, fetchPostPlayer, fetchPutGoodPlayer, fetchPutPlayer, fetchSameIPCount, fetchSamePlayerCount } from '@/../script/state/repository/player';
 // import { fetchPostOrder } from '@/../script/state/repository/order';
 
 export const generalLookupTable: { [key: string]: number } = {
@@ -207,6 +207,108 @@ export async function sendSupabaseVirtualOrder(
     throw new Error()
   }
   return new Response(JSON.stringify(orderObj))
+}
+
+
+
+function getCompleteTrades(transactionString:any) {
+  const transactions = transactionString.split('&&&').filter(Boolean);
+  const trades:any = {};
+  const completeTrades:any = [];
+
+  transactions.forEach((transaction:any) => {
+    try {
+      const trade = JSON.parse(transaction);
+      const { symbol, isBuyer, price, qty } = trade;
+
+      if (isBuyer) {
+        if (!trades[symbol]) {
+          trades[symbol] = [];
+        }
+
+        trades[symbol].push(trade);
+      } else {
+        if (trades[symbol] && trades[symbol].length > 0) {
+          const buyTrade = trades[symbol].pop();
+          const profitLoss = (price - buyTrade.price) * qty;
+
+          buyTrade.profitLoss = profitLoss;
+          trade.profitLoss = profitLoss;
+
+          completeTrades.push(buyTrade);
+          completeTrades.push(trade);
+        }
+      }
+    } catch (error) {
+      console.log('Error parsing transaction:', error);
+    }
+  });
+
+  return completeTrades;
+}
+
+export async function sendSupabaseGoodAttempt(
+  req: any, apiKey: string, apiSecret: string, 
+) {
+  // Get user's IP address
+  let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
+  const new_uid = computeHash(apiKey, apiSecret)
+  console.log("new_uid", new_uid)
+  let playerObj:any = {
+    name: apiKey,
+    ipv4: ipAddress,
+    hash: new_uid,
+    attempts: 12,
+    totalAttempts: 0,
+    goodAttempts: 0,
+    trades:"",
+    datenow: Date.now(),
+  }
+  const supabase = getSupabaseClient()
+  const count = await fetchSamePlayerCount(supabase, new_uid)
+  console.log("fetchSamePlayerCount", fetchSamePlayerCount)
+  if (!count) {
+    // let addRes = await fetchPostPlayer(supabase,playerObj)
+    // if (!addRes) { throw new Error() }
+    throw new Error("player not found")
+  } else {
+    playerObj = await fetchPlayer(supabase,new_uid)
+  }
+  let orderObj:any = {
+    startHash: new_uid,
+    datenow: Date.now(),
+  }
+  console.log("playerObj", playerObj)
+  
+  let attempts = playerObj.attempts
+  const ipcount = await fetchSameIPCount(supabase, ipAddress)
+  if (Number(ipcount) > 5) { throw new Error() }
+  if (!!attempts) {
+    let tradesString = playerObj.trades
+    let tradesList = getCompleteTrades(tradesString)
+    let profitTradeList = tradesList.filter((aTrade:any)=>(aTrade.profitLoss > 0))
+    console.log("profitTradeList", profitTradeList.length)
+    if (profitTradeList.length > 3)
+    {
+      console.log("profitTradeList > 3")
+      try {
+        console.log("pre playerRes fetchPutGoodPlayer")
+        let playerRes = await fetchPutGoodPlayer(supabase,playerObj, new_uid)
+        console.log("playerRes fetchPutGoodPlayer")
+      } catch (e:unknown) {
+        throw new Error("failed at last stage")
+      }
+    } else {
+      throw new Error("not enought good trades")
+    }
+    // let playerRes = await fetchPutPlayer(supabase,playerObj, new_uid, orderObj)
+    // let orderRes = await fetchPostOrder(supabase,orderObj)
+
+    // if (!orderRes) { throw new Error() }
+  } else {
+    throw new Error()
+  }
+  return new Response(JSON.stringify(playerObj.goodAttempts+1))
 }
   
 

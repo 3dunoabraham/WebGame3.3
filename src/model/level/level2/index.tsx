@@ -522,6 +522,32 @@ function Component ({}) {
   const _s__projectionMode = (val:boolean) => {
     s__projectionMode(val)
   }
+  const triggerSyncGoodPlace = async () => {
+    const splitKey = binanceKeys.split(":")
+    if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
+
+    try {
+      let thedata = {
+        apiKey: splitKey[0],
+        apiSecret: splitKey[1],
+      }
+    app.alert("neutral", "Syncing Good Trades...")
+    let fetchRes:any = await fetchPost("/api/order/sync",thedata)
+    if (fetchRes.status >= 400) {
+      app.alert("error","Failed to Syncing Good Trades")
+      return
+    }
+    // app.alert("success", "Order saved")
+    // if (orderHistory.length >= 9) {
+    //   alert("Simulation Bankrunptcy!")
+    //   return
+    // }
+      app.alert("success", "Successfully Syncing Good Trades!")
+      window.location.reload()
+    } catch (e:unknown) {
+      app.alert("error", "Failed good order Syncing !")
+    }
+  }
 
   return (<>
     <Scene>
@@ -570,7 +596,7 @@ function Component ({}) {
       }
       {hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser &&
         <group position={[0,0,1.6]}>
-          <SavedGoalPost calls={{claim:claimOrSyncDatabase}} {...{projectionMode, s__projectionMode: _s__projectionMode}}
+          <SavedGoalPost calls={{triggerSyncGoodPlace, claim:claimOrSyncDatabase}} {...{projectionMode, s__projectionMode: _s__projectionMode}}
             state={{hasAnyToken, profitHistory, savedString }}
           />
         </group>

@@ -51,3 +51,18 @@ export async function fetchPutPlayer(supabase:any, playerObj:any, new_uid:any, o
   
     return !error_removeattempt
 }
+
+export async function fetchPutGoodPlayer(supabase:any, playerObj:any, new_uid:any ) {
+
+    const { data: removeattempt, error:error_removeattempt } = await supabase
+        .from('start')
+        .update({
+            goodAttempts: playerObj.goodAttempts + 1,
+            trades: ""
+        })
+        .match({ hash: new_uid })
+        .single()
+
+  
+    return !error_removeattempt
+}

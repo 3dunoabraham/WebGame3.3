@@ -95,11 +95,13 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
   // const databaseProfitCount = useMemo(()=>{
   //   return getCompleteTrades()
   // },[userDatabaseArray])
-
+  const syncConvertAttempt = async () => {
+    calls.triggerSyncGoodPlace()
+  }
   return (<>
     
     {state.hasAnyToken && !!superuser && superuser.subscription && <>
-      <group position={[0,0,1.95]} rotation={[Math.PI/2,0,0]}>
+      <group position={[0,0,2.01]} rotation={[Math.PI/2,0,0]}>
         <Cylinder args={[0.12,0.12,0.1,projectionMode ? 4 : 3]} position={[0,0.25,0.15]} castShadow receiveShadow ref={$claimButton}
           onClick={()=>{toggleProjection()}}
         >
@@ -108,6 +110,22 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
         <Cylinder args={[0.16,0.16,0.12,12]} position={[0,0.22,0.15]} castShadow receiveShadow 
         >
           <meshStandardMaterial color={"#ccc"}/>
+        </Cylinder>
+      </group>
+    </>}
+
+
+
+    {state.hasAnyToken && !!superuser && superuser.subscription && databaseProfitCount > 0 && <>
+      <group position={[0,-0.3,1.9]} rotation={[-Math.PI/2,0,0]}>
+        <Cylinder args={[0.08,0.08,0.1,projectionMode ? 4 : 3]} position={[0,0.25,0.15]} castShadow receiveShadow ref={$claimButton}
+          onClick={()=>{syncConvertAttempt()}}
+        >
+          <meshStandardMaterial color={"#f93"}/>
+        </Cylinder>
+        <Cylinder args={[0.11,0.11,0.12,12]} position={[0,0.22,0.15]} castShadow receiveShadow 
+        >
+          <meshStandardMaterial color={"#bbb"}/>
         </Cylinder>
       </group>
     </>}
