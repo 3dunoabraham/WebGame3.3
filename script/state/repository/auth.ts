@@ -2,7 +2,8 @@ import CONSTANTS from '@/../script/constant/json/api.json'
 
 const api_name:any = process.env.AUTH_API_NAME || CONSTANTS.AUTH_API_NAME
 let api_url = process.env.AUTH_API_URL || CONSTANTS.AUTH_API_URL
-api_url = process.env.HOST+"/api/supa"
+const port = process.env.PORT || 3000;
+api_url = api_url+":"+port+"/api/supa"
 
 export const USERCOOKIENAME = "user"
 export const JWTNAME = "session"
