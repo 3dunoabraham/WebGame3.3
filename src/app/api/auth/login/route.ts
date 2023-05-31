@@ -3,13 +3,21 @@ import { NextRequest } from "next/server"
 
 import CONSTANTS from '@/../script/constant/json/api.json'
 import { JWTNAME, fetchLogin } from '@/../script/state/repository/auth';
+import { getSupabasePlayer } from "../../../../../script/state/repository/order";
 
 export async function POST(request: NextRequest) {
   const { email, password } = await request.json()
 
-  const jwt:any = await fetchLogin({ email, password, })
-  if (!jwt) { throw new Error("failed first fetch login") }
+  // const jwt:any = await fetchLogin({ email, password, })
+  // if (!jwt) { throw new Error("failed first fetch login") }
   
+  // console.log("creds, ", apiKey, apiSecret)
+  let _player:any = await getSupabasePlayer(request,{},email, password,()=>{})
+  // console.log("some resssssssssssss, ",)
+  let player:any = await _player.json()
+  console.log("playerzzzzzzzzz, ",player)
+
+  let jwt = player.jwt
   let bodyResponse = { jwt,
     user: {
       email, apiname: process.env.AUTH_API_NAME || CONSTANTS.AUTH_API_NAME,
