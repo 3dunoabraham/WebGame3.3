@@ -134,9 +134,6 @@ function Component ({}) {
       return
     }
 
-    if (!!projectionMode) {
-      app.alert("success", "Sending order with synced api keys")
-    }
 
     let newTradeObj = {side:!!y.value ? "buy" : "sell",token:x,price:y.price}
     let isBuying = newTradeObj.side == "buy"
@@ -175,6 +172,11 @@ function Component ({}) {
     } else {
       if (newTradeObj.side == "buy") {
         s__currentOrders({...currentOrders, [form.id]: newTradeObj })
+        
+        if (!!projectionMode) {
+          projectVirtualOrder(form.id, newTradeObj)
+          app.alert("success", "Sending order with synced api keys")
+        }
       } 
       if (newTradeObj.side == "sell") {
         s__orderHistory(orderHistory)
@@ -208,6 +210,39 @@ function Component ({}) {
     //   alert("Simulation Bankrunptcy!")
     //   return
     // }
+  }
+  const projectVirtualOrder = async (theid:any, thetrade:any) => {
+    console.log("theid, thetrade")
+    console.log(theid, thetrade)
+
+    
+    const splitKey = binanceKeys.split(":")
+    if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
+
+    try {
+      let thedata = {
+        apiKey: splitKey[0],
+        apiSecret: splitKey[1],
+        ...thetrade,
+        // price: `${thetrade}`,
+        quantity: 39,
+        symbol: thetrade.token.toUpperCase()+"USDT",
+      }
+    app.alert("neutral", "Saving Order")
+    let fetchRes:any = await fetchPost("/api/order/place",thedata)
+    if (fetchRes.status >= 400) {
+      app.alert("error","Failed to save order")
+      return
+    }
+    // app.alert("success", "Order saved")
+    // if (orderHistory.length >= 9) {
+    //   alert("Simulation Bankrunptcy!")
+    //   return
+    // }
+      app.alert("success", "Successfully projected order to synced API!")
+    } catch (e:unknown) {
+      app.alert("error", "Failed order projection!")
+    }
   }
   const onTextClick = (x:any) => { 
     s__selectedToken(x)

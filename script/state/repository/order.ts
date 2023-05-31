@@ -130,7 +130,8 @@ export function makeLimitOrder({ side, symbol, quantity, price, recvWindow = 500
   const params = `symbol=${symbol}&side=${side}&type=LIMIT&timeInForce=GTC&quantity=${quantity}&price=${_price}&recvWindow=${recvWindow}&timestamp=${timestamp}`;
   const signature = crypto.createHmac('sha256', apiSecret).update(params).digest('hex');
   const data = `${params}&signature=${signature}`;
-
+  console.log("bout to send this params", params)
+  console.log("bout to this keys", apiKey, apiSecret)
   const req = https.request(options, (res) => {
     let result = '';
     res.on('data', (data) => { result += data; });
@@ -171,8 +172,9 @@ export async function sendSupabaseVirtualOrder(
   const supabase = getSupabaseClient()
   const count = await fetchSamePlayerCount(supabase, new_uid)
   if (!count) {
-    let addRes = await fetchPostPlayer(supabase,playerObj)
-    if (!addRes) { throw new Error() }
+    // let addRes = await fetchPostPlayer(supabase,playerObj)
+    // if (!addRes) { throw new Error() }
+    throw new Error("player not found")
   } else {
     playerObj = await fetchPlayer(supabase,new_uid)
   }

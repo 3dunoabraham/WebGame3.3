@@ -39,14 +39,14 @@ function Component ({}) {
                 <div className="py-8 px-8 Q_xs_px-2 tx-white flex-col flex-align-stretch">
                     <div className="flex-center gap-3" >
                         <div className=" gap-1 flex flex-align-end">
-                            Profile:
+                            WebGamed Account:
                         </div>
                         <div>
                             <a href={"/dashboard/?user="+user.email.split("@")[0]} target="_blank"
                                 style={{color:"#0099ff"}}
                                 className=" opaci-chov--50 tx-lgx py-1 block"
                             >
-                                {user.email.split("@")[0]}
+                                #{user.email.split("@")[0]}
                             </a>
                         </div>
                         <div className="pb-1 bg-w-10 flex-1"></div>
@@ -57,11 +57,11 @@ function Component ({}) {
                             Dashboard:
                         </div>
                         <div>
-                            <a href="https://tresduno.vercel.app/" target="_blank"
+                            <a href="https://webgamed.vercel.app/" target="_blank"
                                 style={{color:"#0099ff"}}
                                 className=" opaci-chov--50 tx-lgx py-1 block"
                             >
-                                tresduno.vercel.app
+                                webgamed.vercel.app
                             </a>
                         </div>
                         <div className="pb-1 bg-w-10 flex-1"></div>
@@ -71,11 +71,11 @@ function Component ({}) {
                             Documentation:
                         </div>
                         <div>
-                            <a href="https://3duno.gitbook.io/gtabtc" target="_blank"
+                            <a href="https://3duno.gitbook.io/bytecity" target="_blank"
                                 style={{color:"#0099ff"}}
                                 className=" opaci-chov--50 tx-lg py-1 block"
                             >
-                                3duno.gitbook.io/gtabtc
+                                3duno.gitbook.io/bytecity
                             </a>
                         </div>
                         <div className="pb-1 bg-w-10 flex-1"></div>
@@ -85,11 +85,25 @@ function Component ({}) {
                             Twitter:
                         </div>
                         <div>
-                            <a href="https://twitter.com/gta_btc" target="_blank"
+                            <a href="https://twitter.com/wbytecity" target="_blank"
                                 style={{color:"#0099ff"}}
                                 className=" opaci-chov--50 tx-mdl py-1 block"
                             >
-                                twitter.com/gta_btc
+                                twitter.com/wByteCity
+                            </a>
+                        </div>
+                        <div className="pb-1 bg-w-10 flex-1"></div>
+                    </div>
+                    <div className="flex-center gap-3" >
+                        <div className=" gap-1 flex flex-align-end">
+                            Twitter:
+                        </div>
+                        <div>
+                            <a href="https://twitter.com/webgamed" target="_blank"
+                                style={{color:"#0099ff"}}
+                                className=" opaci-chov--50 tx-mdl py-1 block"
+                            >
+                                twitter.com/WebGamed
                             </a>
                         </div>
                         <div className="pb-1 bg-w-10 flex-1"></div>
