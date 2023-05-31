@@ -9,6 +9,7 @@ import { Suspense } from 'react';
 import Image from 'next/image';
 import DevelopmentRegister from '@/dom/atom/holders/DevelopmentRegister';
 import DevelopmentProfile from '@/dom/atom/holders/DevelopmentProfile';
+import Head from 'next/head';
 
 export default async function Page() {  
   const foundJWT:any = await getJWTCookie()
@@ -26,6 +27,10 @@ export default async function Page() {
     >
       Dashboard
     </a> */}
+    {/* <Head>
+      <link rel="icon" href="./favicon2.ico" type="image/x-icon"  sizes="any" />
+    </Head> */}
+
     <main className='flex-col px-3 pos-rel' style={{background: "linear-gradient(0deg, #000000, #333333)"}}>
       <div className='  h-min-90vh pos-rel w-100 '>      
         
