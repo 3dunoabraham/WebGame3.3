@@ -1,5 +1,5 @@
 import DynaText from "@/model/npc/TradingBox/DynaText"
-import { Box, Cylinder } from "@react-three/drei"
+import { Box, Cylinder, Sphere } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useMemo, useRef, useState } from "react"
 import { useAuth } from "@/../script/state/context/AuthContext"
@@ -104,8 +104,54 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
   }
 
   return (<>
-    
-    {state.hasAnyToken && !!superuser &&  <>
+
+
+
+{state.hasAnyToken && <>
+
+            {/* <Box args={[3,0.2,3]} position={[0,-0.27,4.8]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#996644"}/>
+            </Box>
+            <Box args={[3.01,0.1,3.01]} position={[0,-0.2,4.8]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#66ff65"}/>
+            </Box> */}
+            
+            <Cylinder position={[0,-0.27,6]} args={[3,3,0.15,4]} >
+              <meshStandardMaterial color={"#996644"}/>
+            </Cylinder>
+            
+            <Cylinder position={[0,-0.2,6]} args={[3.02,3.02,0.02,4]} >
+              <meshStandardMaterial color={"#66ff65"}/>
+            </Cylinder>
+
+            {/* LONG BRiDGE */}
+          <Box args={[0.5,0.1,5.6]} position={[0,-1.12,1]} castShadow receiveShadow
+            rotation={[0.03,0,0]}
+          >
+              <meshStandardMaterial color={"#eee"}/>
+            </Box>
+          <Box args={[0.1,0.4,0.2]} position={[0.15,-0.85,-1.65]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#dddddd"}/>
+            </Box>
+          <Box args={[0.1,0.4,0.2]} position={[-0.15,-0.85,-1.65]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#dddddd"}/>
+            </Box>
+          <Box args={[0.45,0.1,0.22]} position={[0,-0.65,-1.65]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#d0d0d0"}/>
+            </Box>
+            <Cylinder position={[0,-0.7,3.5]} args={[0.05,0.15,0.8,4]} >
+              <meshStandardMaterial color={"#bbb"}/>
+            </Cylinder>
+            <Cylinder position={[0,-1.05,3.5]} args={[0.3,0.15,0.25,5]} >
+              <meshStandardMaterial color={"#aaa"}/>
+            </Cylinder>
+            <Sphere position={[0,-1,-1.65]}  args={[0.5, 8, 8]}>
+              <meshStandardMaterial color={"#cff"} opacity={0.5} transparent={true}/>
+            </Sphere>
+          </>} 
+
+
+    {/* {state.hasAnyToken && !!superuser &&  <>
       <group position={[0,0,2.01]} rotation={[Math.PI/2,0,0]}>
         {!superuser.subscription && <>
           
@@ -138,8 +184,15 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
     </>}
 
 
+ */}
 
-    {state.hasAnyToken && !!superuser && superuser.subscription && databaseProfitCount > 0 && <>
+
+
+
+
+
+
+    {/* {state.hasAnyToken && !!superuser && superuser.subscription && databaseProfitCount > 0 && <>
       <group position={[0,-0.3,1.9]} rotation={[-Math.PI/2,0,0]}>
         <Cylinder args={[0.08,0.08,0.1,projectionMode ? 4 : 3]} position={[0,0.25,0.15]} castShadow receiveShadow ref={$claimButton}
           onClick={()=>{syncConvertAttempt()}}
@@ -160,13 +213,11 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
         position={[0.03,-.459,1]}
           rotation={[-Math.PI/2,0,0]}
 
-          // position={[0,-0.15,-1.19]} font={0.15}
         />
         <DynaText text={userDatabaseArray.length == 1 ? "Trade" : "Trades"} color={ "#666666"} font={0.05}
           position={[0.02,-.459,1.15]}
             rotation={[-Math.PI/2,0,0]}
 
-            // position={[0,-0.15,-1.19]} font={0.15}
         />
     </group>}
 
@@ -176,13 +227,11 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
         position={[0.03,-.459,1]}
           rotation={[-Math.PI/2,0,0]}
 
-          // position={[0,-0.15,-1.19]} font={0.15}
         />
         <DynaText text={databaseLossCount == 1 ? "Loss" : "Losses"} color={ "#cc0000"} font={0.06}
           position={[0.02,-.459,1.07]}
             rotation={[-Math.PI/2,0,0]}
 
-            // position={[0,-0.15,-1.19]} font={0.15}
         />
     </group>}
 
@@ -192,13 +241,11 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
         position={[0.03,-.459,1.09]}
           rotation={[-Math.PI/2,0,0]}
 
-          // position={[0,-0.15,-1.19]} font={0.15}
         />
         <DynaText text={databaseProfitCount == 1 ? "Profit" : "Profits"} color={ "#ff9933"} font={0.07}
           position={[0.04,-.459,1.2]}
             rotation={[-Math.PI/2,0,0]}
   
-            // position={[0,-0.15,-1.19]} font={0.15}
         />
     </>}
     
@@ -209,20 +256,24 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
         position={[0,-1.06,0.5]}
           rotation={[-Math.PI/2,0,0]}
 
-          // position={[0,-0.15,-1.19]} font={0.15}
         />
         
       <DynaText text={superuser.subscription == 1 ? "Node" : "Nodes"} color={ "#cc33cc"} font={0.09}
         position={[0.02,-1.06,0.7]}
           rotation={[-Math.PI/2,0,0]}
 
-          // position={[0,-0.15,-1.19]} font={0.15}
         />
       </group>
-    }
+    } */}
+
+
+
+
+
+
   
 
-    {state.hasAnyToken &&
+    {/* {state.hasAnyToken &&
       <group position={[0,0,1.95]}>
         <Cylinder args={[0.25,0.38,0.75,6]} position={[0,-0.32,0]} castShadow receiveShadow 
         >
@@ -232,13 +283,13 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
     }
     {state.hasAnyToken && <>
       <group position={[-0.15,-0.55,1.95]}>
-          {/* {userDatabaseArray.filter((aTrade:any,index:number)=>(aTrade.profitLoss > 0)).slice(0,5).map((anOrder:any, index:any)=>{
+          {userDatabaseArray.filter((aTrade:any,index:number)=>(aTrade.profitLoss > 0)).slice(0,5).map((anOrder:any, index:any)=>{
             return (
               <Box args={[0.07,0.11,0.07]} position={[index*0.075,0.6,0]}  castShadow receiveShadow key={index}>
                 <meshStandardMaterial color={anOrder.profitLoss == 0 ? "#f990" : "#ccc"}/>
               </Box>
             )
-          })} */}
+          })} 
           {userDatabaseArray.filter((aTrade:any,index:number)=>(aTrade.profitLoss > 0)).slice(0,5).map((anOrder:any, index:any)=>{
             return (
               <Box args={[0.065,0.1,0.18]} position={[index*0.075,0.6,0]}  castShadow receiveShadow key={index}>
@@ -276,7 +327,7 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
           <Box args={[0.85,0.2,0.85]} position={[0.08,-1.12,-0.5]} castShadow receiveShadow>
               <meshStandardMaterial color={"#ddd"}/>
             </Box>
-          </>}
+          </>} */}
 
 
 

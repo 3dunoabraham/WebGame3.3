@@ -26,6 +26,7 @@ import { BackSide } from "three";
 import ByteCityEnv from "./ByteCityEnv";
 import { signIn } from "next-auth/react";
 import RoadJack2 from "./decoration/RoadJack2";
+import GoodPlaceGoal from "./goal/GoodPlaceGoal";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -653,6 +654,14 @@ function Component ({}) {
       {hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser &&
         <group position={[0,0,1.6]}>
           <SavedGoalPost calls={{triggerSyncGoodPlace,setAPIKeys, claim:claimOrSyncDatabase}} {...{projectionMode, s__projectionMode: _s__projectionMode}}
+            state={{hasAnyToken, profitHistory, savedString }}
+          />
+        </group>
+      }
+      
+      {hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser && superuser.goodAttempts > 0) && !isDefaultUser &&
+        <group position={[0,0,6]}>
+          <GoodPlaceGoal calls={{triggerSyncGoodPlace,setAPIKeys, claim:claimOrSyncDatabase}} {...{projectionMode, s__projectionMode: _s__projectionMode}}
             state={{hasAnyToken, profitHistory, savedString }}
           />
         </group>
