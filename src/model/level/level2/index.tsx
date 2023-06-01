@@ -43,7 +43,7 @@ const chartRotLookup:any = {
 
 function Component ({}) {
   const app:any = useContext(AppContext)
-  const { user, superuser, do:{login, logout, demo,},  jwt }:any = useAuth()
+  const { user, superuser, do:{login, logout, fetchSuperuser, demo,},  jwt }:any = useAuth()
   
 
   const $bitcoin:any = useRef()
@@ -221,6 +221,8 @@ function Component ({}) {
     console.log("theid, thetrade")
     console.log(theid, thetrade)
 
+
+
     
     const splitKey = binanceKeys.split(":")
     if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
@@ -246,6 +248,8 @@ function Component ({}) {
     //   return
     // }
       app.alert("success", "Successfully projected order to synced API!")
+
+      fetchSuperuser()
     } catch (e:unknown) {
       app.alert("error", "Failed order projection!")
     }
@@ -531,6 +535,48 @@ function Component ({}) {
   const _s__projectionMode = (val:boolean) => {
     s__projectionMode(val)
   }
+  const setAPIKeys = async() => {
+    
+
+    let binanceapikeys:any =  prompt("Enter your API Keys! \n\n < Public : Secret >","") 
+    if (!binanceapikeys) return
+    if (binanceapikeys.split(":").length < 2) return
+    // console.log("")
+
+
+
+
+    
+    const splitKey = binanceKeys.split(":")
+    if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
+
+    try {
+      let thedata = {
+        apiKey: splitKey[0],
+        apiSecret: splitKey[1],
+        binancePublic: binanceapikeys.split(":")[0],
+        binanceSecret: binanceapikeys.split(":")[1],
+    
+        
+      }
+    app.alert("neutral", "Setting api keys")
+    let fetchRes:any = await fetchPost("/api/player/api",thedata)
+    if (fetchRes.status >= 400) {
+      app.alert("error","Failed to Set api keys")
+      return
+    }
+    // app.alert("success", "Order saved")
+    // if (orderHistory.length >= 9) {
+    //   alert("Simulation Bankrunptcy!")
+    //   return
+    // }
+      app.alert("success", "Successfully set API keys!")
+
+      fetchSuperuser()
+    } catch (e:unknown) {
+      app.alert("error", "Failed api setting!")
+    }
+  }
   const triggerSyncGoodPlace = async () => {
     const splitKey = binanceKeys.split(":")
     if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
@@ -606,7 +652,7 @@ function Component ({}) {
       }
       {hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser &&
         <group position={[0,0,1.6]}>
-          <SavedGoalPost calls={{triggerSyncGoodPlace, claim:claimOrSyncDatabase}} {...{projectionMode, s__projectionMode: _s__projectionMode}}
+          <SavedGoalPost calls={{triggerSyncGoodPlace,setAPIKeys, claim:claimOrSyncDatabase}} {...{projectionMode, s__projectionMode: _s__projectionMode}}
             state={{hasAnyToken, profitHistory, savedString }}
           />
         </group>

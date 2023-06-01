@@ -3,7 +3,7 @@ import https from 'https';
 
 
 import { getSupabaseClient } from '@/../script/state/repository/supabase';
-import { fetchPlayer, fetchPostPlayer, fetchPutGoodPlayer, fetchPutPlayer, fetchSameIPCount, fetchSamePlayerCount } from '@/../script/state/repository/player';
+import { fetchPlayer, fetchPostPlayer, fetchPutPlayerAPI, fetchPutGoodPlayer, fetchPutPlayer, fetchSameIPCount, fetchSamePlayerCount } from '@/../script/state/repository/player';
 // import { fetchPostOrder } from '@/../script/state/repository/order';
 
 export const generalLookupTable: { [key: string]: number } = {
@@ -308,6 +308,50 @@ export async function sendSupabaseGoodAttempt(
   } else {
     throw new Error()
   }
+  return new Response(JSON.stringify(playerObj.goodAttempts+1))
+}
+  
+
+export async function setSupabasePlayerAPIKeys(
+  req: any, apiKey: string, apiSecret: string, binancePublic: string, binanceSecret: string, 
+) {
+  // Get user's IP address
+  let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
+  const new_uid = computeHash(apiKey, apiSecret)
+  console.log("new_uid", new_uid)
+  let playerObj:any = {
+    name: apiKey,
+    ipv4: ipAddress,
+    hash: new_uid,
+    attempts: 12,
+    totalAttempts: 0,
+    goodAttempts: 0,
+    trades:"",
+    datenow: Date.now(),
+  }
+  const supabase = getSupabaseClient()
+  const count = await fetchSamePlayerCount(supabase, new_uid)
+  console.log("fetchSamePlayerCount", fetchSamePlayerCount)
+  if (!count) {
+    // let addRes = await fetchPostPlayer(supabase,playerObj)
+    // if (!addRes) { throw new Error() }
+    throw new Error("player not found")
+  } else {
+    playerObj = await fetchPlayer(supabase,new_uid)
+  }
+  let orderObj:any = {
+    startHash: new_uid,
+    datenow: Date.now(),
+  }
+  console.log("playerObj", playerObj)
+  
+  let attempts = playerObj.attempts
+  const ipcount = await fetchSameIPCount(supabase, ipAddress)
+  if (Number(ipcount) > 5) { throw new Error() }
+  
+  let playerRes = await fetchPutPlayerAPI(supabase,playerObj, new_uid,binancePublic, binanceSecret)
+  
+
   return new Response(JSON.stringify(playerObj.goodAttempts+1))
 }
   

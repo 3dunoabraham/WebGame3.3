@@ -42,6 +42,17 @@ const AuthProvider:FC<{
     s__superuser(thePlayer)
       // s__LH_superuser(JSON.stringify(thePlayer))
   }
+  const fetchSuperuser = () => {
+    
+    if (LH_localuser != "user:0000") {
+      //   s__localuser(LH_localuser);
+        let creds = LH_localuser.split(":")
+        let key = creds[0]
+        let secret  = creds[1]
+        fetchUserByKey(key,secret)
+        
+      }
+  }
   useEffect( () => {
     // if()
     // s__superuser(JSON.parse(LH_superuser))
@@ -134,7 +145,7 @@ const AuthProvider:FC<{
     <Auth.Provider value={{
       jwt: session.jwt,  user, // isValidating,
       superuser,
-      do:{login, demo, logout, },
+      do:{login, demo, logout, fetchSuperuser },
       can,
 
     }}>

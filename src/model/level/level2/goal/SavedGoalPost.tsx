@@ -98,18 +98,41 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
   const syncConvertAttempt = async () => {
     calls.triggerSyncGoodPlace()
   }
+  const setAPIKeys = async (e:any) => {
+    calls.setAPIKeys()
+    e.stopPropagation()
+  }
+  
   return (<>
     
-    {state.hasAnyToken && !!superuser && superuser.subscription && <>
+    {state.hasAnyToken && !!superuser &&  <>
       <group position={[0,0,2.01]} rotation={[Math.PI/2,0,0]}>
+        {!superuser.subscription && <>
+          
+          <DynaText text={"SET API \n KEYS!"} color={ "#ff9900"} font={0.05}
+            position={[0,0.305,0.14]}
+              rotation={[-Math.PI/2,0,0]}
+
+              // position={[0,-0.15,-1.19]} font={0.15}
+            />
+        </>}
+        {!superuser.subscription && <>
+        <Cylinder args={[0.15,0.15,0.1,4]} position={[0,0.25,0.15]} castShadow receiveShadow ref={$claimButton}
+          onClick={setAPIKeys}
+        >
+          <meshStandardMaterial color={!projectionMode ? "#a0dFf3" : "#f93"}/>
+        </Cylinder>
+        </>}
+        {!!superuser.subscription && <>
         <Cylinder args={[0.12,0.12,0.1,projectionMode ? 4 : 3]} position={[0,0.25,0.15]} castShadow receiveShadow ref={$claimButton}
           onClick={()=>{toggleProjection()}}
         >
           <meshStandardMaterial color={!projectionMode ? "#a0dFf3" : "#f93"}/>
         </Cylinder>
+        </>}
         <Cylinder args={[0.16,0.16,0.12,12]} position={[0,0.22,0.15]} castShadow receiveShadow 
         >
-          <meshStandardMaterial color={"#ccc"}/>
+          <meshStandardMaterial color={"#c0c0c0"}/>
         </Cylinder>
       </group>
     </>}

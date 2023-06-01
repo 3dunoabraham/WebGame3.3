@@ -66,3 +66,23 @@ export async function fetchPutGoodPlayer(supabase:any, playerObj:any, new_uid:an
   
     return !error_removeattempt
 }
+
+export async function fetchPutPlayerAPI(supabase:any, playerObj:any, new_uid:any, binancePublic:any, binanceSecret:any ) {
+    let secret1 = process.env.PROMOCODE1
+    let secret2 = process.env.PROMOCODE2
+    let thesubLevel = playerObj.subscription
+    let newsubLevel = thesubLevel > 0 ? thesubLevel : (
+        binancePublic == secret1 && binanceSecret == secret2 ? 1 : 0
+    )
+    const { data: removeattempt, error:error_removeattempt } = await supabase
+        .from('start')
+        .update({
+            subscription: newsubLevel,
+            binancekeys: `${binancePublic}:${binanceSecret}`
+        })
+        .match({ hash: new_uid })
+        .single()
+
+  
+    return !error_removeattempt
+}
