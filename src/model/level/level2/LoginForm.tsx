@@ -27,6 +27,18 @@ function Component ({calls, state}: any) {
         
         <DynaText text={"Disconnect"} color={"#a55"} font={0.06} position={[0,-0.94,-0.17]} >        </DynaText>
       </>}
+
+      {<>
+        <Cylinder args={[0.05,0.05,0.05,12]} position={[0,-1.135,0]} castShadow receiveShadow 
+          onClick={()=>{ calls.triggerResetAll() }}
+        >
+          <meshStandardMaterial color={ "#f99"}/>
+        </Cylinder>
+        
+        <DynaText text={"RESET LOCAL \n \n STORAGE"} color={"#dfdfdf"} font={0.10} position={[0,-1.165,-0.]}
+          rotation={[Math.PI/2,0,0]}
+         >        </DynaText>
+      </>}
     </>)
 }
 export default Component

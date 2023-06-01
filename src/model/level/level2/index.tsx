@@ -310,7 +310,15 @@ function Component ({}) {
     
     quitAll()
   }
+  const triggerResetAll = () => {
+    if (prompt("Reset local storage (yes/no)","yes") !== "yes") return
 
+    
+    s__LS_binanceKeys("user:0000");
+    s__LS_tutoStage("{}");
+    s__LS_tokensArrayObj("{}");
+    window.location.reload()
+  }
   const triggerLogin = async () => {
     if (tutoStage.lvl == 3) { firstLogin(); return }
     let keyval:any =  prompt("Enter your WebGamed Credentials! \n\n < Email : SecretKeyCode >","") 
@@ -388,13 +396,14 @@ function Component ({}) {
     return false
   },[binanceKeys])
   const quitAll = async () => {
-    let logoutres = await logout()
-    // console.log(logoutres, "logoutres")
-    // return
 
     s__LS_binanceKeys("user:0000");
     s__LS_tutoStage("{}");
     s__LS_tokensArrayObj("{}");
+
+    let logoutres = await logout()
+    // console.log(logoutres, "logoutres")
+    // return
     window.location.reload()
   }
   const claimOrSyncDatabase = async () => {
@@ -586,7 +595,8 @@ function Component ({}) {
         state={{hasAnyToken, tutoStage, isDefaultUser}}
       />
 
-      <LoginForm state={{isDefaultUser, }} calls={{triggerLogout, triggerLogin}} />
+      <LoginForm state={{isDefaultUser, }} calls={{triggerLogout, triggerResetAll, triggerLogin}} />
+
       {hasAnyToken &&  tutoStage.lvl >= 3 &&
         <group position={[0,0.3,0]}> 
           <GoalPost calls={{claim:claimOrSync}}
