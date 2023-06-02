@@ -7,7 +7,7 @@ import { fetchPlayer, fetchPostPlayer, fetchPutPlayerAPI, fetchPutGoodPlayer, fe
 // import { fetchPostOrder } from '@/../script/state/repository/order';
 
 export const generalLookupTable: { [key: string]: number } = {
-  'BTC': 2,
+  'BTC': 1,
   'ETH': 5,
   'BNB': 4,
   'USDT': 4,
@@ -15,8 +15,10 @@ export const generalLookupTable: { [key: string]: number } = {
   'DOGE': 8,
   'XRP': 4,
   'DOT': 4,
+  'LINK': 3,
+  'FTM': 4,
   'UNI': 4,
-  'SOL': 4
+  'SOL': 4,
 };
 export const qtyLookupTable: { [key: string]: number } = {
   'BTCUSDT': 3,
@@ -27,6 +29,8 @@ export const qtyLookupTable: { [key: string]: number } = {
   'DOGEUSDT': 8,
   'XRPUSDT': 4,
   'DOTUSDT': 4,
+  'LINKUSDT': 3,
+  'FTMUSDT': 4,
   'UNIUSDT': 4,
   'SOLUSDT': 4
 };
@@ -39,6 +43,8 @@ export const priceLookupTable: { [key: string]: number } = {
   'DOGEUSDT': 8,
   'XRPUSDT': 4,
   'DOTUSDT': 4,
+  'LINKUSDT': 3,
+  'FTMUSDT': 4,
   'UNIUSDT': 4,
   'SOLUSDT': 4,
 };

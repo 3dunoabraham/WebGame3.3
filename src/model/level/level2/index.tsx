@@ -452,7 +452,9 @@ function Component ({}) {
         if (!loginRes) return 
 
       } else {
-        app.alert("success", "Congratulations! Please contact support with your email and secret key code!")
+        s__profitHistory([])
+
+        app.alert("success", "Congratulations! you've reached the simulated!")
       }
       // syncProfitTrades
     }

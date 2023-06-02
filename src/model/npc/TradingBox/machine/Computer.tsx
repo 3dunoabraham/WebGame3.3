@@ -21,21 +21,21 @@ function Component ({tokensArrayArray, state, calls}:any) {
         {  // hovered active button
         <>
           <group position={new Vector3(-0.1,-0.1,-0.)} >
-            <group position={new Vector3(-0.12,0.02,-0.)}>
+            <group position={new Vector3(-0.12,0.02,-0.086)}>
               { // north facing
                 <DynaText text={state.token.toUpperCase()+"" || ""} 
                   color={ !!tokensArrayArray ? state.tokenColor : "#222222"}
-                  position={new Vector3(0.1,0.25,0.0)}
+                  position={new Vector3(0.12,0,0.0)}
                   rotation={[0,0,0]}
-                  isSelected={state.isSelectedId}  font={0.2} onClick={()=>{}}
+                  isSelected={state.isSelectedId}  font={0.12} onClick={()=>{}}
                 />
               }
               { // south facing
                 <DynaText text={state.token.toUpperCase()+"" || ""} 
                   color={ !!tokensArrayArray ? state.tokenColor : "#222222"}
-                  position={new Vector3(0.1,0.25,-0.035)}
+                  position={new Vector3(0.12,0,-0.03)}
                   rotation={[0,Math.PI,0]}
-                  isSelected={state.isSelectedId}  font={0.2} onClick={()=>{}}
+                  isSelected={state.isSelectedId}  font={0.12} onClick={()=>{}}
                 />
               }
             </group>
@@ -43,10 +43,10 @@ function Component ({tokensArrayArray, state, calls}:any) {
         </>}
       </>}
       { /* (state.isSelectedId || !!tokensArrayArray) && */ <>
-        <group position={new Vector3(-0.1,-0.1,-0.)} // big monitor SCREEN
+        <group position={new Vector3(-0.1,-0.11,-0.)} // big monitor SCREEN
         >
-          <mesh castShadow receiveShadow position={[0.0,0.15,-0.015]} >
-            <boxGeometry args={[0.5, 0.5, 0.025]} />
+          <mesh castShadow receiveShadow position={[0.0,0.,-0.099]} >
+            <boxGeometry args={[0.3, 0.25, 0.025]} />
             <meshStandardMaterial color={!!tokensArrayArray ? "#C7E4EC" : "#666666"} 
               transparent={!tokensArrayArray || !state.isSelectedId}
               opacity={0.5}
@@ -54,36 +54,36 @@ function Component ({tokensArrayArray, state, calls}:any) {
           </mesh>        
         </group>
       </>}
-      <group position={new Vector3(-0.1,0,-0.2)} >
+      <group position={new Vector3(-0.1,-0.05,-0.2)} >
         { // big monitor BASE
           <>
          {!!tokensArrayArray && !!state.isSelectedId &&
-           <Cylinder args={[0.2, 0.3, 0.2, 4]} position={[0.0,-0.3,-0.05]} // base base
+           <Cylinder args={[0.1, 0.2, 0.17, 4]} position={[0.0,-0.25,-0.05]} // base base
             receiveShadow castShadow
             rotation={[0,Math.PI/4*3,0]}
           >
-            <meshStandardMaterial color={"#888"}  />
+            <meshStandardMaterial color={"#808080"}  />
           </Cylinder>
          }
-            <Cylinder args={[0.02, 0.03, 0.5, 4]} position={[0.0,-0.1,-0.05]} // base connector
+            <Cylinder args={[0.008, 0.03, 0.43, 4]} position={[0,-0.11,0.04]} // base connector
               receiveShadow castShadow
               rotation={[0,Math.PI/4*3,0]}
             >
               <meshStandardMaterial color={"#888"}  />
             </Cylinder>
-            <Cylinder args={[0.02, 0.05, 0.28, 4]} position={[0.0,0.1,0.05]} // monitor connector
+            <Cylinder args={[0.03, 0.01, 0.12, 7]} position={[0.0,0.105,0.065]} // webcam camera
               receiveShadow castShadow
               rotation={[0,Math.PI/2,Math.PI/2]}
             >
-              <meshStandardMaterial color={"#888"}  />
+              <meshStandardMaterial color={"#808080"}  />
             </Cylinder>
           </>
         }
       </group>
 
       {state.isSelectedId && <>
-        <group position={new Vector3(-0.1,0,-0.2)} >
-          <Cylinder args={[0.42, 0.2, 0.64, 4]} position={[0.0,0.05,-0.128]} // big monitor CASE
+        <group position={new Vector3(-0.1,-0.18,-0.2)} >
+          <Cylinder args={[0.27, 0.15, 0.35, 4]} position={[0.0,0.08,-0.07]} // big monitor CASE
             rotation={[Math.PI/2,Math.PI/4*3,0]} receiveShadow castShadow
           >
             <meshStandardMaterial color={"#888"}  />
