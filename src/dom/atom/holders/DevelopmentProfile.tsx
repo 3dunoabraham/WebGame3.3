@@ -9,7 +9,11 @@ function Component ({}) {
     // const [asd, s__asd] = useState("")
     const { user, do:{login, demo}, jwt }:any = useAuth()
 
-
+    const fullscreen = () => {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+        }
+      }
     // const [asd, s__asd] = useState("")
     const [asd, s__asd] = useState("")
 
@@ -174,6 +178,10 @@ function Component ({}) {
                         <b className="tx-lg block">A</b>pplication
                     </div>
                     <div>| Byte City</div>
+                </div>
+
+                <div>
+                        <div className="tx-red" onClick={fullscreen}>fullscreen</div>
                 </div>
 
                 <div onClick={()=>{s__asd("")}} className="opaci-chov--50">
