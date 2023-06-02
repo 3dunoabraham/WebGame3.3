@@ -21,7 +21,7 @@ function getCompleteTrades(transactionString:any) {
 
         trades[symbol].push(trade);
       } else {
-        if (trades[symbol] && trades[symbol].length > 0) {
+        if (trades[symbol] && trades[symbol].length === 1) {
           const buyTrade = trades[symbol].pop();
           const profitLoss = (price - buyTrade.price) * qty;
 
@@ -30,6 +30,7 @@ function getCompleteTrades(transactionString:any) {
 
           completeTrades.push(buyTrade);
           completeTrades.push(trade);
+          delete trades[symbol];
         }
       }
     } catch (error) {

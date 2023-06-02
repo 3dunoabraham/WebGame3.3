@@ -217,6 +217,10 @@ export async function sendSupabaseVirtualOrder(
 
 
 
+
+
+
+
 function getCompleteTrades(transactionString:any) {
   const transactions = transactionString.split('&&&').filter(Boolean);
   const trades:any = {};
