@@ -9,7 +9,7 @@ export async function DELETE(request: NextRequest) {
   if (!jwtObj) throw new Error() 
   
   const reqRes:any = await fetchLogout(jwtObj)
-  if (!reqRes && !reqRes.data) { throw new Error()}
+  // if (!reqRes && !reqRes.data) { throw new Error()}
 
   return new Response(JSON.stringify(reqRes), {
     headers: { 'Set-Cookie': `${JWTNAME}=; Path=/; Secure; HttpOnly; SameSite=None; Max-Age=0` }
