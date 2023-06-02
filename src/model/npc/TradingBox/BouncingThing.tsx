@@ -2,11 +2,12 @@ import { useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import { Mesh } from "three";
 
-function Component ({_bouncingThing, tokensArrayArray, isSelectedId, token, clicked}:any) {
+function Component ({_bouncingThing, tokensArrayArray, isSelectedId, token, clicked, livestate}:any) {
   
   const shakeAmount = Math.sin(Date.now() / 1000) / 10;
   const jumpHeight = 1.5;
   const [lastJumpTime, setLastJumpTime] = useState(0);
+  const [cubeColor, s__cubeColor] = useState("");
   const bouncingThing:any = useRef<Mesh>();
 
   useFrame((state, delta) => {
@@ -70,24 +71,43 @@ function Component ({_bouncingThing, tokensArrayArray, isSelectedId, token, clic
 
 
 
-    return ( <>
-        
-        {!!tokensArrayArray && !clicked && <>
-          <mesh   // BOUNCING THING CASE
-            position={[ +0.325, -0.37, -0.38, ]}          
-          >
-            <boxGeometry args={[0.15, 0.18, 0.1]} />
-            <meshStandardMaterial transparent={true} opacity={0.5} color={!isSelectedId ? "#777777" : "#777777"}  />
-          </mesh>
-        </>}
-        <group position={[0,-0.3,0]}>
-          <mesh castShadow receiveShadow ref={bouncingThing}
-            position={[ 0.33, 0, -0.36, ]}          
-          >
-            <boxGeometry args={[0.1, 0.1, 0.05]} />
-            <meshStandardMaterial  color={!isSelectedId ? "#777777" : "#777777"}  />
-          </mesh>
-        </group>
-    </>)
+  return ( <>
+    
+    {!!tokensArrayArray && !clicked && <>
+      <mesh   // BOUNCING THING CASE
+        position={[ +0.325, -0.37, -0.38, ]}          
+      >
+        <boxGeometry args={[0.15, 0.18, 0.1]} />
+        <meshStandardMaterial transparent={true} opacity={0.5}
+          color={!isSelectedId ? "#777777" : "#777777"}  
+        />
+      </mesh>
+    </>}
+    <group position={[0,-0.3,0]}>
+      <mesh castShadow receiveShadow ref={bouncingThing}
+        position={[ 0.33, 0, -0.36, ]}          
+      >
+        <boxGeometry args={[0.1, 0.1, 0.05]} />
+        {livestate.clickedPrice/livestate.queryUSDT.data < 1  && 
+          <meshStandardMaterial  
+          color={"#ff00ff"}
+            // color={(
+            //   livestate.clickedPrice/livestate.queryUSDT.data < 1 
+            //   ? "#999999" : "#333333"
+            // )}  
+          />
+        }
+        {livestate.clickedPrice/livestate.queryUSDT.data < 1  && 
+          <meshStandardMaterial  
+          color={"#009900"}
+            // color={(
+            //   livestate.clickedPrice/livestate.queryUSDT.data < 1 
+            //   ? "#999999" : "#333333"
+            // )}  
+          />
+        }
+      </mesh>
+    </group>
+  </>)
 }
 export default Component

@@ -191,6 +191,7 @@ const selectedHasArray = useMemo(()=>{
       
       <group position={position}>
         <BouncingThing tokensArrayArray={tokensArrayArray} _bouncingThing={bouncingThing}
+          livestate={{clickedPrice, queryUSDT}}
           isSelectedId={isSelectedId} token={token} clicked={clicked}
         />
         {!!tokensArrayArray && selectedHasArray &&
