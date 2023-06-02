@@ -27,6 +27,8 @@ const Component = ({
   const triggerLogout = async () => {
     app.alert("neutral","Signin out, clearing cookies...")
     let res = await logout()
+    console.log("res",res)
+    app.alert("neutral","Logged out, clearing local storage...")
     s__LS_binanceKeys("user:0000")
     window.location.reload()
   }
