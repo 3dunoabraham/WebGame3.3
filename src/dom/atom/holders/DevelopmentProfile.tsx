@@ -89,11 +89,11 @@ function Component ({}) {
                             Twitter:
                         </div>
                         <div>
-                            <a href="https://twitter.com/wbytecity" target="_blank"
+                            <a href="https://twitter.com/bytccity" target="_blank"
                                 style={{color:"#0099ff"}}
                                 className=" opaci-chov--50 tx-mdl py-1 block"
                             >
-                                twitter.com/wByteCity
+                                twitter.com/bytcCity
                             </a>
                         </div>
                         <div className="pb-1 bg-w-10 flex-1"></div>
