@@ -55,9 +55,9 @@ function Component ({}) {
 
                 <div onClick={()=>{setFullscreen()}} className="opaci-chov--50">
 
-                <h1 className=" bg-white tx-white py-2 px-4 bord-r-50 mt-2  tx-lgx tx-shadow-5" style={{color:"#00ff00"}}>Set FullScreen</h1>
+                <div className="tx-lg tx-bold-2 bg-white tx-white py-2 px-4 bord-r-50 mt-2  tx-lgx tx-shadow-5" style={{color:"#00ff00"}}>Set FullScreen</div>
                 </div>
-                <div className="py-8 Q_sm_x"></div>
+                <div className="py-4 Q_sm_x"></div>
                 {/* <div onClick={()=>{s__asd("")}} className="opaci-chov--50">
 
                     <h1 className="tx-white pa-4 tx-lgx tx-shadow-5" style={{color:"orange"}}>Go Back to the Game</h1>
@@ -65,15 +65,14 @@ function Component ({}) {
 
 
 
-               <Link target="_blank" className="flex-col mb-100 mt-2 opaci-chov--50"  href="https://webgamed.vercel.app/">
-                    <div   style={{background:"orangered"}}
+               <Link target="_blank" className="flex-col  mt-2 opaci-chov--50"  href="https://webgamed.vercel.app/">
+                    {/* <div   style={{background:"orangered"}}
                         className="  tx-lgx py-1 block px-4 py-2 box-shadow-i-2-t tx-white flex"
                     >
                         Register <div className="invisible">WebGamed</div>
-                        {/* <span className="pa-2 opaci-50"><FaGoogle/></span> */}
-                    </div>
+                    </div> */}
                     
-                    <div className="pl-8 pos-abs" style={{ width: "20px", height: "20px", transformStyle: "preserve-3d", transform:"rotateX(15deg) rotateY(20deg)", margin: "50px" }}>
+                    <div className="pr-100" style={{ width: "20px", height: "20px", transformStyle: "preserve-3d", transform:"rotateX(15deg) rotateY(20deg)", margin: "50px" }}>
                         <div className="tx-bold-8 tx-white tx-lx flex-col" style={{ width: "100px", height: "100px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateZ(50px)" }}>
                             Byte
                             City
@@ -96,6 +95,11 @@ function Component ({}) {
                         <div className="tx-white flex-col" style={{ width: "100px", height: "100px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateY(50px) rotateX(-90deg)" }}>
                             so below {/*  Bottom */}
                         </div>
+                    </div>
+                    <div style={{color:"orangered", textShadow:"0 2px 2px #ffccaaaa, 0 0 5px orangered"}} className="mt-8 tx-bold-8 pt-3 tx-lgx tx-roman  tx-ls-3 hover-4"
+                    
+                    >
+                        SIGN UP
                     </div>
                 </Link>
 
@@ -175,14 +179,14 @@ function Component ({}) {
                 <div onClick={()=>{s__asd("")}} className="opaci-chov--50 tx-center flex-align-end pos-abs bottom-0 mb-8  right-0 flex-col">
                     <div className="pa-8 pb-0 tx-shadow-5 tx-lx flex-center gap-2">
                         {/* <FaArrowDown /> */}
-                        Resume
+                        <div className="tx-roman">Resume</div>
                         <div className="box-shadow-2-b py-0 pa-1 block bord-r-10" style={{background:"#ffffff"}}>
                             <Image src={"/bytecity.png"} alt="bytecity" width={50} height={50} />
                         </div>
                     </div>
-                    <h1 className="tx-white tx-shadow-5 pa-8 pt-0 hover-4 tx-lx" style={{color:"orange "}}>
+                    <div className="tx-white tx-shadow-5 pa-8 pt-0  tx-lg" style={{color:"orange "}}>
                          Back to Game ↑
-                    </h1>
+                    </div>
                 </div>
                 </div>
             </div>

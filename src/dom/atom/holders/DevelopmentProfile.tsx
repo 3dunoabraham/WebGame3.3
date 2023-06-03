@@ -27,16 +27,16 @@ function Component ({}) {
                 
                 <div onClick={()=>{setFullscreen()}} className="opaci-chov--50">
 
-                  <h1 className=" bg-white tx-white py-2 px-4 bord-r-50 mt-2  tx-lgx tx-shadow-5" style={{color:"#00ff00"}}>Set FullScreen</h1>
+                <div className="tx-lg tx-bold-2 bg-white tx-white py-2 px-4 bord-r-50 mt-2  tx-lgx tx-shadow-5" style={{color:"#00ff00"}}>Set FullScreen</div>
                 </div>
                 <div className="py-8 Q_sm_x"></div>
                 <div onClick={()=>{s__asd("")}} className="opaci-chov--50">
 
-                    <h1 className="tx-white pa-4 tx-lgx tx-shadow-5" style={{color:"orange"}}>Go Back to the Game</h1>
+                    <h1 className="Q_sm_x tx-white pa-4 tx-lgx tx-shadow-5" style={{color:"orange"}}>Click Here to <br /> Go Back to the Game</h1>
                 </div>
                 <div className=" tx-shadow-5 tx-white pt-8 pb-2">
-                                    Links
-                                </div>
+                    Links
+                </div>
                 <div className="pb-8 px-8 Q_xs_px-2 tx-white flex-col flex-align-end ">
                     <div className="flex-wrap gap-3">
 
@@ -129,9 +129,9 @@ function Component ({}) {
                             <Image src={"/bytecity.png"} alt="bytecity" width={50} height={50} />
                         </div>
                     </div>
-                    <h1 className="tx-white tx-shadow-5 pa-8 pt-0 hover-4 tx-lx" style={{color:"orange "}}>
+                    <div className="tx-white tx-shadow-5 pa-8 pt-0  tx-lg" style={{color:"orange "}}>
                          Back to Game ↑
-                    </h1>
+                    </div>
                 </div>
                 </div>
             </div>
