@@ -86,8 +86,8 @@ function Component ({}) {
                             Gamed
                         </div>
                         <div className="tx-white tx-lg flex-col" style={{ width: "100px", height: "100px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateX(50px) rotateY(90deg)" }}>
-                            Web
-                            Gamed
+                            beW
+                            demaG
                         </div>
                         <div className="tx-white flex-col" style={{ width: "100px", height: "100px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateY(-50px) rotateX(90deg)" }}>
                             as above {/*  Top */}
