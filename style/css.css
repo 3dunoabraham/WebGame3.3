@@ -601,9 +601,11 @@
 .scale-90 { transform: scale(0.9); }.scale-110 { transform: scale(1.1); }.scale-120 { transform: scale(1.2); }
 .scale-150 { transform: scale(1.5); }.scale-160 { transform: scale(1.6); }.scale-200 { transform: scale(2); }
 .scale-250 { transform: scale(2.5); }
+.scale-hov-120 {transform: 0;transition: all 0.1s ease-in-out;}
 .scale-hov-150 {transform: 0;transition: all 0.1s ease-in-out;}
 .scale-hov-160 {transform: 0;transition: all 0.1s ease-in-out;}
 .scale-hov-200 {transform: 0;transition: all 0.1s ease-in-out;}
+.scale-hov-120:hover { transform: scale(1.2);  }
 .scale-hov-150:hover { transform: scale(1.5) !important;  }
 .scale-hov-160:hover { transform: scale(1.6); }
 .scale-hov-200:hover { transform: scale(2); }

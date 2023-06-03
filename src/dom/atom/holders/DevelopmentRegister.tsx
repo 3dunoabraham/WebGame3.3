@@ -1,8 +1,8 @@
 "use client";
-
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { FaExternalLinkAlt } from "react-icons/fa";
+import { FaExternalLinkAlt, FaPause, FaPauseCircle, FaRecycle, FaCity, FaArrowDown } from "react-icons/fa";
+import Image from 'next/image';
 
 function Component ({}) {
     // const [asd, s__asd] = useState("")
@@ -29,10 +29,10 @@ function Component ({}) {
 
         {asd == "landing" && <>
             <div className="w-100 z-1001 h-min-100vh  75 bg-glass-5 pos-fixed flex-col top-0"
-                style={{background:"linear-gradient(180deg, #666666ee, #333333ee 50%, #000000ee 100%)"}}
+                style={{background:"linear-gradient(185deg, #34AEFB77, #8FD5F4 80%, #34AEFB 100%)"}}
             >
                 
-                <div className="flex gap-2 tx-white pa-2">
+                {/* <div className="flex gap-2 tx-white pa-2">
                     <div className="flex flex-align-end">
                         <b className="tx-lg block">G</b>amified 
                     </div>
@@ -43,18 +43,18 @@ function Component ({}) {
                         <b className="tx-lg block">A</b>pplication
                     </div>
                     <div>| Byte City</div>
-                </div>
+                </div> */}
 
                 <div onClick={()=>{s__asd("")}} className="opaci-chov--50">
 
-                    <h1 className="tx-white pa-4 tx-lg" style={{color:"orange"}}>Go Back to the Game</h1>
+                    <h1 className="tx-white pa-4 tx-lgx tx-shadow-5" style={{color:"orange"}}>Go Back to the Game</h1>
                 </div>
                 <div className="py-8 px-8 Q_xs_px-2 tx-white flex-col flex-align-start ">
-                    <div className="flex gap-3"  style={{background:"orangered"}}>
+                    <div className="mb-8 flex gap-3"  style={{background:"orangered"}}>
                         {/* <div className=" gap-1 flex flex-align-end">
                             Register @
                         </div> */}
-                        <div className="box-shadow-2-b">
+                        <div className="box-shadow-2-b ">
                             <a href="https://webgamed.vercel.app/" 
                                 className=" opaci-chov--50 tx-lgx py-1 block px-4 py-2 box-shadow-i-2-t tx-white"
                             >
@@ -96,8 +96,8 @@ function Component ({}) {
                         <summary className="pt-6 pb-2 opaci-chov--50 ">
                             <button className="noclick tx-white">Controls</button>
                         </summary>
-                        <div className="flex-col  bord-r-50 pa-8   bg-b-5 box-shadow-i-2-t  w-max-600px" >
-                            <div className="flex-1 flex-col w-100 gap-2  flex-align-stretch ">
+                        <div className="flex-col box-shadow-5-b bord-r-50   bg-b-5 noverflow  w-max-600px" >
+                            <div className="flex-1 flex-col w-100 gap-2 box-shadow-i-2-t pa-8  flex-align-stretch ">
                                 <div className="flex-center gap-3 ">
                                     <div className="gap-1 flex-col">
                                         <div className="gap-1 flex">
@@ -129,9 +129,17 @@ function Component ({}) {
                         </div>
                     </details>
                     
-                <div onClick={()=>{s__asd("")}} className="opaci-chov--50 tx-center pos-abs bottom-0 mb-8  right-0">
-
-                    <h1 className="tx-white pa-8  tx-xl" style={{color:"orange"}}>Back to Game</h1>
+                <div onClick={()=>{s__asd("")}} className="opaci-chov--50 tx-center flex-align-end pos-abs bottom-0 mb-8  right-0 flex-col">
+                    <div className="pa-8 pb-0 tx-shadow-5 tx-lx flex-center gap-2">
+                        {/* <FaArrowDown /> */}
+                        Resume
+                        <div className="box-shadow-2-b py-0 pa-1 block bord-r-10" style={{background:"#ffffff"}}>
+                            <Image src={"/bytecity.png"} alt="bytecity" width={50} height={50} />
+                        </div>
+                    </div>
+                    <h1 className="tx-white tx-shadow-5 pa-8 pt-0 hover-4 tx-lx" style={{color:"orange "}}>
+                         Back to Game ↑
+                    </h1>
                 </div>
                 </div>
             </div>
