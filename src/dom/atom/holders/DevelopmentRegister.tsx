@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { FaExternalLinkAlt, FaPause, FaPauseCircle, FaRecycle, FaCity, FaArrowDown, FaBook, FaTwitter, FaUser, FaUserAlt, FaUserCircle, FaGoogle } from "react-icons/fa";
 import Image from 'next/image';
+import Link from "next/link";
 
 function Component ({}) {
     // const [asd, s__asd] = useState("")
@@ -57,19 +58,46 @@ function Component ({}) {
                 <h1 className=" bg-white tx-white py-2 px-4 bord-r-50 mt-2  tx-lgx tx-shadow-5" style={{color:"#00ff00"}}>Set FullScreen</h1>
                 </div>
                 <div className="py-8 Q_sm_x"></div>
-                <div onClick={()=>{s__asd("")}} className="opaci-chov--50">
+                {/* <div onClick={()=>{s__asd("")}} className="opaci-chov--50">
 
                     <h1 className="tx-white pa-4 tx-lgx tx-shadow-5" style={{color:"orange"}}>Go Back to the Game</h1>
-                </div>
+                </div> */}
 
-               <div className="box-shadow-2-b " style={{background:"orangered"}}>
-                            <a href="https://webgamed.vercel.app/" 
-                                className=" opaci-chov--50 tx-lgx py-1 block px-4 py-2 box-shadow-i-2-t tx-white"
-                            >
-                                Register @WebGamed
-                                <span className="pa-2 opaci-50"><FaGoogle/></span>
-                            </a>
+
+
+               <Link target="_blank" className="flex-col mb-100 mt-2 opaci-chov--50"  href="https://webgamed.vercel.app/">
+                    <div   style={{background:"orangered"}}
+                        className="  tx-lgx py-1 block px-4 py-2 box-shadow-i-2-t tx-white flex"
+                    >
+                        Register <div className="invisible">WebGamed</div>
+                        {/* <span className="pa-2 opaci-50"><FaGoogle/></span> */}
+                    </div>
+                    
+                    <div className="pl-8 pos-abs" style={{ width: "20px", height: "20px", transformStyle: "preserve-3d", transform:"rotateX(15deg) rotateY(20deg)", margin: "50px" }}>
+                        <div className="tx-bold-8 tx-white tx-lx flex-col" style={{ width: "100px", height: "100px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateZ(50px)" }}>
+                            Byte
+                            City
                         </div>
+                        <div className="tx-white flex-col" style={{ width: "100px", height: "100px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateZ(-50px) rotateY(180deg)" }}>
+                            demaGbeW {/*  Back */}
+                            <Image src="/webgamed.png" alt="webgamed" width={50} height={50} />
+                        </div>
+                        <div className="tx-bold-8 tx-lg pl-2 tx-white flex-col" style={{ width: "100px", height: "100px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateX(-50px) rotateY(-90deg)" }}>
+                            Web
+                            Gamed
+                        </div>
+                        <div className="tx-white tx-lg flex-col" style={{ width: "100px", height: "100px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateX(50px) rotateY(90deg)" }}>
+                            Web
+                            Gamed
+                        </div>
+                        <div className="tx-white flex-col" style={{ width: "100px", height: "100px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateY(-50px) rotateX(90deg)" }}>
+                            as above {/*  Top */}
+                        </div>
+                        <div className="tx-white flex-col" style={{ width: "100px", height: "100px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateY(50px) rotateX(-90deg)" }}>
+                            so below {/*  Bottom */}
+                        </div>
+                    </div>
+                </Link>
 
                 <div className="py-8 px-8 Q_xs_px-2 tx-white flex-col flex-align-start ">
                     
@@ -83,7 +111,8 @@ function Component ({}) {
                         Documentation:
                     </div> */}
                     <div className="tx-lgx"><FaBook /></div>
-                    <div className="tx-sm tx-center">webgamed <br /> .gitbook.io <br /> <b className="tx-mdl">/bytecity</b></div>
+                    <div className="tx-sm tx-center Q_sm_x">webgamed <br /> .gitbook.io <br />
+                    <b className="tx-mdl">/bytecity</b></div>
                 </a>
                 <a href="https://twitter.com/gta_btc" target="_blank"
                 style={{color:"#004488"}}
@@ -93,7 +122,8 @@ function Component ({}) {
                     Twitter:
                 </div> */}
                 <div className="tx-lgx"><FaTwitter /></div>
-                <div className="tx-sm tx-center">twitter <br />  .com <br /> <b className="tx-mdl">/bytecty</b></div>
+                <div className="tx-sm tx-center Q_sm_x">twitter <br />  .com <br />
+                <b className="tx-mdl">/bytecty</b></div>
 
                 </a>
                 {/* <a href="https://twitter.com/gta_btc" target="_blank"
