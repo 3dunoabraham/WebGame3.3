@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { FaExternalLinkAlt, FaPause, FaPauseCircle, FaRecycle, FaCity, FaArrowDown } from "react-icons/fa";
+import { FaExternalLinkAlt, FaPause, FaPauseCircle, FaRecycle, FaCity, FaArrowDown, FaBook, FaTwitter, FaUser } from "react-icons/fa";
 import Image from 'next/image';
 
 function Component ({}) {
@@ -50,48 +50,42 @@ function Component ({}) {
                     <h1 className="tx-white pa-4 tx-lgx tx-shadow-5" style={{color:"orange"}}>Go Back to the Game</h1>
                 </div>
                 <div className="py-8 px-8 Q_xs_px-2 tx-white flex-col flex-align-start ">
-                    <div className="mb-8 flex gap-3"  style={{background:"orangered"}}>
-                        {/* <div className=" gap-1 flex flex-align-end">
-                            Register @
-                        </div> */}
-                        <div className="box-shadow-2-b ">
-                            <a href="https://webgamed.vercel.app/" 
-                                className=" opaci-chov--50 tx-lgx py-1 block px-4 py-2 box-shadow-i-2-t tx-white"
-                            >
-                                Register @WebGamed
-                                <span className="pa-2 opaci-50"><FaExternalLinkAlt/></span>
-                            </a>
-                        </div>
-                        {/* <div className="pb-1 bg-w-10 flex-1"></div> */}
-                    </div>
-                    <div className="flex-center gap-3" >
-                        <div className=" gap-1 flex flex-align-end">
-                            Documentation:
-                        </div>
-                        <div>
-                            <a href="https://webgamed.gitbook.io/gtabtc" target="_blank"
-                                style={{color:"#0099ff"}}
-                                className=" opaci-chov--50 tx-mdl py-1 block"
-                            >
-                                webgamed.gitbook.io/gtabtc
-                            </a>
-                        </div>
-                        {/* <div className="pb-1 bg-w-10 flex-1"></div> */}
-                    </div>
-                    <div className="flex-center gap-3" >
-                        <div className=" gap-1 flex flex-align-end">
-                            Twitter:
-                        </div>
-                        <div>
-                            <a href="https://twitter.com/gta_btc" target="_blank"
-                                style={{color:"#0099ff"}}
-                                className=" opaci-chov--50 tx-mdl py-1 block"
-                            >
-                                twitter.com/gta_btc
-                            </a>
-                        </div>
-                        <div className="pb-1 bg-w-10 flex-1"></div>
-                    </div>
+                    
+                <div className="flex-wrap gap-3">
+
+                <a href="https://webgamed.gitbook.io/bytecity" target="_blank"
+                    style={{color:"#004488"}}
+                    className=" opaci-chov--50 flex-col px-2 bg-w-90 bord-r-10 py-3"
+                >
+                    {/* <div className=" gap-1 flex flex-align-end tx-shadow-5 tx-white">
+                        Documentation:
+                    </div> */}
+                    <div className="tx-lgx"><FaBook /></div>
+                    <div className="tx-sm tx-center">webgamed <br /> .gitbook.io <br /> <b className="tx-mdl">/bytecity</b></div>
+                </a>
+                <a href="https://twitter.com/gta_btc" target="_blank"
+                style={{color:"#004488"}}
+                className=" opaci-chov--50 flex-col px-2 bg-w-90 bord-r-10 py-3"
+                >
+                {/* <div className=" gap-1 flex flex-align-end tx-shadow-5 tx-white">
+                    Twitter:
+                </div> */}
+                <div className="tx-lgx"><FaTwitter /></div>
+                <div className="tx-sm tx-center">twitter <br />  .com <br /> <b className="tx-mdl">/bytecty</b></div>
+
+                </a>
+                <a href="https://twitter.com/gta_btc" target="_blank"
+                style={{color:"#004488"}}
+                className=" opaci-chov--50 flex-col px-2 bg-w-90 bord-r-10 py-3"
+                >
+                {/* <div className=" gap-1 flex flex-align-end tx-shadow-5 tx-white">
+                    Twitter:
+                </div> */}
+                <div className="tx-lgx"><FaTwitter /></div>
+                <div className="tx-sm tx-center">twitter <br />  .com <br /> <b className="tx-mdl">/bytecty</b></div>
+
+                </a>
+                </div>
                     <details>
                         <summary className="pt-6 pb-2 opaci-chov--50 ">
                             <button className="noclick tx-white">Controls</button>
