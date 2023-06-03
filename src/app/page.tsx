@@ -45,7 +45,7 @@ export default async function Page() {
               <span className='tx-lgx'><b>C</b>ity</span>
             </h1>
             <div>
-              <div className="box-shadow-2-b pa-1 block bord-r-10" style={{background:"#ffffff"}}>
+              <div className="box-shadow-2-b pa-1 block bord-r-r-10" style={{background:"#ffffff"}}>
                 <Image src={"/bytecity.png"} alt="bytecity" width={50} height={50} />
               </div>
             </div>
