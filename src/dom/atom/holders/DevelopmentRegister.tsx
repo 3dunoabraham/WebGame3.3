@@ -55,7 +55,7 @@ function Component ({}) {
                             Register @
                         </div> */}
                         <div className="box-shadow-2-b">
-                            <a href="https://webgamed.vercel.app/" target="_blank"
+                            <a href="https://webgamed.vercel.app/" 
                                 className=" opaci-chov--50 tx-lgx py-1 block px-4 py-2 box-shadow-i-2-t tx-white"
                             >
                                 Register @WebGamed
