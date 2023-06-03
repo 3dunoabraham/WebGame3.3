@@ -9,7 +9,13 @@ function Component ({}) {
 
     // const [asd, s__asd] = useState("")
     const [asd, s__asd] = useState("")
+    
+    const setFullscreen = () => {
+        document.documentElement.requestFullscreen();
+        
+      }
 
+      
     return (<>
         
         {/* <div className="tx-red w-100 flex flex-justify-between flex-1 _ddb ">
@@ -28,7 +34,7 @@ function Component ({}) {
         </>} */}
 
         {asd == "landing" && <>
-            <div className="w-100 z-1001 h-min-100vh  75 bg-glass-5 pos-fixed flex-col top-0"
+            <div className="w-100 z-1001 h-min-100vh  75 bg-glass-5 pos-fixed flex-col flex-justify-start top-0"
                 style={{background:"linear-gradient(185deg, #34AEFB77, #8FD5F4 80%, #34AEFB 100%)"}}
             >
                 
@@ -45,6 +51,11 @@ function Component ({}) {
                     <div>| Byte City</div>
                 </div> */}
 
+
+<div onClick={()=>{setFullscreen()}} className="opaci-chov--50">
+
+<h1 className=" bg-white tx-white py-2 px-4 bord-r-50 mt-2 mb-100 tx-lgx tx-shadow-5" style={{color:"#00ff00"}}>Set FullScreen</h1>
+</div>
                 <div onClick={()=>{s__asd("")}} className="opaci-chov--50">
 
                     <h1 className="tx-white pa-4 tx-lgx tx-shadow-5" style={{color:"orange"}}>Go Back to the Game</h1>
@@ -74,17 +85,14 @@ function Component ({}) {
                 <div className="tx-sm tx-center">twitter <br />  .com <br /> <b className="tx-mdl">/bytecty</b></div>
 
                 </a>
-                <a href="https://twitter.com/gta_btc" target="_blank"
+                {/* <a href="https://twitter.com/gta_btc" target="_blank"
                 style={{color:"#004488"}}
                 className=" opaci-chov--50 flex-col px-2 bg-w-90 bord-r-10 py-3"
                 >
-                {/* <div className=" gap-1 flex flex-align-end tx-shadow-5 tx-white">
-                    Twitter:
-                </div> */}
                 <div className="tx-lgx"><FaTwitter /></div>
                 <div className="tx-sm tx-center">twitter <br />  .com <br /> <b className="tx-mdl">/bytecty</b></div>
 
-                </a>
+                </a> */}
                 </div>
                     <details>
                         <summary className="pt-6 pb-2 opaci-chov--50 ">

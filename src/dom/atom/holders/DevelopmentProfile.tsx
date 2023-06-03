@@ -6,50 +6,33 @@ import Image from 'next/image';
 
 function Component ({}) {
     // const [asd, s__asd] = useState("")
-
+    
     // const [asd, s__asd] = useState("")
     const [asd, s__asd] = useState("")
 
-    return (<>
+    const setFullscreen = () => {
+        document.documentElement.requestFullscreen();
         
-        {/* <div className="tx-red w-100 flex flex-justify-between flex-1 _ddb ">
-            <div>test</div>
-            <div>test 1 </div>
-            <div>test 12</div>
-        </div>
-        {asd == "" && <>
-            <div className=' tx-white tx-shadow-2 _ddg z-1001 pos-abs bottom-0 left-0 w-100'>
-                <div className="flex w-100 flex-justify-between">
-                    <div>test</div>
-                    <div>test 1 </div>
-                    <div>test 12</div>
-                </div>
-            </div>
-        </>} */}
+      }
+
+      
+
+      const [isFullscreen, setIsFullscreen] = useState(false);
+    return (<>
 
         {asd == "landing" && <>
-            <div className="w-100 z-1001 h-min-100vh  75 bg-glass-5 pos-fixed flex-col top-0"
+            <div className="w-100 z-1001 h-min-100vh  75 bg-glass-5 pos-fixed flex-col flex-justify-start top-0"
                 style={{background:"linear-gradient(185deg, #34AEFB77, #8FD5F4 80%, #34AEFB 100%)"}}
             >
                 
-                {/* <div className="flex gap-2 tx-white pa-2">
-                    <div className="flex flex-align-end">
-                        <b className="tx-lg block">G</b>amified 
-                    </div>
-                    <div className="flex flex-align-end">
-                        <b className="tx-lg block">T</b>rading 
-                    </div>
-                    <div className="flex flex-align-end">
-                        <b className="tx-lg block">A</b>pplication
-                    </div>
-                    <div>| Byte City</div>
-                </div> */}
+                <div onClick={()=>{setFullscreen()}} className="opaci-chov--50">
 
+                  <h1 className=" bg-white tx-white py-2 px-4 bord-r-50 mt-2 mb-100 tx-lgx tx-shadow-5" style={{color:"#00ff00"}}>Set FullScreen</h1>
+                </div>
                 <div onClick={()=>{s__asd("")}} className="opaci-chov--50">
 
                     <h1 className="tx-white pa-4 tx-lgx tx-shadow-5" style={{color:"orange"}}>Go Back to the Game</h1>
                 </div>
-                
                 <div className=" tx-shadow-5 tx-white pt-8 pb-2">
                                     Links
                                 </div>
@@ -153,13 +136,22 @@ function Component ({}) {
             </div>
         </>}
         {asd !== "landing" && <>
-            <div className='pos-abs bottom-0 translate-y-100 z-999  w-100 tx-center   tx-white '
+            <div className='Q_sm_x pos-abs bottom-0 translate-y-100 z-999  w-100 tx-center   tx-white '
             >
             <button className="pos-rel tx-white py-1 my-1 px-4 tx-mdl opaci-chov--75 bg-black scale-hov-150"
                 onClick={()=>{s__asd("landing")}}
                 style={{boxShadow:"inset 0 0 0 2px #ff9900",transform:"scale(0.9) rotate(-2deg)"}}
             >
-                Welcome | Byte City Alpha
+                MENU | Byte City Alpha
+            </button>
+            </div>
+            <div className='Q_xs right-0 pos-abs bottom-0 translate-y-100 z-999  tx-center   tx-white '
+            >
+            <button className="pos-rel tx-white py-1 my-1 px-2 tx-mdl opaci-chov--75 bg-black "
+                onClick={()=>{s__asd("landing")}}
+                style={{boxShadow:"inset 0 0 0 2px #ff9900",transform:"scale(0.9) rotate(-2deg)"}}
+            >
+                MENU
             </button>
             </div>
         </>}

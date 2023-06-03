@@ -10,6 +10,7 @@ import Image from 'next/image';
 import DevelopmentRegister from '@/dom/atom/holders/DevelopmentRegister';
 import DevelopmentProfile from '@/dom/atom/holders/DevelopmentProfile';
 import Head from 'next/head';
+import BottomStats from '@/dom/atom/holders/BottomStats';
 
 export default async function Page() {  
   const foundJWT:any = await getJWTCookie()
@@ -76,6 +77,7 @@ export default async function Page() {
         </>}
         {!!foundJWT && <>
           <DevelopmentProfile />
+          <BottomStats />
         </>}
       </div>
     </main>
