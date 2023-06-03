@@ -75,11 +75,11 @@ function Component ({}) {
                             Documentation:
                         </div>
                         <div>
-                            <a href="https://3duno.gitbook.io/bytecity" target="_blank"
+                            <a href="https://webgamed.gitbook.io/bytecity" target="_blank"
                                 style={{color:"#0099ff"}}
                                 className=" opaci-chov--50 tx-lg py-1 block"
                             >
-                                3duno.gitbook.io/bytecity
+                                webgamed.gitbook.io/bytecity
                             </a>
                         </div>
                         <div className="pb-1 bg-w-10 flex-1"></div>
@@ -208,11 +208,11 @@ function Component ({}) {
                             Documentation:
                         </div>
                         <div>
-                            <a href="https://3duno.gitbook.io/gtabtc" target="_blank"
+                            <a href="https://webgamed.gitbook.io/gtabtc" target="_blank"
                                 style={{color:"#0099ff"}}
                                 className=" opaci-chov--50 tx-mdl py-1 block"
                             >
-                                3duno.gitbook.io/gtabtc
+                                webgamed.gitbook.io/gtabtc
                             </a>
                         </div>
                         {/* <div className="pb-1 bg-w-10 flex-1"></div> */}
