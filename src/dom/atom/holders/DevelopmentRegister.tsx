@@ -160,17 +160,17 @@ function Component ({}) {
                                     <div className="flex-1 w-min-50px opaci-10 border-lgrey my-1"></div>
                                     <div className="tx-red tx-lg">Move</div>
                                 </div>
-                                <div className="flex-center gap-3 ">
+                                <div className="flex-center gap-3 Q_sm_x">
                                     <div className="">Right Click Drag</div>
                                     <div className="flex-1 w-min-50px opaci-10 border-lgrey my-1"></div>
                                     <div className="nowrap">Rotate Camera</div>
                                 </div>
-                                <div className="flex-center gap-3 ">
+                                <div className="flex-center gap-3 Q_sm_x">
                                     <div className="">Scroll In/Out</div>
                                     <div className="flex-1 w-min-50px opaci-10 border-lgrey my-1"></div>
                                     <div>Zoom In/Out</div>
                                 </div>
-                                <div className="flex-center gap-3 ">
+                                <div className="flex-center gap-3 Q_sm_x">
                                     <div className="">F5</div>
                                     <div className="flex-1 w-min-50px opaci-10 border-lgrey my-1"></div>
                                     <div>Refresh</div>
