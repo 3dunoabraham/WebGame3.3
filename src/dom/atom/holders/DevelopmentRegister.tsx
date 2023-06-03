@@ -96,10 +96,13 @@ function Component ({}) {
                             so below {/*  Bottom */}
                         </div>
                     </div>
-                    <div style={{color:"orangered", textShadow:"0 2px 2px #ffccaaaa, 0 0 5px orangered"}} className="mt-8 tx-bold-8 pt-3 tx-lgx tx-roman  tx-ls-3 hover-4"
+                    <div style={{color:"white", 
+                    // textShadow:"1px 1px 0 orangered, -1px -1px 0 orangered "
+                    textShadow:"1px 1px 0 orangered, 2px 2px 0 orangered "
+                }} className="mt-8 tx-bold-8 pt-3 opaci-75 tx-lgx   tx-ls-3 hover-4 flex flex-align-start gap-2"
                     
                     >
-                        SIGN UP
+                        SIGN UP <small>↑</small>
                     </div>
                 </Link>
 
