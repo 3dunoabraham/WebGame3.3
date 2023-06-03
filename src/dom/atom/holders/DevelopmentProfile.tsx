@@ -38,49 +38,53 @@ function Component ({}) {
                     Links
                 </div>
                 <div className="pb-8 px-8 Q_xs_px-2 tx-white flex-col flex-align-end ">
-                    <div className="flex-wrap gap-3">
+                    <div className="flex-wrap gap-1">
 
                             <a href="https://webgamed.gitbook.io/bytecity" target="_blank"
                                 style={{color:"#004488"}}
-                                className=" opaci-chov--50 flex-col px-2 bg-w-90 bord-r-10 py-3"
+                                className=" opaci-chov--50 flex-col px-2 Q_xs_px-1 bg-w-90 bord-r-10 py-3"
                             >
                                 {/* <div className=" gap-1 flex flex-align-end tx-shadow-5 tx-white">
                                     Documentation:
                                 </div> */}
                                 <div className="tx-lgx"><FaBook /></div>
-                                <div className="tx-sm tx-center">webgamed <br /> .gitbook.io/ <br /> <b className="tx-mdl">bytecity</b></div>
+                                <div className="tx-sm tx-center Q_sm_x">webgamed <br /> .gitbook.io/ <br />
+                                <b className="tx-mdl">bytecity</b></div>
                             </a>
                         <a href="https://twitter.com/gta_btc" target="_blank"
                             style={{color:"#004488"}}
-                            className=" opaci-chov--50 flex-col px-2 bg-w-90 bord-r-10 py-3"
+                            className=" opaci-chov--50 flex-col px-2 Q_xs_px-1 bg-w-90 bord-r-10 py-3"
                         >
                             {/* <div className=" gap-1 flex flex-align-end tx-shadow-5 tx-white">
                                 Twitter:
                             </div> */}
                             <div className="tx-lgx"><FaTwitter /></div>
-                            <div className="tx-sm tx-center">twitter <br />  .com/ <br /> <b className="tx-mdl">bytecty</b></div>
+                            <div className="tx-sm tx-center Q_sm_x">twitter <br />  .com/ <br />
+                            <b className="tx-mdl">bytecty</b></div>
                             
                         </a>
                         <a href="https://twitter.com/gta_btc" target="_blank"
                             style={{color:"#cc44cc"}}
-                            className=" opaci-chov--50 flex-col px-2 bg-w-90 bord-r-10 py-3"
+                            className=" opaci-chov--50 flex-col px-2 Q_xs_px-1 bg-w-90 bord-r-10 py-3"
                         >
                             {/* <div className=" gap-1 flex flex-align-end tx-shadow-5 tx-white">
                                 Twitter:
                             </div> */}
                             <div className="tx-lgx"><FaStar /></div>
-                            <div className="tx-sm tx-center">webgamed <br />  .vercel.app <br /> <b className="tx-mdl">/ranking</b></div>
+                            <div className="tx-sm tx-center Q_sm_x">webgamed <br />  .vercel.app <br />
+                            <b className="tx-mdl">/ranking</b></div>
                             
                         </a>
                 <a href="https://webgamed.vercel.app/?user=" target="_blank"
                 style={{color:"#ff8800"}}
-                className=" opaci-chov--50 flex-col px-2 bg-w-90 bord-r-10 py-3"
+                className=" opaci-chov--50 flex-col px-2 Q_xs_px-1 bg-w-90 bord-r-10 py-3"
                 >
                 {/* <div className=" gap-1 flex flex-align-end tx-shadow-5 tx-white">
                     Twitter:
                 </div> */}
                 <div className="tx-lgx"><FaUser /></div>
-                <div className="tx-sm tx-center">webgamed <br />  .vercel.app <br /> <b className="tx-mdl">?user=...</b></div>
+                <div className="tx-sm tx-center Q_sm_x">webgamed <br />  .vercel.app <br />
+                <b className="tx-mdl">?user=...</b></div>
 
                 </a>
                     </div>
