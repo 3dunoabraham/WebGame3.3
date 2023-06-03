@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { FaExternalLinkAlt, FaPause, FaPauseCircle, FaRecycle, FaCity, FaArrowDown, FaBook, FaTwitter, FaUser } from "react-icons/fa";
+import { FaExternalLinkAlt, FaPause, FaPauseCircle, FaRecycle, FaCity, FaArrowDown, FaBook, FaTwitter, FaUser, FaUserAlt, FaUserCircle, FaGoogle } from "react-icons/fa";
 import Image from 'next/image';
 
 function Component ({}) {
@@ -52,14 +52,25 @@ function Component ({}) {
                 </div> */}
 
 
-<div onClick={()=>{setFullscreen()}} className="opaci-chov--50">
+                <div onClick={()=>{setFullscreen()}} className="opaci-chov--50">
 
-<h1 className=" bg-white tx-white py-2 px-4 bord-r-50 mt-2 mb-100 tx-lgx tx-shadow-5" style={{color:"#00ff00"}}>Set FullScreen</h1>
-</div>
+                <h1 className=" bg-white tx-white py-2 px-4 bord-r-50 mt-2  tx-lgx tx-shadow-5" style={{color:"#00ff00"}}>Set FullScreen</h1>
+                </div>
+                <div className="py-8 Q_sm_x"></div>
                 <div onClick={()=>{s__asd("")}} className="opaci-chov--50">
 
                     <h1 className="tx-white pa-4 tx-lgx tx-shadow-5" style={{color:"orange"}}>Go Back to the Game</h1>
                 </div>
+
+               <div className="box-shadow-2-b " style={{background:"orangered"}}>
+                            <a href="https://webgamed.vercel.app/" 
+                                className=" opaci-chov--50 tx-lgx py-1 block px-4 py-2 box-shadow-i-2-t tx-white"
+                            >
+                                Register @WebGamed
+                                <span className="pa-2 opaci-50"><FaGoogle/></span>
+                            </a>
+                        </div>
+
                 <div className="py-8 px-8 Q_xs_px-2 tx-white flex-col flex-align-start ">
                     
                 <div className="flex-wrap gap-3">
@@ -98,7 +109,7 @@ function Component ({}) {
                         <summary className="pt-6 pb-2 opaci-chov--50 ">
                             <button className="noclick tx-white">Controls</button>
                         </summary>
-                        <div className="flex-col box-shadow-5-b bord-r-50   bg-b-5 noverflow  w-max-600px" >
+                        <div className="flex-col box-shadow-5-b left-50p translate-x--50 bord-r-50  pos-abs w-80 bg-b-5 noverflow  w-max-600px" >
                             <div className="flex-1 flex-col w-100 gap-2 box-shadow-i-2-t pa-8  flex-align-stretch ">
                                 <div className="flex-center gap-3 ">
                                     <div className="gap-1 flex-col">
@@ -115,7 +126,7 @@ function Component ({}) {
                                 <div className="flex-center gap-3 ">
                                     <div className="">Right Click Drag</div>
                                     <div className="flex-1 w-min-50px opaci-10 border-lgrey my-1"></div>
-                                    <div>Rotate Camera</div>
+                                    <div className="nowrap">Rotate Camera</div>
                                 </div>
                                 <div className="flex-center gap-3 ">
                                     <div className="">Scroll In/Out</div>
