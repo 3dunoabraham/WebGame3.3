@@ -81,7 +81,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
         }
       </group>
 
-      {state.isSelectedId && <>
+      { <>
         <group position={new Vector3(-0.1,-0.18,-0.2)} >
           <Cylinder args={[0.27, 0.15, 0.35, 4]} position={[0.0,0.08,-0.07]} // big monitor CASE
             rotation={[Math.PI/2,Math.PI/4*3,0]} receiveShadow castShadow
