@@ -65,7 +65,7 @@ function Component ({}) {
 
 
 
-               <Link target="_blank" className="flex-col  mt-2 opaci-chov--50"  href="https://webgamed.vercel.app/">
+               <Link target="_blank" className="flex-col  mt-2 opaci-chov--50"  href="https://webga.vercel.app/">
                     {/* <div   style={{background:"orangered"}}
                         className="  tx-lgx py-1 block px-4 py-2 box-shadow-i-2-t tx-white flex"
                     >
@@ -79,7 +79,7 @@ function Component ({}) {
                         </div>
                         <div className="tx-white flex-col" style={{ width: "100px", height: "100px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateZ(-50px) rotateY(180deg)" }}>
                             demaGbeW {/*  Back */}
-                            <Image src="/webgamed.png" alt="webgamed" width={50} height={50} />
+                            <Image src="/webga.png" alt="webgamed" width={50} height={50} />
                         </div>
                         <div className="tx-bold-8 tx-lg pl-2 tx-white flex-col" style={{ width: "100px", height: "100px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateX(-50px) rotateY(-90deg)" }}>
                             Web
@@ -110,7 +110,7 @@ function Component ({}) {
                     
                 <div className="flex-wrap gap-3">
 
-                <a href="https://webgamed.gitbook.io/bytecity" target="_blank"
+                <a href="https://webga.gitbook.io/bytecity" target="_blank"
                     style={{color:"#004488"}}
                     className=" opaci-chov--50 flex-col px-2 bg-w-90 bord-r-10 py-3"
                 >
