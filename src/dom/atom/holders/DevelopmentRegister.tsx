@@ -79,7 +79,7 @@ function Component ({}) {
                         </div>
                         <div className="tx-white flex-col" style={{ width: "100px", height: "100px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateZ(-50px) rotateY(180deg)" }}>
                             demaGbeW {/*  Back */}
-                            <Image src="/webga.png" alt="webgamed" width={50} height={50} />
+                            <Image src="/webgamed.png" alt="webgamed" width={50} height={50} />
                         </div>
                         <div className="tx-bold-8 tx-lg pl-2 tx-white flex-col" style={{ width: "100px", height: "100px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateX(-50px) rotateY(-90deg)" }}>
                             Web
