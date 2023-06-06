@@ -29,7 +29,11 @@ const Component = ({
   }
   const triggerLogin = async () => {
     s__loading("login", true)
-    let res = await login(forms)
+    let parsedForms = {
+      email:forms.email.replace(" ",""),
+      password:forms.password.replace(" ",""),
+    }
+    let res = await login(parsedForms)
     if (!!res) {
       // router.push("/inventory")
       s__LS_binanceKeys(`${forms.email}:${forms.password}`);
