@@ -55,11 +55,12 @@ export default async function Page() {
         
           {!foundJWT && <>
             <div className='pos-abs top-0 right-0 pt-3'>
+              <div className='Q_xs_sm py-8'></div>
               <LoginForm />
             </div>
           </>}
           {!!foundJWT && !!foundUser.user && <>
-            <div className='pos-abs top-0 right-0 pt-3'>
+            <div className='pos-abs bottom-0 translate-y-100 right-0 pt-3'>
               {/* <div className='flex-col tx-lx opaci-10 py-'>{foundUser.user.name} <small>(Verified)</small></div> */}
               <LogoutForm />
             </div>

@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { FaExternalLinkAlt, FaPause,FaStar, FaPauseCircle, FaRecycle, FaCity, FaArrowDown, FaBook, FaTwitter, FaUser } from "react-icons/fa";
 import Image from 'next/image';
+import Link from "next/link";
 
 function Component ({}) {
     // const [asd, s__asd] = useState("")
@@ -29,16 +30,60 @@ function Component ({}) {
 
                 <div className="tx-lg tx-bold-2 bg-white tx-white py-2 px-4 bord-r-50 mt-2  tx-lgx tx-shadow-5" style={{color:"#00ff00"}}>Set FullScreen</div>
                 </div>
-                <div className="py-8 Q_sm_x"></div>
-                <div onClick={()=>{s__asd("")}} className="opaci-chov--50">
+                <div className="pt-100 pb-8 "></div>
+                {/* <div onClick={()=>{s__asd("")}} className="opaci-chov--50">
 
                     <h1 className="Q_sm_x tx-white pa-4 tx-lgx tx-shadow-5" style={{color:"orange"}}>Click Here to <br /> Go Back to the Game</h1>
-                </div>
-                <div className=" tx-shadow-5 tx-white pt-8 pb-2">
+                </div> */}
+                
+               <Link className="flex-col pos-abs   opaci-chov--50  mt-8 pt-7" 
+                 href="https://webga.vercel.app/"
+                 style={{transform:"translateX(15%)"}}
+                >
+                    {/* <div   style={{background:"orangered"}}
+                        className="  tx-lgx py-1 block px-4 py-2 box-shadow-i-2-t tx-white flex"
+                    >
+                        Register <div className="invisible">WebGamed</div>
+                    </div> */}
+                    
+                    <div style={{color:"white", 
+                    // textShadow:"1px 1px 0 orangered, -1px -1px 0 orangered "
+                    textShadow:"1px 1px 0 orangered, 2px 2px 0 orangered "
+                }} className=" tx-bold-8  opaci-75 tx-   translate-y-50 tx-ls-1 pr-8 flex flex-align-start gap-2"
+                    
+                    >
+                        Dashboard
+                    </div>
+                    <div className="pr-100" style={{ width: "10px", height: "10px", transformStyle: "preserve-3d", transform:"rotateX(15deg) rotateY(20deg)", margin: "25px" }}>
+                        <div className="tx-bold-8 tx-white x flex-col" style={{ width: "50px", height: "50px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateZ(25px)" }}>
+                            Byte
+                            City
+                        </div>
+                        <div className="tx-white flex-col" style={{ width: "50px", height: "50px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateZ(-25px) rotateY(180deg)" }}>
+                            Web
+                        </div>
+                        <div className="tx-bold-8 g pl-2 tx-sm tx-white flex-col" style={{ width: "50px", height: "50px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateX(-25px) rotateY(-90deg)" }}>
+                            Web
+                            Gamed
+                        </div>
+                        <div className="tx-white g flex-col" style={{ width: "50px", height: "50px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateX(25px) rotateY(90deg)" }}>
+                            beW
+                            demaG
+                        </div>
+                        <div className="tx-white flex-col" style={{ width: "50px", height: "50px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateY(-25px) rotateX(90deg)" }}>
+                            as above {/*  Top */}
+                        </div>
+                        <div className="tx-white flex-col" style={{ width: "50px", height: "50px", background: "#ff6d00", border: "2px solid white", position: "absolute", opacity: 0.75, transform: "translateY(25px) rotateX(-90deg)" }}>
+                            so below {/*  Bottom */}
+                        </div>
+                    </div>
+                </Link>
+                
+                {/* <div className=" tx-shadow-5 tx-white pb-2 translate-y--50">
                     Links
-                </div>
+                </div> */}
                 <div className="pb-8 px-8 Q_xs_px-2 tx-white flex-col flex-align-end ">
-                    <div className="flex-wrap gap-1">
+                    <div className="flex-wrap gap-1 ">
 
                             <a href="https://webga.gitbook.io/bytecity" target="_blank"
                                 style={{color:"#004488"}}
@@ -75,20 +120,20 @@ function Component ({}) {
                             <b className="tx-mdl">/ranking</b></div>
                             
                         </a>
-                <a href="https://webga.vercel.app/?user=" target="_blank"
-                style={{color:"#ff8800"}}
-                className=" opaci-chov--50 flex-col px-2 Q_xs_px-1 bg-w-90 bord-r-10 py-3"
-                >
-                {/* <div className=" gap-1 flex flex-align-end tx-shadow-5 tx-white">
-                    Twitter:
-                </div> */}
-                <div className="tx-lgx"><FaUser /></div>
-                <div className="tx-sm tx-center Q_sm_x">webgamed <br />  .vercel.app <br />
-                <b className="tx-mdl">?user=...</b></div>
+                        <a href="https://webga.vercel.app/?user=" target="_blank"
+                            style={{color:"#ff8800"}}
+                            className=" opaci-chov--50 flex-col px-2 Q_xs_px-1 bg-w-90 bord-r-10 py-3"
+                            >
+                            {/* <div className=" gap-1 flex flex-align-end tx-shadow-5 tx-white">
+                                Twitter:
+                            </div> */}
+                            <div className="tx-lgx"><FaUser /></div>
+                            <div className="tx-sm tx-center Q_sm_x">webgamed <br />  .vercel.app <br />
+                            <b className="tx-mdl">?user=...</b></div>
 
-                </a>
-                    </div>
-                    <details>
+                            </a>
+                        </div>
+                    <details className="">
                         <summary className="pt-6 pb-2 opaci-chov--50 ">
                             <button className="noclick tx-white">Controls</button>
                         </summary>
@@ -141,7 +186,7 @@ function Component ({}) {
             </div>
         </>}
         {asd !== "landing" && <>
-            <div className='Q_sm_x pos-abs bottom-0 translate-y-100 z-999  w-100 tx-center   tx-white '
+            <div className='Q_sm_x pos-abs top-0  z-999  w-100 tx-center   tx-white '
             >
             <button className="pos-rel tx-white py-1 my-1 px-4 tx-mdl opaci-chov--75 bg-black scale-hov-150"
                 onClick={()=>{s__asd("landing")}}
@@ -150,9 +195,22 @@ function Component ({}) {
                 MENU | Byte City Alpha
             </button>
             </div>
-            <div className='Q_xs right-0 pos-abs bottom-0 translate-y-100 z-999  tx-center   tx-white '
+
+            
+            <div className='Q_sm_x right-0 pos-abs bottom-0  z-999  tx-center   tx-white '
             >
-            <button className="pos-rel tx-white py-1 my-1 px-2 tx-mdl opaci-chov--75 bg-black "
+            <button className="pos-rel tx-white py-1 my-1 px-2 tx-lgx opaci-chov--75 bg-black "
+                onClick={()=>{s__asd("landing")}}
+                style={{boxShadow:"inset 0 0 0 2px #ff9900",transform:"scale(0.9) rotate(2deg)"}}
+            >
+                MENU
+            </button>
+            </div>
+
+
+            <div className='Q_xs right-0 pos-abs top-0  z-999  tx-center   tx-white '
+            >
+            <button className="pos-rel tx-white py-1 my-1 px-2 tx-lgx opaci-chov--75 bg-black "
                 onClick={()=>{s__asd("landing")}}
                 style={{boxShadow:"inset 0 0 0 2px #ff9900",transform:"scale(0.9) rotate(-2deg)"}}
             >
