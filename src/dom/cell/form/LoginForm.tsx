@@ -28,8 +28,8 @@ const Component = ({
   const triggerLogin = async () => {
     s__loading("login", true)
     let parsedForms = {
-      email:forms.email.trim(),
-      password:forms.password.trim(),
+      email:forms.email.replace(/^\s+|\s+$/g, ""),
+      password:forms.password.replace(/^\s+|\s+$/g, ""),
     }
     let res = await login(parsedForms)
     if (!!res) {
