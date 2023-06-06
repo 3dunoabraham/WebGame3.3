@@ -27,7 +27,11 @@ const Component = ({
   }
   const triggerLogin = async () => {
     s__loading("login", true)
-    let res = await login(forms)
+    let parsedForms = {
+      email:forms.email.trim(),
+      password:forms.password.trim(),
+    }
+    let res = await login(parsedForms)
     if (!!res) {
       router.push("/inventory")
       return
