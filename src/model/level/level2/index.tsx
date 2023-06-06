@@ -339,15 +339,7 @@ function Component ({}) {
       })
       // console.log("loginRes",loginRes)
       if (!loginRes) return 
-    // const founduserRes = await fetch("/api/player",{
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     apiKey:keyval.split(":")[0],
-    //     apiSecret:keyval.split(":")[1]
-    //   })
-    // })
-    // if (founduserRes.status >= 400) throw new Error()
-    // console.log("founduserRes 1", founduserRes)
+    
 
 
     app.alert("success", "Account connected")   
@@ -357,7 +349,25 @@ function Component ({}) {
 
     s__binanceKeys(keyval)
     s__LS_binanceKeys(keyval)
+
+    const founduserRes = await fetch("/api/player",{
+      method: "POST",
+      body: JSON.stringify({
+        apiKey:keyval.split(":")[0],
+        apiSecret:keyval.split(":")[1]
+      })
+    })
+    if (founduserRes.status >= 400) throw new Error()
+    console.log("founduserRes 1", founduserRes)
+    let theplayer = await founduserRes.json()
+    console.log("theplayer", theplayer)
+    if (!theplayer) return window.location.reload()
+
+    if (theplayer.goodAttempts > 0) {
+      setTutoStage(4)
+    }
     window.location.reload()
+
 
   } catch (e:any) {
     console.log("error", "Failed sync", e)   

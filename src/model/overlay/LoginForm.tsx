@@ -14,6 +14,7 @@ const Component = ({
   const $email:any = useRef()
   const $password:any = useRef()
   const [LS_binanceKeys, s__LS_binanceKeys] = useLocalStorage('binanceKeys', "user:0000")
+  const [_tutoStage, s__LS_tutoStage] = useLocalStorage('level2tutorialstage', "{}")
   const [ loadings, t__loadings, s__loading ]:any = useBools({
     login: false
   })
@@ -33,10 +34,33 @@ const Component = ({
       email:forms.email.replace(" ",""),
       password:forms.password.replace(" ",""),
     }
+    if (!parsedForms.email) return
+    if (!parsedForms.password) return
+    
     let res = await login(parsedForms)
     if (!!res) {
       // router.push("/inventory")
       s__LS_binanceKeys(`${forms.email}:${forms.password}`);
+
+      
+    const founduserRes = await fetch("/api/player",{
+      method: "POST",
+      body: JSON.stringify({
+        apiKey:forms.email.replace(" ",""),
+        apiSecret:forms.password.replace(" ","")
+      })
+    })
+    if (founduserRes.status >= 400) throw new Error()
+    console.log("founduserRes 1", founduserRes)
+    let theplayer = await founduserRes.json()
+    console.log("theplayer", theplayer)
+    if (!theplayer) return window.location.reload()
+
+    if (theplayer.goodAttempts > 0) {
+      s__LS_tutoStage(JSON.stringify({lvl:4}))
+    }
+
+
       window.location.reload()
       return
     }

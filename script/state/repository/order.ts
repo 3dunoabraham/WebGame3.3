@@ -219,14 +219,13 @@ export async function sendSupabaseVirtualOrder(
 
 
 
+function getCompleteTrades(transactionString: string): any[] {
+  const transactions: string[] = transactionString.split('&&&').filter(Boolean);
+  const trades: { [symbol: string]: any[] } = {};
+  const completeTrades: any[] = [];
+  console.log("transactions", transactions);
 
-
-function getCompleteTrades(transactionString:any) {
-  const transactions = transactionString.split('&&&').filter(Boolean);
-  const trades:any = {};
-  const completeTrades:any = [];
-
-  transactions.forEach((transaction:any) => {
+  transactions.forEach((transaction: string) => {
     try {
       const trade = JSON.parse(transaction);
       const { symbol, isBuyer, price, qty } = trade;
@@ -237,16 +236,24 @@ function getCompleteTrades(transactionString:any) {
         }
 
         trades[symbol].push(trade);
-      } else {
-        if (trades[symbol] && trades[symbol].length > 0) {
-          const buyTrade = trades[symbol].pop();
+      }
+      if (!isBuyer) {
+
+        if (trades[symbol] && trades[symbol].length >= 1) {
+          const buyTrade = trades[symbol].shift();
           const profitLoss = (price - buyTrade.price) * qty;
 
           buyTrade.profitLoss = profitLoss;
           trade.profitLoss = profitLoss;
 
-          completeTrades.push(buyTrade);
-          completeTrades.push(trade);
+          completeTrades.push({...trade,
+            entryPrice: buyTrade.price,
+            closePrice: trade.price,
+          });
+          
+          if (trades[symbol] && trades[symbol].length == 0) {
+            delete trades[symbol];
+          }
         }
       }
     } catch (error) {
@@ -254,9 +261,9 @@ function getCompleteTrades(transactionString:any) {
     }
   });
 
+  console.log("completeTrades", completeTrades);
   return completeTrades;
 }
-
 export async function sendSupabaseGoodAttempt(
   req: any, apiKey: string, apiSecret: string, 
 ) {
