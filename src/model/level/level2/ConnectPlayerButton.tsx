@@ -4,7 +4,7 @@ import { Cylinder } from "@react-three/drei"
 
 
 
-function Component ({calls, state}: any) {
+function ConnectPlayerButton ({calls, state}: any) {
     return (<>
         
       {state.isDefaultUser && <>
@@ -41,4 +41,4 @@ function Component ({calls, state}: any) {
       </>}
     </>)
 }
-export default Component
+export default ConnectPlayerButton

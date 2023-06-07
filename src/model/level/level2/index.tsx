@@ -1,6 +1,6 @@
 "use client";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { Box, OrbitControls, Sphere } from "@react-three/drei";
+import { Box, OrbitControls } from "@react-three/drei";
 import { useCopyToClipboard, useLocalStorage } from "usehooks-ts";
 
 
@@ -15,16 +15,13 @@ import { fetchPost } from "@/../script/util/helper/fetchHelper";
 import BitcoinTradingBox from "./BitcoinTradingBox";
 import { AppContext } from "@/../script/state/context/AppContext";
 import TutorialContainer from "./TutorialContainer";
-import LoginForm from "./LoginForm";
+import ConnectPlayerButton from "./ConnectPlayerButton";
 import GoalPost from "./goal/GoalPost";
 import SavedGoalPost from "./goal/SavedGoalPost";
 import { useAuth } from "@/../script/state/context/AuthContext";
-import RoofContainer from "@/3d/RoofContainer";
 import RoadJack from "./decoration/RoadJack";
 import MovingCar from "./decoration/MovingCar";
-import { BackSide } from "three";
 import ByteCityEnv from "./ByteCityEnv";
-import { signIn } from "next-auth/react";
 import RoadJack2 from "./decoration/RoadJack2";
 import GoodPlaceGoal from "./goal/GoodPlaceGoal";
 
@@ -654,7 +651,7 @@ function Component ({}) {
         state={{hasAnyToken, tutoStage, isDefaultUser}}
       />
 
-      <LoginForm state={{isDefaultUser, }} calls={{triggerLogout, triggerResetAll, triggerLogin}} />
+      <ConnectPlayerButton state={{isDefaultUser, }} calls={{triggerLogout, triggerResetAll, triggerLogin}} />
 
       {hasAnyToken &&  tutoStage.lvl >= 3 &&
         <group position={[0,0.3,0]}> 

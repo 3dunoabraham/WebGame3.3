@@ -9,7 +9,7 @@ import { useBools } from "@/../script/util/hook/useBools";
 import { AppContext } from "@/../script/state/context/AppContext";
 import { useLocalStorage } from "usehooks-ts";
 
-const Component = ({
+const DisconnectPlayerForm = ({
 }: { }) => {
   const app:any = useContext(AppContext)
   const router = useRouter()
@@ -66,4 +66,4 @@ const Component = ({
   </>);
 };
 
-export default Component;
+export default DisconnectPlayerForm;

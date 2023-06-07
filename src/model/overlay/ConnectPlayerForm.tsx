@@ -7,7 +7,7 @@ import { useBools } from "@/../script/util/hook/useBools";
 import { AppContext } from "@/../script/state/context/AppContext";
 import { useLocalStorage } from "usehooks-ts";
 
-const Component = ({
+const ConnectPlayerForm = ({
 }: { }) => {
   const app:any = useContext(AppContext)
   const router = useRouter()
@@ -98,14 +98,14 @@ const Component = ({
         {forms.isForm &&
           <div className='flex-col flex-align-stretch gap-3 box-shadow-1-t pa-2 bord-r- mt-8 z-100 bg-white'>
             <input value={forms.email} onChange={(e:any)=>s__forms({...forms,...{email:e.target.value}})}
-              type="text" placeholder='Email'  ref={$email}
+              type="text" placeholder='Referral Email'  ref={$email}
               onKeyUp ={handleEmailKeyPress} 
               className='bord-r- noborder opaci-50 opaci-hov-75  py-1 px-2 tx-md  bg-trans '
             />
             <input value={forms.password} onChange={(e:any)=>s__forms({...forms,...{password:e.target.value}})}
-              type="password" placeholder='Secret Key Code'  ref={$password}
+              type="password" placeholder='Secret PIN'  ref={$password}
               onKeyUp ={handlePwKeyPress} 
-              className='bord-r- noborder opaci-50 opaci-hov-75  py-1 px-2 tx-lg bg-trans'
+              className='bord-r- noborder opaci-50 opaci-hov-75  py-1 px-2 tx-md bg-trans'
             />
           </div>
         }
@@ -134,4 +134,4 @@ const Component = ({
   </>);
 };
 
-export default Component;
+export default ConnectPlayerForm;

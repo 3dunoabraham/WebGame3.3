@@ -3,8 +3,8 @@ import { Ticker, fetchTicker } from '@/../script/state/repository/ticker'
 // import Level2 from '@/model/level/level2';
 import { fetchSession, getJWTCookie } from '@/../script/state/repository/session';
 import Level2 from '@/model/level/level2';
-import LoginForm from '@/model/overlay/LoginForm';
-import LogoutForm from '@/model/overlay/LogoutForm';
+import ConnectPlayerForm from '@/model/overlay/ConnectPlayerForm';
+import DisconnectPlayerForm from '@/model/overlay/DisconnectPlayerForm';
 import { Suspense } from 'react';
 import Image from 'next/image';
 import DevelopmentRegister from '@/dom/atom/holders/DevelopmentRegister';
@@ -56,13 +56,13 @@ export default async function Page() {
           {!foundJWT && <>
             <div className='pos-abs top-0 right-0 pt-3'>
               <div className='Q_xs_sm py-8'></div>
-              <LoginForm />
+              <ConnectPlayerForm />
             </div>
           </>}
           {!!foundJWT && !!foundUser.user && <>
             <div className='pos-abs bottom-0 translate-y-100 right-0 pt-3'>
               {/* <div className='flex-col tx-lx opaci-10 py-'>{foundUser.user.name} <small>(Verified)</small></div> */}
-              <LogoutForm />
+              <DisconnectPlayerForm />
             </div>
           </>}
 
