@@ -14,7 +14,7 @@ export async function POST(request: any) {
   // console.log("res", resObj)
   
   // console.log("creds, ", apiKey, apiSecret)
-  let _player:any = await getSupabasePlayer(request,{},email, password,()=>{})
+  let _player:any = await getSupabasePlayer(request,email, password)
   // console.log("some resssssssssssss, ",)
   let player:any = await _player.json()
   console.log("playerzzzzzzzzz, ",player)

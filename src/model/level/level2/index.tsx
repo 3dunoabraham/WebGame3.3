@@ -350,7 +350,7 @@ function Component ({}) {
     s__binanceKeys(keyval)
     s__LS_binanceKeys(keyval)
 
-    const founduserRes = await fetch("/api/player",{
+    const founduserRes = await fetch("/api/player/verify",{
       method: "POST",
       body: JSON.stringify({
         apiKey:keyval.split(":")[0],
@@ -386,7 +386,7 @@ function Component ({}) {
 
     try {
 
-      const founduserRes = await fetch("/api/player",{
+      const founduserRes = await fetch("/api/player/verify",{
         method: "POST",
         body: JSON.stringify({
           apiKey:keyval.split(":")[0],
@@ -573,7 +573,7 @@ function Component ({}) {
         
       }
     app.alert("neutral", "Setting api keys")
-    let fetchRes:any = await fetchPost("/api/player/api",thedata)
+    let fetchRes:any = await fetchPost("/api/player/apikeys",thedata)
     if (fetchRes.status >= 400) {
       app.alert("error","Failed to Set api keys")
       return

@@ -26,8 +26,6 @@ export async function fetchLogin(
 
     if (!count) {
       throw new Error("no players found")
-      // let addRes = await fetchPostPlayer(supabase,playerObj)
-      // if (!addRes) { throw new Error() }
     } else {
       playerObj = await fetchPlayer(supabase,new_uid)
     }

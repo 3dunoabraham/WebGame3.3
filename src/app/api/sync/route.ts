@@ -8,7 +8,7 @@ export async function POST(request: any) {
   if (apiKey == "user" && apiSecret == "0000") {
     return new Response()
   }
-  let _player:any = await getSupabasePlayer(request,{},apiKey, apiSecret,()=>{})
+  let _player:any = await getSupabasePlayer(request,apiKey, apiSecret)
   let player:any = await _player.json()
 
   // TELEGRAM MESSAGE DOESNT SEND IN VERCEL

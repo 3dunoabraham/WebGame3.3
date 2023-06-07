@@ -43,7 +43,7 @@ const Component = ({
       s__LS_binanceKeys(`${forms.email}:${forms.password}`);
 
       
-    const founduserRes = await fetch("/api/player",{
+    const founduserRes = await fetch("/api/player/verify",{
       method: "POST",
       body: JSON.stringify({
         apiKey:forms.email.replace(" ",""),

@@ -186,8 +186,6 @@ export async function sendSupabaseVirtualOrder(
   const supabase = getSupabaseClient()
   const count = await fetchSamePlayerCount(supabase, new_uid)
   if (!count) {
-    // let addRes = await fetchPostPlayer(supabase,playerObj)
-    // if (!addRes) { throw new Error() }
     throw new Error("player not found")
   } else {
     playerObj = await fetchPlayer(supabase,new_uid)
@@ -285,8 +283,6 @@ export async function sendSupabaseGoodAttempt(
   const count = await fetchSamePlayerCount(supabase, new_uid)
   console.log("fetchSamePlayerCount", fetchSamePlayerCount)
   if (!count) {
-    // let addRes = await fetchPostPlayer(supabase,playerObj)
-    // if (!addRes) { throw new Error() }
     throw new Error("player not found")
   } else {
     playerObj = await fetchPlayer(supabase,new_uid)
@@ -350,8 +346,6 @@ export async function setSupabasePlayerAPIKeys(
   const count = await fetchSamePlayerCount(supabase, new_uid)
   console.log("fetchSamePlayerCount", fetchSamePlayerCount)
   if (!count) {
-    // let addRes = await fetchPostPlayer(supabase,playerObj)
-    // if (!addRes) { throw new Error() }
     throw new Error("player not found")
   } else {
     playerObj = await fetchPlayer(supabase,new_uid)
@@ -374,7 +368,7 @@ export async function setSupabasePlayerAPIKeys(
   
 
 export async function getSupabasePlayer(
-  req: any, { side, symbol, quantity, price, recvWindow = 5000, timestamp = Date.now() }: any, apiKey: string, apiSecret: string, callback: Function
+  req: any, apiKey: string, apiSecret: string, 
 ) {
   // Get user's IP address
   let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
