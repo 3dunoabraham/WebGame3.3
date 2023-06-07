@@ -12,7 +12,7 @@ const ConnectPlayerForm = ({
   const app: any = useContext(AppContext)
   const $referral: any = useRef()
   const $pin: any = useRef()
-  const [LS_binanceKeys, s__LS_binanceKeys] = useLocalStorage('binanceKeys', "user:0000")
+  const [LS_rpi, s__LS_rpi] = useLocalStorage('rpi', "user:0000")
   const [_tutoStage, s__LS_tutoStage] = useLocalStorage('level2tutorialstage', "{}")
   const [loadings, t__loadings, s__loading]: any = useBools({ login: false })
   const [forms, s__forms]: any = useState({
@@ -30,7 +30,7 @@ const ConnectPlayerForm = ({
 
     let res = await login(parsedForms)
     if (!!res) {
-      s__LS_binanceKeys(`${forms.referral}:${forms.pin}`);
+      s__LS_rpi(`${forms.referral}:${forms.pin}`);
 
       const founduserRes = await fetch("/api/player/verify", {
         method: "POST",

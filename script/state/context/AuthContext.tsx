@@ -19,7 +19,7 @@ const AuthProvider:FC<{
   const [userInfo, s__userInfo] = useState<IUser>(session.user)
   const [superuser, s__superuser] = useState()
 
-  const [LH_localuser, s__LH_localuser]:any = useLocalStorage("binanceKeys","user:0000")
+  const [LH_rpi, s__LH_rpi]:any = useLocalStorage("rpi","user:0000")
   const [localuser, __localuser] = useState()
 
 
@@ -29,16 +29,16 @@ const AuthProvider:FC<{
   }
   const fetchSuperuser = () => {
     
-    if (LH_localuser != "user:0000") {
-        let creds = LH_localuser.split(":")
+    if (LH_rpi != "user:0000") {
+        let creds = LH_rpi.split(":")
         let key = creds[0]
         let secret  = creds[1]
         fetchUserByKey(key,secret)        
       }
   }
   useEffect( () => {
-    if (LH_localuser != "user:0000") {
-      let creds = LH_localuser.split(":")
+    if (LH_rpi != "user:0000") {
+      let creds = LH_rpi.split(":")
       let key = creds[0]
       let secret  = creds[1]
       fetchUserByKey(key,secret)

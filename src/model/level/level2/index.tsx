@@ -47,7 +47,7 @@ function Component ({}) {
   const $bitcoin:any = useRef()
   const [chartPos, s__chartPos]:any = useState(chartPosLookup["btc"])
   const [chartRot, s__chartRot]:any = useState(chartRotLookup["btc"])
-  const [LS_binanceKeys, s__LS_binanceKeys] = useLocalStorage('binanceKeys', "user:0000")
+  const [LS_rpi, s__LS_rpi] = useLocalStorage('rpi', "user:0000")
   const [_tutoStage, s__LS_tutoStage] = useLocalStorage('level2tutorialstage', "{}")
   const [LS_tokensArrayObj, s__LS_tokensArrayObj] = useLocalStorage('localTokensArrayObj', "{}")
   const [chartBoxPos, s__chartBoxPos] = useState([0,0,0])
@@ -58,7 +58,7 @@ function Component ({}) {
   const [currentOrders, s__currentOrders] = useState<any>({})
   const [orderHistory, s__orderHistory] = useState<any>([])
   const [profitHistory, s__profitHistory] = useState<any>([])
-  const [binanceKeys, s__binanceKeys] = useState<any>(LS_binanceKeys)
+  const [rpi, s__rpi] = useState<any>(LS_rpi)
   const [form,s__form] = useState({
     id:"BTCUSDT3M",
   })
@@ -188,7 +188,7 @@ function Component ({}) {
         app.alert("error","Missing live buy order")
       } 
     }
-    let keyval = binanceKeys
+    let keyval = rpi
     
     const splitKey = keyval.split(":")
     if (splitKey[0] == "user" && splitKey[1] == "0000") {
@@ -222,7 +222,7 @@ function Component ({}) {
 
 
     
-    const splitKey = binanceKeys.split(":")
+    const splitKey = rpi.split(":")
     if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
 
     try {
@@ -308,7 +308,7 @@ function Component ({}) {
     setTutoStage(1)
   }
   const triggerLogout = () => {
-    if (prompt("Sign out from: <"+binanceKeys.split(":")[0]+":****> (yes/no)","yes") !== "yes") return
+    if (prompt("Sign out from: <"+rpi.split(":")[0]+":****> (yes/no)","yes") !== "yes") return
     
     quitAll()
   }
@@ -316,7 +316,7 @@ function Component ({}) {
     if (prompt("Reset local storage (yes/no)","yes") !== "yes") return
 
     
-    s__LS_binanceKeys("user:0000");
+    s__LS_rpi("user:0000");
     s__LS_tutoStage("{}");
     s__LS_tokensArrayObj("{}");
     window.location.reload()
@@ -336,8 +336,8 @@ function Component ({}) {
       if (!loginRes) return 
       app.alert("success", "Account connected")   
 
-      s__binanceKeys(keyval)
-      s__LS_binanceKeys(keyval)
+      s__rpi(keyval)
+      s__LS_rpi(keyval)
 
       const founduserRes = await fetch("/api/player/verify",{
         method: "POST",
@@ -378,21 +378,21 @@ function Component ({}) {
       if (founduserRes.status >= 400) throw new Error()
       app.alert("success", "Account connected")   
   
-      s__binanceKeys(keyval)
-      s__LS_binanceKeys(keyval)
+      s__rpi(keyval)
+      s__LS_rpi(keyval)
   
     } catch (e:any) {
       app.alert("error", "Failed sync")   
     }
   }
   const isDefaultUser = useMemo(()=>{
-    const splitKey = binanceKeys.split(":")
+    const splitKey = rpi.split(":")
     if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
     return false
-  },[binanceKeys])
+  },[rpi])
   const quitAll = async () => {
 
-    s__LS_binanceKeys("user:0000");
+    s__LS_rpi("user:0000");
     s__LS_tutoStage("{}");
     s__LS_tokensArrayObj("{}");
 
@@ -420,8 +420,8 @@ function Component ({}) {
       if (realProfitCount < 4) {
         app.alert("neutral", "Trying to sync account")
         let loginRes = await login({
-          referral:LS_binanceKeys.split(":")[0],
-          pin:LS_binanceKeys.split(":")[1]
+          referral:LS_rpi.split(":")[0],
+          pin:LS_rpi.split(":")[1]
         })
         if (!loginRes) return 
 
@@ -492,7 +492,7 @@ function Component ({}) {
     if (!binanceapikeys) return
     if (binanceapikeys.split(":").length < 2) return
     
-    const splitKey = binanceKeys.split(":")
+    const splitKey = rpi.split(":")
     if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
 
     try {
@@ -518,7 +518,7 @@ function Component ({}) {
     }
   }
   const triggerSyncGoodPlace = async () => {
-    const splitKey = binanceKeys.split(":")
+    const splitKey = rpi.split(":")
     if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
 
     try {

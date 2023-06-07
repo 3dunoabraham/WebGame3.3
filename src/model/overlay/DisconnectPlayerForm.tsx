@@ -11,13 +11,13 @@ const DisconnectPlayerForm = ({
 }: { }) => {
   const app:any = useContext(AppContext)
   const { do:{ logout } }:any = useAuth()
-  const [LS_binanceKeys, s__LS_binanceKeys] = useLocalStorage('binanceKeys', "user:0000")
+  const [LS_rpi, s__LS_rpi] = useLocalStorage('rpi', "user:0000")
   const triggerLogout = async () => {
     app.alert("neutral","Signin out, clearing cookies...")
     let res = await logout()
     console.log("res",res)
     app.alert("neutral","Logged out, clearing local storage...")
-    s__LS_binanceKeys("user:0000")
+    s__LS_rpi("user:0000")
     window.location.reload()
   }
 
