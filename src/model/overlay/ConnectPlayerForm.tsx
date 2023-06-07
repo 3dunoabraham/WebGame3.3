@@ -35,8 +35,8 @@ const ConnectPlayerForm = ({
       const founduserRes = await fetch("/api/player/verify", {
         method: "POST",
         body: JSON.stringify({
-          apiKey: forms.referral.replace(" ", ""),
-          apiSecret: forms.pin.replace(" ", "")
+          referral: forms.referral.replace(" ", ""),
+          pin: forms.pin.replace(" ", "")
         })
       })
       if (founduserRes.status >= 400) throw new Error()

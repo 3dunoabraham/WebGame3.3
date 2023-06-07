@@ -6,8 +6,9 @@ export async function POST(request: any) {
   const { apiKey,apiSecret, binancePublic, binanceSecret } = body;
 
   let result:any = await setSupabasePlayerAPIKeys(request,apiKey, apiSecret,binancePublic,binanceSecret)
+  let resultObj = await result.json()
 
-  return new Response(result)
+  return new Response(JSON.stringify(resultObj))
 }
   
   

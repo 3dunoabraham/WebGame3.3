@@ -26,7 +26,10 @@ export async function fetchLogin (credentials:{referral:string,pin:string}) {
     const reqRes = await fetch(api_url+ROUTES.login,{
       method:"POST",
       headers:{"Content-Type":"application/json",},
-      body: JSON.stringify(credentials)
+      body: JSON.stringify({
+        email: credentials.referral,
+        password: credentials.pin,
+      })
     })
     if (reqRes.status >= 400) { return null }
     let reqResObj = await reqRes.json()

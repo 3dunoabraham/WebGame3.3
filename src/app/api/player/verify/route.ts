@@ -2,11 +2,12 @@ import { getSupabasePlayer } from '@/../script/state/repository/order';
   
 export async function POST(request: any) {
   const body:any = await request.json()
-  const { apiKey,apiSecret } = body;
+  const { referral, pin } = body;
   
-  let playerRes:any = await getSupabasePlayer(request,apiKey, apiSecret)
+  let playerRes:any = await getSupabasePlayer(request, referral, pin)
+  let playerResObj = await playerRes.json()
 
-  return new Response(playerRes)
+  return new Response(JSON.stringify(playerResObj))
 }
   
   

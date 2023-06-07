@@ -342,8 +342,8 @@ function Component ({}) {
       const founduserRes = await fetch("/api/player/verify",{
         method: "POST",
         body: JSON.stringify({
-          apiKey:keyval.split(":")[0],
-          apiSecret:keyval.split(":")[1]
+          referral:keyval.split(":")[0],
+          pin:keyval.split(":")[1]
         })
       })
       if (founduserRes.status >= 400) throw new Error()
