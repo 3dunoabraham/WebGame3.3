@@ -1,65 +1,51 @@
 "use client";
-
 import { useEffect, useRef, useState, useContext } from "react";
-import { useAuth } from "@/../script/state/context/AuthContext";
-import { useRouter } from 'next/navigation';
-import { useBools } from "@/../script/util/hook/useBools";
-import { AppContext } from "@/../script/state/context/AppContext";
 import { useLocalStorage } from "usehooks-ts";
 
+
+import { useAuth } from "@/../script/state/context/AuthContext";
+import { useBools } from "@/../script/util/hook/useBools";
+import { AppContext } from "@/../script/state/context/AppContext";
+
 const ConnectPlayerForm = ({
-}: { }) => {
-  const app:any = useContext(AppContext)
-  const router = useRouter()
-  const $email:any = useRef()
-  const $password:any = useRef()
+}: {}) => {
+  const app: any = useContext(AppContext)
+  const $referral: any = useRef()
+  const $pin: any = useRef()
   const [LS_binanceKeys, s__LS_binanceKeys] = useLocalStorage('binanceKeys', "user:0000")
   const [_tutoStage, s__LS_tutoStage] = useLocalStorage('level2tutorialstage', "{}")
-  const [ loadings, t__loadings, s__loading ]:any = useBools({
-    login: false
+  const [loadings, t__loadings, s__loading]: any = useBools({ login: false })
+  const [forms, s__forms]: any = useState({
+    referral: "", pin: "", isForm: false,
   })
-  const [ forms, s__forms ]:any = useState({
-    email:"",
-    password:"",
-    isForm: false,
-  })
-  const { user, do:{login, demo}, jwt }:any = useAuth()
-  const triggerDemo = async () => {
-    let res = await demo()
-    window.location.reload()
-  }
+  const { do: { login } }: any = useAuth()
   const triggerLogin = async () => {
     s__loading("login", true)
     let parsedForms = {
-      email:forms.email.replace(" ",""),
-      password:forms.password.replace(" ",""),
+      referral: forms.referral.replace(" ", ""),
+      pin: forms.pin.replace(" ", ""),
     }
-    if (!parsedForms.email) return
-    if (!parsedForms.password) return
-    
+    if (!parsedForms.referral) return
+    if (!parsedForms.pin) return
+
     let res = await login(parsedForms)
     if (!!res) {
-      // router.push("/inventory")
-      s__LS_binanceKeys(`${forms.email}:${forms.password}`);
+      s__LS_binanceKeys(`${forms.referral}:${forms.pin}`);
 
-      
-    const founduserRes = await fetch("/api/player/verify",{
-      method: "POST",
-      body: JSON.stringify({
-        apiKey:forms.email.replace(" ",""),
-        apiSecret:forms.password.replace(" ","")
+      const founduserRes = await fetch("/api/player/verify", {
+        method: "POST",
+        body: JSON.stringify({
+          apiKey: forms.referral.replace(" ", ""),
+          apiSecret: forms.pin.replace(" ", "")
+        })
       })
-    })
-    if (founduserRes.status >= 400) throw new Error()
-    console.log("founduserRes 1", founduserRes)
-    let theplayer = await founduserRes.json()
-    console.log("theplayer", theplayer)
-    if (!theplayer) return window.location.reload()
+      if (founduserRes.status >= 400) throw new Error()
+      let theplayer = await founduserRes.json()
+      if (!theplayer) return window.location.reload()
 
-    if (theplayer.goodAttempts > 0) {
-      s__LS_tutoStage(JSON.stringify({lvl:4}))
-    }
-
+      if (theplayer.goodAttempts > 0) {
+        s__LS_tutoStage(JSON.stringify({ lvl: 4 }))
+      }
 
       window.location.reload()
       return
@@ -68,69 +54,54 @@ const ConnectPlayerForm = ({
     app.alert("error", "Failed login. Try again")
   }
   const triggerIsForm = async () => {
-    s__forms({...forms,...{isForm: true}})
+    s__forms({ ...forms, ...{ isForm: true } })
   }
-  useEffect(()=>{
-    if (!$email.current) return
-    $email.current.focus()
-  },[forms.isForm])
-  const handleEmailKeyPress = (event:any) => {
-    if(['Enter','Tab'].includes(event.key)){
-      if (!$password.current) return
-      $password.current.focus()
+  useEffect(() => {
+    if (!$referral.current) return
+    $referral.current.focus()
+  }, [forms.isForm])
+  const handleReferralKeyPress = (event: any) => {
+    if (['Enter', 'Tab'].includes(event.key)) {
+      if (!$pin.current) return
+      $pin.current.focus()
     }
   }
-  const handlePwKeyPress = (event:any) => {
-    if(['Enter'].includes(event.key)){
+  const handlePinKeyPress = (event: any) => {
+    if (['Enter'].includes(event.key)) {
       triggerLogin()
     }
   }
+
+
   
   return (<>
     <div className='flex-col '>
-        
-        {/* <button className='py-2 px-7 tx-lgx  opaci-50 noborder opaci-chov--75 mb-3 box-shadow-2-b z-100'
-            onClick={triggerDemo}
+      {forms.isForm &&
+        <div className='flex-col flex-align-stretch gap-3 box-shadow-1-t pa-2 bord-r- mt-8 z-100 bg-white'>
+          <input value={forms.referral} onChange={(e: any) => s__forms({ ...forms, ...{ referral: e.target.value } })}
+            type="text" placeholder='Referral Email' ref={$referral}
+            onKeyUp={handleReferralKeyPress}
+            className='bord-r- noborder opaci-50 opaci-hov-75  py-1 px-2 tx-md  bg-trans '
+          />
+          <input value={forms.pin} onChange={(e: any) => s__forms({ ...forms, ...{ pin: e.target.value } })}
+            type="password" placeholder='Secret PIN' ref={$pin}
+            onKeyUp={handlePinKeyPress}
+            className='bord-r- noborder opaci-50 opaci-hov-75  py-1 px-2 tx-md bg-trans'
+          />
+        </div>
+      }
+      {!!loadings.login && <> <div className="tx-ls-3 hover-2 pt-4 opaci-75">LOADING...</div> </>}
+      {!loadings.login &&
+        <div className="flex   ">
+          <button className='py-1 px-7 tx-lg tx-white opaci-chov--50 mt-3 noborder bord-r-5 z-100'
+            style={{ background: "#333333" }}
+            onClick={forms.isForm ? triggerLogin : triggerIsForm}
           >
-            Demo ⇨ 
-          </button> */}
-
-        {forms.isForm &&
-          <div className='flex-col flex-align-stretch gap-3 box-shadow-1-t pa-2 bord-r- mt-8 z-100 bg-white'>
-            <input value={forms.email} onChange={(e:any)=>s__forms({...forms,...{email:e.target.value}})}
-              type="text" placeholder='Referral Email'  ref={$email}
-              onKeyUp ={handleEmailKeyPress} 
-              className='bord-r- noborder opaci-50 opaci-hov-75  py-1 px-2 tx-md  bg-trans '
-            />
-            <input value={forms.password} onChange={(e:any)=>s__forms({...forms,...{password:e.target.value}})}
-              type="password" placeholder='Secret PIN'  ref={$password}
-              onKeyUp ={handlePwKeyPress} 
-              className='bord-r- noborder opaci-50 opaci-hov-75  py-1 px-2 tx-md bg-trans'
-            />
-          </div>
-        }
-        {!!loadings.login && <>
-          <div className="tx-ls-3 hover-2 pt-4 opaci-75">LOADING...</div>
-        </>}
-        {!loadings.login &&
-          <div className="flex   ">
-            {/* <a className='py-2 px-6 tx-lgx  opaci-75 opaci-chov--50 mt-3 noborder bg-trans tx-blue z-100'
-              style={{filter:"hue-rotate(-42deg)"}}
-              onClick={forms.isForm ? triggerLogin : triggerIsForm}
-            >
-              <div className="tx-bold-2  ">Register</div>  
-            </a> */}
-            {/* <span className="pt-6 tx-ls-2 opaci-25 pr-8 tx-bold-2 tx-lg">or</span> */}
-
-            <button className='py-1 px-7 tx-lg tx-white opaci-chov--50 mt-3 noborder bord-r-5 z-100'
-              style={{background:"#333333"}}
-              onClick={forms.isForm ? triggerLogin : triggerIsForm}
-            >
-              Connect
-            </button>
-          </div>
-        }
-      </div>
+            Connect
+          </button>
+        </div>
+      }
+    </div>
   </>);
 };
 

@@ -323,54 +323,40 @@ function Component ({}) {
   }
   const triggerLogin = async () => {
     if (tutoStage.lvl == 3) { firstLogin(); return }
-    let keyval:any =  prompt("Enter your WebGamed Credentials! \n\n < Email : SecretKeyCode >","") 
+    let keyval:any =  prompt("Enter your Byte City Credentials! \n\n < Referral Email : Secret PIN >","") 
     if (!keyval) return
     if (keyval.split(":").length < 2) return
-    // console.log("")
     app.alert("success", "Validating credentials...")
     try {
-      let loginRes = await login({
-        
-        email:keyval.split(":")[0],
-        password:keyval.split(":")[1]
-      })
-      // console.log("loginRes",loginRes)
+      let playerCredentials = {        
+        referral:keyval.split(":")[0],
+        pin:keyval.split(":")[1]
+      }
+      let loginRes = await login(playerCredentials)
       if (!loginRes) return 
-    
+      app.alert("success", "Account connected")   
 
+      s__binanceKeys(keyval)
+      s__LS_binanceKeys(keyval)
 
-    app.alert("success", "Account connected")   
-
-    // if yes here check  and update tutorial stage
-    // add new button to programatically connect and sync
-
-    s__binanceKeys(keyval)
-    s__LS_binanceKeys(keyval)
-
-    const founduserRes = await fetch("/api/player/verify",{
-      method: "POST",
-      body: JSON.stringify({
-        apiKey:keyval.split(":")[0],
-        apiSecret:keyval.split(":")[1]
+      const founduserRes = await fetch("/api/player/verify",{
+        method: "POST",
+        body: JSON.stringify({
+          apiKey:keyval.split(":")[0],
+          apiSecret:keyval.split(":")[1]
+        })
       })
-    })
-    if (founduserRes.status >= 400) throw new Error()
-    console.log("founduserRes 1", founduserRes)
-    let theplayer = await founduserRes.json()
-    console.log("theplayer", theplayer)
-    if (!theplayer) return window.location.reload()
+      if (founduserRes.status >= 400) throw new Error()
+      let theplayer = await founduserRes.json()
+      if (!theplayer) return window.location.reload()
 
-    if (theplayer.goodAttempts > 0) {
-      setTutoStage(4)
+      if (theplayer.goodAttempts > 0) {
+        setTutoStage(4)
+      }
+      window.location.reload()
+    } catch (e:any) {
+      app.alert("error", "Failed sync")   
     }
-    window.location.reload()
-
-
-  } catch (e:any) {
-    console.log("error", "Failed sync", e)   
-    app.alert("error", "Failed sync")   
-  }
-
   }
   const firstLogin = async () => {
     let randomThousand = parseInt(`${(Math.random()*9000) + 1000}`)
@@ -379,7 +365,6 @@ function Component ({}) {
     let keyval:any =  prompt("1 ENTER USER:PASSWORD",arandomkey) 
     if (!keyval) return
     if (keyval.split(":").length < 2) return
-
 
     try {
 
@@ -391,14 +376,12 @@ function Component ({}) {
         })
       })
       if (founduserRes.status >= 400) throw new Error()
-      // console.log("founduserRes 2", founduserRes)
       app.alert("success", "Account connected")   
   
       s__binanceKeys(keyval)
       s__LS_binanceKeys(keyval)
   
     } catch (e:any) {
-      console.log("error", "Failed sync", e)   
       app.alert("error", "Failed sync")   
     }
   }
@@ -413,20 +396,14 @@ function Component ({}) {
     s__LS_tutoStage("{}");
     s__LS_tokensArrayObj("{}");
 
-    let logoutres = await logout()
-    // console.log(logoutres, "logoutres")
-    // return
+    await logout()
     window.location.reload()
   }
   const claimOrSyncDatabase = async () => {
-    
     if (isDefaultUser) return
-
-    // tokensArrayObj
-
   }
-  const claimOrSync = async () => {
 
+  const claimOrSync = async () => {
     if (isDefaultUser) {
       if (profitHistory.length  == 0) {
         app.alert("neutral", "Tip: Buy low and sell high to get points!")
@@ -439,23 +416,13 @@ function Component ({}) {
         }
 
       }
-
-      // app.alert("error", "Please register w/Google to continue!")
-      // alert("Please register w/Google to save progress!")
     } else {
       if (realProfitCount < 4) {
         app.alert("neutral", "Trying to sync account")
-
-        // console.log("tokensArrayObj", tokensArrayObj)
-        // console.log("tutoStage", tutoStage)
-        // console.log("binanceKeys", tutoStage, LS_binanceKeys)
-        // continue here
         let loginRes = await login({
-        
-          email:LS_binanceKeys.split(":")[0],
-          password:LS_binanceKeys.split(":")[1]
+          referral:LS_binanceKeys.split(":")[0],
+          pin:LS_binanceKeys.split(":")[1]
         })
-        // console.log("loginRes",loginRes)
         if (!loginRes) return 
 
       } else {
@@ -463,7 +430,6 @@ function Component ({}) {
 
         app.alert("success", "Congratulations! you've reached the simulated!")
       }
-      // syncProfitTrades
     }
 
     if (tutoStage == 3) {
@@ -486,14 +452,7 @@ function Component ({}) {
 
   useEffect(()=>{
     s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
-
     s__savedString(LH_superuser)
-    console.log("superuser", superuser)
-    // console.log("LS_tokensArrayObj", JSON.parse(LS_tokensArrayObj))
-    // console.log("LH_superuser", LH_superuser)
-    // console.log("user", user)
-
-
   },[user, superuser])
 
   const onFirstCarClicked = (e:any) => {
@@ -508,38 +467,19 @@ function Component ({}) {
       } else {
         app.alert("error", "No orders found, bad reputation!")
       }
-      console.log("real order his", orderHistory)
-      console.log("real profit", profitHistory)
       
-      // for (let index = profitHistory.length-1; index >= 0; index--) {
-      //   const element = profitHistory[index];
-      //   if (element[1] == "loss"){
-      //     s__profitHistory(profitHistory.splice(index, 1))
-      //     return
-      //   }
-      // }
       let theIndex = -1
       for (let index = 0; index < profitHistory.length; index++) {
         const element = profitHistory[index];
         if (element[1] == "loss"){
           theIndex = index
-          // s__profitHistory(profitHistory.splice(index, 1))
-          // return
         }
       }
       if (theIndex == -1)  return
 
-      // console.log("theIndex", theIndex, profitHistory.splice(theIndex, 1))
       let aNewArray = [...profitHistory]
       aNewArray.splice(theIndex, 1)
       s__profitHistory(aNewArray)
-
-      // profitHistory.map((anOrder:any, index:number) => {
-      //   if (anOrder[1] == "loss"){
-      //     // delete profitHistory[index]
-      //     return
-      //   }
-      // })
     }
   }
   const _s__projectionMode = (val:boolean) => {
@@ -551,11 +491,6 @@ function Component ({}) {
     let binanceapikeys:any =  prompt("Enter your API Keys! \n\n < Public : Secret >","") 
     if (!binanceapikeys) return
     if (binanceapikeys.split(":").length < 2) return
-    // console.log("")
-
-
-
-
     
     const splitKey = binanceKeys.split(":")
     if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
@@ -575,11 +510,6 @@ function Component ({}) {
       app.alert("error","Failed to Set api keys")
       return
     }
-    // app.alert("success", "Order saved")
-    // if (orderHistory.length >= 9) {
-    //   alert("Simulation Bankrunptcy!")
-    //   return
-    // }
       app.alert("success", "Successfully set API keys!")
 
       fetchSuperuser()
@@ -602,11 +532,6 @@ function Component ({}) {
       app.alert("error","Failed to Syncing Good Trades")
       return
     }
-    // app.alert("success", "Order saved")
-    // if (orderHistory.length >= 9) {
-    //   alert("Simulation Bankrunptcy!")
-    //   return
-    // }
       app.alert("success", "Successfully Syncing Good Trades!")
       window.location.reload()
     } catch (e:unknown) {

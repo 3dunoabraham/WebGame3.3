@@ -1,7 +1,6 @@
 "use client";
 import { useContext, useEffect, useRef, useState } from "react";
 import { FaDoorClosed } from "react-icons/fa";
-import { useRouter } from 'next/navigation';
 
 
 import { useAuth } from "@/../script/state/context/AuthContext";
@@ -11,7 +10,6 @@ import { AppContext } from "@/../script/state/context/AppContext";
 const Component = ({
 }: { }) => {
   const app:any = useContext(AppContext)
-  const router = useRouter()
   const $email:any = useRef()
   const [ loadings, t__loadings, s__loading ]:any = useBools({
     login: false

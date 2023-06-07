@@ -28,11 +28,11 @@ export const useAppData = () => useContext(AppData) as IAppDataContext;
 export default AppDataProvider;
 
 export interface ILoginForm {
-  email?: string;
-  password?: string;
+  referral?: string;
+  pin?: string;
 }
 export interface IUser {
-  email: string;
+  referral: string;
   name: string;
 }
 

@@ -21,17 +21,12 @@ const EXT_ROUTES:any = {
 const ROUTES = EXT_ROUTES[api_name]
 
 
-export async function fetchLogin (credentials:any) {
+export async function fetchLogin (credentials:{referral:string,pin:string}) {
   try {
-    console.log("routtt", api_url+ROUTES.login)
     const reqRes = await fetch(api_url+ROUTES.login,{
       method:"POST",
       headers:{"Content-Type":"application/json",},
-      body: JSON.stringify({
-        ...credentials,
-        apiKey: credentials.email,
-        apiSecret: credentials.password,
-      })
+      body: JSON.stringify(credentials)
     })
     if (reqRes.status >= 400) { return null }
     let reqResObj = await reqRes.json()
@@ -47,7 +42,7 @@ export async function fetchLogin (credentials:any) {
   }
 }
 
-export async function fetchLogout (jwt:any) {
+export async function fetchLogout (jwt:string) {
   try {
     const reqRes = await fetch(api_url+ROUTES.logout,{
       method:"DELETE", headers: {
@@ -61,7 +56,7 @@ export async function fetchLogout (jwt:any) {
   }
 }
 
-export async function fetchUser (jwt:any) {
+export async function fetchUser (jwt:string) {
   try {
     
     const reqRes = await fetch(api_url+"/auth/verify",{

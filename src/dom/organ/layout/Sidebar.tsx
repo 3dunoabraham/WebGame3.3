@@ -32,7 +32,6 @@ function Component ({ foundUser, children }:{ foundUser:any, children?:any }) {
         {!foundUser && <LoginFormMinimal />}
         
         {foundUser && <div className='pb-4 '>
-          <div className='flex-col tx-l Q_lg_x opaci-10 py-2'>{foundUser.email}</div>
           <LogoutForm />
         </div>}
       </div>
