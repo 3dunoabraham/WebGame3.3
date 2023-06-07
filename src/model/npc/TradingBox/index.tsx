@@ -43,8 +43,8 @@ const Component = forwardRef(({
   const baseToken = "USDT"
     
     const [LS_tokensArrayObj, s__LS_tokensArrayObj] = useLocalStorage('localTokensArrayObj', "{}")
-    const [LS_uid, s__LS_uid] = useLocalStorage('uid', "")
-    const [uid, s__uid] = useState("")
+    const [LS_rpi, s__LS_rpi] = useLocalStorage('rpi', "")
+    const [rpi, s__rpi] = useState("")
     const [showAllTokens,s__showAllTokens] = useState<any>(true)
     const [chopAmount,s__chopAmount] = useState<any>(0)
     const [tokensArrayObj,s__tokensArrayObj] = useState<any>({})
@@ -97,8 +97,8 @@ const selectedHasArray = useMemo(()=>{
   },[form])
   useEffect(()=>{
     s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
-    s__uid(LS_uid)
-    s__clientIP(LS_uid.split(":")[0])
+    s__rpi(LS_rpi)
+    s__clientIP(LS_rpi.split(":")[0])
   },[])
 
   useImperativeHandle(ref, () => {

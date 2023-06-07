@@ -5,9 +5,9 @@ import { Mesh, Box3, Vector3 } from "three";
 import { useIsClient } from "usehooks-ts";
 import * as THREE from "three";
 import { useContext,  } from 'react'
-import { AppContext } from "../../../script/state/context/AppContext";
+import { AppContext } from "@/../script/state/context/AppContext";
 import DynaText from "@/model/npc/TradingBox/DynaText";
-import { parseDecimals } from "../../../script/util/helper";
+import { parseDecimals } from "@/../script/util/helper";
 import { tokenColors } from "@/model/npc/TradingBox";
 import KLineChart3d from "@/model/extra/KLineChart3d";
 import { useQueryPlus } from "@/../script/util/hook/useHooksHelper";

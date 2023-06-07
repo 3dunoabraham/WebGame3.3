@@ -587,7 +587,8 @@ function Component ({}) {
       }
       {hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser &&
         <group position={[0,0,1.6]}>
-          <SavedGoalPost calls={{triggerSyncGoodPlace,setAPIKeys, claim:claimOrSyncDatabase}} {...{projectionMode, s__projectionMode: _s__projectionMode}}
+          <SavedGoalPost calls={{triggerSyncGoodPlace,setAPIKeys, claim:claimOrSyncDatabase}}
+            {...{projectionMode, s__projectionMode: _s__projectionMode}}
             state={{hasAnyToken, profitHistory, savedString }}
           />
         </group>

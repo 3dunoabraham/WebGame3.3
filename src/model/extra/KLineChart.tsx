@@ -1,9 +1,9 @@
 "use client";
 
 import { useMemo } from "react";
-import useKLine from "../../../script/util/hook/useKLine";
-import { findMaxAndMinValues } from "../../../script/util/helper/kline";
-import useTicker from "../../../script/util/hook/useTicker";
+import useKLine from "@/../script/util/hook/useKLine";
+import { findMaxAndMinValues } from "@/../script/util/helper/kline";
+import useTicker from "@/../script/util/hook/useTicker";
 
 
 function Component ({ initialArray }:any) {

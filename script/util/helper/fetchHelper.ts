@@ -1,4 +1,4 @@
-import { API_ORGS, API_ORG_TYPES, API_PEOPLE_BASE, API_UNIT_BASE, API_UNIT_OPTS_BASE } from '../../constant/index';
+import { API_ORGS, API_ORG_TYPES, API_PEOPLE_BASE, API_UNIT_BASE, API_UNIT_OPTS_BASE } from '@/../script/constant/index';
 import { DEFAULT_UNIT_OPTS } from '@/../script/constant/unit';
 import { dd } from '@/../script/util/helper/devHelper';
 import { isStrInteger, jstr2FullName } from '@/../script/util/type/stringHelper';

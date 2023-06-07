@@ -8,11 +8,11 @@ export async function fetchLogin(
   ) {
     // Get user's IP address
     let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
-    const new_uid = computeHash(apiKey, apiSecret)
+    const playerHash = computeHash(apiKey, apiSecret)
     let playerObj:any = {
       name: apiKey,
       ipv4: ipAddress,
-      hash: new_uid,
+      hash: playerHash,
       attempts: 12,
       totalAttempts: 0,
       goodAttempts: 0,
@@ -20,16 +20,13 @@ export async function fetchLogin(
       datenow: Date.now(),
     }
     const supabase = getSupabaseClient()
-    console.log("playecount of", apiKey, apiSecret, "=========", new_uid)
-    const count = await fetchSamePlayerCount(supabase, new_uid)
-    console.log("playecount:", count)
+    const count = await fetchSamePlayerCount(supabase, playerHash)
 
     if (!count) {
       throw new Error("no players found")
     } else {
-      playerObj = await fetchPlayer(supabase,new_uid)
+      playerObj = await fetchPlayer(supabase,playerHash)
     }
-    console.log("finallyyyy playerObj:", playerObj)
 
     return new Response(JSON.stringify(playerObj))
   }

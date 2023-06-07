@@ -16,11 +16,11 @@ export async function fetchPostPlayer(supabase:any, playerObj:any) {
     return !error
 }
 
-export async function fetchPlayer(supabase:any, new_uid:any) {
+export async function fetchPlayer(supabase:any, playerHash:any) {
     const { data: existingStart, error: selectError } = await supabase
         .from('start')
         .select('*')
-        .match({ hash: new_uid })
+        .match({ hash: playerHash })
         .single()
     return existingStart
 }
@@ -35,7 +35,7 @@ export async function fetchSameIPCount(supabase:any, ipAddress:any) {
     return ipcount
 }
 
-export async function fetchPutPlayer(supabase:any, playerObj:any, new_uid:any, orderObj:any) {
+export async function fetchPutPlayer(supabase:any, playerObj:any, playerHash:any, orderObj:any) {
 
     const { data: removeattempt, error:error_removeattempt } = await supabase
         .from('start')
@@ -45,14 +45,14 @@ export async function fetchPutPlayer(supabase:any, playerObj:any, new_uid:any, o
             datenow: `${Date.now()}`,
             trades: playerObj.trades + JSON.stringify(orderObj)+"&&&",
         })
-        .match({ hash: new_uid })
+        .match({ hash: playerHash })
         .single()
 
   
     return !error_removeattempt
 }
 
-export async function fetchPutGoodPlayer(supabase:any, playerObj:any, new_uid:any ) {
+export async function fetchPutGoodPlayer(supabase:any, playerObj:any, playerHash:any ) {
 
     const { data: removeattempt, error:error_removeattempt } = await supabase
         .from('start')
@@ -60,14 +60,14 @@ export async function fetchPutGoodPlayer(supabase:any, playerObj:any, new_uid:an
             goodAttempts: playerObj.goodAttempts + 1,
             trades: ""
         })
-        .match({ hash: new_uid })
+        .match({ hash: playerHash })
         .single()
 
   
     return !error_removeattempt
 }
 
-export async function fetchPutPlayerAPI(supabase:any, playerObj:any, new_uid:any, binancePublic:any, binanceSecret:any ) {
+export async function fetchPutPlayerAPI(supabase:any, playerObj:any, playerHash:any, binancePublic:any, binanceSecret:any ) {
     let secret1 = process.env.PROMOCODE1
     let secret2 = process.env.PROMOCODE2
     let thesubLevel = playerObj.subscription
@@ -80,7 +80,7 @@ export async function fetchPutPlayerAPI(supabase:any, playerObj:any, new_uid:any
             subscription: newsubLevel,
             binancekeys: `${binancePublic}:${binanceSecret}`
         })
-        .match({ hash: new_uid })
+        .match({ hash: playerHash })
         .single()
 
   

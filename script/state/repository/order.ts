@@ -51,11 +51,11 @@ export const priceLookupTable: { [key: string]: number } = {
 export function computeHash (firstValue:any, secondValue:any) {
   
   const hash = crypto.createHash('sha256');
-  // console.log("hash values", firstValue, secondValue)
+
   hash.update(firstValue);
   hash.update(secondValue);
   const hash_digest = hash.digest('hex');
-  // console.log("hash_digest", hash_digest)
+
 
   return hash_digest
 }
@@ -93,9 +93,9 @@ export async function sendTelegramMessageVirtualOrder(req: any, { side, symbol, 
     const hash = crypto.createHash('sha256');
     hash.update(ipAddress);
     hash.update(apiSecret);
-    const new_uid = hash.digest('hex');
+    const playerHash = hash.digest('hex');
 
-    const message = `📈 Demo API Key @${chatId} | 🔑 ${token} \n\n👤 User ID: ${new_uid}\n\n💰 Placed an order:\nSide: ${side}\nSymbol: ${symbol}\nQuantity: ${quantity}\nPrice: ${price}\n`;
+    const message = `📈 Demo API Key @${chatId} | 🔑 ${token} \n\n👤 User ID: ${playerHash}\n\n💰 Placed an order:\nSide: ${side}\nSymbol: ${symbol}\nQuantity: ${quantity}\nPrice: ${price}\n`;
     const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;    
     let sendmesres = await fetch(url)
     callback(await sendmesres.json());
@@ -130,14 +130,11 @@ export function makeLimitOrder({ side, symbol, quantity, price, recvWindow = 500
   };
   let _price = !!price ? price.toFixed(getCryptoPriceDecimals(symbol)) : 0
   if (!_price) {
-    console.log("bad price: ", _price)
     return null
   }
   const params = `symbol=${symbol}&side=${side}&type=LIMIT&timeInForce=GTC&quantity=${quantity}&price=${_price}&recvWindow=${recvWindow}&timestamp=${timestamp}`;
   const signature = crypto.createHmac('sha256', apiSecret).update(params).digest('hex');
   const data = `${params}&signature=${signature}`;
-  console.log("bout to send this params", params)
-  console.log("bout to this keys", apiKey, apiSecret)
   const req = https.request(options, (res) => {
     let result = '';
     res.on('data', (data) => { 
@@ -161,9 +158,7 @@ export async function fetchPostOrder(supabase:any, orderObj:any) {
     .from('order')
     .insert(orderObj)
     .single()
-  // if (!!error2) {
-  //   console.log("error2", error2)
-  // }
+    
   return !error2
 }
 
@@ -172,11 +167,11 @@ export async function sendSupabaseVirtualOrder(
 ) {
   // Get user's IP address
   let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
-  const new_uid = computeHash(apiKey, apiSecret)
+  const playerHash = computeHash(apiKey, apiSecret)
   let playerObj:any = {
     name: apiKey,
     ipv4: ipAddress,
-    hash: new_uid,
+    hash: playerHash,
     attempts: 12,
     totalAttempts: 0,
     goodAttempts: 0,
@@ -184,11 +179,11 @@ export async function sendSupabaseVirtualOrder(
     datenow: Date.now(),
   }
   const supabase = getSupabaseClient()
-  const count = await fetchSamePlayerCount(supabase, new_uid)
+  const count = await fetchSamePlayerCount(supabase, playerHash)
   if (!count) {
     throw new Error("player not found")
   } else {
-    playerObj = await fetchPlayer(supabase,new_uid)
+    playerObj = await fetchPlayer(supabase,playerHash)
   }
   let orderObj:any = {
     symbol: symbol,
@@ -196,7 +191,7 @@ export async function sendSupabaseVirtualOrder(
     qty: quantity,
     isBuyer: side.toLowerCase() == "buy",
     trigger: price,
-    startHash: new_uid,
+    startHash: playerHash,
     datenow: Date.now(),
   }
   
@@ -204,7 +199,7 @@ export async function sendSupabaseVirtualOrder(
   const ipcount = await fetchSameIPCount(supabase, ipAddress)
   if (Number(ipcount) > 5) { throw new Error() }
   if (!!attempts) {
-    let playerRes = await fetchPutPlayer(supabase,playerObj, new_uid, orderObj)
+    let playerRes = await fetchPutPlayer(supabase,playerObj, playerHash, orderObj)
     let orderRes = await fetchPostOrder(supabase,orderObj)
     if (!orderRes) { throw new Error() }
   } else {
@@ -221,7 +216,6 @@ function getCompleteTrades(transactionString: string): any[] {
   const transactions: string[] = transactionString.split('&&&').filter(Boolean);
   const trades: { [symbol: string]: any[] } = {};
   const completeTrades: any[] = [];
-  console.log("transactions", transactions);
 
   transactions.forEach((transaction: string) => {
     try {
@@ -267,12 +261,12 @@ export async function sendSupabaseGoodAttempt(
 ) {
   // Get user's IP address
   let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
-  const new_uid = computeHash(apiKey, apiSecret)
-  console.log("new_uid", new_uid)
+  const playerHash = computeHash(apiKey, apiSecret)
+  console.log("playerHash", playerHash)
   let playerObj:any = {
     name: apiKey,
     ipv4: ipAddress,
-    hash: new_uid,
+    hash: playerHash,
     attempts: 12,
     totalAttempts: 0,
     goodAttempts: 0,
@@ -280,15 +274,15 @@ export async function sendSupabaseGoodAttempt(
     datenow: Date.now(),
   }
   const supabase = getSupabaseClient()
-  const count = await fetchSamePlayerCount(supabase, new_uid)
+  const count = await fetchSamePlayerCount(supabase, playerHash)
   console.log("fetchSamePlayerCount", fetchSamePlayerCount)
   if (!count) {
     throw new Error("player not found")
   } else {
-    playerObj = await fetchPlayer(supabase,new_uid)
+    playerObj = await fetchPlayer(supabase,playerHash)
   }
   let orderObj:any = {
-    startHash: new_uid,
+    startHash: playerHash,
     datenow: Date.now(),
   }
   console.log("playerObj", playerObj)
@@ -306,7 +300,7 @@ export async function sendSupabaseGoodAttempt(
       console.log("profitTradeList > 3")
       try {
         console.log("pre playerRes fetchPutGoodPlayer")
-        let playerRes = await fetchPutGoodPlayer(supabase,playerObj, new_uid)
+        let playerRes = await fetchPutGoodPlayer(supabase,playerObj, playerHash)
         console.log("playerRes fetchPutGoodPlayer")
       } catch (e:unknown) {
         throw new Error("failed at last stage")
@@ -314,7 +308,7 @@ export async function sendSupabaseGoodAttempt(
     } else {
       throw new Error("not enought good trades")
     }
-    // let playerRes = await fetchPutPlayer(supabase,playerObj, new_uid, orderObj)
+    // let playerRes = await fetchPutPlayer(supabase,playerObj, playerHash, orderObj)
     // let orderRes = await fetchPostOrder(supabase,orderObj)
 
     // if (!orderRes) { throw new Error() }
@@ -330,12 +324,12 @@ export async function setSupabasePlayerAPIKeys(
 ) {
   // Get user's IP address
   let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
-  const new_uid = computeHash(apiKey, apiSecret)
-  console.log("new_uid", new_uid)
+  const playerHash = computeHash(apiKey, apiSecret)
+  console.log("playerHash", playerHash)
   let playerObj:any = {
     name: apiKey,
     ipv4: ipAddress,
-    hash: new_uid,
+    hash: playerHash,
     attempts: 12,
     totalAttempts: 0,
     goodAttempts: 0,
@@ -343,15 +337,15 @@ export async function setSupabasePlayerAPIKeys(
     datenow: Date.now(),
   }
   const supabase = getSupabaseClient()
-  const count = await fetchSamePlayerCount(supabase, new_uid)
+  const count = await fetchSamePlayerCount(supabase, playerHash)
   console.log("fetchSamePlayerCount", fetchSamePlayerCount)
   if (!count) {
     throw new Error("player not found")
   } else {
-    playerObj = await fetchPlayer(supabase,new_uid)
+    playerObj = await fetchPlayer(supabase,playerHash)
   }
   let orderObj:any = {
-    startHash: new_uid,
+    startHash: playerHash,
     datenow: Date.now(),
   }
   console.log("playerObj", playerObj)
@@ -360,7 +354,7 @@ export async function setSupabasePlayerAPIKeys(
   const ipcount = await fetchSameIPCount(supabase, ipAddress)
   if (Number(ipcount) > 5) { throw new Error() }
   
-  let playerRes = await fetchPutPlayerAPI(supabase,playerObj, new_uid,binancePublic, binanceSecret)
+  await fetchPutPlayerAPI(supabase,playerObj, playerHash,binancePublic, binanceSecret)
   
 
   return new Response(JSON.stringify(playerObj.goodAttempts+1))
@@ -370,14 +364,13 @@ export async function setSupabasePlayerAPIKeys(
 export async function getSupabasePlayer(
   req: any, apiKey: string, apiSecret: string, 
 ) {
-  // Get user's IP address
   let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
-  const new_uid = computeHash(apiKey, apiSecret)
-  // console.log("new_uid", new_uid)
+  const playerHash = computeHash(apiKey, apiSecret)
+
   let playerObj:any = {
     name: apiKey,
     ipv4: ipAddress,
-    hash: new_uid,
+    hash: playerHash,
     attempts: 12,
     totalAttempts: 0,
     goodAttempts: 0,
@@ -385,11 +378,11 @@ export async function getSupabasePlayer(
     datenow: Date.now(),
   }
   const supabase = getSupabaseClient()
-  const count = await fetchSamePlayerCount(supabase, new_uid)
+  const count = await fetchSamePlayerCount(supabase, playerHash)
   if (!count) {
     throw new Error()
   } else {
-    playerObj = await fetchPlayer(supabase,new_uid)
+    playerObj = await fetchPlayer(supabase,playerHash)
   }
   
   return new Response(JSON.stringify(playerObj))

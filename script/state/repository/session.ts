@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 
 
 import { JWTNAME, USERCOOKIENAME, fetchUser } from "@/../script/state/repository/auth";
-import { GRANTTREE } from "../../constant";
+import { GRANTTREE } from "@/../script/constant";
 
 export const DEFAULT_SESSION_OBJ = {jwt:null,user:null,can:null}
 
