@@ -1,6 +1,3 @@
-// import { SalesStatusBadgePlus } from "@/module/unit/SalesStatusBadgePlus"
-
-
 function Component ({ theArray, bools, config, actionCard, actionHeader }:any) {
     return (<>
 
