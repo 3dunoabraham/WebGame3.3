@@ -1,37 +1,42 @@
 import { Torus } from "@react-three/drei"
 
-function Component ({state, calls }:any) {
-    return ( <>
-        
-        <mesh castShadow receiveShadow onClick={calls.onTextClick}
-          position={[ 0, (state.boundaries[1] / 2 + state.wallWidth) - (1 ), 0,]}
+
+export function TableBody ({state, calls }:any) {
+  return (
+    <group position={[0,-0.5,0]}>
+      
+      {/* MAIN FLOOR */}
+      <mesh castShadow receiveShadow onClick={calls.onTextClick} >
+        <boxGeometry args={[1, 0.1, 1]} />
+        <meshStandardMaterial color={!state.isSelectedId ? "#B6AfA5" : "#B6AfA5"}  />
+      </mesh>        
+
+
+      {/* selected ring */}
+      {state.clicked && <group>
+        <Torus args={[0.7,0.04,4,4]}  rotation={[Math.PI/2,0,Math.PI/4]} 
+          receiveShadow castShadow
         >
-          <boxGeometry args={[1, state.wallWidth, 1]} />
-          <meshStandardMaterial color={!state.isSelectedId ? "#B6AfA5" : "#B6AfA5"}  />
-        </mesh>        
+          <meshStandardMaterial  attach="material" color="#615958" />
+        </Torus>
+      </group>}
 
 
-        {state.isSelectedId && state.hasAnyToken && <>
-          <Torus args={[0.7,0.006,4,4]}   rotation={[Math.PI/2,0,Math.PI/4]} position={[ 0, -0.345, 0, ]}
-          >
-            <meshStandardMaterial  attach="material" color="#b6b" />
+      {/* TOP OUTER RING */}
+      {state.isSelectedId && state.hasAnyToken &&
+        <group position={[0,0.05,0]}>
+          <Torus args={[0.705,0.005,4,4]}   rotation={[Math.PI/2,0,Math.PI/4]} >
+            <meshStandardMaterial  attach="material" color="#A79797" />
           </Torus>
-        </>}
-        {<>
-          <Torus args={[0.71,0.013,4,4]}   rotation={[Math.PI/2,0,Math.PI/4]} position={[ 0, -0.45, 0, ]}
-          >
-            <meshStandardMaterial  attach="material" color="#A69284" />
-          </Torus>
-        </>}
-        
-        {/* selected ring */}
-        {state.clicked && <group scale={[1,1.4,1]} position={[ 0, -0.44, 0, ]}>
-          <Torus args={[0.7,0.04,4,4]}  rotation={[Math.PI/2,0,Math.PI/4]} 
-            receiveShadow castShadow
-          >
-            <meshStandardMaterial  attach="material" color="#615958" />
-          </Torus>
-        </group>}
-    </>)
+        </group>
+      }
+      {/* BOTTOM OUTER RING */}
+      <group scale={[1,2.5,1]} position={[0,-0.05,0]}>
+        <Torus args={[0.7,0.01,4,4]}   rotation={[Math.PI/2,0,Math.PI/4]} >
+          <meshStandardMaterial  attach="material" color="#A69284" />
+        </Torus>
+      </group>        
+  </group>)
 }
-export default Component
+
+export default TableBody

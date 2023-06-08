@@ -1,22 +1,12 @@
-import { MapControls, OrbitControls } from "@react-three/drei";
-import { useEffect, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { MapControls } from "@react-three/drei";
 
-function Component({ basePosition, ...props }: any) {
-  const $orbitObject: any = useRef();
-
-  
-  useFrame((ctx, delta)=>{
-    
-    if (!$orbitObject.current) return
-    if (!$orbitObject.current.camera) return
-    // $orbitObject.current.camera.position.x = Math.sin(Date.now() / 500) / 10;
-})
-
+function Component({  }: any) {
   return (
     <group >
-        {/* {...props} */}
-        <MapControls ref={$orbitObject}  >
+        <MapControls 
+          minPolarAngle={0.11} maxPolarAngle={2.2} 
+          minDistance={1} maxDistance={12}
+         >
             
         </ MapControls>
     </group>

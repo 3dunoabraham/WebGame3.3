@@ -7,7 +7,7 @@ import DynaText from "./DynaText";
 import { useLocalStorage } from "usehooks-ts";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMultipleJsonArray, parseDecimals } from "@/../script/util/helper";
-import TableLegs from "./machine/TableLegs";
+import TableLegs from "./desk/TableLegs";
 import Toggles from "./input/DeskToggles";
 import TableBody from "./machine/TableBody";
 import BouncingThing from "./BouncingThing";

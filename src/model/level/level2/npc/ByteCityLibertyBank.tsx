@@ -1,4 +1,5 @@
 import TradingBox from "@/model/npc/TradingBox"
+import { Box } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useState } from "react"
 
@@ -6,7 +7,6 @@ function Component ({
     hasAnyToken,
     toggleTrade,
     selectedToken,
-    $bitcoin,
     tokensArrayObj,
     $turnOn,
     turnOn,
@@ -30,10 +30,10 @@ function Component ({
     velocityX=0, setVelocityX=()=>{},
     velocityY=0, setVelocityY=()=>{},
   }: any) {
-  const [btcBoxPos, s__btcBoxPos]:any = useState([-0.6,-0.1,-0.5])
+  const [btcBoxPos, s__btcBoxPos]:any = useState([-0.75,0,-0.75])
   return (
     <group position={btcBoxPos} rotation={[0,0,0]} >
-      <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="btc"  ref={$bitcoin}
+      <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="btc"  
         mainModel="bank"
         tokensArrayArray={"btc" in tokensArrayObj ? tokensArrayObj["btc"] : null}
         refetchInterval={selectedToken == "btc" ? 4000 : 60000}

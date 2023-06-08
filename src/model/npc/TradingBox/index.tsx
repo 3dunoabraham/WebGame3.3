@@ -5,7 +5,7 @@ import { Mesh } from "three";
 import { useLocalStorage } from "usehooks-ts";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMultipleJsonArray, parseDecimals } from "@/../script/util/helper";
-import TableLegs from "./machine/TableLegs";
+import TableLegs from "./desk/TableLegs";
 import TableBody from "./machine/TableBody";
 import BouncingThing from "./BouncingThing";
 import TimeframeButtons from "./input/TimeframeButtons";
@@ -139,6 +139,13 @@ const selectedHasArray = useMemo(()=>{
 
   return (
     <group>
+        
+    <TableBody state={{boundaries, wallWidth, isSelectedId, clicked, hasAnyToken:!!tokensArrayArray}}
+        calls={{ onTextClick: (e:any) => {onTextClick();e.stopPropagation()}}}
+
+     />
+
+    <TableLegs />
 
       
       <group position={position} >
@@ -203,13 +210,6 @@ const selectedHasArray = useMemo(()=>{
           </group>
         }
         
-        
-        <TableBody state={{boundaries, wallWidth, isSelectedId, clicked, hasAnyToken:!!tokensArrayArray}}
-            calls={{ onTextClick: (e:any) => {onTextClick();e.stopPropagation()}}}
-
-         />
-
-        <TableLegs />
         
         {/* toggles sync join trend */}
         <DeskToggles state={{score, isSelectedId, selectedHasArray,isDowntrend,}}

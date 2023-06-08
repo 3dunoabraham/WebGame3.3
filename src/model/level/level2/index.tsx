@@ -1,6 +1,6 @@
 "use client";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { Box, OrbitControls } from "@react-three/drei";
+import { Bounds, Box, OrbitControls } from "@react-three/drei";
 import { useCopyToClipboard, useLocalStorage } from "usehooks-ts";
 
 
@@ -8,21 +8,22 @@ import { getComputedLevels } from "@/../script/util/helper/decoy";
 import Scene from "@/model/core/Scene"
 import TradingBox, { DEFAULT_TIMEFRAME_ARRAY } from "@/model/npc/TradingBox";
 import ChartBox from "@/model/npc/ChartBox";
-import MovingBox1 from "./decoration/MovingBox1";
-import MovingBox2 from "./decoration/MovingBox2";
+import Level1_Index1  from "./index1";
+import MovingBox1 from "./npc/MovingBox1";
+import MovingBox2 from "./npc/MovingBox2";
 import MetaOrbitControls from "@/model/core/MetaOrbitControls";
 import { fetchPost } from "@/../script/util/helper/fetchHelper";
-import BitcoinTradingBox from "./BitcoinTradingBox";
+import ByteCityLibertyBank from "./npc/ByteCityLibertyBank";
 import { AppContext } from "@/../script/state/context/AppContext";
-import TutorialContainer from "./TutorialContainer";
-import ConnectPlayerButton from "./ConnectPlayerButton";
+import TutorialContainer from "./tutorial/TutorialContainer";
+import ConnectPlayerButton from "./core/ConnectPlayerButton";
 import GoalPost from "./goal/GoalPost";
 import SavedGoalPost from "./goal/SavedGoalPost";
 import { useAuth } from "@/../script/state/context/AuthContext";
-import RoadJack from "./decoration/RoadJack";
-import MovingCar from "./decoration/MovingCar";
-import ByteCityEnv from "./ByteCityEnv";
-import RoadJack2 from "./decoration/RoadJack2";
+import RoadJack from "./core/RoadJack";
+import MovingCar from "./npc/MovingCar";
+import ByteCityEnv from "./core/ByteCityEnv";
+import RoadJack2 from "./core/RoadJack2";
 import GoodPlaceGoal from "./goal/GoodPlaceGoal";
 import { useUnloadHandler } from "../../../../script/util/hook/useHooksHelper";
 import { useRouter } from "next/navigation";
@@ -46,7 +47,7 @@ function Component ({}) {
   const { user, superuser, do:{login, logout, fetchSuperuser, demo,},  jwt }:any = useAuth()
   
 
-  const $bitcoin:any = useRef()
+  
   const [chartPos, s__chartPos]:any = useState(chartPosLookup["btc"])
   const [chartRot, s__chartRot]:any = useState(chartRotLookup["btc"])
   const [LS_rpi, s__LS_rpi] = useLocalStorage('rpi', "user:0000")
@@ -330,7 +331,7 @@ function Component ({}) {
     window.location.reload()
   }
   const triggerLogin = async () => {
-    if (tutoStage.lvl == 3) { firstLogin(); return }
+    
     let keyval:any =  prompt("Enter your Byte City Credentials! \n\n < Referral Email : Secret PIN >","") 
     if (!keyval) return
     if (keyval.split(":").length < 2) return
@@ -549,91 +550,39 @@ function Component ({}) {
 
   return (<>
     <Scene>
-      {enablePan &&
-        <MetaOrbitControls minPolarAngle={0.11} maxPolarAngle={1.77} 
-          minDistance={1} maxDistance={7}
-          enablePan={enablePan}
-          basePosition={[0,0,0]}
-        />
-      }
-      {!enablePan &&
-        <OrbitControls minPolarAngle={0.11} maxPolarAngle={1.77} 
-          minDistance={1} maxDistance={7}
-          enablePan={false}
-        />
-      }
-      {/* {hasAnyToken && <>
-        <Cylinder args={[0.1,0.1,0.2,6]} position={[0,!enablePan?-1:-0.95,0]} castShadow receiveShadow 
-          onClick={()=>{s__enablePan(!enablePan)}}
-        >
-          <meshStandardMaterial color={!enablePan ? "#f99" : "#999"}/>
-        </Cylinder>
-        
-        <DynaText
-          text={"Lock Camera"}
-          color={!enablePan ? "#a55" : "#977"}
-          font={0.06}
-          position={[0,-0.94,-0.17]} 
-          
-        >        
-      </DynaText>
-      </>} */}
+      {/* SCENE ENVIRONMENT */}
+      <MetaOrbitControls/>
       <ByteCityEnv />
-  
       <TutorialContainer  calls={{join,turnOffDemo,setTutoStage,firstLogin}} 
         state={{hasAnyToken, tutoStage, isDefaultUser}}
       />
-
       <ConnectPlayerButton state={{isDefaultUser, }} calls={{triggerLogout, triggerResetAll, triggerLogin}} />
+      <Box args={[2.5,0.2,2.8]} position={[0,-1.1,0]} castShadow receiveShadow>
+        <meshStandardMaterial color={"#fff"}/>
+      </Box>
 
-      {hasAnyToken &&  tutoStage.lvl >= 3 &&
-        <group position={[0,0.3,0]}> 
-          <GoalPost calls={{claim:claimOrSync}}
-            state={{hasAnyToken, profitHistory}}
-          />
-        </group>
-      }
-      {hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser &&
-        <group position={[0,0,1.6]}>
-          <SavedGoalPost calls={{triggerSyncGoodPlace,setAPIKeys, claim:claimOrSyncDatabase}}
-            {...{projectionMode, s__projectionMode: _s__projectionMode}}
-            state={{hasAnyToken, profitHistory, savedString }}
-          />
-        </group>
-      }
+      <Level1_Index1 {...{
+          state:{tokensArrayObj, selectedToken, hasAnyToken, form, isDefaultUser, chartPos, chartRot, 
+            isSelectedTokenDowntrend, selectedTimeframe, chartBoxPos, 
+          },
+          calls:{toggleTrade, onTextClick, turnOn, trendUp, leave, turnOff, onTimeframeClick,
+            trendDown, join, askAI, s__chartBoxPos, 
+          }
+      }}/>
+
       
-      {hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser && superuser.goodAttempts > 0) && !isDefaultUser &&
-        <group position={[0,0,6]}>
-          <GoodPlaceGoal calls={{triggerSyncGoodPlace,setAPIKeys, claim:claimOrSyncDatabase}} {...{projectionMode, s__projectionMode: _s__projectionMode}}
-            state={{hasAnyToken, profitHistory, savedString }}
-          />
-        </group>
-      }
-      
-      {hasAllTokens && <>
-        <Box args={[4,0.25,5]} position={[0,-1.2,-0.5]} castShadow receiveShadow>
-          <meshStandardMaterial color={ "#fff"}/>
-        </Box>
-      </>}
-      {hasAnyToken && tutoStage.lvl >= 3 && <>
-       <Box args={[1,0.8,1.1]} position={[0.05,-0.81,-1.59]} castShadow receiveShadow>
-          <meshStandardMaterial color={"#eee"}/>
-        </Box>
-      </>}
 
-      {hasAnyToken && !isDefaultUser && !!tokensArrayObj[selectedToken] && isSelectedTokenDowntrend && <>
-        <group scale={[0.4,0.4,0.4]}  position={chartPos} rotation={chartRot}>
-          <ChartBox boundaries={[1,0.1,0.04]} score={{score:0}} timeframe={selectedTimeframe.toLowerCase() || "1d"}
-            position={[0,0,0]} velocityX={0}  theToken={form.id.split("USDT")[0]} askAI={(data:any)=>{askAI(data)}}
-            velocityY={0} setVelocityX={()=>{}} setVelocityY={()=>{}} {...{chartBoxPos, s__chartBoxPos}}
-            tokensArrayObj={tokensArrayObj}
-          />
-        </group>
-      </>}
 
-      <BitcoinTradingBox tokensArrayObj={tokensArrayObj} selectedToken={selectedToken}
+
+
+
+
+      {/* CHAPTER 1 */}
+      {/* BTC | Bitcoin | Bit Coin */}
+      {/* CHAPTER 1 */}
+      {/* <ByteCityLibertyBank tokensArrayObj={tokensArrayObj} selectedToken={selectedToken}
         toggleTrade={(tokenname:any,data:any)=>{toggleTrade("btc",data)}}
-        hasAnyToken={hasAnyToken} $bitcoin={$bitcoin}
+        hasAnyToken={hasAnyToken} 
         form={form} timeframe={form.id.split("USDT")[1]} token="btc" 
         tokensArrayArray={"btc" in tokensArrayObj ? tokensArrayObj["btc"] : null}
         refetchInterval={selectedToken == "btc" ? 4000 : 60000}
@@ -644,96 +593,154 @@ function Component ({}) {
         join={(e:any)=>{join("btc");  e.stopPropagation && e.stopPropagation()}} leave={(e:any)=>{leave("btc");  e.stopPropagation && e.stopPropagation()}}
         trendDown={()=>{trendDown("btc")}} trendUp={()=>{trendUp("btc")}} 
         onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("btc",tf)}}
-      />
-    
-    {hasAnyToken &&
-      <group position={[-0.3,-0.1,0.5]}>
-        <group position={[1,0,-1]} rotation={[0,0,0]}>
-          {!isDefaultUser && ("eth" in tokensArrayObj || ("btc" in tokensArrayObj && 
-            true // tokensArrayObj["btc"].state
-          )) && <>
-            <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="eth"
-            mainModel="tower"
-            tokensArrayArray={"eth" in tokensArrayObj ? tokensArrayObj["eth"] : null}
-              refetchInterval={selectedToken == "eth" ? 4000 : 60000}
-              unselectedColor={"#50545B"}
-              onTextClick={()=>{onTextClick("eth")}} 
-              setVelocityY={(data:any)=>{toggleTrade("eth",data)}}
-              turnOn={()=>{turnOn("eth")}} turnOff={()=>{turnOff("eth")}}
-              join={()=>{join("eth")}} leave={()=>{leave("eth")}}
-              trendDown={()=>{trendDown("eth")}} trendUp={()=>{trendUp("eth")}} 
-              onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("eth",tf)}}
-            /> 
-          </>}
+      /> */}
+      {/* CHAPTER X */}
+      {/* {hasAnyToken && !isDefaultUser && !!tokensArrayObj[selectedToken] && isSelectedTokenDowntrend && <>
+        <group scale={[0.4,0.4,0.4]}  position={chartPos} rotation={chartRot}>
+          <ChartBox boundaries={[1,0.1,0.04]} score={{score:0}} timeframe={selectedTimeframe.toLowerCase() || "1d"}
+            position={[0,0,0]} velocityX={0}  theToken={form.id.split("USDT")[0]} askAI={(data:any)=>{askAI(data)}}
+            velocityY={0} setVelocityX={()=>{}} setVelocityY={()=>{}} {...{chartBoxPos, s__chartBoxPos}}
+            tokensArrayObj={tokensArrayObj}
+          />
         </group>
+      </>}
+ */}
 
 
 
-
-        {/* PIPE 1 */}
-        {"btc" in tokensArrayObj && <> 
-          <RoadJack />
-          <MovingCar calls={{onClicked:onFirstCarClicked}} />
-          <group rotation={[0,Math.PI,0]} scale={[1,1,0.7]} position={[1,0,-0.3]}>
-            <MovingBox1 />
+      {/* CHAPTER 2 */}
+      {/* ETH | Ethereum | Ethirium */}
+      {/* CHAPTER 2 */}
+      {hasAnyToken &&  tutoStage.lvl >= 3 &&
+        <group position={[0,0.3,0]}> 
+          <GoalPost calls={{claim:claimOrSync}}
+            state={{hasAnyToken, profitHistory}}
+          />
+        </group>
+      }
+      {/* MAIN ROAD 1 */}
+      {"btc" in tokensArrayObj && <> 
+        <RoadJack />
+        <MovingCar calls={{onClicked:onFirstCarClicked}} />
+        <group rotation={[0,Math.PI,0]} scale={[1,1,0.7]} position={[1,0,-0.3]}>
+          <MovingBox1 />
+        </group>
+      </>}
+      {hasAnyToken && // ETH | Ethereum | Ethirium
+        <group position={[-0.3,-0.1,0.5]}>
+          <group position={[1,0,-1]} rotation={[0,0,0]}>
+            {!isDefaultUser && ("eth" in tokensArrayObj || ("btc" in tokensArrayObj)) &&
+              <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="eth"
+              mainModel="tower"
+              tokensArrayArray={"eth" in tokensArrayObj ? tokensArrayObj["eth"] : null}
+                refetchInterval={selectedToken == "eth" ? 4000 : 60000}
+                unselectedColor={"#50545B"}
+                onTextClick={()=>{onTextClick("eth")}} 
+                setVelocityY={(data:any)=>{toggleTrade("eth",data)}}
+                turnOn={()=>{turnOn("eth")}} turnOff={()=>{turnOff("eth")}}
+                join={()=>{join("eth")}} leave={()=>{leave("eth")}}
+                trendDown={()=>{trendDown("eth")}} trendUp={()=>{trendUp("eth")}} 
+                onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("eth",tf)}}
+              /> 
+            }
           </group>
-         </>}
-        {/* <Box args={[0.03,0.05,0.06]} position={[0.19,-0.4,-1]} castShadow receiveShadow>
-          <meshStandardMaterial color={"#333"}/>
-        </Box> */}
-        {/* PIPE 2 */}
-        {("link" in tokensArrayObj || (hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser))&& <>
-          {/* <Box args={[0.1,0.1,0.5]} position={[-0.2,-0.45,-0.3]} castShadow receiveShadow>
-            <meshStandardMaterial color={"#888"}/>
-          </Box> */}
+        </group>
+      }
+
+
+
+
+
+
+
+      {/* CHAPTER 3 */}
+      {/* LINK | Chain Link | chainlink */}
+      {/* CHAPTER 3 */}
+      {hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser &&
+        <group position={[0,0,1.6]}>
+          <SavedGoalPost calls={{triggerSyncGoodPlace,setAPIKeys, claim:claimOrSyncDatabase}}
+            {...{projectionMode, s__projectionMode: _s__projectionMode}}
+            state={{hasAnyToken, profitHistory, savedString }}
+          />
+        </group>
+      }
+      {hasAnyToken && // LINK | Chain Link | chainlink
+        <group position={[-0.3,-0.1,0.5]}>
+          {("eth" in tokensArrayObj || "link" in tokensArrayObj) && tutoStage.lvl >= 3 &&
+            <group position={[-0.3,0,0.58]} >
+              <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="link"
+                tokensArrayArray={"link" in tokensArrayObj ? tokensArrayObj["link"] : null}
+                refetchInterval={selectedToken == "link" ? 4000 : 60000}
+                position={[0,0,0]} unselectedColor={"#50545B"}
+                onTextClick={()=>{onTextClick("link")}} 
+                setVelocityY={(data:any)=>{toggleTrade("link",data)}}
+                turnOn={()=>{turnOn("link")}} turnOff={()=>{turnOff("link")}}
+                join={()=>{join("link")}} leave={()=>{leave("link")}}
+                trendDown={()=>{trendDown("link")}} trendUp={()=>{trendUp("link")}} 
+                onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("link",tf)}}
+              /> 
+            </group>
+          }
+        </group>
+      }
+      {/* PIPE 2 */}
+      {("link" in tokensArrayObj || (hasAnyToken &&
+       (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser))&&
+        <>
           <RoadJack2 />
-          {/* <Box args={[0.02,0.02,0.5]} position={[-0.2,-0.37,-0.3]} castShadow receiveShadow>
-            <meshStandardMaterial color={"#f00"}/>
-          </Box> */}
-        </>}
-        {/* PIPE 3 */}
-        {"ftm" in tokensArrayObj && <> <MovingBox2 /> </>}
-
-
-
-
-
-        {("eth" in tokensArrayObj || "link" in tokensArrayObj) && tutoStage.lvl >= 3 &&
-          <group position={[-0.3,0,0.58]} >
-            <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="link"
-              tokensArrayArray={"link" in tokensArrayObj ? tokensArrayObj["link"] : null}
-              refetchInterval={selectedToken == "link" ? 4000 : 60000}
-              position={[0,0,0]} unselectedColor={"#50545B"}
-              onTextClick={()=>{onTextClick("link")}} 
-              setVelocityY={(data:any)=>{toggleTrade("link",data)}}
-              turnOn={()=>{turnOn("link")}} turnOff={()=>{turnOff("link")}}
-              join={()=>{join("link")}} leave={()=>{leave("link")}}
-              trendDown={()=>{trendDown("link")}} trendUp={()=>{trendUp("link")}} 
-              onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("link",tf)}}
-            /> 
-          </group>
-        }
-        {("eth" in tokensArrayObj || "ftm" in tokensArrayObj) && !isDefaultUser && tutoStage.lvl > 3 &&
-          <group position={[1,0,0.58]}  rotation={[0,Math.PI/2,0]}>
-            <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="ftm"
-              tokensArrayArray={"ftm" in tokensArrayObj ? tokensArrayObj["ftm"] : null}
-              refetchInterval={selectedToken == "ftm" ? 4000 : 60000}
-              position={[0,0,0]} unselectedColor={"#50545B"}
-              onTextClick={()=>{onTextClick("ftm")}} 
-              setVelocityY={(data:any)=>{toggleTrade("ftm",data)}}
-              turnOn={()=>{turnOn("ftm")}} turnOff={()=>{turnOff("ftm")}}
-              join={()=>{join("ftm")}} leave={()=>{leave("ftm")}}
-              trendDown={()=>{trendDown("ftm")}} trendUp={()=>{trendUp("ftm")}} 
-              onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("ftm",tf)}}
-            /> 
-          </group>
-        }
-      </group>}
+        </>
+      }
       
-      <Box args={[2.2,0.2,2.73]} position={[0.05,-1.05,0.15]} castShadow receiveShadow>
-        <meshStandardMaterial color={"#fff"}/>
-      </Box>
 
+
+
+
+
+
+      {/* CHAPTER 4 */}
+      {/* FTM | Fantom | Phantom */}
+      {/* CHAPTER 4 */}
+      
+      {hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser && superuser.goodAttempts > 0) && !isDefaultUser &&
+        <group position={[0,0,6]}>
+          <GoodPlaceGoal calls={{triggerSyncGoodPlace,setAPIKeys, claim:claimOrSyncDatabase}} {...{projectionMode, s__projectionMode: _s__projectionMode}}
+            state={{hasAnyToken, profitHistory, savedString }}
+          />
+        </group>
+      }
+    {hasAnyToken &&
+        <group position={[-0.3, -0.1, 0.5]}>
+
+
+          {("eth" in tokensArrayObj || "ftm" in tokensArrayObj) && !isDefaultUser && tutoStage.lvl > 3 &&
+            <group position={[1, 0, 0.58]} rotation={[0, Math.PI / 2, 0]}>
+              <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="ftm"
+                tokensArrayArray={"ftm" in tokensArrayObj ? tokensArrayObj["ftm"] : null}
+                refetchInterval={selectedToken == "ftm" ? 4000 : 60000}
+                position={[0, 0, 0]} unselectedColor={"#50545B"}
+                onTextClick={() => { onTextClick("ftm") }}
+                setVelocityY={(data: any) => { toggleTrade("ftm", data) }}
+                turnOn={() => { turnOn("ftm") }} turnOff={() => { turnOff("ftm") }}
+                join={() => { join("ftm") }} leave={() => { leave("ftm") }}
+                trendDown={() => { trendDown("ftm") }} trendUp={() => { trendUp("ftm") }}
+                onTimeframeClick={(token: any, tf: any) => { onTimeframeClick("ftm", tf) }}
+              />
+            </group>
+          }
+        </group>
+      }
+      {/* PIPE 3 */}
+      {"ftm" in tokensArrayObj && <> <MovingBox2 /> </>}
+      {hasAllTokens && <>
+        <Box args={[4, 0.25, 5]} position={[0, -1.2, -0.5]} castShadow receiveShadow>
+          <meshStandardMaterial color={"#fff"} />
+        </Box>
+      </>}
+      {hasAnyToken && tutoStage.lvl >= 3 && <>
+        <Box args={[1, 0.8, 1.1]} position={[0.05, -0.81, -1.59]} castShadow receiveShadow>
+          <meshStandardMaterial color={"#eee"} />
+        </Box>
+      </>}
     </Scene>
   </>)
 }
