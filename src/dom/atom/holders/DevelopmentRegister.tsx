@@ -65,7 +65,7 @@ function Component ({}) {
 
 
 
-               <Link target="_blank" className="flex-col  mt-2 opaci-chov--50"  href="https://webga.vercel.app/">
+               <Link target="_blank" className="flex-col  mt-2 opaci-chov--50"  href="https://webpov.vercel.app/">
                     {/* <div   style={{background:"orangered"}}
                         className="  tx-lgx py-1 block px-4 py-2 box-shadow-i-2-t tx-white flex"
                     >
@@ -110,7 +110,7 @@ function Component ({}) {
                     
                 <div className="flex-wrap gap-3">
 
-                <a href="https://webga.gitbook.io/bytecity" target="_blank"
+                <a href="https://webpov.gitbook.io/bytecity" target="_blank"
                     style={{color:"#004488"}}
                     className=" opaci-chov--50 flex-col px-2 bg-w-90 bord-r-10 py-3"
                 >

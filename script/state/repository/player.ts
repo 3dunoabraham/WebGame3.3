@@ -1,5 +1,3 @@
-
-
 export async function fetchSamePlayerCount(supabase:any, hash:any) {
     const { data:exists, count } = await supabase
     .from('player')

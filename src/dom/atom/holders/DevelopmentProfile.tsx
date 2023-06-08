@@ -37,7 +37,7 @@ function Component ({}) {
                 </div> */}
                 
                <Link className="flex-col pos-abs   opaci-chov--50  mt-8 pt-7" 
-                 href="https://webga.vercel.app/"
+                 href="https://webpov.vercel.app/"
                  style={{transform:"translateX(15%)"}}
                 >
                     {/* <div   style={{background:"orangered"}}
@@ -85,7 +85,7 @@ function Component ({}) {
                 <div className="pb-8 px-8 Q_xs_px-2 tx-white flex-col flex-align-end ">
                     <div className="flex-wrap gap-1 ">
 
-                            <a href="https://webga.gitbook.io/bytecity" target="_blank"
+                            <a href="https://webpov.gitbook.io/bytecity" target="_blank"
                                 style={{color:"#004488"}}
                                 className=" opaci-chov--50 flex-col px-2 Q_xs_px-1 bg-w-90 bord-r-10 py-3"
                             >
@@ -120,7 +120,7 @@ function Component ({}) {
                             <b className="tx-mdl">/ranking</b></div>
                             
                         </a>
-                        <a href="https://webga.vercel.app/?user=" target="_blank"
+                        <a href="https://webpov.vercel.app/?user=" target="_blank"
                             style={{color:"#ff8800"}}
                             className=" opaci-chov--50 flex-col px-2 Q_xs_px-1 bg-w-90 bord-r-10 py-3"
                             >

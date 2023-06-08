@@ -24,6 +24,8 @@ import MovingCar from "./decoration/MovingCar";
 import ByteCityEnv from "./ByteCityEnv";
 import RoadJack2 from "./decoration/RoadJack2";
 import GoodPlaceGoal from "./goal/GoodPlaceGoal";
+import { useUnloadHandler } from "../../../../script/util/hook/useHooksHelper";
+import { useRouter } from "next/navigation";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -85,6 +87,11 @@ function Component ({}) {
   },[tokensArrayObj])
   const [LH_superuser, s__LH_superuser]:any = useLocalStorage("superuser","{}")
   // const [live_superuser, s__live_superuser] = useState()
+  const [notSaved,s__notSaved] = useState(false)
+
+  const router = useRouter()
+
+  useUnloadHandler(router, notSaved,)
 
 
   const onTimeframeClick = (x:any, y:any) => {  }
@@ -173,10 +180,11 @@ function Component ({}) {
       }
       delete oldOrders[form.id]
       s__currentOrders(oldOrders)
-    } else {
+      s__notSaved(false)
+      } else {
       if (newTradeObj.side == "buy") {
         s__currentOrders({...currentOrders, [form.id]: newTradeObj })
-        
+        s__notSaved(true)
         if (!!projectionMode) {
           projectVirtualOrder(form.id, newTradeObj)
           app.alert("success", "Sending BUY order with synced api keys")
