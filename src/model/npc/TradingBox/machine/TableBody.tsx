@@ -8,7 +8,7 @@ export function TableBody ({state, calls }:any) {
       {/* MAIN FLOOR */}
       <mesh castShadow receiveShadow onClick={calls.onTextClick} >
         <boxGeometry args={[1, 0.1, 1]} />
-        <meshStandardMaterial color={!state.isSelectedId ? "#B6AfA5" : "#B6AfA5"}  />
+        <meshStandardMaterial color={!state.isSelectedId ? "#B0A3A0" : "#B6AfA5"}  />
       </mesh>        
 
 

@@ -35,7 +35,7 @@ function TradeButtons ({ tokensArrayArray, state, calls }:any) {
       
       </group>}
       
-      {/* STATIC button holder */}
+      {/* BUY SELL BUTTON PLACEHOLDER */}
       {!!tokensArrayArray && state.selectedHasArray &&
       <mesh castShadow receiveShadow 
             scale={3}
@@ -51,33 +51,35 @@ function TradeButtons ({ tokensArrayArray, state, calls }:any) {
       {!!tokensArrayArray &&
             <mesh castShadow receiveShadow scale={state.score.score ? 1 : 3}
             onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
-            position={[   0.38,  state.selectedHasArray ? - 0.35 : -0.32,  + 0.31, ]}
+            rotation={[(!!tokensArrayArray && !!state.selectedHasArray)?0.5:-0.5,0,0]}
+            position={[   0.4,  -0.27,  + 0.31, ]}
             // rotation={[state.selectedHasArray ? -0.25 : 0.25 ,0,0]}          
             >
-            <boxGeometry args={[0.03, 0.04, 0.03]} />
-            <meshStandardMaterial color={(!!tokensArrayArray && !!state.selectedHasArray) ? "#A69284" : "#9A7465"} />
+            <boxGeometry args={[0.01, 0.025, 0.01]} />
+            <meshStandardMaterial color={(!!tokensArrayArray && !!state.selectedHasArray) ? "#009900" : "#9A7465"} />
             </mesh>
         }
 
 
+<mesh castShadow receiveShadow scale={state.score.score ? 1 : 3}
+            onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
+            position={[   0.4,  -0.32,  + 0.31, ]}
+            // rotation={[state.selectedHasArray ? -0.25 : 0.25 ,0,0]}          
+            >
+            <boxGeometry args={[0.03, 0.025, 0.03]} />
+            <meshStandardMaterial color={"#978887"} />
+            </mesh>
 
         
         {/* grass ledge */}
-        {!!tokensArrayArray && state.selectedHasArray && <>
+        {/* {!!tokensArrayArray && state.selectedHasArray && <>
               <mesh castShadow receiveShadow scale={state.score.score ? 1 : 3}
               position={[   0.38,  -0.31,  + 0.31, ]}
               >
               <boxGeometry args={[0.015, 0.03, 0.015]} />
               <meshStandardMaterial color={"#559933"} />
               </mesh>
-              {/* LEAFS */}
-              {/* <mesh castShadow receiveShadow scale={state.score.score ? 1 : 3}
-              position={[   0.38,  state.selectedHasArray ? - 0.15 : -0.12,  + 0.31, ]}
-              >
-              <boxGeometry args={[0.025, 0.06, 0.025]} />
-              <meshStandardMaterial color={"#669F36"} opacity={0.8} transparent={true} />
-              </mesh> */}
-        </>}
+        </>} */}
         
         
         {/* DEMO MODE */}

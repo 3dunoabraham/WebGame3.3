@@ -66,15 +66,23 @@ function Component ({tokensArrayArray, state, calls}:any) {
 
 
 
-      {!!tokensArrayArray &&
-        <DynaText color={state.selectedHasArray ? "#338811" : "#9A7465"} // LIVE / DEMO
+      {!!tokensArrayArray && <>
+        <DynaText color={state.selectedHasArray ? "#A09390" : "#9A7465"} // LIVE / DEMO
             onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
-            text={state.selectedHasArray ? "LIVE" : "DEMO" } 
+            text={"DEMO"} 
           // position={new Vector3(-0.31,-0.345,+0.46)}
-          position={new Vector3(0.38,0,+0.44)}
-          isSelected={state.isSelectedId}  font={state.selectedHasArray ? 0.07 : 0.07} 
+          position={new Vector3(0.4,0,+0.4)}
+          isSelected={state.isSelectedId}  font={0.055} 
         />
-      }
+        
+        <DynaText color={state.selectedHasArray ? "#009900" : "#A09390"} // LIVE / DEMO
+            onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
+            text={"LIVE"} 
+          // position={new Vector3(-0.31,-0.345,+0.46)}
+          position={new Vector3(0.4,0,+0.46)}
+          isSelected={state.isSelectedId}  font={state.selectedHasArray ? 0.06 : 0.06} 
+        />
+      </>}
       {!!tokensArrayArray && state.isSelectedId && state.selectedHasArray &&
       <DynaText text={!state.clicked ? "Send  BUY  Order" : "Send  SELL  Order"} // BUY / SELL
         color={!state.clicked ?  "#006600" : "#990000"}

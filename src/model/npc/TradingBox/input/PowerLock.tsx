@@ -16,7 +16,7 @@ function PowerLock ({ tokensArrayArray, state, calls }:any) {
                 position={[  0.67,  0,  0,]}
             >
                 <boxGeometry args={[0.1, 0.01, 0.015]} />
-                <meshStandardMaterial color={!tokensArrayArray ? "#ff9900" : "#ffaa00"} />
+                <meshStandardMaterial color={!tokensArrayArray ? "#ff9900" : "#bb9955"} />
             </mesh>
             
             <mesh castShadow receiveShadow 
@@ -24,13 +24,13 @@ function PowerLock ({ tokensArrayArray, state, calls }:any) {
                 position={[  0.62,  0,  0.05,]}
             >
                 <boxGeometry args={[0.033, 0.008, 0.02]} />
-                <meshStandardMaterial color={!tokensArrayArray ? "#ff9900" : "#ffaa00"} />
+                <meshStandardMaterial color={!tokensArrayArray ? "#ff9900" : "#bb9955"} />
             </mesh>
             
-            <Torus args={[0.1,0.033,6,4]} rotation={[Math.PI/2,0,Math.PI/4*3]} 
-                position={[0.9,0,0]}
+            <Torus args={[0.06,0.033,6,4]} rotation={[Math.PI/2,0,Math.PI/4*3]} 
+                position={[0.86,0,0]}
             >
-                <meshStandardMaterial flatShading={true} color={!tokensArrayArray ? "#ff9900" : "#ffaa00" } />
+                <meshStandardMaterial flatShading={true} color={!tokensArrayArray ? "#ff9900" : "#bb9955" } />
 
             </Torus>
         </group>
