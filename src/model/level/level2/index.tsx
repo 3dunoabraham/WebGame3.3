@@ -1,28 +1,24 @@
 "use client";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { Box } from "@react-three/drei";
-import { useCopyToClipboard, useLocalStorage } from "usehooks-ts";
+import { useLocalStorage } from "usehooks-ts";
 
 
 import { getComputedLevels } from "@/../script/util/helper/decoy";
 import Scene from "@/model/core/Scene"
 import TradingBox, { DEFAULT_TIMEFRAME_ARRAY } from "@/model/npc/TradingBox";
 import Level1_Index1  from "./index1";
-import MovingStaticCar from "./npc/MovingStaticCar";
 import MovingBoxAndPipe from "./npc/MovingBoxAndPipe";
 import { fetchPost } from "@/../script/util/helper/fetchHelper";
 import { AppContext } from "@/../script/state/context/AppContext";
-import TutorialContainer from "./tutorial/TutorialContainer";
-import GoalPost from "./goal/GoalPost";
 import SavedGoalPost from "./goal/SavedGoalPost";
 import { useAuth } from "@/../script/state/context/AuthContext";
-import MainRoadEastWest from "./core/MainRoadEastWest";
-import MovingScoreCar from "./npc/MovingScoreCar";
 import RoadNorthSouth from "./core/RoadNorthSouth";
 import GoodPlaceGoal from "./goal/GoodPlaceGoal";
 import { useUnloadHandler } from "../../../../script/util/hook/useHooksHelper";
 import { useRouter } from "next/navigation";
-import { countProfitableTrades, createTradeObject, handleFirstTutorialStages, handleSellSide, updateProfitHistory } from "./core";
+import { countProfitableTrades, createTradeObject, handleFirstTutorialStages, handleSellSide, updateProfitHistory }
+from "./core";
 import Level1_Index2 from "./index2";
 import Level1_Index3 from "./index3";
 
@@ -85,6 +81,29 @@ function Component ({}) {
 
   useUnloadHandler(router, notSaved,)
 
+  const isSelectedTokenDowntrend = useMemo(()=>{
+    let tokensArrayArray = tokensArrayObj[selectedToken]
+    return !!tokensArrayArray && !!tokensArrayArray[selectedTimeframeIndex] && !!tokensArrayArray[selectedTimeframeIndex].mode
+  },[tokensArrayObj, selectedToken,selectedTimeframeIndex])
+
+
+
+  const realProfitCount = useMemo(()=>{
+    return profitHistory.filter((atrade:any, index:any) => {
+      return !!atrade[1] && atrade[1] == "profit"
+    }).length
+  },[profitHistory])
+
+  useEffect(()=>{
+    s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
+    s__savedString(LH_superuser)
+  },[user, superuser])
+
+  const isDefaultUser = useMemo(()=>{
+    const splitKey = rpi.split(":")
+    if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
+    return false
+  },[rpi])
 
 
 
@@ -98,32 +117,119 @@ function Component ({}) {
 
 
 
-  const setTutoStage = (lvl:any) => {
-
-    s__LS_tutoStage(JSON.stringify({...tutoStage,lvl}))
-  }
-  const onTimeframeClick = (x:any, y:any) => {  }
-  const join = (x:any) => {
-      s__selectedToken(x)
-      updateTokenOrder(x,selectedTimeframeIndex,"state",0)
-  }
-  const trendDown = (x:any) => { 
+  const onTextClick = (x: any) => {
     s__selectedToken(x)
-    updateTokenOrder(x,selectedTimeframeIndex,"mode",1)
   }
-  const trendUp = (x:any) => { 
+  const setTutoStage = (lvl: any) => {
+
+    s__LS_tutoStage(JSON.stringify({ ...tutoStage, lvl }))
+  }
+  const onTimeframeClick = (x: any, y: any) => { }
+  const join = (x: any) => {
     s__selectedToken(x)
-    updateTokenOrder(x,selectedTimeframeIndex,"mode",0)
-   }
-  const turnOn = (x:any) => { 
+    updateTokenOrder(x, selectedTimeframeIndex, "state", 0)
+  }
+  const trendDown = (x: any) => {
+    s__selectedToken(x)
+    updateTokenOrder(x, selectedTimeframeIndex, "mode", 1)
+  }
+  const trendUp = (x: any) => {
+    s__selectedToken(x)
+    updateTokenOrder(x, selectedTimeframeIndex, "mode", 0)
+  }
+  const turnOn = (x: any) => {
     s__selectedToken(x)
 
     if (!tutoStage.lvl) { setTutoStage(1) }
-    updateTokenOrder(x,selectedTimeframeIndex,"state",1)
+    updateTokenOrder(x, selectedTimeframeIndex, "state", 1)
   }
-  const turnOff = (x:any) => {
-    updateTokenOrder(x,selectedTimeframeIndex,"state",0)
+  const turnOff = (x: any) => {
+    updateTokenOrder(x, selectedTimeframeIndex, "state", 0)
   }
+
+
+  const leaveAsset = async (x: any) => {
+    s__selectedToken(x)
+    let new_tokensArrayObj = { ...tokensArrayObj };
+    delete new_tokensArrayObj[x];
+    s__LS_tokensArrayObj((prevValue) => JSON.stringify(new_tokensArrayObj));
+    s__tokensArrayObj(new_tokensArrayObj)
+  }
+  const claimOrSyncDatabase = async () => {
+    if (isDefaultUser) return
+  }
+
+
+  const _s__projectionMode = (val: boolean) => {
+    s__projectionMode(val)
+  }
+
+
+  const setAPIKeys = async () => {
+
+
+    let binanceapikeys: any = prompt("Enter your API Keys! \n\n < Public : Secret >", "")
+    if (!binanceapikeys) return
+    if (binanceapikeys.split(":").length < 2) return
+
+    const splitKey = rpi.split(":")
+    if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
+
+    try {
+      let thedata = {
+        referral: splitKey[0],
+        pin: splitKey[1],
+        binancePublic: binanceapikeys.split(":")[0],
+        binanceSecret: binanceapikeys.split(":")[1],
+
+
+      }
+      app.alert("neutral", "Setting api keys")
+      let fetchRes: any = await fetchPost("/api/player/apikeys", thedata)
+      if (fetchRes.status >= 400) {
+        app.alert("error", "Failed to Set api keys")
+        return
+      }
+      app.alert("success", "Successfully set API keys!")
+
+      fetchSuperuser()
+    } catch (e: unknown) {
+      app.alert("error", "Failed api setting!")
+    }
+  }
+  const triggerSyncGoodPlace = async () => {
+    const splitKey = rpi.split(":")
+    if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
+
+    try {
+      let thedata = {
+        apiKey: splitKey[0],
+        apiSecret: splitKey[1],
+      }
+      app.alert("neutral", "Syncing Good Trades...")
+      let fetchRes: any = await fetchPost("/api/order/sync", thedata)
+      if (fetchRes.status >= 400) {
+        app.alert("error", "Failed to Syncing Good Trades")
+        return
+      }
+      app.alert("success", "Successfully Syncing Good Trades!")
+      window.location.reload()
+    } catch (e: unknown) {
+      app.alert("error", "Failed good order Syncing !")
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
   const s__selectedToken = (val:any) => {
     let newId = val.toUpperCase() + "USDT" + selectedTimeframe.toUpperCase()
     s__form({id:newId})
@@ -132,16 +238,6 @@ function Component ({}) {
     s__chartPos(chartPosLookup[val])
     s__chartRot(chartRotLookup[val])
   }
-
-
-
-
-
-
-
-
-
-
   const toggleTrade = async (x:any, y:any) => {
     if (profitHistory.length > 4) {
       return alert("Simulation Bankruptcy Error!");
@@ -160,8 +256,6 @@ function Component ({}) {
       handleNewOrder(newTradeObj);
     }
   };
-  
-  
   const handleExistingOrder = (newTradeObj:any): void => {
     let oldOrders = { ...currentOrders };
   
@@ -181,8 +275,6 @@ function Component ({}) {
     s__currentOrders(oldOrders);
     s__notSaved(false);
   };
-    
-  
   const handleNewOrder = (newTradeObj:any) => {
     if (newTradeObj.side === "buy") {
       s__currentOrders({ ...currentOrders, [form.id]: newTradeObj });
@@ -198,49 +290,6 @@ function Component ({}) {
       // if (tutoStage > 4)
     }
   };
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  const projectVirtualOrder = async (theid:any, thetrade:any) => {    
-    const splitKey = rpi.split(":")
-    if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
-
-    try {
-      let thedata = {
-        apiKey: splitKey[0],
-        apiSecret: splitKey[1],
-        ...thetrade,
-        quantity: 39,
-        symbol: thetrade.token.toUpperCase()+"USDT",
-      }
-      app.alert("neutral", "Saving Order")
-      let fetchRes:any = await fetchPost("/api/order/place",thedata)
-      if (fetchRes.status >= 400) {
-        app.alert("error","Failed to save order")
-        return
-      }
-      app.alert("success", "Successfully projected order to synced API!")
-
-      fetchSuperuser()
-    } catch (e:unknown) {
-      app.alert("error", "Failed order projection!")
-    }
-  }
-  const onTextClick = (x:any) => { 
-    s__selectedToken(x)
-  }
   const updateTokenOrder = async (_token:string, timeframe:any, substate:string,val:any="",subobj:any=null) => {
     if (!_token) return
     let promptVal = val
@@ -271,118 +320,7 @@ function Component ({}) {
     s__tokensArrayObj(bigTokensObj)
     s__LS_tokensArrayObj((prevValue) => JSON.stringify(bigTokensObj))
   }
-
-  const isSelectedTokenDowntrend = useMemo(()=>{
-    let tokensArrayArray = tokensArrayObj[selectedToken]
-    return !!tokensArrayArray && !!tokensArrayArray[selectedTimeframeIndex] && !!tokensArrayArray[selectedTimeframeIndex].mode
-  },[tokensArrayObj, selectedToken,selectedTimeframeIndex])
-
-
-
-  const realProfitCount = useMemo(()=>{
-    return profitHistory.filter((atrade:any, index:any) => {
-      return !!atrade[1] && atrade[1] == "profit"
-    }).length
-  },[profitHistory])
-
-  useEffect(()=>{
-    s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
-    s__savedString(LH_superuser)
-  },[user, superuser])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  const isDefaultUser = useMemo(()=>{
-    const splitKey = rpi.split(":")
-    if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
-    return false
-  },[rpi])
-
-  const setAPIKeys = async() => {
-    
-
-    let binanceapikeys:any =  prompt("Enter your API Keys! \n\n < Public : Secret >","") 
-    if (!binanceapikeys) return
-    if (binanceapikeys.split(":").length < 2) return
-    
-    const splitKey = rpi.split(":")
-    if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
-
-    try {
-      let thedata = {
-        referral: splitKey[0],
-        pin: splitKey[1],
-        binancePublic: binanceapikeys.split(":")[0],
-        binanceSecret: binanceapikeys.split(":")[1],
-    
-        
-      }
-    app.alert("neutral", "Setting api keys")
-    let fetchRes:any = await fetchPost("/api/player/apikeys",thedata)
-    if (fetchRes.status >= 400) {
-      app.alert("error","Failed to Set api keys")
-      return
-    }
-      app.alert("success", "Successfully set API keys!")
-
-      fetchSuperuser()
-    } catch (e:unknown) {
-      app.alert("error", "Failed api setting!")
-    }
-  }
-
-  const leaveAsset = async (x:any) => {
-      
-
-    s__selectedToken(x)
-    let new_tokensArrayObj = {...tokensArrayObj};
-    delete new_tokensArrayObj[x];
-    s__LS_tokensArrayObj((prevValue) => JSON.stringify(new_tokensArrayObj));
-    s__tokensArrayObj(new_tokensArrayObj)
-}
-
-
-
-
-
-
-
-
-
-
-
-  const triggerSyncGoodPlace = async () => {
+  const projectVirtualOrder = async (theid:any, thetrade:any) => {    
     const splitKey = rpi.split(":")
     if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
 
@@ -390,28 +328,36 @@ function Component ({}) {
       let thedata = {
         apiKey: splitKey[0],
         apiSecret: splitKey[1],
+        ...thetrade,
+        quantity: 39,
+        symbol: thetrade.token.toUpperCase()+"USDT",
       }
-    app.alert("neutral", "Syncing Good Trades...")
-    let fetchRes:any = await fetchPost("/api/order/sync",thedata)
-    if (fetchRes.status >= 400) {
-      app.alert("error","Failed to Syncing Good Trades")
-      return
-    }
-      app.alert("success", "Successfully Syncing Good Trades!")
-      window.location.reload()
+      app.alert("neutral", "Saving Order")
+      let fetchRes:any = await fetchPost("/api/order/place",thedata)
+      if (fetchRes.status >= 400) {
+        app.alert("error","Failed to save order")
+        return
+      }
+      app.alert("success", "Successfully projected order to synced API!")
+
+      fetchSuperuser()
     } catch (e:unknown) {
-      app.alert("error", "Failed good order Syncing !")
+      app.alert("error", "Failed order projection!")
     }
   }
 
-  const claimOrSyncDatabase = async () => {
-    if (isDefaultUser) return
-  }
 
 
-  const _s__projectionMode = (val:boolean) => {
-    s__projectionMode(val)
-  }
+
+
+
+
+
+
+
+
+
+
 
 
 
