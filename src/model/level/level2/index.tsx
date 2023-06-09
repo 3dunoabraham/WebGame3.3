@@ -22,6 +22,7 @@ import RoadNorthSouth from "./core/RoadNorthSouth";
 import GoodPlaceGoal from "./goal/GoodPlaceGoal";
 import { useUnloadHandler } from "../../../../script/util/hook/useHooksHelper";
 import { useRouter } from "next/navigation";
+import { countProfitableTrades, createTradeObject, handleFirstTutorialStages, handleSellSide, updateProfitHistory } from "./core";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -125,61 +126,117 @@ function Component ({}) {
     s__chartPos(chartPosLookup[val])
     s__chartRot(chartRotLookup[val])
   }
+
+
+
+
+
+
+
+
+
+
   const toggleTrade = async (x:any, y:any) => {
-    if (profitHistory.length > 4) { return alert("Simulation Bankrunptcy Error!") }
-    let newTradeObj = {side:!!y.value ? "buy" : "sell",token:x,price:y.price}
-    let isBuying = newTradeObj.side == "buy"
-    if (tutoStage.lvl == 1) { if ( isBuying) { setTutoStage(2) } }
-    if (tutoStage.lvl == 2) { if ( !isBuying) { setTutoStage(3) } }
+    if (profitHistory.length > 4) {
+      return alert("Simulation Bankruptcy Error!");
+    }
+  
+    const newTradeObj:any = createTradeObject(x, y);
+    const isBuying = newTradeObj.side === "buy";
+  
+    handleFirstTutorialStages(isBuying, tutoStage, setTutoStage);
     s__orderHistory([...orderHistory, newTradeObj])
     updateTokenOrder(x,selectedTimeframeIndex,"buy",isBuying ? "1" : "0",{["price"]:y.price})
-    if (form.id in currentOrders)
-    {
-      let oldOrders = {...currentOrders}
-        if (newTradeObj.side == "sell") {
-        let theindex = profitHistory.length
-        let newprofithi:any = [...profitHistory, [oldOrders[form.id],newTradeObj]]
-        let percentChange:any = newprofithi.price == oldOrders[form.id].price ? 0 : (
-          parseFloat(`${newTradeObj.price/oldOrders[form.id].price*100}`).toFixed(2)
-        )
-        
-        newprofithi[theindex].unshift((percentChange-100) > feePercent ? "profit" : "loss")
-        newprofithi[theindex].unshift((percentChange-100).toFixed(3))
-        s__profitHistory(newprofithi)
-        
-        if (!!projectionMode) {
-          projectVirtualOrder(form.id, newTradeObj)
-          app.alert("success", "Sending SELL order with synced api keys")
-        }
-
-        let counting = newprofithi.filter((atrade:any, index:any) => atrade[1] == "profit").length
-        if (counting >= 4) { setTutoStage(5)}
-      }
-      delete oldOrders[form.id]
-      s__currentOrders(oldOrders)
-      s__notSaved(false)
+  
+    if (form.id in currentOrders) {
+      handleExistingOrder(newTradeObj);
     } else {
-      if (newTradeObj.side == "buy") {
-        s__currentOrders({...currentOrders, [form.id]: newTradeObj })
-        s__notSaved(true)
-        if (!!projectionMode) {
-          projectVirtualOrder(form.id, newTradeObj)
-          app.alert("success", "Sending BUY order with synced api keys")
-        }
-      } 
-      if (newTradeObj.side == "sell") {
-        app.alert("error","Missing live buy order")
-        // s__orderHistory(orderHistory)
-        // if (tutoStage > 4)
-      } 
+      handleNewOrder(newTradeObj);
     }
-    let keyval = rpi
+  };
+  
+  
+  // const handleExistingOrder = (newTradeObj:any) => {
+  //   let oldOrders = { ...currentOrders };
+  
+  //   if (newTradeObj.side === "sell") {
+  //     let theindex = profitHistory.length;
+  //     let newprofithi:any = [...profitHistory, [oldOrders[form.id], newTradeObj]];
+  //     let percentChange:any =
+  //       newprofithi.price == oldOrders[form.id].price
+  //         ? 0
+  //         : parseFloat(`${(newTradeObj.price / oldOrders[form.id].price) * 100}`).toFixed(2);
+  
+  //     newprofithi[theindex].unshift((percentChange - 100) > feePercent ? "profit" : "loss");
+  //     newprofithi[theindex].unshift((percentChange - 100).toFixed(3));
+  //     s__profitHistory(newprofithi);
+  
+  //     if (!!projectionMode) {
+  //       projectVirtualOrder(form.id, newTradeObj);
+  //       app.alert("success", "Sending SELL order with synced API keys");
+  //     }
+  
+  //     let counting = newprofithi.filter((atrade:any) => atrade[1] == "profit").length;
+  //     if (counting >= 4) {
+  //       setTutoStage(5);
+  //     }
+  //   }
+  
+  //   delete oldOrders[form.id];
+  //   s__currentOrders(oldOrders);
+  //   s__notSaved(false);
+  // };
+  const handleExistingOrder = (newTradeObj:any): void => {
+    let oldOrders = { ...currentOrders };
+  
+    if (newTradeObj.side === "sell") {
+      let newprofithi = updateProfitHistory(currentOrders, form, newTradeObj, profitHistory, feePercent);
+      s__profitHistory(newprofithi);
+  
+      let counting = countProfitableTrades(newprofithi);
+      if (counting >= 4) {
+        setTutoStage(5);
+      }
+  
+      handleSellSide(newTradeObj, form, projectionMode, app, s__profitHistory, projectVirtualOrder);
+    }
+  
+    delete oldOrders[form.id];
+    s__currentOrders(oldOrders);
+    s__notSaved(false);
+  };
     
-    const splitKey = keyval.split(":")
-    if (splitKey[0] == "user" && splitKey[1] == "0000") {
-      return
+  
+  const handleNewOrder = (newTradeObj:any) => {
+    if (newTradeObj.side === "buy") {
+      s__currentOrders({ ...currentOrders, [form.id]: newTradeObj });
+      s__notSaved(true);
+  
+      if (!!projectionMode) {
+        projectVirtualOrder(form.id, newTradeObj);
+        app.alert("success", "Sending BUY order with synced API keys");
+      }
+    } else if (newTradeObj.side === "sell") {
+      app.alert("error", "Missing live buy order");
+      // s__orderHistory(orderHistory);
+      // if (tutoStage > 4)
     }
-  }
+  };
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const projectVirtualOrder = async (theid:any, thetrade:any) => {    
     const splitKey = rpi.split(":")
     if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
@@ -450,7 +507,7 @@ function Component ({}) {
 
 
 
-
+  // scene management and then minigame
 
 
   return (<>
