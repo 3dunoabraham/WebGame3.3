@@ -63,7 +63,7 @@ export function useUnloadHandler(router:any, notSaved:any) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   // useEffect(effect, [])
   useEffect(()=>{
-    const confirmationMessage = 'You have unsaved changes! \n Are you sure you want to leav this page?';
+    const confirmationMessage = 'You have unsaved trades! \n Are you sure you want to leave this page?';
     const beforeUnloadHandler = (e: BeforeUnloadEvent)=>{
       (e || window.event).returnValue = confirmationMessage;
       return confirmationMessage; // Gecko + Webkit, Safari, Chrome etc.

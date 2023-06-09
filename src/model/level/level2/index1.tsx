@@ -62,9 +62,9 @@ function Level1_Index1 ({state, calls, }:any) {
       }
       let playerRes = await login(playerCredentials)
       if (!playerRes) return 
-
+      let playerObj = playerRes.user
       app.alert("success", "Player connected!")   
-      completeLogin(rpiPrompt, playerRes)
+      completeLogin(rpiPrompt, playerObj)
     } catch (e:any) {
       app.alert("error", "Invalid credentials!")   
     }
@@ -74,7 +74,9 @@ function Level1_Index1 ({state, calls, }:any) {
     calls.s__rpi(rpiPrompt)
     calls.s__LS_rpi(rpiPrompt)
 
-    if (playerRes.goodAttempts > 0) { calls.setTutoStage(4) }
+    if (playerRes.goodAttempts > 0) {
+      calls.setTutoStage(4)
+    }
     window.location.reload()
   }
 
@@ -85,9 +87,9 @@ function Level1_Index1 ({state, calls, }:any) {
   }
   const quitAll = async () => {
 
-    state.s__LS_rpi("user:0000");
-    state.s__LS_tutoStage("{}");
-    state.s__LS_tokensArrayObj("{}");
+    calls.s__LS_rpi("user:0000");
+    calls.s__LS_tutoStage("{}");
+    calls.s__LS_tokensArrayObj("{}");
 
     await logout()
     window.location.reload()

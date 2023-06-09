@@ -3,7 +3,8 @@ import https from 'https';
 
 
 import { getSupabaseClient } from '@/../script/state/repository/supabase';
-import { fetchPlayer, fetchPostPlayer, fetchPutPlayerAPI, fetchPutGoodPlayer, fetchPutPlayer, fetchSameIPCount, fetchSamePlayerCount } from '@/../script/state/repository/player';
+import { fetchPlayer, fetchPostPlayer, fetchPutPlayerAPI, fetchPutGoodPlayer, fetchPutPlayer, fetchSameIPCount, fetchSamePlayerCount }
+from '@/../script/state/repository/player';
 // import { fetchPostOrder } from '@/../script/state/repository/order';
 
 export const generalLookupTable: { [key: string]: number } = {

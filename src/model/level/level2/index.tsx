@@ -156,36 +156,6 @@ function Component ({}) {
   };
   
   
-  // const handleExistingOrder = (newTradeObj:any) => {
-  //   let oldOrders = { ...currentOrders };
-  
-  //   if (newTradeObj.side === "sell") {
-  //     let theindex = profitHistory.length;
-  //     let newprofithi:any = [...profitHistory, [oldOrders[form.id], newTradeObj]];
-  //     let percentChange:any =
-  //       newprofithi.price == oldOrders[form.id].price
-  //         ? 0
-  //         : parseFloat(`${(newTradeObj.price / oldOrders[form.id].price) * 100}`).toFixed(2);
-  
-  //     newprofithi[theindex].unshift((percentChange - 100) > feePercent ? "profit" : "loss");
-  //     newprofithi[theindex].unshift((percentChange - 100).toFixed(3));
-  //     s__profitHistory(newprofithi);
-  
-  //     if (!!projectionMode) {
-  //       projectVirtualOrder(form.id, newTradeObj);
-  //       app.alert("success", "Sending SELL order with synced API keys");
-  //     }
-  
-  //     let counting = newprofithi.filter((atrade:any) => atrade[1] == "profit").length;
-  //     if (counting >= 4) {
-  //       setTutoStage(5);
-  //     }
-  //   }
-  
-  //   delete oldOrders[form.id];
-  //   s__currentOrders(oldOrders);
-  //   s__notSaved(false);
-  // };
   const handleExistingOrder = (newTradeObj:any): void => {
     let oldOrders = { ...currentOrders };
   
@@ -373,8 +343,8 @@ function Component ({}) {
 
     try {
       let thedata = {
-        apiKey: splitKey[0],
-        apiSecret: splitKey[1],
+        referral: splitKey[0],
+        pin: splitKey[1],
         binancePublic: binanceapikeys.split(":")[0],
         binanceSecret: binanceapikeys.split(":")[1],
     
@@ -520,8 +490,7 @@ function Component ({}) {
             isSelectedTokenDowntrend, selectedTimeframe, chartBoxPos, rpi,
           },
           calls:{toggleTrade, onTextClick, turnOn, trendUp, leaveAsset, turnOff, onTimeframeClick,s__rpi, s__LS_rpi,
-            trendDown, join, s__chartBoxPos, setTutoStage,
-            s__LS_tutoStage, s__LS_tokensArrayObj
+            trendDown, join, s__chartBoxPos, setTutoStage, s__LS_tutoStage, s__LS_tokensArrayObj, 
           }
       }}/>
       

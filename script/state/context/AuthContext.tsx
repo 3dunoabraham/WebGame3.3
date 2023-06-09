@@ -22,26 +22,24 @@ const AuthProvider:FC<{
   const [localuser, __localuser] = useState()
 
 
-  const fetchUserByKey = async (key:any,secret:any) => {
-    let thePlayer = await PlayerService.getPlayer(key,secret)
+  const fetchUserByRPI = async (referral:any,pin:any) => {
+    let thePlayer = await PlayerService.getPlayer(referral,pin)
     s__superuser(thePlayer)
   }
-  const fetchSuperuser = () => {
+  const fetchSupaPlayer = () => {
     
     if (LH_rpi != "user:0000") {
         let creds = LH_rpi.split(":")
         let key = creds[0]
         let secret  = creds[1]
-        fetchUserByKey(key,secret)        
+        fetchUserByRPI(key,secret)        
       }
   }
   useEffect( () => {
-    if (LH_rpi != "user:0000") {
-      let creds = LH_rpi.split(":")
-      let key = creds[0]
-      let secret  = creds[1]
-      fetchUserByKey(key,secret)
-    }
+    if (!LH_rpi || LH_rpi == "user:0000") return
+    let [referral, pin] = LH_rpi.split(":")
+    if (!pin) return
+    fetchUserByRPI(referral,pin)
   }, []);
   useEffect( () => {
     if (!userInfo) return
@@ -85,7 +83,7 @@ const AuthProvider:FC<{
     <Auth.Provider value={{
       jwt: session.jwt,  user, 
       superuser,
-      do:{login, demo, logout, fetchSuperuser },
+      do:{login, demo, logout, fetchSupaPlayer },
       can,
 
     }}>
