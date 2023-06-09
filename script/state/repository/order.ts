@@ -258,14 +258,14 @@ function getCompleteTrades(transactionString: string): any[] {
   return completeTrades;
 }
 export async function sendSupabaseGoodAttempt(
-  req: any, apiKey: string, apiSecret: string, 
+  req: any, referral: string, pin: string, 
 ) {
   // Get user's IP address
   let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
-  const playerHash = computeHash(apiKey, apiSecret)
+  const playerHash = computeHash(referral, pin)
   console.log("playerHash", playerHash)
   let playerObj:any = {
-    name: apiKey,
+    name: referral,
     ipv4: ipAddress,
     hash: playerHash,
     attempts: 12,

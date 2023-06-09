@@ -117,37 +117,20 @@ function Component ({}) {
 
 
 
-  const onTextClick = (x: any) => {
-    s__selectedToken(x)
-  }
-  const setTutoStage = (lvl: any) => {
-
-    s__LS_tutoStage(JSON.stringify({ ...tutoStage, lvl }))
-  }
+  const claimOrSyncDatabase = async () => { if (isDefaultUser) { return } }
   const onTimeframeClick = (x: any, y: any) => { }
-  const join = (x: any) => {
-    s__selectedToken(x)
-    updateTokenOrder(x, selectedTimeframeIndex, "state", 0)
-  }
-  const trendDown = (x: any) => {
-    s__selectedToken(x)
-    updateTokenOrder(x, selectedTimeframeIndex, "mode", 1)
-  }
-  const trendUp = (x: any) => {
-    s__selectedToken(x)
-    updateTokenOrder(x, selectedTimeframeIndex, "mode", 0)
-  }
+  const _s__projectionMode = (val: boolean) => { s__projectionMode(val) }
+  const onTextClick = (x: any) => s__selectedToken(x)
+  const setTutoStage = (lvl: any) => s__LS_tutoStage(JSON.stringify({ ...tutoStage, lvl }))
+  const join = (x: any) => { s__selectedToken(x); updateTokenOrder(x, selectedTimeframeIndex, "state", 0) }
+  const trendDown = (x: any) => { s__selectedToken(x); updateTokenOrder(x, selectedTimeframeIndex, "mode", 1)}
+  const trendUp = (x: any) => { s__selectedToken(x); updateTokenOrder(x, selectedTimeframeIndex, "mode", 0) }
+  const turnOff = (x: any) => { updateTokenOrder(x, selectedTimeframeIndex, "state", 0) }
   const turnOn = (x: any) => {
     s__selectedToken(x)
-
     if (!tutoStage.lvl) { setTutoStage(1) }
     updateTokenOrder(x, selectedTimeframeIndex, "state", 1)
   }
-  const turnOff = (x: any) => {
-    updateTokenOrder(x, selectedTimeframeIndex, "state", 0)
-  }
-
-
   const leaveAsset = async (x: any) => {
     s__selectedToken(x)
     let new_tokensArrayObj = { ...tokensArrayObj };
@@ -155,19 +138,7 @@ function Component ({}) {
     s__LS_tokensArrayObj((prevValue) => JSON.stringify(new_tokensArrayObj));
     s__tokensArrayObj(new_tokensArrayObj)
   }
-  const claimOrSyncDatabase = async () => {
-    if (isDefaultUser) return
-  }
-
-
-  const _s__projectionMode = (val: boolean) => {
-    s__projectionMode(val)
-  }
-
-
   const setAPIKeys = async () => {
-
-
     let binanceapikeys: any = prompt("Enter your API Keys! \n\n < Public : Secret >", "")
     if (!binanceapikeys) return
     if (binanceapikeys.split(":").length < 2) return
@@ -177,35 +148,24 @@ function Component ({}) {
 
     try {
       let thedata = {
-        referral: splitKey[0],
-        pin: splitKey[1],
+        referral: splitKey[0], pin: splitKey[1],
         binancePublic: binanceapikeys.split(":")[0],
         binanceSecret: binanceapikeys.split(":")[1],
-
-
       }
       app.alert("neutral", "Setting api keys")
       let fetchRes: any = await fetchPost("/api/player/apikeys", thedata)
-      if (fetchRes.status >= 400) {
-        app.alert("error", "Failed to Set api keys")
-        return
-      }
+      if (fetchRes.status >= 400) { return app.alert("error", "Failed to Set api keys") }
       app.alert("success", "Successfully set API keys!")
 
       fetchSuperuser()
-    } catch (e: unknown) {
-      app.alert("error", "Failed api setting!")
-    }
+    } catch (e: unknown) { app.alert("error", "Failed api setting!") }
   }
   const triggerSyncGoodPlace = async () => {
     const splitKey = rpi.split(":")
     if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
 
     try {
-      let thedata = {
-        apiKey: splitKey[0],
-        apiSecret: splitKey[1],
-      }
+      let thedata = { referral: splitKey[0], pin: splitKey[1], }
       app.alert("neutral", "Syncing Good Trades...")
       let fetchRes: any = await fetchPost("/api/order/sync", thedata)
       if (fetchRes.status >= 400) {

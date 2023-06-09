@@ -3,10 +3,7 @@ import { getSupabasePlayer, sendSupabaseGoodAttempt } from '@/../script/state/re
   
 export async function POST(request: any) {
   const body:any = await request.json()
-  const { apiKey,apiSecret } = body;
-  if (apiKey == "user" && apiSecret == "0000") {
-    return new Response()
-  }
+  const { referral, pin } = body;
 
   // TELEGRAM MESSAGE DOESNT SEND IN VERCEL
   // sendTelegramMessageVirtualOrder(request,
@@ -21,9 +18,7 @@ export async function POST(request: any) {
   // )
   
 
-  let rrreeesss = await sendSupabaseGoodAttempt(request,
-    apiKey, apiSecret,
-  )
+  let rrreeesss = await sendSupabaseGoodAttempt(request, referral, pin,)
   if (!rrreeesss) {
     throw new Error("Coudlnt update good attempts")
   }
