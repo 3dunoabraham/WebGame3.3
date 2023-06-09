@@ -23,6 +23,7 @@ import GoodPlaceGoal from "./goal/GoodPlaceGoal";
 import { useUnloadHandler } from "../../../../script/util/hook/useHooksHelper";
 import { useRouter } from "next/navigation";
 import { countProfitableTrades, createTradeObject, handleFirstTutorialStages, handleSellSide, updateProfitHistory } from "./core";
+import Level1_Index2 from "./index2";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -96,6 +97,10 @@ function Component ({}) {
 
 
 
+  const setTutoStage = (lvl:any) => {
+
+    s__LS_tutoStage(JSON.stringify({...tutoStage,lvl}))
+  }
   const onTimeframeClick = (x:any, y:any) => {  }
   const join = (x:any) => {
       s__selectedToken(x)
@@ -306,14 +311,6 @@ function Component ({}) {
 
 
 
-  const setTutoStage = (lvl:any) => {
-
-    s__LS_tutoStage(JSON.stringify({...tutoStage,lvl}))
-  }
-  const turnOffDemo = () => {
-    turnOn("btc")
-    setTutoStage(1)
-  }
 
 
 
@@ -410,39 +407,6 @@ function Component ({}) {
     if (isDefaultUser) return
   }
 
-  const claimOrSync = async () => {
-    if (isDefaultUser) {
-      if (profitHistory.length  == 0) {
-        app.alert("neutral", "Tip: Buy low and sell high to get points!")
-        return
-      } else {
-        if (realProfitCount == 0) {
-          app.alert("neutral", "Tip: Remove bad orders (losses) by fixing (click) white-roofed cars!")
-        } else {
-          app.alert("neutral", "Tip: Buy and sell profitably 4 times to level up!")
-        }
-
-      }
-    } else {
-      if (realProfitCount < 4) {
-        app.alert("neutral", "Trying to sync account")
-        let loginRes = await login({
-          referral:LS_rpi.split(":")[0],
-          pin:LS_rpi.split(":")[1]
-        })
-        if (!loginRes) return 
-
-      } else {
-        s__profitHistory([])
-
-        app.alert("success", "Congratulations! you've reached the simulated!")
-      }
-    }
-
-    if (tutoStage == 3) {
-      setTutoStage(4)
-    }
-  }
 
 
 
@@ -500,15 +464,14 @@ function Component ({}) {
 
       {/* CHAPTER 2 */}
       {/* TEXT TUTORIALS */}
-      <TutorialContainer  calls={{join,turnOffDemo,setTutoStage}} 
-        state={{hasAnyToken, tutoStage, isDefaultUser}}
-      />
-      {/* local storage goal */}
-      {hasAnyToken &&  tutoStage.lvl >= 3 &&
-        <GoalPost calls={{claim:claimOrSync}}
-           state={{hasAnyToken, profitHistory, tutoStage}}
-        />
-      }
+      <Level1_Index2 {...{
+        state: {
+          hasAnyToken, tutoStage, isDefaultUser, profitHistory, realProfitCount, LS_rpi,
+        },
+        calls: {
+          setTutoStage, s__profitHistory
+        }
+      }}/>
       {/* MINI GAME */}
       {/* main road 1 */}
       {"btc" in tokensArrayObj && <> 

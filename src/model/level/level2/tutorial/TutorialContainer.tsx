@@ -4,7 +4,7 @@ import SetDemoOff from "./SetDemoOff"
 import TutorialGoal from "./TutorialGoal"
 import ClickToStart from "./ClickToStart"
 
-function Component ({state, calls}:any) {
+function Component ({state}:any) {
   return (<>
     {state.hasAnyToken && !state.tutoStage.lvl && <SetDemoOff /> }
     {state.hasAnyToken && state.tutoStage.lvl == 1  && <GreenBuy  /> }

@@ -57,4 +57,6 @@ export const createTradeObject = (x:any, y:any) => {
     let counting = newprofithi.filter((atrade) => atrade[1] == "profit").length;
     return counting;
   };
+
+  
   
