@@ -136,20 +136,11 @@ function Component ({}) {
     s__chartRot(chartRotLookup[val])
   }
   const toggleTrade = async (x:any, y:any) => {
-    if (profitHistory.length > 4) {
-      alert("Simulation Bankrunptcy Error!")
-      return
-    }
-
-
+    if (profitHistory.length > 4) { return alert("Simulation Bankrunptcy Error!") }
     let newTradeObj = {side:!!y.value ? "buy" : "sell",token:x,price:y.price}
     let isBuying = newTradeObj.side == "buy"
-    if (tutoStage.lvl == 1) {
-      if ( isBuying) { setTutoStage(2) }
-    }
-    if (tutoStage.lvl == 2) {
-      if ( !isBuying) { setTutoStage(3) }
-    }
+    if (tutoStage.lvl == 1) { if ( isBuying) { setTutoStage(2) } }
+    if (tutoStage.lvl == 2) { if ( !isBuying) { setTutoStage(3) } }
     s__orderHistory([...orderHistory, newTradeObj])
     updateTokenOrder(x,selectedTimeframeIndex,"buy",isBuying ? "1" : "0",{["price"]:y.price})
     if (form.id in currentOrders)
@@ -158,8 +149,6 @@ function Component ({}) {
         if (newTradeObj.side == "sell") {
         let theindex = profitHistory.length
         let newprofithi:any = [...profitHistory, [oldOrders[form.id],newTradeObj]]
-
-
         let percentChange:any = newprofithi.price == oldOrders[form.id].price ? 0 : (
           parseFloat(`${newTradeObj.price/oldOrders[form.id].price*100}`).toFixed(2)
         )
@@ -173,17 +162,13 @@ function Component ({}) {
           app.alert("success", "Sending SELL order with synced api keys")
         }
 
-        let counting = newprofithi.filter((atrade:any, index:any) => {
-          return atrade[1] == "profit"
-        }).length
-        if (counting >= 4) {
-          setTutoStage(5)
-        }
+        let counting = newprofithi.filter((atrade:any, index:any) => atrade[1] == "profit").length
+        if (counting >= 4) { setTutoStage(5)}
       }
       delete oldOrders[form.id]
       s__currentOrders(oldOrders)
       s__notSaved(false)
-      } else {
+    } else {
       if (newTradeObj.side == "buy") {
         s__currentOrders({...currentOrders, [form.id]: newTradeObj })
         s__notSaved(true)
@@ -193,9 +178,9 @@ function Component ({}) {
         }
       } 
       if (newTradeObj.side == "sell") {
-        s__orderHistory(orderHistory)
-        if (tutoStage > 4)
         app.alert("error","Missing live buy order")
+        // s__orderHistory(orderHistory)
+        // if (tutoStage > 4)
       } 
     }
     let keyval = rpi
@@ -204,34 +189,8 @@ function Component ({}) {
     if (splitKey[0] == "user" && splitKey[1] == "0000") {
       return
     }
-    let fetchObjData = {
-      side: newTradeObj.side,
-      symbol: x.toUpperCase()+"USDT",
-      quantity:30,
-      price:newTradeObj.side == "buy" ? newTradeObj.price : newTradeObj.price,
-      apiKey: keyval.split(":")[0],
-      apiSecret: keyval.split(":")[1]
-    }
-
-    // app.alert("neutral", "Saving Order")
-    // let fetchRes:any = await fetchPost("/api/order/place",fetchObjData)
-    // if (fetchRes.status >= 400) {
-    //   app.alert("error","Failed to save order")
-    //   return
-    // }
-    // app.alert("success", "Order saved")
-    // if (orderHistory.length >= 9) {
-    //   alert("Simulation Bankrunptcy!")
-    //   return
-    // }
   }
-  const projectVirtualOrder = async (theid:any, thetrade:any) => {
-    console.log("theid, thetrade")
-    console.log(theid, thetrade)
-
-
-
-    
+  const projectVirtualOrder = async (theid:any, thetrade:any) => {    
     const splitKey = rpi.split(":")
     if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
 
@@ -240,21 +199,15 @@ function Component ({}) {
         apiKey: splitKey[0],
         apiSecret: splitKey[1],
         ...thetrade,
-        // price: `${thetrade}`,
         quantity: 39,
         symbol: thetrade.token.toUpperCase()+"USDT",
       }
-    app.alert("neutral", "Saving Order")
-    let fetchRes:any = await fetchPost("/api/order/place",thedata)
-    if (fetchRes.status >= 400) {
-      app.alert("error","Failed to save order")
-      return
-    }
-    // app.alert("success", "Order saved")
-    // if (orderHistory.length >= 9) {
-    //   alert("Simulation Bankrunptcy!")
-    //   return
-    // }
+      app.alert("neutral", "Saving Order")
+      let fetchRes:any = await fetchPost("/api/order/place",thedata)
+      if (fetchRes.status >= 400) {
+        app.alert("error","Failed to save order")
+        return
+      }
       app.alert("success", "Successfully projected order to synced API!")
 
       fetchSuperuser()
@@ -465,32 +418,23 @@ function Component ({}) {
     s__savedString(LH_superuser)
   },[user, superuser])
 
-  const onFirstCarClicked = (e:any) => {
-    console.log("asd", e)
-    if (e > 3) {
-      if (profitHistory.length > 0) {
-        if (realProfitCount == profitHistory.length) {
-          app.alert("error", "No losses found, bad karma!")
-        } else {
-          app.alert("success", "Successfully reduced debt, You claimed a job!")
-        }
-      } else {
-        app.alert("error", "No orders found, bad reputation!")
-      }
-      
-      let theIndex = -1
-      for (let index = 0; index < profitHistory.length; index++) {
-        const element = profitHistory[index];
-        if (element[1] == "loss"){
-          theIndex = index
-        }
-      }
-      if (theIndex == -1)  return
-
-      let aNewArray = [...profitHistory]
-      aNewArray.splice(theIndex, 1)
-      s__profitHistory(aNewArray)
+  const onFirstCarClicked = (clickCounter:any) => {
+    if (clickCounter < 4)  return
+    if (profitHistory.length == 0) return app.alert("error", "No orders found, bad reputation!")
+    if (profitHistory.length > 0 && realProfitCount == profitHistory.length) {
+      return app.alert("error", "No losses found, bad karma!")
     }
+    
+    let theIndex = -1
+    for (let index = 0; index < profitHistory.length; index++) {
+      if (profitHistory[index][1] == "loss"){ theIndex = index }
+    }
+    if (theIndex == -1)  return
+
+    let aNewArray = [...profitHistory]
+    aNewArray.splice(theIndex, 1)
+    s__profitHistory(aNewArray)
+    app.alert("success", "Successfully reduced debt, You claimed a job!")
   }
   const _s__projectionMode = (val:boolean) => {
     s__projectionMode(val)
@@ -567,6 +511,12 @@ function Component ({}) {
         <meshStandardMaterial color={"#fff"}/>
       </Box>
 
+
+
+
+
+      {/* CHAPTER 2 */}
+      {/* BTC | Bitcoin | Bit Coin */}
       <Level1_Index1 {...{
           state:{tokensArrayObj, selectedToken, hasAnyToken, form, isDefaultUser, chartPos, chartRot, 
             isSelectedTokenDowntrend, selectedTimeframe, chartBoxPos, 
@@ -577,41 +527,6 @@ function Component ({}) {
       }}/>
 
       
-
-
-
-
-
-
-      {/* CHAPTER 1 */}
-      {/* BTC | Bitcoin | Bit Coin */}
-      {/* CHAPTER 1 */}
-      {/* <ByteCityLibertyBank tokensArrayObj={tokensArrayObj} selectedToken={selectedToken}
-        toggleTrade={(tokenname:any,data:any)=>{toggleTrade("btc",data)}}
-        hasAnyToken={hasAnyToken} 
-        form={form} timeframe={form.id.split("USDT")[1]} token="btc" 
-        tokensArrayArray={"btc" in tokensArrayObj ? tokensArrayObj["btc"] : null}
-        refetchInterval={selectedToken == "btc" ? 4000 : 60000}
-        unselectedColor={"#50545B"}
-        onTextClick={()=>{onTextClick("btc")}} 
-        setVelocityY={(data:any)=>{toggleTrade("btc",data)}}
-        turnOn={(e:any)=>{turnOn("btc");  e.stopPropagation && e.stopPropagation()}} turnOff={(e:any)=>{turnOff("btc");  e.stopPropagation && e.stopPropagation()}}
-        join={(e:any)=>{join("btc");  e.stopPropagation && e.stopPropagation()}} leave={(e:any)=>{leave("btc");  e.stopPropagation && e.stopPropagation()}}
-        trendDown={()=>{trendDown("btc")}} trendUp={()=>{trendUp("btc")}} 
-        onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("btc",tf)}}
-      /> */}
-      {/* CHAPTER X */}
-      {/* {hasAnyToken && !isDefaultUser && !!tokensArrayObj[selectedToken] && isSelectedTokenDowntrend && <>
-        <group scale={[0.4,0.4,0.4]}  position={chartPos} rotation={chartRot}>
-          <ChartBox boundaries={[1,0.1,0.04]} score={{score:0}} timeframe={selectedTimeframe.toLowerCase() || "1d"}
-            position={[0,0,0]} velocityX={0}  theToken={form.id.split("USDT")[0]} askAI={(data:any)=>{askAI(data)}}
-            velocityY={0} setVelocityX={()=>{}} setVelocityY={()=>{}} {...{chartBoxPos, s__chartBoxPos}}
-            tokensArrayObj={tokensArrayObj}
-          />
-        </group>
-      </>}
- */}
-
 
 
       {/* CHAPTER 2 */}
