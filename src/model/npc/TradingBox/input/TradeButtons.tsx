@@ -48,7 +48,7 @@ function TradeButtons ({ tokensArrayArray, state, calls }:any) {
 
 
 
-      {!!tokensArrayArray &&
+      {!!tokensArrayArray && <>
             <mesh castShadow receiveShadow scale={state.score.score ? 1 : 3}
             onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
             rotation={[(!!tokensArrayArray && !!state.selectedHasArray)?0.5:-0.5,0,0]}
@@ -58,7 +58,6 @@ function TradeButtons ({ tokensArrayArray, state, calls }:any) {
             <boxGeometry args={[0.01, 0.025, 0.01]} />
             <meshStandardMaterial color={(!!tokensArrayArray && !!state.selectedHasArray) ? "#009900" : "#9A7465"} />
             </mesh>
-        }
 
 
 <mesh castShadow receiveShadow scale={state.score.score ? 1 : 3}
@@ -70,6 +69,7 @@ function TradeButtons ({ tokensArrayArray, state, calls }:any) {
             <meshStandardMaterial color={"#978887"} />
             </mesh>
 
+</>}
         
         {/* grass ledge */}
         {/* {!!tokensArrayArray && state.selectedHasArray && <>

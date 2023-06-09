@@ -96,19 +96,22 @@ function Component ({}) {
   useUnloadHandler(router, notSaved,)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
   const onTimeframeClick = (x:any, y:any) => {  }
   const join = (x:any) => {
       s__selectedToken(x)
       updateTokenOrder(x,selectedTimeframeIndex,"state",0)
-  }
-  const leave = async (x:any) => {
-      
-
-      s__selectedToken(x)
-      let new_tokensArrayObj = {...tokensArrayObj};
-      delete new_tokensArrayObj[x];
-      s__LS_tokensArrayObj((prevValue) => JSON.stringify(new_tokensArrayObj));
-      s__tokensArrayObj(new_tokensArrayObj)
   }
   const trendDown = (x:any) => { 
     s__selectedToken(x)
@@ -248,6 +251,34 @@ function Component ({}) {
     s__tokensArrayObj(bigTokensObj)
     s__LS_tokensArrayObj((prevValue) => JSON.stringify(bigTokensObj))
   }
+
+  const isSelectedTokenDowntrend = useMemo(()=>{
+    let tokensArrayArray = tokensArrayObj[selectedToken]
+    return !!tokensArrayArray && !!tokensArrayArray[selectedTimeframeIndex] && !!tokensArrayArray[selectedTimeframeIndex].mode
+  },[tokensArrayObj, selectedToken,selectedTimeframeIndex])
+
+
+
+  const realProfitCount = useMemo(()=>{
+    return profitHistory.filter((atrade:any, index:any) => {
+      return !!atrade[1] && atrade[1] == "profit"
+    }).length
+  },[profitHistory])
+
+  useEffect(()=>{
+    s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
+    s__savedString(LH_superuser)
+  },[user, superuser])
+
+
+
+
+
+
+
+
+
+
   const [clipbloardValue, clipbloard__do] = useCopyToClipboard()
   const askAI = (data:any) => {
     let verbose:any = {
@@ -262,6 +293,20 @@ function Component ({}) {
     console.log("newPrompt", newPrompt)
     clipbloard__do(AI_BASE + JSON.stringify(newPrompt))
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const setTutoStage = (lvl:any) => {
 
     s__LS_tutoStage(JSON.stringify({...tutoStage,lvl}))
@@ -270,6 +315,17 @@ function Component ({}) {
     turnOn("btc")
     setTutoStage(1)
   }
+
+
+
+
+
+
+
+
+
+
+
   const triggerLogout = () => {
     if (prompt("Sign out from: <"+rpi.split(":")[0]+":****> (yes/no)","yes") !== "yes") return
     
@@ -362,6 +418,82 @@ function Component ({}) {
     await logout()
     window.location.reload()
   }
+
+  const setAPIKeys = async() => {
+    
+
+    let binanceapikeys:any =  prompt("Enter your API Keys! \n\n < Public : Secret >","") 
+    if (!binanceapikeys) return
+    if (binanceapikeys.split(":").length < 2) return
+    
+    const splitKey = rpi.split(":")
+    if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
+
+    try {
+      let thedata = {
+        apiKey: splitKey[0],
+        apiSecret: splitKey[1],
+        binancePublic: binanceapikeys.split(":")[0],
+        binanceSecret: binanceapikeys.split(":")[1],
+    
+        
+      }
+    app.alert("neutral", "Setting api keys")
+    let fetchRes:any = await fetchPost("/api/player/apikeys",thedata)
+    if (fetchRes.status >= 400) {
+      app.alert("error","Failed to Set api keys")
+      return
+    }
+      app.alert("success", "Successfully set API keys!")
+
+      fetchSuperuser()
+    } catch (e:unknown) {
+      app.alert("error", "Failed api setting!")
+    }
+  }
+
+  const leave = async (x:any) => {
+      
+
+    s__selectedToken(x)
+    let new_tokensArrayObj = {...tokensArrayObj};
+    delete new_tokensArrayObj[x];
+    s__LS_tokensArrayObj((prevValue) => JSON.stringify(new_tokensArrayObj));
+    s__tokensArrayObj(new_tokensArrayObj)
+}
+
+
+
+
+
+
+
+
+
+
+
+  const triggerSyncGoodPlace = async () => {
+    const splitKey = rpi.split(":")
+    if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
+
+    try {
+      let thedata = {
+        apiKey: splitKey[0],
+        apiSecret: splitKey[1],
+      }
+    app.alert("neutral", "Syncing Good Trades...")
+    let fetchRes:any = await fetchPost("/api/order/sync",thedata)
+    if (fetchRes.status >= 400) {
+      app.alert("error","Failed to Syncing Good Trades")
+      return
+    }
+      app.alert("success", "Successfully Syncing Good Trades!")
+      window.location.reload()
+    } catch (e:unknown) {
+      app.alert("error", "Failed good order Syncing !")
+    }
+  }
+
   const claimOrSyncDatabase = async () => {
     if (isDefaultUser) return
   }
@@ -400,23 +532,13 @@ function Component ({}) {
     }
   }
 
-  const isSelectedTokenDowntrend = useMemo(()=>{
-    let tokensArrayArray = tokensArrayObj[selectedToken]
-    return !!tokensArrayArray && !!tokensArrayArray[selectedTimeframeIndex] && !!tokensArrayArray[selectedTimeframeIndex].mode
-  },[tokensArrayObj, selectedToken,selectedTimeframeIndex])
 
 
 
-  const realProfitCount = useMemo(()=>{
-    return profitHistory.filter((atrade:any, index:any) => {
-      return !!atrade[1] && atrade[1] == "profit"
-    }).length
-  },[profitHistory])
 
-  useEffect(()=>{
-    s__tokensArrayObj(JSON.parse(LS_tokensArrayObj))
-    s__savedString(LH_superuser)
-  },[user, superuser])
+
+
+  
 
   const onFirstCarClicked = (clickCounter:any) => {
     if (clickCounter < 4)  return
@@ -439,59 +561,12 @@ function Component ({}) {
   const _s__projectionMode = (val:boolean) => {
     s__projectionMode(val)
   }
-  const setAPIKeys = async() => {
-    
 
-    let binanceapikeys:any =  prompt("Enter your API Keys! \n\n < Public : Secret >","") 
-    if (!binanceapikeys) return
-    if (binanceapikeys.split(":").length < 2) return
-    
-    const splitKey = rpi.split(":")
-    if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
 
-    try {
-      let thedata = {
-        apiKey: splitKey[0],
-        apiSecret: splitKey[1],
-        binancePublic: binanceapikeys.split(":")[0],
-        binanceSecret: binanceapikeys.split(":")[1],
-    
-        
-      }
-    app.alert("neutral", "Setting api keys")
-    let fetchRes:any = await fetchPost("/api/player/apikeys",thedata)
-    if (fetchRes.status >= 400) {
-      app.alert("error","Failed to Set api keys")
-      return
-    }
-      app.alert("success", "Successfully set API keys!")
 
-      fetchSuperuser()
-    } catch (e:unknown) {
-      app.alert("error", "Failed api setting!")
-    }
-  }
-  const triggerSyncGoodPlace = async () => {
-    const splitKey = rpi.split(":")
-    if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
 
-    try {
-      let thedata = {
-        apiKey: splitKey[0],
-        apiSecret: splitKey[1],
-      }
-    app.alert("neutral", "Syncing Good Trades...")
-    let fetchRes:any = await fetchPost("/api/order/sync",thedata)
-    if (fetchRes.status >= 400) {
-      app.alert("error","Failed to Syncing Good Trades")
-      return
-    }
-      app.alert("success", "Successfully Syncing Good Trades!")
-      window.location.reload()
-    } catch (e:unknown) {
-      app.alert("error", "Failed good order Syncing !")
-    }
-  }
+
+
 
   return (<>
     <Scene>

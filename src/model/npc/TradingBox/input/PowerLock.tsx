@@ -49,6 +49,15 @@ function PowerLock ({ tokensArrayArray, state, calls }:any) {
             <boxGeometry args={[0.07, 0.04, 0.08]} />
             <meshStandardMaterial color={"#888"} />
         </mesh>
+        {!!tokensArrayArray &&
+            <mesh castShadow receiveShadow onClick={!tokensArrayArray ? calls.join : calls.leave}
+                scale={3}
+                position={[  0.41, 0.01,  0,]}
+            >
+                <boxGeometry args={[0.065, 0.04, 0.075]} />
+                <meshStandardMaterial color={"#46a740"} />
+            </mesh>
+        }
         </group>
 
     </>)

@@ -11,7 +11,7 @@ export async function POST(request: any) {
     (callbackRes: any) => { if (!callbackRes) { throw Error } }
   )
 
-  let _player:any = await getSupabasePlayer(request,apiKey, apiSecret)
+  let _player:any = await getSupabasePlayer(apiKey, apiSecret)
   let theplayer:any = await _player.json()
   let theplayerBinancekeys = theplayer.binancekeys
   let apikeypublic = !!theplayerBinancekeys ? theplayerBinancekeys.split(":")[0] : ""

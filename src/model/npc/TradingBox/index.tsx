@@ -258,27 +258,31 @@ const selectedHasArray = useMemo(()=>{
       
       {/* EXCLAMATION MARK */}
       {isDowntrend && <>
+          <group position={position}>
         <mesh castShadow receiveShadow scale={score.score ? 1 : 3}
-          position={[ position[0] - 0.42, position[1] - 0, position[2] - 0.42 ]}
+          position={[  - 0.42,  - 0,  - 0.42 ]}
         >
           <boxGeometry args={[0.02, 0.1, 0.02]} />
           <meshStandardMaterial color={"red"} />
         </mesh>
         <mesh castShadow receiveShadow scale={score.score ? 1 : 3}
-          position={[ position[0] - 0.42, position[1] - 0.28, position[2] - 0.42]}
+          position={[  - 0.42,  - 0.28,  - 0.42]}
         >
           <boxGeometry args={[0.02, 0.03, 0.02]} />
           <meshStandardMaterial color={"red"} />
         </mesh>
+        </group>
       </>}
       {/* mini  yellow button */}
       {isSelectedId && !!tokensArrayArray &&
-        <mesh castShadow receiveShadow scale={score.score ? 1 : 3}
-          position={[ position[0] - 0.23, position[1] - 0.28, position[2] + 0.2]}
+          <group position={position}>
+          <mesh castShadow receiveShadow scale={score.score ? 1 : 3}
+          position={[  - 0.23,  - 0.28,  + 0.2]}
         >
           <boxGeometry args={[0.02, 0.06, 0.015]} />
           <meshStandardMaterial color={ !!tokensArrayArray &&  clicked ? "#ffa066" : "#FEEA4D"} />
         </mesh>
+        </group>
       }
 
 

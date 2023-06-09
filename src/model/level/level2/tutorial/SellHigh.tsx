@@ -16,23 +16,23 @@ function SellHigh ({}) {
     })
 
     return (
-        <group position={[-0.7,-0.24,-0.5]} scale={0.35} >
+        <group position={[-0.8,-0.24,-0.75]} scale={0.35} >
             <group ref={$textGroup} position={[3.3,0,1.21]} rotation={[-1,0,0]}>
                 <FontText position={[-1,2.3,-0.9]} fontSize={0.22} rotation={[1,Math.PI,0]} 
                     material={new MeshStandardMaterial({ side: 0, color: "#004400" })}>
-                    Wait for profit
+                    {"Profit = current > entry"}
                 </FontText>
                 <FontText position={[-1,2.3,-0.9]} fontSize={0.22} rotation={[1,0,0]} 
                     material={new MeshStandardMaterial({ side: 0, color: "#004400" })}>
-                    Wait for profit
+                    {"Profit = current > entry"}
                 </FontText>
                 <FontText position={[-2.5,-0.7,0]} fontSize={0.25} rotation={[0,Math.PI,0]} 
                     material={new MeshStandardMaterial({ side: 0, color: "#990000" })}> 
-                    Wait . . . and then click SELL 
+                    Wait for profit . . . then click SELL 
                 </FontText>
                 <FontText position={[-2.5,-0.7,0]} fontSize={0.25} rotation={[0,0,0]} 
                     material={new MeshStandardMaterial({ side: 0, color: "#990000" })}> 
-                    Wait . . . and then click SELL 
+                    Wait for profit . . . then click SELL 
                 </FontText>
             </group>
         </group>

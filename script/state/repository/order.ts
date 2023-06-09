@@ -361,29 +361,11 @@ export async function setSupabasePlayerAPIKeys(
 }
   
 
-export async function getSupabasePlayer(
-  req: any, apiKey: string, apiSecret: string, 
-) {
-  let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
-  const playerHash = computeHash(apiKey, apiSecret)
-
-  let playerObj:any = {
-    name: apiKey,
-    ipv4: ipAddress,
-    hash: playerHash,
-    attempts: 12,
-    totalAttempts: 0,
-    goodAttempts: 0,
-    trades:"",
-    datenow: Date.now(),
-  }
+export async function getSupabasePlayer(referral: string, pin: string, ) {
+  const playerHash = computeHash(referral, pin)
   const supabase = getSupabaseClient()
-  const count = await fetchSamePlayerCount(supabase, playerHash)
-  if (!count) {
-    throw new Error()
-  } else {
-    playerObj = await fetchPlayer(supabase,playerHash)
-  }
-  
+  let playerObj = await fetchPlayer(supabase,playerHash)
+  if (!playerObj) { throw new Error("Player not found") }
+
   return new Response(JSON.stringify(playerObj))
 }

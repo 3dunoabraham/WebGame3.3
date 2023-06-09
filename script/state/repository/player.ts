@@ -1,8 +1,8 @@
 export async function fetchSamePlayerCount(supabase:any, hash:any) {
-    const { data:exists, count } = await supabase
-    .from('player')
-    .select('*', { count: 'exact', head: true })
-    .filter("hash", 'eq', hash)
+    const { count } = await supabase
+        .from('player')
+        .select('id', { count: 'exact', head: true })
+        .filter("hash", 'eq', hash)
     return count
 }
 
@@ -15,18 +15,16 @@ export async function fetchPostPlayer(supabase:any, playerObj:any) {
 }
 
 export async function fetchPlayer(supabase:any, playerHash:any) {
-    const { data: existingStart, error: selectError } = await supabase
-        .from('player')
-        .select('*')
+    const { data: player, error: selectError } = await supabase.from('player')
+        .select('name, attempts, totalAttempts, goodAttempts, trades, mode, jwt, binancekeys, subscription, referral')
         .match({ hash: playerHash })
         .single()
-    return existingStart
+    return player
 }
 
 export async function fetchSameIPCount(supabase:any, ipAddress:any) {
 
-    const { data:ipexists, count:ipcount } = await supabase
-        .from('player')
+    const { data:ipexists, count:ipcount } = await supabase.from('player')
         .select('totalAttempts', { count: 'exact', head: true })
         .filter("ipv4", 'eq', ipAddress)
   
@@ -35,8 +33,7 @@ export async function fetchSameIPCount(supabase:any, ipAddress:any) {
 
 export async function fetchPutPlayer(supabase:any, playerObj:any, playerHash:any, orderObj:any) {
 
-    const { data: removeattempt, error:error_removeattempt } = await supabase
-        .from('player')
+    const { data: removeattempt, error:error_removeattempt } = await supabase.from('player')
         .update({
             attempts: playerObj.attempts - 1,
             totalAttempts: playerObj.totalAttempts + 1,
@@ -52,8 +49,7 @@ export async function fetchPutPlayer(supabase:any, playerObj:any, playerHash:any
 
 export async function fetchPutGoodPlayer(supabase:any, playerObj:any, playerHash:any ) {
 
-    const { data: removeattempt, error:error_removeattempt } = await supabase
-        .from('player')
+    const { data: removeattempt, error:error_removeattempt } = await supabase.from('player')
         .update({
             goodAttempts: playerObj.goodAttempts + 1,
             trades: ""
@@ -72,8 +68,7 @@ export async function fetchPutPlayerAPI(supabase:any, playerObj:any, playerHash:
     let newsubLevel = thesubLevel > 0 ? thesubLevel : (
         binancePublic == secret1 && binanceSecret == secret2 ? 1 : 0
     )
-    const { data: removeattempt, error:error_removeattempt } = await supabase
-        .from('player')
+    const { data: removeattempt, error:error_removeattempt } = await supabase.from('player')
         .update({
             subscription: newsubLevel,
             binancekeys: `${binancePublic}:${binanceSecret}`
