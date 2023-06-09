@@ -8,7 +8,6 @@ import { useLocalStorage } from "usehooks-ts";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMultipleJsonArray, parseDecimals } from "@/../script/util/helper";
 import TableLegs from "./desk/TableLegs";
-import Toggles from "./input/DeskToggles";
 import TableBody from "./machine/TableBody";
 import BouncingThing from "./BouncingThing";
 import TimeframeButtons from "./input/TimeframeButtons";
@@ -219,10 +218,10 @@ const Component = forwardRef(({
         <TableLegs />
         
         {/* toggles sync join trend */}
-        <Toggles state={{score, isSelectedId, selectedHasArray,isDowntrend,}}
+        {/* <Toggles state={{score, isSelectedId, selectedHasArray,isDowntrend,}}
             tokensArrayArray={tokensArrayArray}
             calls={{join, leave, onTextClick, turnOff, turnOn,trendDown,trendUp}}
-          />
+          /> */}
           
         
         {/* OPEN VIRTUAL ORDER SCREEN */}

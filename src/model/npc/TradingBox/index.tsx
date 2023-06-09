@@ -10,8 +10,8 @@ import TableBody from "./machine/TableBody";
 import BouncingThing from "./BouncingThing";
 import TimeframeButtons from "./input/TimeframeButtons";
 import TextContainer from "./output/TextContainer";
-import DeskToggles from "./input/DeskToggles";
-import DeskButtons from "./input/DeskButtons";
+import PowerButtons from "./input/PowerButtons";
+import TradeButtons from "./input/TradeButtons";
 import Computer from "./machine/Computer";
 import MiniScreen from "./output/MiniScreen";
 import BankRoofContainer from "@/3d/BankRoofContainer";
@@ -212,32 +212,34 @@ const selectedHasArray = useMemo(()=>{
         
         
         {/* toggles sync join trend */}
-        <DeskToggles state={{score, isSelectedId, selectedHasArray,isDowntrend,}}
+        <PowerButtons state={{score, isSelectedId, selectedHasArray,isDowntrend,}}
             tokensArrayArray={tokensArrayArray}
             calls={{join, leave, onTextClick, turnOff, turnOn,trendDown,trendUp}}
           />
           
-        <DeskButtons state={{score, isSelectedId, selectedHasArray,isDowntrend,clicked}}
+        <TradeButtons state={{score, isSelectedId, selectedHasArray,isDowntrend,clicked}}
             tokensArrayArray={tokensArrayArray}
             calls={{join, leave, onTextClick, turnOff, turnOn,trendDown,trendUp,toggleGame}}
           />
           
         
         {/* OPEN VIRTUAL ORDER SCREEN */}
-        {clicked &&  <>
-        <mesh castShadow receiveShadow scale={score.score ? 1 : 3}
-          position={[  + 0.33,  - 0.2,  - 0.41 ]}
-        >
-          <boxGeometry args={[0.1, 0.095, 0.01]} />
-          <meshStandardMaterial color={"#777777"}  />
-        </mesh>
-        <mesh castShadow receiveShadow scale={score.score ? 1 : 3} 
-          position={[  + 0.33,  - 0.22,  - 0.40 ]}
-        >
-          <boxGeometry args={[0.08, 0.095, 0.01]} />
-          <meshStandardMaterial emissive={tokenColor} color={"#777777"}  />
-        </mesh>
-        </>}
+        {clicked &&
+          <group position={[0,-0.33,0]}>
+            <mesh castShadow receiveShadow scale={score.score ? 1 : 3}
+              position={[  + 0.33,  0,  - 0.41 ]}
+            >
+              <boxGeometry args={[0.1, 0.095, 0.01]} />
+              <meshStandardMaterial color={"#777777"}  />
+            </mesh>
+            <mesh castShadow receiveShadow scale={score.score ? 1 : 3} 
+              position={[  + 0.33,  - 0.02,  - 0.40 ]}
+            >
+              <boxGeometry args={[0.08, 0.095, 0.01]} />
+              <meshStandardMaterial emissive={tokenColor} color={"#777777"}  />
+            </mesh>
+          </group>
+        }
 
       </group>
 

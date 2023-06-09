@@ -3,7 +3,7 @@ import { useFrame } from "@react-three/fiber"
 import { useRef, useState } from "react"
 
 
-function Component ({ calls }:any) {
+function MovingScoreCar ({ calls }:any) {
     const [carSpeed, s__carSpeed] = useState(0.018)
     const movingPart1:any = useRef()
     const movingPart2:any = useRef()
@@ -89,4 +89,4 @@ function Component ({ calls }:any) {
     </>)
 }
 
-export default Component
+export default MovingScoreCar

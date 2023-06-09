@@ -6,21 +6,50 @@ function Component ({ tokensArrayArray, state, calls }:any) {
     return ( <>
         
         {/* STATE MODE */}
-        <mesh castShadow receiveShadow onClick={!tokensArrayArray ? calls.join : calls.leave}
-            rotation={[0,0,!tokensArrayArray ? 0.25 : -0.25]} scale={state.score.score ? 1 : 3}
-            position={[  0.35,  - 0.34,  0.1,]}
+        <group onClick={!tokensArrayArray ? calls.join : calls.leave} 
+            position={[0,-0.47,0]}
         >
-            <boxGeometry args={[0.07, 0.02, 0.03]} />
-            <meshStandardMaterial color={!tokensArrayArray ? "#776666" : "#558855"} />
-        </mesh>
+        {/* KEY */}
+        <group position={[!tokensArrayArray ? 0 : -0.25,0,0]}>
+            <mesh castShadow receiveShadow 
+                rotation={[0,0,0]} scale={state.score.score ? 1 : 3}
+                position={[  0.67,  0,  0,]}
+            >
+                <boxGeometry args={[0.1, 0.01, 0.015]} />
+                <meshStandardMaterial color={!tokensArrayArray ? "#ff9900" : "#00ff00"} />
+            </mesh>
+            
+            <mesh castShadow receiveShadow 
+                rotation={[0,0,0]} scale={state.score.score ? 1 : 3}
+                position={[  0.62,  0,  0.05,]}
+            >
+                <boxGeometry args={[0.033, 0.008, 0.02]} />
+                <meshStandardMaterial color={!tokensArrayArray ? "#ff9900" : "#00ff00"} />
+            </mesh>
+            
+            <Torus args={[0.1,0.033,6,4]} rotation={[Math.PI/2,0,Math.PI/4*3]} 
+                position={[0.9,0,0]}
+            >
+                <meshStandardMaterial flatShading={true} color={!tokensArrayArray ? "#ff9900" : "#00ff00" } />
+
+            </Torus>
+        </group>
         
+        {/* LOCK */}
+        <Torus args={[0.1,0.033,6,4]} rotation={[Math.PI/2,0,Math.PI/4*3]} 
+            position={[0.28,0.03,0]}
+        >
+            <meshStandardMaterial flatShading={true} color={!state.isDowntrend ? "#aaaaaa" : "#ff9900" } />
+
+        </Torus>
         <mesh castShadow receiveShadow onClick={!tokensArrayArray ? calls.join : calls.leave}
             scale={3}
-            position={[  0.35,  -0.37,  0.1,]}
+            position={[  0.41,  0,  0,]}
         >
-            <boxGeometry args={[0.08, 0.02, 0.04]} />
+            <boxGeometry args={[0.07, 0.04, 0.08]} />
             <meshStandardMaterial color={"#888"} />
         </mesh>
+        </group>
         
         {/* DEMO MODE */}
         {/* {!!tokensArrayArray &&
@@ -48,6 +77,7 @@ function Component ({ tokensArrayArray, state, calls }:any) {
         } */}
 
         
+        {/* TURN VIP FEATURE SUBSCRIPTION */}
         {/* TREND LEVELER */}
         {!!tokensArrayArray && state.selectedHasArray &&
             <mesh castShadow receiveShadow scale={!state.isDowntrend ? 1 : 2}
@@ -59,6 +89,7 @@ function Component ({ tokensArrayArray, state, calls }:any) {
             <meshStandardMaterial color={state.isDowntrend ? "#A69284" : "#aaaaaa" } />
             </mesh>
         }
+        {/* TREE */}
         {!!state.isDowntrend && <group position={[-0.12,0,0.07]}>
             
             <mesh castShadow receiveShadow 

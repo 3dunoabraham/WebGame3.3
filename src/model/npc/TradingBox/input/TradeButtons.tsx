@@ -1,24 +1,24 @@
 import { Vector3 } from "three"
 
-function Component ({ tokensArrayArray, state, calls }:any) {
+function TradeButtons ({ tokensArrayArray, state, calls }:any) {
     return ( <>
         
         {/* STATE MODE */}
-        <mesh castShadow receiveShadow onClick={!tokensArrayArray ? calls.join : calls.leave}
+        {/* <mesh castShadow receiveShadow onClick={!tokensArrayArray ? calls.join : calls.leave}
             rotation={[0,0,!tokensArrayArray ? 0.25 : -0.25]} scale={state.score.score ? 1 : 3}
             position={[  0.35,  - 0.34,  0.1,]}
         >
             <boxGeometry args={[0.07, 0.02, 0.03]} />
             <meshStandardMaterial color={!tokensArrayArray ? "#776666" : "#559933"} />
-        </mesh>
+        </mesh> */}
         
-        <mesh castShadow receiveShadow onClick={!tokensArrayArray ? calls.join : calls.leave}
+        {/* <mesh castShadow receiveShadow onClick={!tokensArrayArray ? calls.join : calls.leave}
             scale={3}
             position={[  0.35,  -0.37,  0.1,]}
         >
             <boxGeometry args={[0.08, 0.02, 0.04]} />
             <meshStandardMaterial color={"#888"} />
-        </mesh>
+        </mesh> */}
 
         {/* buy/sell */}
       {state.isSelectedId && state.selectedHasArray && <group>
@@ -106,4 +106,4 @@ function Component ({ tokensArrayArray, state, calls }:any) {
 
     </>)
 }
-export default Component
+export default TradeButtons

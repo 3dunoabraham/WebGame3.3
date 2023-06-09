@@ -11,13 +11,15 @@ function Component ({tokensArrayArray, state, calls}:any) {
     ftm:"Fantom",
   })
   const [DisplayPosition,s__DisplayPosition]:any = useState([0.4,0.02,-0.05])
-    return (<>
+    return (
+    <group position={[0,-0.444,0]}>
 
       {/* COMPUTER */}
       {// non-hovered TOKEN NAME  
         <>
         <DynaText text={translation[state.token]+"" || ""} color={0x666666}   
-          position={new Vector3(-0.41,-0.349,0.15)} rotation={[-Math.PI/2,0,Math.PI/2]}
+          position={new Vector3(-0.41,0,0.15)}
+           rotation={[-Math.PI/2,0,Math.PI/2]}
           isSelected={state.isSelectedId}  font={0.11} onClick={()=>{}}
         />
       </>
@@ -26,14 +28,14 @@ function Component ({tokensArrayArray, state, calls}:any) {
 {state.clicked && // PROFIT LOSS
         <DynaText text={"profit"}  
           color={state.clickedPrice/state.queryUSDT.data < 1 ? 0x009900 : 0x777777}
-          position={new Vector3(+0.28,-0.23,-0.38)} rotation={[0,0,0]}
+          position={new Vector3(0.28,0.1,-0.38)} rotation={[0,0,0]}
           isSelected={state.isSelectedId} font={0.05} 
         />
       }
       {state.clicked && // PROFIT LOSS
         <DynaText text={"loss"}  
           color={state.clickedPrice/state.queryUSDT.data < 1 ? 0x777777 : 0xff0000}
-          position={new Vector3(+0.4,-0.23,-0.38)} rotation={[0,0,0]}
+          position={new Vector3(0.4,0.1,-0.38)} rotation={[0,0,0]}
           isSelected={state.isSelectedId} font={0.05} 
         />
       }
@@ -41,7 +43,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
       {state.clicked && // PRICE DIFFERENCE PERCENT
         <DynaText text={(((state.clickedPrice/state.queryUSDT.data)-1)*-100).toFixed(3)}  
           color={state.clickedPrice/state.queryUSDT.data < 1 ? 0x009900 : 0xff0000}
-          position={new Vector3(+0.33,-0.31,-0.38)} rotation={[0,0,0]}
+          position={new Vector3(0.33,0.04,-0.38)} rotation={[0,0,0]}
           isSelected={state.isSelectedId} font={0.08} 
         />
       }
@@ -49,14 +51,14 @@ function Component ({tokensArrayArray, state, calls}:any) {
       {state.clicked && // CLICKED PRICE 
         <>
         <DynaText text={"Entry Price"+"" || ""}  color={0x000000}
-          position={new Vector3(+0.33,-0.1,-0.38)} rotation={[0,0,0]}
+          position={new Vector3(0.33,-0.1,-0.38)} rotation={[0,0,0]}
           isSelected={state.isSelectedId} font={0.04} 
         />
           </>
         }
       {state.clicked &&
         <DynaText text={""+state.clickedPrice+"" || ""}  color={0x660066}
-          position={new Vector3(+0.33,-0.165,-0.38)} rotation={[0,0,0]}
+          position={new Vector3(0.33,-0.165,-0.38)} rotation={[0,0,0]}
           isSelected={state.isSelectedId} font={0.08} 
         />
       }
@@ -80,7 +82,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
         isSelected={state.isSelectedId}  font={0.045} onClick={()=>{}}
         />   
       } 
-    </>)
+    </group>)
 }
 
 export default Component

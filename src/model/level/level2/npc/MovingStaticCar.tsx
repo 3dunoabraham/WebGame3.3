@@ -3,7 +3,7 @@ import { useFrame } from "@react-three/fiber"
 import { useRef, useState } from "react"
 
 
-function Component ({}) {
+export function MovingStaticCar ({}) {
     const [carSpeed, s__carSpeed] = useState(0.016)
     const [randomLimit, s__randomLimit] = useState(1)
     const movingPart1:any = useRef()
@@ -75,4 +75,4 @@ function Component ({}) {
     </>)
 }
 
-export default Component
+export default MovingStaticCar

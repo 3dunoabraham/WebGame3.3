@@ -9,24 +9,25 @@ import Scene from "@/model/core/Scene"
 import TradingBox, { DEFAULT_TIMEFRAME_ARRAY } from "@/model/npc/TradingBox";
 import ChartBox from "@/model/npc/ChartBox";
 import Level1_Index1  from "./index1";
-import MovingBox1 from "./npc/MovingBox1";
+import MovingStaticCar from "./npc/MovingStaticCar";
 import MovingBox2 from "./npc/MovingBox2";
 import MetaOrbitControls from "@/model/core/MetaOrbitControls";
 import { fetchPost } from "@/../script/util/helper/fetchHelper";
 import ByteCityLibertyBank from "./npc/ByteCityLibertyBank";
 import { AppContext } from "@/../script/state/context/AppContext";
 import TutorialContainer from "./tutorial/TutorialContainer";
-import ConnectPlayerButton from "./core/ConnectPlayerButton";
+import ConnectPlayerToggle from "./core/ConnectPlayerToggle";
 import GoalPost from "./goal/GoalPost";
 import SavedGoalPost from "./goal/SavedGoalPost";
 import { useAuth } from "@/../script/state/context/AuthContext";
-import RoadJack from "./core/RoadJack";
-import MovingCar from "./npc/MovingCar";
+import MainRoadEastWest from "./core/MainRoadEastWest";
+import MovingScoreCar from "./npc/MovingScoreCar";
 import ByteCityEnv from "./core/ByteCityEnv";
-import RoadJack2 from "./core/RoadJack2";
+import RoadNorthSouth from "./core/RoadNorthSouth";
 import GoodPlaceGoal from "./goal/GoodPlaceGoal";
 import { useUnloadHandler } from "../../../../script/util/hook/useHooksHelper";
 import { useRouter } from "next/navigation";
+import ResetLocalStorage from "./core/ResetLocalStorage";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -556,7 +557,12 @@ function Component ({}) {
       <TutorialContainer  calls={{join,turnOffDemo,setTutoStage,firstLogin}} 
         state={{hasAnyToken, tutoStage, isDefaultUser}}
       />
-      <ConnectPlayerButton state={{isDefaultUser, }} calls={{triggerLogout, triggerResetAll, triggerLogin}} />
+      <ConnectPlayerToggle calls={{triggerLogout, triggerResetAll, triggerLogin}}
+        state={{isDefaultUser, }} 
+      />
+      <ResetLocalStorage calls={{triggerLogout, triggerResetAll, triggerLogin}}
+        state={{isDefaultUser, }} 
+      />
       <Box args={[2.5,0.2,2.8]} position={[0,-1.1,0]} castShadow receiveShadow>
         <meshStandardMaterial color={"#fff"}/>
       </Box>
@@ -612,23 +618,20 @@ function Component ({}) {
       {/* ETH | Ethereum | Ethirium */}
       {/* CHAPTER 2 */}
       {hasAnyToken &&  tutoStage.lvl >= 3 &&
-        <group position={[0,0.3,0]}> 
-          <GoalPost calls={{claim:claimOrSync}}
-            state={{hasAnyToken, profitHistory}}
-          />
-        </group>
+        <GoalPost calls={{claim:claimOrSync}}
+           state={{hasAnyToken, profitHistory, tutoStage}}
+        />
       }
       {/* MAIN ROAD 1 */}
       {"btc" in tokensArrayObj && <> 
-        <RoadJack />
-        <MovingCar calls={{onClicked:onFirstCarClicked}} />
+        <MainRoadEastWest />
+        <MovingScoreCar calls={{onClicked:onFirstCarClicked}} />
         <group rotation={[0,Math.PI,0]} scale={[1,1,0.7]} position={[1,0,-0.3]}>
-          <MovingBox1 />
+          <MovingStaticCar />
         </group>
       </>}
       {hasAnyToken && // ETH | Ethereum | Ethirium
-        <group position={[-0.3,-0.1,0.5]}>
-          <group position={[1,0,-1]} rotation={[0,0,0]}>
+        <group position={[0.75,0,-0.75]}>
             {!isDefaultUser && ("eth" in tokensArrayObj || ("btc" in tokensArrayObj)) &&
               <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="eth"
               mainModel="tower"
@@ -643,8 +646,11 @@ function Component ({}) {
                 onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("eth",tf)}}
               /> 
             }
-          </group>
         </group>
+      }
+      {/* PIPE 2 */}
+      {("link" in tokensArrayObj || (hasAnyToken &&
+       (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser)) && <RoadNorthSouth />
       }
 
 
@@ -682,13 +688,6 @@ function Component ({}) {
             </group>
           }
         </group>
-      }
-      {/* PIPE 2 */}
-      {("link" in tokensArrayObj || (hasAnyToken &&
-       (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser))&&
-        <>
-          <RoadJack2 />
-        </>
       }
       
 
@@ -736,11 +735,7 @@ function Component ({}) {
           <meshStandardMaterial color={"#fff"} />
         </Box>
       </>}
-      {hasAnyToken && tutoStage.lvl >= 3 && <>
-        <Box args={[1, 0.8, 1.1]} position={[0.05, -0.81, -1.59]} castShadow receiveShadow>
-          <meshStandardMaterial color={"#eee"} />
-        </Box>
-      </>}
+      
     </Scene>
   </>)
 }

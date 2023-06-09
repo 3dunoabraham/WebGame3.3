@@ -10,7 +10,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
     link:"silver",
     ftm:"spirit",
   })
-  const [DisplayPosition,s__DisplayPosition]:any = useState([0.4,0.05,-0.1])
+  const [DisplayPosition,s__DisplayPosition]:any = useState([0.4,0,-0.1])
     return (<>
 
 
@@ -29,12 +29,12 @@ function Component ({tokensArrayArray, state, calls}:any) {
         
         <mesh castShadow receiveShadow position={[-0.03,-0.2,0.08]} // stand
         > 
-          <boxGeometry args={[0.03, 0.45, 0.02]} />
+          <boxGeometry args={[0.03, 0.6, 0.02]} />
           <meshStandardMaterial color={"#9a9999"}  />
         </mesh>        
         <mesh castShadow receiveShadow position={[-0.03,-0.2,-0.08]} // stand
         > 
-          <boxGeometry args={[0.03, 0.45, 0.02]} />
+          <boxGeometry args={[0.03, 0.6, 0.02]} />
           <meshStandardMaterial color={"#9c9999"}  />
         </mesh>        
 
