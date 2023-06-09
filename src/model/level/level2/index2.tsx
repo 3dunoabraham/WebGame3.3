@@ -5,6 +5,7 @@ import { useAuth } from "../../../../script/state/context/AuthContext";
 import GoalPost from "./goal/GoalPost";
 import TutorialContainer from "./tutorial/TutorialContainer";
 import { AppContext } from "../../../../script/state/context/AppContext";
+import TradingBox from "@/model/npc/TradingBox";
 
 function Level1_Index2 ({state, calls, }:any) {
   const { user, superuser, do:{login, logout, fetchSuperuser, demo,},  jwt }:any = useAuth()
@@ -61,7 +62,26 @@ function Level1_Index2 ({state, calls, }:any) {
           }}
         />
       }
-    
+          {/* ETH | Ethereum | Ethirium */}
+          {state.hasAnyToken && // ETH | Ethereum | Ethirium
+        <group position={[0.75,0,-0.75]}>
+            {!state.isDefaultUser && ("eth" in state.tokensArrayObj || ("btc" in state.tokensArrayObj)) &&
+              <TradingBox form={state.form} timeframe={state.form.id.split("USDT")[1]} token="eth"
+              mainModel="tower"
+              tokensArrayArray={"eth" in state.tokensArrayObj ? state.tokensArrayObj["eth"] : null}
+                refetchInterval={state.selectedToken == "eth" ? 4000 : 60000}
+                unselectedColor={"#50545B"}
+                onTextClick={()=>{calls.onTextClick("eth")}} 
+                setVelocityY={(data:any)=>{calls.toggleTrade("eth",data)}}
+                turnOn={()=>{calls.turnOn("eth")}} turnOff={()=>{calls.turnOff("eth")}}
+                join={()=>{calls.join("eth")}} leaveAsset={()=>{calls.leaveAsset("eth")}}
+                trendDown={()=>{calls.trendDown("eth")}} trendUp={()=>{calls.trendUp("eth")}} 
+                onTimeframeClick={(token:any, tf:any)=>{calls.onTimeframeClick("eth",tf)}}
+              /> 
+            }
+        </group>
+      }
+
   </>)
 }
 

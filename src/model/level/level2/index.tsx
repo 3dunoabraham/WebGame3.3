@@ -24,6 +24,7 @@ import { useUnloadHandler } from "../../../../script/util/hook/useHooksHelper";
 import { useRouter } from "next/navigation";
 import { countProfitableTrades, createTradeObject, handleFirstTutorialStages, handleSellSide, updateProfitHistory } from "./core";
 import Level1_Index2 from "./index2";
+import Level1_Index3 from "./index3";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -408,6 +409,10 @@ function Component ({}) {
   }
 
 
+  const _s__projectionMode = (val:boolean) => {
+    s__projectionMode(val)
+  }
+
 
 
 
@@ -415,29 +420,6 @@ function Component ({}) {
 
 
   
-
-  const onFirstCarClicked = (clickCounter:any) => {
-    if (clickCounter < 4)  return
-    if (profitHistory.length == 0) return app.alert("error", "No orders found, bad reputation!")
-    if (profitHistory.length > 0 && realProfitCount == profitHistory.length) {
-      return app.alert("error", "No losses found, bad karma!")
-    }
-    
-    let theIndex = -1
-    for (let index = 0; index < profitHistory.length; index++) {
-      if (profitHistory[index][1] == "loss"){ theIndex = index }
-    }
-    if (theIndex == -1)  return
-
-    let aNewArray = [...profitHistory]
-    aNewArray.splice(theIndex, 1)
-    s__profitHistory(aNewArray)
-    app.alert("success", "Successfully reduced debt, You claimed a job!")
-  }
-  const _s__projectionMode = (val:boolean) => {
-    s__projectionMode(val)
-  }
-
 
 
 
@@ -467,45 +449,35 @@ function Component ({}) {
       <Level1_Index2 {...{
         state: {
           hasAnyToken, tutoStage, isDefaultUser, profitHistory, realProfitCount, LS_rpi,
+          tokensArrayObj, form, selectedToken, 
         },
         calls: {
-          setTutoStage, s__profitHistory
+          setTutoStage, s__profitHistory, onTextClick, toggleTrade, 
+          turnOff, turnOn, join, leaveAsset, trendDown, trendUp, onTimeframeClick
         }
       }}/>
-      {/* MINI GAME */}
-      {/* main road 1 */}
-      {"btc" in tokensArrayObj && <> 
-        <MainRoadEastWest />
-        <MovingScoreCar calls={{onClicked:onFirstCarClicked}} />
-        <group rotation={[0,Math.PI,0]} scale={[1,1,0.7]} position={[1,0,-0.3]}>
-          <MovingStaticCar />
-        </group>
-      </>}
-      {/* ETH | Ethereum | Ethirium */}
-      {hasAnyToken && // ETH | Ethereum | Ethirium
-        <group position={[0.75,0,-0.75]}>
-            {!isDefaultUser && ("eth" in tokensArrayObj || ("btc" in tokensArrayObj)) &&
-              <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="eth"
-              mainModel="tower"
-              tokensArrayArray={"eth" in tokensArrayObj ? tokensArrayObj["eth"] : null}
-                refetchInterval={selectedToken == "eth" ? 4000 : 60000}
-                unselectedColor={"#50545B"}
-                onTextClick={()=>{onTextClick("eth")}} 
-                setVelocityY={(data:any)=>{toggleTrade("eth",data)}}
-                turnOn={()=>{turnOn("eth")}} turnOff={()=>{turnOff("eth")}}
-                join={()=>{join("eth")}} leaveAsset={()=>{leaveAsset("eth")}}
-                trendDown={()=>{trendDown("eth")}} trendUp={()=>{trendUp("eth")}} 
-                onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("eth",tf)}}
-              /> 
-            }
-        </group>
-      }
-
 
 
 
 
       {/* CHAPTER 3 */}
+      {/* MINI GAME */}
+      {/* main road 1 */}
+      <Level1_Index3 {...{
+        state: {
+          tokensArrayObj, profitHistory, realProfitCount, 
+        },
+        calls: {
+          s__projectionMode, s__profitHistory
+        }
+      }}/>
+
+
+
+
+
+
+      {/* CHAPTER 4 */}
       {/* account connected goal */}
       {hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser &&
         <group position={[0,0,1.6]}>
