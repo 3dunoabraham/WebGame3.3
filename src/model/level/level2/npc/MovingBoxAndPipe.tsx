@@ -3,7 +3,7 @@ import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 
 
-function Component ({}) {
+function MovingBoxAndPipe ({}) {
   const movingPart1:any = useRef()
   useFrame(() => {
     if (!movingPart1.current) return
@@ -56,4 +56,4 @@ function Component ({}) {
   </group>)
 }
 
-export default Component
+export default MovingBoxAndPipe

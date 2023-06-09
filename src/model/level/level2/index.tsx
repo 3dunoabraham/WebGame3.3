@@ -10,7 +10,7 @@ import TradingBox, { DEFAULT_TIMEFRAME_ARRAY } from "@/model/npc/TradingBox";
 import ChartBox from "@/model/npc/ChartBox";
 import Level1_Index1  from "./index1";
 import MovingStaticCar from "./npc/MovingStaticCar";
-import MovingBox2 from "./npc/MovingBox2";
+import MovingBoxAndPipe from "./npc/MovingBoxAndPipe";
 import MetaOrbitControls from "@/model/core/MetaOrbitControls";
 import { fetchPost } from "@/../script/util/helper/fetchHelper";
 import ByteCityLibertyBank from "./npc/ByteCityLibertyBank";
@@ -353,28 +353,15 @@ function Component ({}) {
       }
       let loginRes = await login(playerCredentials)
       if (!loginRes) return 
-      app.alert("success", "Account connected")   
-
+      app.alert("success", "Player connected!")   
       s__rpi(keyval)
       s__LS_rpi(keyval)
 
-      const founduserRes = await fetch("/api/player/verify",{
-        method: "POST",
-        body: JSON.stringify({
-          referral:keyval.split(":")[0],
-          pin:keyval.split(":")[1]
-        })
-      })
-      if (founduserRes.status >= 400) throw new Error()
-      let theplayer = await founduserRes.json()
-      if (!theplayer) return window.location.reload()
-
-      if (theplayer.goodAttempts > 0) {
-        setTutoStage(4)
-      }
+      let theplayer = loginRes.user
+      if (theplayer.goodAttempts > 0) { setTutoStage(4) }
       window.location.reload()
     } catch (e:any) {
-      app.alert("error", "Failed sync")   
+      app.alert("error", "Invalid credentials!")   
     }
   }
   const firstLogin = async () => {
@@ -570,49 +557,35 @@ function Component ({}) {
 
   return (<>
     <Scene>
-      {/* SCENE ENVIRONMENT */}
-      <MetaOrbitControls/>
-      <ByteCityEnv />
-      <TutorialContainer  calls={{join,turnOffDemo,setTutoStage,firstLogin}} 
-        state={{hasAnyToken, tutoStage, isDefaultUser}}
-      />
-      <ConnectPlayerToggle calls={{triggerLogout, triggerResetAll, triggerLogin}}
-        state={{isDefaultUser, }} 
-      />
-      <ResetLocalStorage calls={{triggerLogout, triggerResetAll, triggerLogin}}
-        state={{isDefaultUser, }} 
-      />
-      <Box args={[2.5,0.2,2.8]} position={[0,-1.1,0]} castShadow receiveShadow>
-        <meshStandardMaterial color={"#fff"}/>
-      </Box>
-
-
-
-
-
-      {/* CHAPTER 2 */}
+      {/* CONSTANT LANDING SCENE */}
+      {/* CHAPTER 1 */}
       {/* BTC | Bitcoin | Bit Coin */}
       <Level1_Index1 {...{
           state:{tokensArrayObj, selectedToken, hasAnyToken, form, isDefaultUser, chartPos, chartRot, 
             isSelectedTokenDowntrend, selectedTimeframe, chartBoxPos, 
           },
           calls:{toggleTrade, onTextClick, turnOn, trendUp, leave, turnOff, onTimeframeClick,
-            trendDown, join, askAI, s__chartBoxPos, 
+            trendDown, join, askAI, s__chartBoxPos, triggerLogout, triggerResetAll, triggerLogin
           }
       }}/>
-
       
 
 
+
+
       {/* CHAPTER 2 */}
-      {/* ETH | Ethereum | Ethirium */}
-      {/* CHAPTER 2 */}
+      {/* TEXT TUTORIALS */}
+      <TutorialContainer  calls={{join,turnOffDemo,setTutoStage,firstLogin}} 
+        state={{hasAnyToken, tutoStage, isDefaultUser}}
+      />
+      {/* local storage goal */}
       {hasAnyToken &&  tutoStage.lvl >= 3 &&
         <GoalPost calls={{claim:claimOrSync}}
            state={{hasAnyToken, profitHistory, tutoStage}}
         />
       }
-      {/* MAIN ROAD 1 */}
+      {/* MINI GAME */}
+      {/* main road 1 */}
       {"btc" in tokensArrayObj && <> 
         <MainRoadEastWest />
         <MovingScoreCar calls={{onClicked:onFirstCarClicked}} />
@@ -620,6 +593,7 @@ function Component ({}) {
           <MovingStaticCar />
         </group>
       </>}
+      {/* ETH | Ethereum | Ethirium */}
       {hasAnyToken && // ETH | Ethereum | Ethirium
         <group position={[0.75,0,-0.75]}>
             {!isDefaultUser && ("eth" in tokensArrayObj || ("btc" in tokensArrayObj)) &&
@@ -638,20 +612,13 @@ function Component ({}) {
             }
         </group>
       }
-      {/* PIPE 2 */}
-      {("link" in tokensArrayObj || (hasAnyToken &&
-       (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser)) && <RoadNorthSouth />
-      }
-
-
 
 
 
 
 
       {/* CHAPTER 3 */}
-      {/* LINK | Chain Link | chainlink */}
-      {/* CHAPTER 3 */}
+      {/* account connected goal */}
       {hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser &&
         <group position={[0,0,1.6]}>
           <SavedGoalPost calls={{triggerSyncGoodPlace,setAPIKeys, claim:claimOrSyncDatabase}}
@@ -660,6 +627,11 @@ function Component ({}) {
           />
         </group>
       }
+      {/* second road */}
+      {("link" in tokensArrayObj || (hasAnyToken &&
+       (tutoStage.lvl > 3 && !!superuser) && !isDefaultUser)) && <RoadNorthSouth />
+      }
+      {/* LINK | Chain Link | chainlink */}
       {hasAnyToken && // LINK | Chain Link | chainlink
         <group position={[-0.3,-0.1,0.5]}>
           {("eth" in tokensArrayObj || "link" in tokensArrayObj) && tutoStage.lvl >= 3 &&
@@ -684,12 +656,9 @@ function Component ({}) {
 
 
 
-
-
       {/* CHAPTER 4 */}
       {/* FTM | Fantom | Phantom */}
-      {/* CHAPTER 4 */}
-      
+      {/* Loyal Player */}
       {hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser && superuser.goodAttempts > 0) && !isDefaultUser &&
         <group position={[0,0,6]}>
           <GoodPlaceGoal calls={{triggerSyncGoodPlace,setAPIKeys, claim:claimOrSyncDatabase}} {...{projectionMode, s__projectionMode: _s__projectionMode}}
@@ -697,10 +666,15 @@ function Component ({}) {
           />
         </group>
       }
-    {hasAnyToken &&
+      {/* PIPE STREAM LINES */}
+      {"ftm" in tokensArrayObj && <> <MovingBoxAndPipe /> </>}
+      {hasAllTokens && <>
+        <Box args={[4, 0.25, 5]} position={[0, -1.2, -0.5]} castShadow receiveShadow>
+          <meshStandardMaterial color={"#fff"} />
+        </Box>
+      </>}
+      {hasAnyToken &&
         <group position={[-0.3, -0.1, 0.5]}>
-
-
           {("eth" in tokensArrayObj || "ftm" in tokensArrayObj) && !isDefaultUser && tutoStage.lvl > 3 &&
             <group position={[1.12, -0.05, 0.46]} rotation={[0, Math.PI / 2, 0]}>
               <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="ftm"
@@ -718,13 +692,6 @@ function Component ({}) {
           }
         </group>
       }
-      {/* PIPE 3 */}
-      {"ftm" in tokensArrayObj && <> <MovingBox2 /> </>}
-      {hasAllTokens && <>
-        <Box args={[4, 0.25, 5]} position={[0, -1.2, -0.5]} castShadow receiveShadow>
-          <meshStandardMaterial color={"#fff"} />
-        </Box>
-      </>}
       
     </Scene>
   </>)

@@ -8,14 +8,13 @@ import { getSupabasePlayer } from "@/../script/state/repository/order";
 export async function POST(request: NextRequest) {
   const { referral, pin } = await request.json()
   
-  let _player:any = await getSupabasePlayer(referral, pin)
-  let player:any = await _player.json()
+  let playerRes:any = await getSupabasePlayer(referral, pin)
+  let player:any = await playerRes.json()
 
   let jwt = player.jwt
   let bodyResponse = { jwt,
     user: {
-      referral,
-
+      ...player,
       apiname: process.env.AUTH_API_NAME || CONSTANTS.AUTH_API_NAME,
       rolname: "root",
     },
