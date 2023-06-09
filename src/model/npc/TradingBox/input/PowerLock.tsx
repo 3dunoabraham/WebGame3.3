@@ -1,12 +1,11 @@
-import { Vector3 } from "three"
-import DynaText from "../DynaText"
 import { Torus } from "@react-three/drei"
+
 
 function PowerLock ({ tokensArrayArray, state, calls }:any) {
     return ( <>
         
         {/* STATE MODE */}
-        <group onClick={!tokensArrayArray ? calls.join : calls.leave} 
+        <group onClick={!tokensArrayArray ? calls.join : calls.leaveAsset} 
             position={[0,-0.47,0]}
         >
         {/* KEY */}
@@ -42,7 +41,7 @@ function PowerLock ({ tokensArrayArray, state, calls }:any) {
             <meshStandardMaterial flatShading={true} color={!state.isDowntrend ? "#aaaaaa" : "#ff9900" } />
 
         </Torus>
-        <mesh castShadow receiveShadow onClick={!tokensArrayArray ? calls.join : calls.leave}
+        <mesh castShadow receiveShadow onClick={!tokensArrayArray ? calls.join : calls.leaveAsset}
             scale={3}
             position={[  0.41,  0,  0,]}
         >
@@ -50,7 +49,7 @@ function PowerLock ({ tokensArrayArray, state, calls }:any) {
             <meshStandardMaterial color={"#888"} />
         </mesh>
         {!!tokensArrayArray &&
-            <mesh castShadow receiveShadow onClick={!tokensArrayArray ? calls.join : calls.leave}
+            <mesh castShadow receiveShadow onClick={!tokensArrayArray ? calls.join : calls.leaveAsset}
                 scale={3}
                 position={[  0.41, 0.01,  0,]}
             >

@@ -1,33 +1,27 @@
 "use client";
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { Bounds, Box, OrbitControls } from "@react-three/drei";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { Box } from "@react-three/drei";
 import { useCopyToClipboard, useLocalStorage } from "usehooks-ts";
 
 
 import { getComputedLevels } from "@/../script/util/helper/decoy";
 import Scene from "@/model/core/Scene"
 import TradingBox, { DEFAULT_TIMEFRAME_ARRAY } from "@/model/npc/TradingBox";
-import ChartBox from "@/model/npc/ChartBox";
 import Level1_Index1  from "./index1";
 import MovingStaticCar from "./npc/MovingStaticCar";
 import MovingBoxAndPipe from "./npc/MovingBoxAndPipe";
-import MetaOrbitControls from "@/model/core/MetaOrbitControls";
 import { fetchPost } from "@/../script/util/helper/fetchHelper";
-import ByteCityLibertyBank from "./npc/ByteCityLibertyBank";
 import { AppContext } from "@/../script/state/context/AppContext";
 import TutorialContainer from "./tutorial/TutorialContainer";
-import ConnectPlayerToggle from "./core/ConnectPlayerToggle";
 import GoalPost from "./goal/GoalPost";
 import SavedGoalPost from "./goal/SavedGoalPost";
 import { useAuth } from "@/../script/state/context/AuthContext";
 import MainRoadEastWest from "./core/MainRoadEastWest";
 import MovingScoreCar from "./npc/MovingScoreCar";
-import ByteCityEnv from "./core/ByteCityEnv";
 import RoadNorthSouth from "./core/RoadNorthSouth";
 import GoodPlaceGoal from "./goal/GoodPlaceGoal";
 import { useUnloadHandler } from "../../../../script/util/hook/useHooksHelper";
 import { useRouter } from "next/navigation";
-import ResetLocalStorage from "./core/ResetLocalStorage";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -66,14 +60,7 @@ function Component ({}) {
   const [form,s__form] = useState({
     id:"BTCUSDT3M",
   })
-  const AI_BASE = `
-    analyze this data and make a report:
-    include trend direction, resistance and support levels.
-    each array of the json represents the latest candlestick chart data with only the closing price
-    generate the report including all 4 timeframes  \n\n candles data:
-  `
   const [projectionMode, s__projectionMode] = useState(false)
-  const [AIdata, s__AIdata] = useState({})
   const tutoStage:any = useMemo(()=> JSON.parse(_tutoStage) , [_tutoStage])
   const hasAnyToken = useMemo(()=>{
     let interestCount = Object.keys(tokensArrayObj).filter((token)=>{
@@ -279,21 +266,6 @@ function Component ({}) {
 
 
 
-  const [clipbloardValue, clipbloard__do] = useCopyToClipboard()
-  const askAI = (data:any) => {
-    let verbose:any = {
-      "3m": "3 minutes between prices",
-      "15m": "15 minutes between prices",
-      "4h": "4 hours between prices",
-      "1d": "1 day between prices",
-    }
-    let newPrompt:any = AIdata
-    newPrompt[verbose[selectedTimeframe.toLowerCase()]] = ([...data]).splice(400,499)
-    s__AIdata(newPrompt)
-    console.log("newPrompt", newPrompt)
-    clipbloard__do(AI_BASE + JSON.stringify(newPrompt))
-  }
-
 
 
 
@@ -326,85 +298,11 @@ function Component ({}) {
 
 
 
-  const triggerLogout = () => {
-    if (prompt("Sign out from: <"+rpi.split(":")[0]+":****> (yes/no)","yes") !== "yes") return
-    
-    quitAll()
-  }
-  const triggerResetAll = () => {
-    if (prompt("Reset local storage (yes/no)","yes") !== "yes") return
-
-    
-    s__LS_rpi("user:0000");
-    s__LS_tutoStage("{}");
-    s__LS_tokensArrayObj("{}");
-    window.location.reload()
-  }
-  const triggerLogin = async () => {
-    
-    let keyval:any =  prompt("Enter your Byte City Credentials! \n\n < Referral Email : Secret PIN >","") 
-    if (!keyval) return
-    if (keyval.split(":").length < 2) return
-    app.alert("success", "Validating credentials...")
-    try {
-      let playerCredentials = {        
-        referral:keyval.split(":")[0],
-        pin:keyval.split(":")[1]
-      }
-      let loginRes = await login(playerCredentials)
-      if (!loginRes) return 
-      app.alert("success", "Player connected!")   
-      s__rpi(keyval)
-      s__LS_rpi(keyval)
-
-      let theplayer = loginRes.user
-      if (theplayer.goodAttempts > 0) { setTutoStage(4) }
-      window.location.reload()
-    } catch (e:any) {
-      app.alert("error", "Invalid credentials!")   
-    }
-  }
-  const firstLogin = async () => {
-    let randomThousand = parseInt(`${(Math.random()*9000) + 1000}`)
-    let arandomkey = "user:"+randomThousand
-    
-    let keyval:any =  prompt("1 ENTER USER:PASSWORD",arandomkey) 
-    if (!keyval) return
-    if (keyval.split(":").length < 2) return
-
-    try {
-
-      const founduserRes = await fetch("/api/player/verify",{
-        method: "POST",
-        body: JSON.stringify({
-          apiKey:keyval.split(":")[0],
-          apiSecret:keyval.split(":")[1]
-        })
-      })
-      if (founduserRes.status >= 400) throw new Error()
-      app.alert("success", "Account connected")   
-  
-      s__rpi(keyval)
-      s__LS_rpi(keyval)
-  
-    } catch (e:any) {
-      app.alert("error", "Failed sync")   
-    }
-  }
   const isDefaultUser = useMemo(()=>{
     const splitKey = rpi.split(":")
     if (splitKey[0] == "user" && splitKey[1] == "0000") { return true }
     return false
   },[rpi])
-  const quitAll = async () => {
-
-    s__LS_rpi("user:0000");
-    s__LS_tutoStage("{}");
-    s__LS_tokensArrayObj("{}");
-
-    await logout()
-    window.location.reload()
-  }
 
   const setAPIKeys = async() => {
     
@@ -439,7 +337,7 @@ function Component ({}) {
     }
   }
 
-  const leave = async (x:any) => {
+  const leaveAsset = async (x:any) => {
       
 
     s__selectedToken(x)
@@ -562,10 +460,11 @@ function Component ({}) {
       {/* BTC | Bitcoin | Bit Coin */}
       <Level1_Index1 {...{
           state:{tokensArrayObj, selectedToken, hasAnyToken, form, isDefaultUser, chartPos, chartRot, 
-            isSelectedTokenDowntrend, selectedTimeframe, chartBoxPos, 
+            isSelectedTokenDowntrend, selectedTimeframe, chartBoxPos, rpi,
           },
-          calls:{toggleTrade, onTextClick, turnOn, trendUp, leave, turnOff, onTimeframeClick,
-            trendDown, join, askAI, s__chartBoxPos, triggerLogout, triggerResetAll, triggerLogin
+          calls:{toggleTrade, onTextClick, turnOn, trendUp, leaveAsset, turnOff, onTimeframeClick,s__rpi, s__LS_rpi,
+            trendDown, join, s__chartBoxPos, setTutoStage,
+            s__LS_tutoStage, s__LS_tokensArrayObj
           }
       }}/>
       
@@ -575,7 +474,7 @@ function Component ({}) {
 
       {/* CHAPTER 2 */}
       {/* TEXT TUTORIALS */}
-      <TutorialContainer  calls={{join,turnOffDemo,setTutoStage,firstLogin}} 
+      <TutorialContainer  calls={{join,turnOffDemo,setTutoStage}} 
         state={{hasAnyToken, tutoStage, isDefaultUser}}
       />
       {/* local storage goal */}
@@ -605,7 +504,7 @@ function Component ({}) {
                 onTextClick={()=>{onTextClick("eth")}} 
                 setVelocityY={(data:any)=>{toggleTrade("eth",data)}}
                 turnOn={()=>{turnOn("eth")}} turnOff={()=>{turnOff("eth")}}
-                join={()=>{join("eth")}} leave={()=>{leave("eth")}}
+                join={()=>{join("eth")}} leaveAsset={()=>{leaveAsset("eth")}}
                 trendDown={()=>{trendDown("eth")}} trendUp={()=>{trendUp("eth")}} 
                 onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("eth",tf)}}
               /> 
@@ -643,7 +542,7 @@ function Component ({}) {
                 onTextClick={()=>{onTextClick("link")}} 
                 setVelocityY={(data:any)=>{toggleTrade("link",data)}}
                 turnOn={()=>{turnOn("link")}} turnOff={()=>{turnOff("link")}}
-                join={()=>{join("link")}} leave={()=>{leave("link")}}
+                join={()=>{join("link")}} leaveAsset={()=>{leaveAsset("link")}}
                 trendDown={()=>{trendDown("link")}} trendUp={()=>{trendUp("link")}} 
                 onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("link",tf)}}
               /> 
@@ -684,7 +583,7 @@ function Component ({}) {
                 onTextClick={() => { onTextClick("ftm") }}
                 setVelocityY={(data: any) => { toggleTrade("ftm", data) }}
                 turnOn={() => { turnOn("ftm") }} turnOff={() => { turnOff("ftm") }}
-                join={() => { join("ftm") }} leave={() => { leave("ftm") }}
+                join={() => { join("ftm") }} leaveAsset={() => { leaveAsset("ftm") }}
                 trendDown={() => { trendDown("ftm") }} trendUp={() => { trendUp("ftm") }}
                 onTimeframeClick={(token: any, tf: any) => { onTimeframeClick("ftm", tf) }}
               />

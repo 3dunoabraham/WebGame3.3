@@ -28,30 +28,15 @@ const ConnectPlayerForm = ({
     if (!parsedForms.referral) return
     if (!parsedForms.pin) return
 
-    let res = await login(parsedForms)
-    if (!!res) {
-      s__LS_rpi(`${forms.referral}:${forms.pin}`);
-
-      const founduserRes = await fetch("/api/player/verify", {
-        method: "POST",
-        body: JSON.stringify({
-          referral: forms.referral.replace(" ", ""),
-          pin: forms.pin.replace(" ", "")
-        })
-      })
-      if (founduserRes.status >= 400) throw new Error()
-      let theplayer = await founduserRes.json()
-      if (!theplayer) return window.location.reload()
-
-      if (theplayer.goodAttempts > 0) {
-        s__LS_tutoStage(JSON.stringify({ lvl: 4 }))
-      }
-
-      window.location.reload()
-      return
-    }
+    let playerRes = await login(parsedForms)
     s__loading("login", false)
-    app.alert("error", "Failed login. Try again")
+    if (!playerRes) {
+      return app.alert("error", "Failed login. Try again")
+    }
+    s__LS_rpi(`${forms.referral}:${forms.pin}`);
+    let theplayer = playerRes.user
+    if (theplayer.goodAttempts > 0) { s__LS_tutoStage(JSON.stringify({ lvl: 4 })) }
+    window.location.reload()
   }
   const triggerIsForm = async () => {
     s__forms({ ...forms, ...{ isForm: true } })

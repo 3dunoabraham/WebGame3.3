@@ -43,7 +43,7 @@ type BoxProps = {
   tokensArrayArray?: any;
   turnOn?: any;
   turnOff?: any;
-  leave?: any;
+  leaveAsset?: any;
   join?: any;
   trendUp?: any;
   trendDown?: any;
@@ -55,7 +55,7 @@ const Component = forwardRef(({
 // export default function Component({
   turnOn,
   turnOff,
-  leave,
+  leaveAsset,
   join,
   trendDown,
   trendUp,
@@ -220,7 +220,7 @@ const Component = forwardRef(({
         {/* toggles sync join trend */}
         {/* <Toggles state={{score, isSelectedId, selectedHasArray,isDowntrend,}}
             tokensArrayArray={tokensArrayArray}
-            calls={{join, leave, onTextClick, turnOff, turnOn,trendDown,trendUp}}
+            calls={{join, leaveAsset, onTextClick, turnOff, turnOn,trendDown,trendUp}}
           /> */}
           
         

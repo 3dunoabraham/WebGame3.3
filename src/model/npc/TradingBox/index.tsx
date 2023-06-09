@@ -29,7 +29,7 @@ export const tokenColors:any = {
 }
 const Component = forwardRef(({
   mainModel = "pc",
-  turnOn, turnOff, leave, join,
+  turnOn, turnOff, leaveAsset, join,
   trendDown, trendUp,
   tokensArrayArray,
   unselectedColor="#48721E",
@@ -215,17 +215,17 @@ const selectedHasArray = useMemo(()=>{
         {/* toggles sync join trend */}
         <PowerLock state={{score, isSelectedId, selectedHasArray,isDowntrend,}}
             tokensArrayArray={tokensArrayArray}
-            calls={{join, leave, onTextClick, turnOff, turnOn,trendDown,trendUp}}
+            calls={{join, leaveAsset, onTextClick, turnOff, turnOn,trendDown,trendUp}}
           />
           
         <TrendTree state={{score, isSelectedId, selectedHasArray,isDowntrend,}}
             tokensArrayArray={tokensArrayArray}
-            calls={{join, leave, onTextClick, turnOff, turnOn,trendDown,trendUp}}
+            calls={{join, leaveAsset, onTextClick, turnOff, turnOn,trendDown,trendUp}}
           />
           
         <TradeButtons state={{score, isSelectedId, selectedHasArray,isDowntrend,clicked}}
             tokensArrayArray={tokensArrayArray}
-            calls={{join, leave, onTextClick, turnOff, turnOn,trendDown,trendUp,toggleGame}}
+            calls={{join, leaveAsset, onTextClick, turnOff, turnOn,trendDown,trendUp,toggleGame}}
           />
           
         

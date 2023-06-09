@@ -11,7 +11,7 @@ function Component ({
     $turnOn,
     turnOn,
     turnOff,
-    leave,
+    leaveAsset,
     join,
     trendDown,
     trendUp,
@@ -41,7 +41,7 @@ function Component ({
         onTextClick={()=>{onTextClick("btc")}} 
         setVelocityY={(data:any)=>{toggleTrade("btc",data)}}
         turnOn={(e:any)=>{turnOn("btc");  e.stopPropagation && e.stopPropagation()}} turnOff={(e:any)=>{turnOff("btc");  e.stopPropagation && e.stopPropagation()}}
-        join={(e:any)=>{join("btc");  e.stopPropagation && e.stopPropagation()}} leave={(e:any)=>{leave("btc");  e.stopPropagation && e.stopPropagation()}}
+        join={(e:any)=>{join("btc");  e.stopPropagation && e.stopPropagation()}} leaveAsset={(e:any)=>{leaveAsset("btc");  e.stopPropagation && e.stopPropagation()}}
         trendDown={()=>{trendDown("btc")}} trendUp={()=>{trendUp("btc")}} 
         onTimeframeClick={(token:any, tf:any)=>{onTimeframeClick("btc",tf)}}
       /> 
