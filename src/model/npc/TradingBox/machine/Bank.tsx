@@ -12,7 +12,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
     ftm:"Fantom",
   })
   const [DisplayPosition,s__DisplayPosition]:any = useState([0.4,0.02,-0.05])
-    return (<>
+    return (<group position={[0,-0.1,0]}>
 
 
     
@@ -204,7 +204,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
       </group>
 
 
-    </>)
+    </group>)
 }
 
 export default Component

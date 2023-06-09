@@ -11,9 +11,9 @@ function Component ({ tokensArrayArray, state, calls }:any) {
             <mesh  castShadow receiveShadow scale={state.score.score ? 1 : 3}
             onClick={() => { calls.onTimeframeClick(state.token, DEFAULT_TIMEFRAME_ARRAY.indexOf(state.selectedTimeframe)) }}
             position={[
-                0.35 -(state.selectedTimeframeIndex*0.03),
-                0.05 - (state.selectedTimeframeIndex == state.selectedTimeframeIndex ? 0.34 : 0.37),
-                - 0.12 + (state.selectedTimeframeIndex*0.06),
+                0.3 -(state.selectedTimeframeIndex*0.06),
+                0.05 - (state.selectedTimeframeIndex == state.selectedTimeframeIndex ? 0.39 : 0.4),
+                - 0.075 + (state.selectedTimeframeIndex*0.06),
             ]}
             >
             <cylinderGeometry args={[0.005, 0.013, 0.015, 3+(state.selectedTimeframeIndex)]} />
@@ -28,18 +28,18 @@ function Component ({ tokensArrayArray, state, calls }:any) {
 
             <DynaText text={aTimeframe} color={index == state.selectedTimeframeIndex ? "#aa00aa" : 0x333333}
             position={new Vector3(
-                0.25 -(index*0.03),
-                - (index == index ? 0.34 : 0.37),
-                - 0.12 + (index*0.06),
+                0.2 -(index*0.05),
+                - 0.445,
+                - 0.08 + (index*0.06),
             )}
             isSelected={state.isSelectedId}  font={0.04} onClick={()=>{calls.onTextClick()}}
             />
             <mesh  castShadow receiveShadow scale={state.score.score ? 1 : 3}
                 onClick={() => { calls.onTimeframeClick(state.token, DEFAULT_TIMEFRAME_ARRAY.indexOf(aTimeframe)) }}
                 position={[
-                    0.35 -(index*0.03),
-                - (index == state.selectedTimeframeIndex ? 0.34 : 0.37),
-                - 0.12 + (index*0.06),
+                    0.3 -(index*0.06),
+                - (index == state.selectedTimeframeIndex ? 0.39 : 0.4),
+                - 0.075 + (index*0.06),
                 ]}
             >
                 <cylinderGeometry args={[0.005, 0.013, 0.04, 3+(index)]} />

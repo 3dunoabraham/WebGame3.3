@@ -16,19 +16,20 @@ function Component ({calls}:any) {
 
     
     return (<>
-        <group position={[0.4,0,0.5]}>
+        <group position={[0.4,0,-0.5]}>
         <group ref={$textGroup}>
             <DynaText onClick={()=>{calls.join("btc")}} text="Start" color="#cc0000" font={0.15}
-            position={[-0.65,-0.34,-0.92]} rotation={[0,0.4,0]}
+            position={[-0.65,-0.34,-0.2]} rotation={[0,0.4,0]}
             >        
         </DynaText>
             <DynaText onClick={()=>{calls.join("btc")}} text="Start"
-            color="#cc0000" font={0.15} position={[-0.65,-0.34,-0.92]} rotation={[0,Math.PI+0.4,0]}
-            >        
+            color="#cc0000" font={0.15} position={[-0.65,-0.34,0]} 
+            rotation={[0,Math.PI+0.4,0]}
+        >        
         </DynaText>
         </group>
-        <DynaText text="Click the button" color="#ff0000"font={0.1}
-            position={[-0.92,-0.445,-0.7]} rotation={[-Math.PI/2,0,0.3]}
+        <DynaText text="Click the key/lock" color="#ff0000"font={0.1}
+            position={[-1.1,-0.445,0.05]} rotation={[-Math.PI/2,0,0.3]}
             >        
         </DynaText>
         </group>

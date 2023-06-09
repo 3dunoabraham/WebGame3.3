@@ -673,7 +673,7 @@ function Component ({}) {
       {hasAnyToken && // LINK | Chain Link | chainlink
         <group position={[-0.3,-0.1,0.5]}>
           {("eth" in tokensArrayObj || "link" in tokensArrayObj) && tutoStage.lvl >= 3 &&
-            <group position={[-0.3,0,0.58]} >
+            <group position={[-0.52,0,0.46]} >
               <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="link"
                 tokensArrayArray={"link" in tokensArrayObj ? tokensArrayObj["link"] : null}
                 refetchInterval={selectedToken == "link" ? 4000 : 60000}
@@ -712,7 +712,7 @@ function Component ({}) {
 
 
           {("eth" in tokensArrayObj || "ftm" in tokensArrayObj) && !isDefaultUser && tutoStage.lvl > 3 &&
-            <group position={[1, 0, 0.58]} rotation={[0, Math.PI / 2, 0]}>
+            <group position={[1.12, -0.05, 0.46]} rotation={[0, Math.PI / 2, 0]}>
               <TradingBox form={form} timeframe={form.id.split("USDT")[1]} token="ftm"
                 tokensArrayArray={"ftm" in tokensArrayObj ? tokensArrayObj["ftm"] : null}
                 refetchInterval={selectedToken == "ftm" ? 4000 : 60000}

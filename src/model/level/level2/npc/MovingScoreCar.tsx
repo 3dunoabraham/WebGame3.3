@@ -48,7 +48,7 @@ function MovingScoreCar ({ calls }:any) {
     return (<>
         <group>
             {/* CAR */}
-            <group ref={movingPart1} position={[-5,-0.37,-0.33]} scale={[1,1.3,0.7]} >
+            <group ref={movingPart1} position={[-5,-0.46,-0.14]} scale={[1,1.3,0.7]} >
                 {/* BODY */}
                 <Box args={[0.15,0.06,0.13]} position={[0,0.04,-0.]} castShadow receiveShadow
                     

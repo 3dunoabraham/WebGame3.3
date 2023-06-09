@@ -35,7 +35,7 @@ export function MovingStaticCar ({}) {
     return (<>
         <group>
             {/* CAR */}
-            <group ref={movingPart1} position={[-5,-0.34,-0.33]} >
+            <group ref={movingPart1} position={[-5,-0.44,-0.62]} >
                 {/* WINDOW */}
                 <Box args={[0.3,0.09,0.29]} position={[0.01,0.04,-0.]} castShadow receiveShadow
                     

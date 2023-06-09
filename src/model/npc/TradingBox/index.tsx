@@ -10,7 +10,7 @@ import TableBody from "./machine/TableBody";
 import BouncingThing from "./BouncingThing";
 import TimeframeButtons from "./input/TimeframeButtons";
 import TextContainer from "./output/TextContainer";
-import PowerButtons from "./input/PowerButtons";
+import PowerLock from "./input/PowerLock";
 import TradeButtons from "./input/TradeButtons";
 import Computer from "./machine/Computer";
 import MiniScreen from "./output/MiniScreen";
@@ -18,6 +18,7 @@ import BankRoofContainer from "@/3d/BankRoofContainer";
 import Bank from "./machine/Bank";
 import MiniCitySign from "./output/MiniCitySign";
 import Tower from "./machine/Tower";
+import TrendTree from "./input/TrendTree";
 
 export const DEFAULT_TIMEFRAME_ARRAY = ["3m","15m","4h","1d","1w"]  
 export const tokenColors:any = {
@@ -212,7 +213,12 @@ const selectedHasArray = useMemo(()=>{
         
         
         {/* toggles sync join trend */}
-        <PowerButtons state={{score, isSelectedId, selectedHasArray,isDowntrend,}}
+        <PowerLock state={{score, isSelectedId, selectedHasArray,isDowntrend,}}
+            tokensArrayArray={tokensArrayArray}
+            calls={{join, leave, onTextClick, turnOff, turnOn,trendDown,trendUp}}
+          />
+          
+        <TrendTree state={{score, isSelectedId, selectedHasArray,isDowntrend,}}
             tokensArrayArray={tokensArrayArray}
             calls={{join, leave, onTextClick, turnOff, turnOn,trendDown,trendUp}}
           />

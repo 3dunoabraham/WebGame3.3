@@ -10,7 +10,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
     link:"silver",
     ftm:"spirit",
   })
-  const [DisplayPosition,s__DisplayPosition]:any = useState([0.4,0,-0.1])
+  const [DisplayPosition,s__DisplayPosition]:any = useState([0.4,0,0.1])
     return (<>
 
 
