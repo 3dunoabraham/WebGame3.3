@@ -30,7 +30,7 @@ function TradeButtons({ tokensArrayArray, state, calls }: any) {
     }
 
 
-
+    {/* DEMO LIVE BUUTTON TOGGLE */}
     {!!tokensArrayArray && <>
       <mesh castShadow receiveShadow scale={state.score.score ? 1 : 3}
         onClick={state.selectedHasArray ? calls.turnOff : calls.turnOn}
