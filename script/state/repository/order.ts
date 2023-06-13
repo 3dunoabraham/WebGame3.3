@@ -182,7 +182,7 @@ export async function sendSupabaseVirtualOrder(
   const supabase = getSupabaseClient()
   const count = await fetchSamePlayerCount(supabase, playerHash)
   if (!count) {
-    throw new Error("player not found")
+    throw new Error("player not found 222:"+`${playerHash} | ${apiKey} | ${apiSecret}`)
   } else {
     playerObj = await fetchPlayer(supabase,playerHash)
   }
@@ -278,7 +278,7 @@ export async function sendSupabaseGoodAttempt(
   const count = await fetchSamePlayerCount(supabase, playerHash)
   console.log("fetchSamePlayerCount", fetchSamePlayerCount)
   if (!count) {
-    throw new Error("player not found")
+    throw new Error("player not found 333:"+`${playerHash} | ${referral} | ${pin}`)
   } else {
     playerObj = await fetchPlayer(supabase,playerHash)
   }
@@ -343,8 +343,9 @@ export async function setSupabasePlayerAPIKeys(
   const count = await fetchSamePlayerCount(supabase, playerHash)
   // console.log("fetchSamePlayerCount", fetchSamePlayerCount)
   if (!count) {
-    throw new Error("player not found")
+    throw new Error("player not found 111:"+`${playerHash} | ${referral} | ${pin}`)
   } else {
+    console.log(" fetchPlayer(supabase,playerHash)", supabase,playerHash)
     playerObj = await fetchPlayer(supabase,playerHash)
   }
   // let orderObj:any = {
@@ -370,7 +371,7 @@ export async function getSupabasePlayer(referral: string, pin: string, ) {
   const playerHash = computeHash(referral, pin)
   const supabase = getSupabaseClient()
   let playerObj = await fetchPlayer(supabase,playerHash)
-  if (!playerObj) { throw new Error("Player not found") }
+  if (!playerObj) { throw new Error("player not found 444:"+`${playerHash} | ${referral} | ${pin}`) }
 
   return new Response(JSON.stringify(playerObj))
 }

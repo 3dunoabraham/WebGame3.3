@@ -148,7 +148,8 @@ function Component ({}) {
 
     try {
       let thedata = {
-        referral: splitKey[0], pin: splitKey[1],
+        referral: splitKey[0],
+        pin: splitKey[1],
         binancePublic: binanceapikeys.split(":")[0],
         binanceSecret: binanceapikeys.split(":")[1],
       }
