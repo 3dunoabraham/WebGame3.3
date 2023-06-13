@@ -53,8 +53,8 @@ export function computeHash (firstValue:any, secondValue:any) {
   
   const hash = crypto.createHash('sha256');
 
-  hash.update(firstValue);
-  hash.update(secondValue);
+  hash.update(firstValue.toLowerCase().replace(" ", ""));
+  hash.update(secondValue.toLowerCase().replace(" ", ""));
   const hash_digest = hash.digest('hex');
 
 
@@ -325,6 +325,8 @@ export async function setSupabasePlayerAPIKeys(
 ) {
   // Get user's IP address
   let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
+  console.log("referral, pin", referral, pin)
+  console.log(JSON.stringify({ referral, pin}))
   const playerHash = computeHash(referral, pin)
   // console.log("binancePublic, binanceSecret", binancePublic, binanceSecret)
   // console.log("referral, pin", referral, pin)
