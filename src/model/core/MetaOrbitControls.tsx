@@ -13,7 +13,7 @@ function LockCameraOnBox() {
   useFrame(() => {
     if (controlsRef.current && cameraLocked) {
       controlsRef.current.target.set(0, 0, 12.5); // Make the controls target the scene origin
-      controlsRef.current.object.position.set(0, 4, 12); // Set the camera position to (0, 10, 0) when cameraLocked is true
+      controlsRef.current.object.position.set(0, 5, 12); // Set the camera position to (0, 10, 0) when cameraLocked is true
     }
   });
 
