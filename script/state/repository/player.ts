@@ -68,14 +68,18 @@ export async function fetchPutPlayerAPI(supabase:any, playerObj:any, playerHash:
     let newsubLevel = thesubLevel > 0 ? thesubLevel : (
         binancePublic == secret1 && binanceSecret == secret2 ? 1 : 0
     )
+    let dataPack = {
+        subscription: newsubLevel,
+        binancekeys: `${binancePublic}:${binanceSecret}`
+    }
+    // console.log("dataPack")
+    // console.table(dataPack)
     const { data: removeattempt, error:error_removeattempt } = await supabase.from('player')
-        .update({
-            subscription: newsubLevel,
-            binancekeys: `${binancePublic}:${binanceSecret}`
-        })
+        .update(dataPack)
         .match({ hash: playerHash })
         .single()
 
+    // console.log("removeattempt, error_removeattempt" , removeattempt, error_removeattempt)
   
-    return !error_removeattempt
+    return !removeattempt
 }

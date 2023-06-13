@@ -16,7 +16,7 @@ import { useCopyToClipboard } from "usehooks-ts";
 
 function Level1_Index1 ({state, calls, }:any) {
   const app:any = useContext(AppContext)
-  const { user, superuser, do:{login, logout, fetchSuperuser, demo,},  jwt }:any = useAuth()
+  const { user, superuser, do:{login, logout, demo,},  jwt }:any = useAuth()
   const [AIdata, s__AIdata] = useState({})
   
 

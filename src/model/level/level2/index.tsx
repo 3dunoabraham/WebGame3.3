@@ -38,7 +38,7 @@ const chartRotLookup:any = {
 
 function Component ({}) {
   const app:any = useContext(AppContext)
-  const { user, superuser, do:{login, logout, fetchSuperuser, demo,},  jwt }:any = useAuth()
+  const { user, superuser, do:{login, logout, fetchSupaPlayer, demo,},  jwt }:any = useAuth()
   
 
   
@@ -164,7 +164,7 @@ function Component ({}) {
       }
       app.alert("success", "Successfully set API keys!")
 
-      fetchSuperuser()
+      fetchSupaPlayer()
     } catch (e: unknown) {
       console.log("e", e)
       app.alert("error", "Failed api setting!")
@@ -310,7 +310,7 @@ function Component ({}) {
       }
       app.alert("success", "Successfully projected order to synced API!")
 
-      fetchSuperuser()
+      fetchSupaPlayer()
     } catch (e:unknown) {
       app.alert("error", "Failed order projection!")
     }

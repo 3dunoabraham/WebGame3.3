@@ -7,7 +7,7 @@ import { useAuth } from "@/../script/state/context/AuthContext";
 
 function Component ({}) {
     // const [asd, s__asd] = useState("")
-      const { user, superuser, do:{login, logout, fetchSuperuser, demo,},  jwt }:any = useAuth()
+      const { user, superuser, do:{login, logout, demo,},  jwt }:any = useAuth()
 
     // const [asd, s__asd] = useState("")
     const [asd, s__asd] = useState("")

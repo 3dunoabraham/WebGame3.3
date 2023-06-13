@@ -8,7 +8,7 @@ import { AppContext } from "../../../../script/state/context/AppContext";
 import TradingBox from "@/model/npc/TradingBox";
 
 function Level1_Index2 ({state, calls, }:any) {
-  const { user, superuser, do:{login, logout, fetchSuperuser, demo,},  jwt }:any = useAuth()
+  const { user, superuser, do:{login, logout, demo,},  jwt }:any = useAuth()
   const app:any = useContext(AppContext)
   
 

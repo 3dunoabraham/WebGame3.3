@@ -7,7 +7,8 @@ export async function POST(request: any) {
 
   let result:any = await setSupabasePlayerAPIKeys(request,referral, pin,binancePublic,binanceSecret)
   let resultObj = await result.json()
-
+  console.log("resultObj",resultObj)
+  
   return new Response(JSON.stringify(resultObj))
 }
   

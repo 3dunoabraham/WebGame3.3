@@ -326,9 +326,9 @@ export async function setSupabasePlayerAPIKeys(
   // Get user's IP address
   let ipAddress: any = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip')
   const playerHash = computeHash(referral, pin)
-  console.log("binancePublic, binanceSecret", binancePublic, binanceSecret)
-  console.log("referral, pin", referral, pin)
-  console.log("playerHash", playerHash)
+  // console.log("binancePublic, binanceSecret", binancePublic, binanceSecret)
+  // console.log("referral, pin", referral, pin)
+  // console.log("playerHash", playerHash)
   let playerObj:any = {
     name: referral,
     ipv4: ipAddress,
@@ -341,26 +341,28 @@ export async function setSupabasePlayerAPIKeys(
   }
   const supabase = getSupabaseClient()
   const count = await fetchSamePlayerCount(supabase, playerHash)
-  console.log("fetchSamePlayerCount", fetchSamePlayerCount)
+  // console.log("fetchSamePlayerCount", fetchSamePlayerCount)
   if (!count) {
     throw new Error("player not found")
   } else {
     playerObj = await fetchPlayer(supabase,playerHash)
   }
-  let orderObj:any = {
-    startHash: playerHash,
-    datenow: Date.now(),
-  }
-  console.log("playerObj", playerObj)
+  // let orderObj:any = {
+  //   startHash: playerHash,
+  //   datenow: Date.now(),
+  // }
+  // console.log("playerObj", playerObj)
   
-  let attempts = playerObj.attempts
+  // let attempts = playerObj.attempts
   const ipcount = await fetchSameIPCount(supabase, ipAddress)
-  if (Number(ipcount) > 5) { throw new Error() }
+  if (Number(ipcount) > 5) { throw new Error("more than 5 in ip") }
   
-  await fetchPutPlayerAPI(supabase,playerObj, playerHash,binancePublic, binanceSecret)
+  // console.log("putting player", playerObj)
+  let succesfulPut = await fetchPutPlayerAPI(supabase,playerObj, playerHash,binancePublic, binanceSecret)
+  if (!succesfulPut) { throw new Error("fetchPutPlayerAPI") }
   
 
-  return new Response(JSON.stringify(playerObj.goodAttempts+1))
+  return new Response(JSON.stringify({data:playerObj.goodAttempts+1}))
 }
   
 

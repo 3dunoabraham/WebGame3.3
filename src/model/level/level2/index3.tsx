@@ -7,7 +7,7 @@ import MainRoadEastWest from "./core/MainRoadEastWest";
 import MovingScoreCar from "./npc/MovingScoreCar";
 import MovingStaticCar from "./npc/MovingStaticCar";
 function Level1_Index3 ({state, calls, }:any) {
-  const { user, superuser, do:{login, logout, fetchSuperuser, demo,},  jwt }:any = useAuth()
+  const { user, superuser, do:{login, logout, demo,},  jwt }:any = useAuth()
   const app:any = useContext(AppContext)
   
 

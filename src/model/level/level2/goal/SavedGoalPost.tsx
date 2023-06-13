@@ -117,17 +117,17 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
     
     {state.hasAnyToken && !!superuser &&  <>
       <group position={[0,0,2.01]} rotation={[Math.PI/2,0,0]}>
-        {!superuser.subscription && <>
+        {<>
           
           <DynaText text={"SYNC \n API KEYS!"} color={ "#ff9900"} font={0.05}
-            position={[0,0.305,0.14]}
+            position={[0,0.505,1.04]}
               rotation={[-Math.PI/2,0,0]}
 
               // position={[0,-0.15,-1.19]} font={0.15}
             />
         </>}
-        {!superuser.subscription && <>
-        <Cylinder args={[0.15,0.15,0.1,4]} position={[0,0.25,0.15]} castShadow receiveShadow ref={$claimButton}
+        {<>
+        <Cylinder args={[0.15,0.15,0.1,4]} position={[0,0.45,1.05]} castShadow receiveShadow ref={$claimButton}
           onClick={setAPIKeys}
         >
           <meshStandardMaterial color={!projectionMode ? "#a0dFf3" : "#f93"}/>
