@@ -22,7 +22,7 @@ const ConnectPlayerForm = ({
   const triggerLogin = async () => {
     s__loading("login", true)
     let parsedForms = {
-      referral: forms.referral.replace(" ", ""),
+      referral: forms.referral.toLowerCase().replace(" ", ""),
       pin: forms.pin.replace(" ", ""),
     }
     if (!parsedForms.referral) return

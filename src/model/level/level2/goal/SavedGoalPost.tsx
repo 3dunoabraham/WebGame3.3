@@ -46,7 +46,7 @@ function getCompleteTrades(transactionString: string): any[] {
     }
   });
 
-  console.log("completeTrades", completeTrades);
+  // console.log("completeTrades", completeTrades);
   return completeTrades;
 }
 
@@ -80,7 +80,7 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
   const userDatabaseArray = useMemo(()=>{
     try {
       let fullarray = getCompleteTrades(superuser.trades)
-      console.log("getCompleteTrades", fullarray)
+      // console.log("getCompleteTrades", fullarray)
       return fullarray
       // return superuser.trades.split("&&&")
     } catch (e:unknown) {

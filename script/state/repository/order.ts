@@ -254,7 +254,7 @@ function getCompleteTrades(transactionString: string): any[] {
     }
   });
 
-  console.log("completeTrades", completeTrades);
+  // console.log("completeTrades", completeTrades);
   return completeTrades;
 }
 export async function sendSupabaseGoodAttempt(
