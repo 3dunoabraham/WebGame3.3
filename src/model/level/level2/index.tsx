@@ -152,6 +152,7 @@ function Component ({}) {
         binancePublic: binanceapikeys.split(":")[0],
         binanceSecret: binanceapikeys.split(":")[1],
       }
+      console.log("thedata", thedata)
       app.alert("neutral", "Setting api keys")
       let fetchRes: any = await fetchPost("/api/player/apikeys", thedata)
       if (fetchRes.status >= 400) { return app.alert("error", "Failed to Set api keys") }
