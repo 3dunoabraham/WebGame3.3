@@ -120,7 +120,7 @@ function Component ({}) {
                             <b className="tx-mdl">/ranking</b></div>
                             
                         </a>
-                        <a href="https://webpov.vercel.app/?user=" target="_blank"
+                        <a href="https://webpov.vercel.app/?user=" 
                             style={{color:"#ff8800"}}
                             className=" opaci-chov--50 flex-col px-2 Q_xs_px-1 bg-w-90 bord-r-10 py-3"
                             >

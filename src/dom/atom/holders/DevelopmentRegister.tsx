@@ -65,7 +65,7 @@ function Component ({}) {
 
 
 
-               <Link target="_blank" className="flex-col  mt-2 opaci-chov--50"  href="https://webpov.vercel.app/">
+               <Link  className="flex-col  mt-2 opaci-chov--50"  href="https://webpov.vercel.app/">
                     {/* <div   style={{background:"orangered"}}
                         className="  tx-lgx py-1 block px-4 py-2 box-shadow-i-2-t tx-white flex"
                     >

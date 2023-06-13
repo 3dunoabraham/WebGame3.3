@@ -155,11 +155,20 @@ function Component ({}) {
       console.log("thedata", thedata)
       app.alert("neutral", "Setting api keys")
       let fetchRes: any = await fetchPost("/api/player/apikeys", thedata)
-      if (fetchRes.status >= 400) { return app.alert("error", "Failed to Set api keys") }
+      console.log("fetchRes", fetchRes)
+
+      
+      if (fetchRes.status >= 400)
+      {
+        return app.alert("error", "Failed to Set api keys")
+      }
       app.alert("success", "Successfully set API keys!")
 
       fetchSuperuser()
-    } catch (e: unknown) { app.alert("error", "Failed api setting!") }
+    } catch (e: unknown) {
+      console.log("e", e)
+      app.alert("error", "Failed api setting!")
+    }
   }
   const triggerSyncGoodPlace = async () => {
     const splitKey = rpi.split(":")
