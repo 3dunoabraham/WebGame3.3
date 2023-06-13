@@ -141,11 +141,14 @@ export function BitCrush() {
   return (
     <>
     {/* SCORE */}
-      <group position={[0, -0.145, 7.45]} rotation={[0,Math.PI,0]} >
-        <DynaText color={"#0099ff"} text={score < 0 ? "Click to Play" : score} font={0.3}/>
+      <group position={[0, -0.145, 7.5]} rotation={[0,Math.PI,0]} >
+        <DynaText color={"#0099ff"} text={score < 0 ? "Click the blue to Play" : score} font={0.2}
+            position={[0,0,0.05]}
+        />
         { lastScore > 0 && 
-           <DynaText color={"#ff9900"} text={lastScore} font={0.75} position={[0,0,-0.75]}/>
+           <DynaText color={"#ff9900"} text={lastScore} font={0.75} position={[0,0,-0.87]}/>
         }
+        <DynaText color={"#ff9900"} text={"Lock Camera"} font={0.15} position={[0,0,-0.35]}/>
     </group>
 
       {/* SCREEN */}
