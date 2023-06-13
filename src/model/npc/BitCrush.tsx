@@ -31,7 +31,7 @@ export function BitCrush() {
     // Check for collision with the walls
     if (newBallPosition.x > 1.2 || newBallPosition.x < -1.2) {
         if (newBallPosition.x > 1.2) {
-                    
+            newBallPosition.x = 1.1;
             const paddleCenter = $playerPaddle.current.position.z; // Assuming playerPaddle is the paddle the ball collides with
             const distanceFromCenter = newBallPosition.z - paddleCenter;
             if (distanceFromCenter >= -0.25 && distanceFromCenter <= 0.25) {
@@ -58,8 +58,9 @@ export function BitCrush() {
             }
             
         } else if (newBallPosition.x < -1.2) {
-            console.log("newBallPosition.x", newBallPosition.x)
-            setComputerPosition({...newBallPosition});
+            newBallPosition.x = -1.1;
+            // console.log("newBallPosition.x", newBallPosition.x)
+          setComputerPosition({...newBallPosition});
         }
         
 
