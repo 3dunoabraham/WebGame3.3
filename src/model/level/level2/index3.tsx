@@ -15,9 +15,13 @@ function Level1_Index3 ({state, calls, }:any) {
 
   const onFirstCarClicked = (clickCounter:any) => {
     if (clickCounter < 4)  return
-    if (state.profitHistory.length == 0) return app.alert("error", "No orders found, bad reputation!")
+    if (state.profitHistory.length == 0) {
+      return app.alert("error", "No orders found, bad reputation!")
+    }
     if (state.profitHistory.length > 0 && state.realProfitCount == state.profitHistory.length) {
+      app.audio("neutral","./sound/horn.wav")
       return app.alert("error", "No losses found, bad karma!")
+
     }
     
     let theIndex = -1
@@ -29,7 +33,8 @@ function Level1_Index3 ({state, calls, }:any) {
     let aNewArray = [...state.profitHistory]
     aNewArray.splice(theIndex, 1)
     calls.s__profitHistory(aNewArray)
-    app.alert("success", "Successfully reduced debt, You claimed a job!")
+      app.audio("neutral","./sound/aaa.wav")
+      app.alert("success", "Successfully reduced debt, You claimed a job!")
   }
 
 

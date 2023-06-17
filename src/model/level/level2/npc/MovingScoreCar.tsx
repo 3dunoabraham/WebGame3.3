@@ -1,9 +1,11 @@
 import { Box } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
-import { useRef, useState } from "react"
+import { useContext, useRef, useState } from "react"
+import { AppContext } from "../../../../../script/state/context/AppContext"
 
 
 function MovingScoreCar ({ calls }:any) {
+    const app:any = useContext(AppContext)
     const [carSpeed, s__carSpeed] = useState(0.018)
     const movingPart1:any = useRef()
     const movingPart2:any = useRef()
@@ -13,10 +15,10 @@ function MovingScoreCar ({ calls }:any) {
     const clickHandler = (e:any)=> {
         console.log("counter", counter)
         if (carColor != "#afa2a6") return
-        // s__carColor(carColorCycle[Math.round(Math.random())])
         s__counter(counter+1)
         calls.onClicked(counter)
         if (counter > 3) {
+
             triggerReset()
         } else {
             s__carSpeed(carSpeed-0.003)

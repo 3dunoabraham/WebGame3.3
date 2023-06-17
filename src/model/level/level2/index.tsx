@@ -125,7 +125,7 @@ function Component ({}) {
     app.audio("neutral","./sound/aaa.wav")
     s__selectedToken(x);
     updateTokenOrder(x, selectedTimeframeIndex, "state", 0)
-    if (!tutoStage.lvl) { app.alert("success",x.toUpperCase()+" successfuly initiated!") }
+    if (!tutoStage.lvl) { app.alert("success",x.toUpperCase()+" started successfuly!") }
 
   }
   const trendDown = (x: any) => { s__selectedToken(x); updateTokenOrder(x, selectedTimeframeIndex, "mode", 1)}
@@ -234,7 +234,9 @@ function Component ({}) {
 
     if (isBuying) {
       app.audio("neutral","./sound/cas.wav")
+      app.alert("success","Buy order locally saved!")
     } else {
+      app.alert("success","Sell order successfully saved!")
       app.audio("neutral","./sound/cassh.wav")
     }
   
