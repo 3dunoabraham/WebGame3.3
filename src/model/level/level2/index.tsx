@@ -124,7 +124,8 @@ function Component ({}) {
   const join = (x: any) => {
     s__selectedToken(x);
     updateTokenOrder(x, selectedTimeframeIndex, "state", 0)
-    app.audio("neutral","./sound/click58.wav")
+    if (!tutoStage.lvl) { app.alert("success",x.toUpperCase()+" successfuly initiated!") }
+    app.audio("neutral","./sound/click47.wav")
 
   }
   const trendDown = (x: any) => { s__selectedToken(x); updateTokenOrder(x, selectedTimeframeIndex, "mode", 1)}
@@ -141,6 +142,8 @@ function Component ({}) {
     delete new_tokensArrayObj[x];
     s__LS_tokensArrayObj((prevValue) => JSON.stringify(new_tokensArrayObj));
     s__tokensArrayObj(new_tokensArrayObj)
+    app.audio("neutral","./sound/click33.wav")
+
   }
   const setAPIKeys = async () => {
     let binanceapikeys: any = prompt("Enter your API Keys! \n\n < Public : Secret >", "")

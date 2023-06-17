@@ -37,30 +37,7 @@ function AudioContainer({ s__src, src }: AudioContainerProps) {
       audioElement?.pause();
       audioElement.src = '';
     };
-  }, [s__src]);
-
-  return <audio ref={audioRef} src={src} />;
-  return <></>
-    useEffect(() => {
-    const audioElement:any = audioRef.current;
-
-    const playAudio = () => {
-      audioElement?.play();
-    };
-
-    const handleAudioSourceChange:any = (newSrc: string) => {
-      audioElement?.pause();
-      audioElement.src = newSrc;
-      playAudio();
-    };
-
-    s__src(handleAudioSourceChange);
-
-    return () => {
-      audioElement?.pause();
-      audioElement.src = '';
-    };
-  }, [s__src]);
+  }, [src]);
 
   return <audio ref={audioRef} src={src} />;
 }
