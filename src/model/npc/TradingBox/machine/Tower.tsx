@@ -77,7 +77,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
         { // big monitor BASE
           <>
          {!!tokensArrayArray && !!state.isSelectedId &&
-           <Cylinder args={[0.2, 0.3, 0.2, 4]} position={[0.0,-0.3,-0.05]} // base base
+           <Cylinder args={[0.2, 0.3, 0.25, 4]} position={[0.0,-0.32,-0.05]} // base base
             receiveShadow castShadow
             rotation={[0,Math.PI/4*3,0]}
           >
@@ -93,13 +93,13 @@ function Component ({tokensArrayArray, state, calls}:any) {
          <Box receiveShadow castShadow  args={[0.15,0.1,0.15]} position={[0,0.6,-0.05]}>
            <meshStandardMaterial color={"#666666"}  />
          </Box>
-         <Box receiveShadow castShadow  args={[0.25,0.75,0.25]} position={[0,-0.01,-0.05]}>
+         <Box receiveShadow castShadow  args={[0.25,0.9,0.25]} position={[0,-0.015,-0.05]}>
            <meshStandardMaterial color={"#888888"}  />
          </Box>
-         <Box receiveShadow castShadow  args={[0.08,0.82,0.3]} position={[0.11,-0.01,-0.05]} >
+         <Box receiveShadow castShadow  args={[0.08,0.86,0.3]} position={[0.11,-0.018,-0.05]} >
            <meshStandardMaterial color={"#707070"}  />
          </Box>
-         <Box receiveShadow castShadow  args={[0.08,0.8,0.3]} position={[-0.11,-0.01,-0.05]} >
+         <Box receiveShadow castShadow  args={[0.08,0.86,0.3]} position={[-0.11,-0.018,-0.05]} >
            <meshStandardMaterial color={"#707070"}  />
          </Box>
             <Cylinder args={[0, 0.1, 0.1, 4]} position={[0.0,0.7,-0.05]} // base connector

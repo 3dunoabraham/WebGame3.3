@@ -29,7 +29,7 @@ const selectedTimeframeIndex = 0
 const selectedTimeframe = "3m"
 const feePercent = 0.0
 const chartPosLookup:any = {
-  "btc": [-1.115,0,-0.63], "eth": [1.22,0,-0.02], "link": [-1.11,0,1.15], "ftm": [0.72,0,1.515],
+  "btc": [-1.25,0,-0.8], "eth": [1.22,0,-0.02], "link": [-1.11,0,1.15], "ftm": [0.72,0,1.515],
 }
 const chartRotLookup:any = {
   "btc": [0,Math.PI/2,0], "eth": [0,-Math.PI/2,0], "link": [0,Math.PI/2,0], "ftm": [0,0,0],
@@ -192,10 +192,12 @@ function Component ({}) {
       let fetchRes: any = await fetchPost("/api/order/sync", thedata)
       if (fetchRes.status >= 400) {
         app.alert("error", "Failed to Syncing Good Trades")
+        app.audio("neutral","./sound/dead.wav")
         return
       }
+      app.audio("neutral","./sound/aaa.wav")
       app.alert("success", "Successfully Syncing Good Trades!")
-      window.location.reload()
+      setTimeout(()=>{window.location.reload()},1000)
     } catch (e: unknown) {
       app.alert("error", "Failed good order Syncing !")
     }
@@ -222,7 +224,7 @@ function Component ({}) {
   }
   const toggleTrade = async (x:any, y:any) => {
     if (profitHistory.length > 4) {
-      return alert("Simulation Bankruptcy Error!");
+      return alert("Full Local Storage!");
     }
   
     const newTradeObj:any = createTradeObject(x, y);
