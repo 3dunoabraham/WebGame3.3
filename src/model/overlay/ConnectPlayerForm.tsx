@@ -46,12 +46,13 @@ const ConnectPlayerForm = ({
     $referral.current.focus()
   }, [forms.isForm])
   const handleReferralKeyPress = (event: any) => {
-    if (['Enter', 'Tab'].includes(event.key)) {
+    if (['Enter',].includes(event.key)) {
       if (!$pin.current) return
       $pin.current.focus()
     }
   }
   const handlePinKeyPress = (event: any) => {
+    app.audio("neutral","./sound/click58.wav")
     if (['Enter'].includes(event.key)) {
       triggerLogin()
     }

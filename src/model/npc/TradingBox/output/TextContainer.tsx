@@ -50,7 +50,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
         
       {state.clicked && // CLICKED PRICE 
         <>
-        <DynaText text={"Price of Entry"+"" || ""}  color={0x000000}
+        <DynaText text={"Entry Price"+"" || ""}  color={0x000000}
           position={new Vector3(0.33,0.21,-0.38)} rotation={[0,0,0]}
           isSelected={state.isSelectedId} font={0.036} 
         />

@@ -7,19 +7,19 @@ import { useLocalStorage } from "usehooks-ts";
 import { getComputedLevels } from "@/../script/util/helper/decoy";
 import Scene from "@/model/core/Scene"
 import TradingBox, { DEFAULT_TIMEFRAME_ARRAY } from "@/model/npc/TradingBox";
-import Level1_Index1  from "./index1";
-import MovingBoxAndPipe from "./npc/MovingBoxAndPipe";
 import { fetchPost } from "@/../script/util/helper/fetchHelper";
 import { AppContext } from "@/../script/state/context/AppContext";
-import SavedGoalPost from "./goal/SavedGoalPost";
 import { useAuth } from "@/../script/state/context/AuthContext";
-import RoadNorthSouth from "./core/RoadNorthSouth";
-import GoodPlaceGoal from "./goal/GoodPlaceGoal";
 import { useUnloadHandler } from "../../../../script/util/hook/useHooksHelper";
 import { useRouter } from "next/navigation";
+import { countProfitableTrades, createTradeObject, handleFirstTutorialStages, handleSellSide, updateProfitHistory } from "@/model/scripts";
+import Level1_Index1 from "./index1";
 import Level1_Index2 from "./index2";
 import Level1_Index3 from "./index3";
-import { countProfitableTrades, createTradeObject, handleFirstTutorialStages, handleSellSide, updateProfitHistory } from "@/model/scripts";
+import SavedGoalPost from "./goal/SavedGoalPost";
+import RoadNorthSouth from "./core/RoadNorthSouth";
+import GoodPlaceGoal from "./goal/GoodPlaceGoal";
+import MovingBoxAndPipe from "./npc/MovingBoxAndPipe";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -121,12 +121,7 @@ function Component ({}) {
   const _s__projectionMode = (val: boolean) => { s__projectionMode(val) }
   const onTextClick = (x: any) => s__selectedToken(x)
   const setTutoStage = (lvl: any) => s__LS_tutoStage(JSON.stringify({ ...tutoStage, lvl }))
-  const join = (x: any) => {
-    s__selectedToken(x);
-    updateTokenOrder(x, selectedTimeframeIndex, "state", 0)
-    app.audio("neutral","./sound/click58.wav")
-
-  }
+  const join = (x: any) => { s__selectedToken(x); updateTokenOrder(x, selectedTimeframeIndex, "state", 0) }
   const trendDown = (x: any) => { s__selectedToken(x); updateTokenOrder(x, selectedTimeframeIndex, "mode", 1)}
   const trendUp = (x: any) => { s__selectedToken(x); updateTokenOrder(x, selectedTimeframeIndex, "mode", 0) }
   const turnOff = (x: any) => { updateTokenOrder(x, selectedTimeframeIndex, "state", 0) }
