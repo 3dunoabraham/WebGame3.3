@@ -235,9 +235,6 @@ function Component ({}) {
     if (isBuying) {
       app.audio("neutral","./sound/cas.wav")
       app.alert("success","Buy order locally saved!")
-    } else {
-      app.alert("success","Sell order successfully saved!")
-      app.audio("neutral","./sound/cassh.wav")
     }
   
     if (form.id in currentOrders) {
@@ -250,12 +247,21 @@ function Component ({}) {
     let oldOrders = { ...currentOrders };
   
     if (newTradeObj.side === "sell") {
+      let lastProfitCount = realProfitCount
       let newprofithi = updateProfitHistory(currentOrders, form, newTradeObj, profitHistory, feePercent);
       s__profitHistory(newprofithi);
+      let newProfitCount = newprofithi.filter((atrade:any, index:any) => {
+        return !!atrade[1] && atrade[1] == "profit"
+      }).length
+      console.log("newProfitCount  > lastProfitCount", newProfitCount  , lastProfitCount)
+      if (newProfitCount  > lastProfitCount ) {
+       app.audio("neutral","./sound/cassh.wav")
+      }
   
       let counting = countProfitableTrades(newprofithi);
       if (counting >= 4) {
         setTutoStage(5);
+        // app.audio("neutral","./sound/aaa.wav")
       }
   
       handleSellSide(newTradeObj, form, projectionMode, app, s__profitHistory, projectVirtualOrder);
@@ -274,10 +280,13 @@ function Component ({}) {
         projectVirtualOrder(form.id, newTradeObj);
         app.alert("success", "Sending BUY order with synced API keys");
       }
-    } else if (newTradeObj.side === "sell") {
-      app.alert("error", "Missing live buy order");
-      // s__orderHistory(orderHistory);
-      // if (tutoStage > 4)
+    } else {
+      if (newTradeObj.side === "sell") {
+        app.audio("neutral","./sound/powerDown.wav")
+        app.alert("error", "Missing live buy order");
+        // s__orderHistory(orderHistory);
+        // if (tutoStage > 4)
+      }
     }
   };
   const updateTokenOrder = async (_token:string, timeframe:any, substate:string,val:any="",subobj:any=null) => {
