@@ -114,7 +114,7 @@ function Level1_Index1 ({state, calls, }:any) {
     <ByteCityEnv />
     {/* MAIN FLOOR */}
     <Box args={[2.5,0.2,2.8]} position={[0,-1.1,0]} castShadow receiveShadow>
-      <meshStandardMaterial color={"#fff"}/>
+      <meshStandardMaterial color={!!state.tutoStage && state.tutoStage?.lvl > 4 ? "#84BC4E" : "#fff"}/>
     </Box>
 
     <ConnectPlayerToggle calls={{triggerLogin, triggerLogout,}}

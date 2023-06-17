@@ -51,64 +51,63 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
             <Cylinder position={[0,-0.2,6]} args={[3.02,3.02,0.02,4]} >
               <meshStandardMaterial color={"#66ff65"}/>
             </Cylinder>
-            <BitCrush />
+            <group rotation={[0,0,0]}>
+
+              <BitCrush />
+            </group>
 
             {/* LONG BRiDGE */}
-          {/* <Box args={[0.5,0.1,5.6]} position={[0,-1.12,1]} castShadow receiveShadow
-            rotation={[0.03,0,0]}
-          >
-              <meshStandardMaterial color={"#eee"}/>
-            </Box> */}
-
             
-        <group position={[0.75,-0.5,0+0.25]} >
-            {/* minicity east */}
-            <Box args={[1,0.1,0.5]}  castShadow receiveShadow position={[0,0,0.75]}
+            {/* right thin wing center */}
+        {/* <group position={[0.75,-0.5,0+0.25]} >
+            <Box args={[0.8,0.1,0.5]}  castShadow receiveShadow position={[-0.15,0,0.7]}
             >
                 <meshStandardMaterial color={"#8f8983"}/>
             </Box>
-            {/* <Box args={[1,0.1,0.5]}  castShadow receiveShadow position={[0,0,-0.75]}
+            <Box args={[0.8,0.1,0.5]}  castShadow receiveShadow position={[-0.15,0,1.3]}
             >
                 <meshStandardMaterial color={"#8f8983"}/>
-            </Box> */}
+            </Box>
+            <Box args={[1.1,0.1,0.5]}  castShadow receiveShadow position={[0,0,1.9]}
+            >
+                <meshStandardMaterial color={"#8f8983"}/>
+            </Box>
         </group>
         <group position={[-0.75,-0.5,0+0.25]} >
-            {/* minicity west */}
-            <Box args={[1,0.1,0.5]}  castShadow receiveShadow position={[0,0,0.75]}
+            <Box args={[1.1,0.1,1]}  castShadow receiveShadow position={[0,0,0.95]}
             >
                 <meshStandardMaterial color={"#8f8983"}/>
             </Box>
-            {/* <Box args={[1,0.1,0.5]}  castShadow receiveShadow position={[0,0,-0.75]}
-            >
-                <meshStandardMaterial color={"#8f8983"}/>
-            </Box> */}
-        </group>
+        </group> */}
+            {/* left wing center */}
 
 
         
         {/* farmcity */}
-        <group position={[0.65,-0.5,+3]} >
-            {/* minicity east */}
-            <Box args={[1,0.1,1]}  castShadow receiveShadow position={[0,0,0.75]}
+            {/* right wing center */}
+        {/* <group position={[0.65,-0.5,-1]} >
+            <Box args={[1,0.1,1]}  castShadow receiveShadow position={[0.05,0,0.75]}
             >
                 <meshStandardMaterial color={"#8f8983"}/>
             </Box>
-            <Box args={[1,0.1,1]}  castShadow receiveShadow position={[0,0,-0.75]}
+            <Box args={[0.5,0.1,0.25]}  castShadow receiveShadow position={[-0.2,-0.05,-0.15]}
             >
                 <meshStandardMaterial color={"#8f8983"}/>
             </Box>
-        </group>
-        <group position={[-0.65,-0.5,+3]} >
-            {/* minicity west */}
-            <Box args={[1,0.1,1]}  castShadow receiveShadow position={[0,0,0.75]}
+        </group> */}
+            {/* right wing city city */}
+            {/* left city city */}
+        {/* <group position={[-0.65,-0.5,3]} >
+            <Box args={[1,0.1,1]}  castShadow receiveShadow position={[-0.05,0,-3.25]}
             >
                 <meshStandardMaterial color={"#8f8983"}/>
             </Box>
-            <Box args={[1,0.1,1]}  castShadow receiveShadow position={[0,0,-0.75]}
+            <Box args={[1,0.1,1]}  castShadow receiveShadow position={[-0.05,0,-0.75]}
             >
                 <meshStandardMaterial color={"#8f8983"}/>
             </Box>
-        </group>
+        </group> */}
+            {/* left farm wing */}
 
 
 
@@ -117,21 +116,21 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
 
             
             {/* {state.projectionMode && */}
-        <group position={[0,-0.5,-2.1]} ref={$bridgeRoad} rotation={[bridgeZRot,0,0]}>
             {/* ROAD */}
+            <group position={[0,-0.5,-2.1]} ref={$bridgeRoad} rotation={[bridgeZRot,0,0]}>
             <Box args={[0.5,0.06,1]}  castShadow receiveShadow position={[0,0,0.5]}
             >
                 <meshStandardMaterial color={"#8f8983"}/>
             </Box>
         </group>
         <group position={[0,-0.5,1.3]} >
-            {/* ROAD */}
             <Box args={[0.45,0.055,5]}  castShadow receiveShadow
             >
                 <meshStandardMaterial color={"#8f8983"}/>
             </Box>
         </group>
         {/* } */}
+            {/* ROAD */}
 
 
 

@@ -20,7 +20,7 @@ function Component ({calls, state}:any) {
 
   return (<group position={[0,0,-2]}>
     {state.hasAnyToken && state.tutoStage.lvl >= 3 && <>
-        <Box args={[1, 1, 1.2]} position={[0.05, -1, 0]} castShadow receiveShadow>
+        <Box args={[1, 0.7, 1.2]} position={[0.05, -0.85, 0]} castShadow receiveShadow>
           <meshStandardMaterial color={"#eee"} />
         </Box>
       </>}

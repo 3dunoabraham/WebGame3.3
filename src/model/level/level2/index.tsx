@@ -1,6 +1,6 @@
 "use client";
 import { useContext, useEffect, useMemo, useState } from "react";
-import { Box } from "@react-three/drei";
+import { Box, Cylinder } from "@react-three/drei";
 import { useLocalStorage } from "usehooks-ts";
 
 
@@ -384,7 +384,7 @@ function Component ({}) {
       {/* BTC | Bitcoin | Bit Coin */}
       <Level1_Index1 {...{
           state:{tokensArrayObj, selectedToken, hasAnyToken, form, isDefaultUser, chartPos, chartRot, 
-            isSelectedTokenDowntrend, selectedTimeframe, chartBoxPos, rpi,
+            isSelectedTokenDowntrend, selectedTimeframe, chartBoxPos, rpi, tutoStage,
           },
           calls:{toggleTrade, onTextClick, turnOn, trendUp, leaveAsset, turnOff, onTimeframeClick,s__rpi, s__LS_rpi,
             trendDown, join, s__chartBoxPos, setTutoStage, s__LS_tutoStage, s__LS_tokensArrayObj, 
@@ -480,9 +480,13 @@ function Component ({}) {
       {/* PIPE STREAM LINES */}
       {"ftm" in tokensArrayObj && <> <MovingBoxAndPipe /> </>}
       {hasAllTokens && <>
-        <Box args={[4, 0.25, 5]} position={[0, -1.2, -0.5]} castShadow receiveShadow>
-          <meshStandardMaterial color={"#fff"} />
-        </Box>
+        <Cylinder receiveShadow args={[3.3,3.3,0.15,tutoStage.lvl > 4 ? 3+tutoStage.lvl : 4]} position={[0, -1.2, 0]}>
+          <meshStandardMaterial color={tutoStage.lvl > 4 ? "#5ABFFA" : "#fff"} />
+
+        </Cylinder>
+        {/* <Box args={[4, 0.25, 5]} position={[0, -1.2, -0.5]} castShadow receiveShadow>
+          <meshStandardMaterial color={tutoStage.lvl > 4 ? "#5ABFFA" : "#fff"} />
+        </Box> */}
       </>}
       {hasAnyToken &&
         <group position={[-0.3, -0.1, 0.5]}>

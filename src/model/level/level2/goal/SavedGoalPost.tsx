@@ -80,6 +80,8 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
     s__projectionMode(!projectionMode)
     if (!projectionMode) {
       app.audio("neutral", "./sound/bridge.wav")
+    } else {
+      app.audio("neutral", "./sound/click47.wav")
     }
   }
   const userDatabaseArray = useMemo(()=>{
@@ -172,10 +174,10 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
             <Box args={[0.9,0.6,0.95]} position={[0.12,-0.75,1.84]} castShadow receiveShadow>
               <meshStandardMaterial color={"#B6AfA5"}/>
             </Box>
-          <Box args={[0.5,0.1,2.2]} position={[-0.5,-1.12,1]} castShadow receiveShadow>
+          <Box args={[0.5,0.1,2.9]} position={[-0.5,-1.12,1]} castShadow receiveShadow>
               <meshStandardMaterial color={"#eee"}/>
             </Box>
-          <Box args={[0.85,0.2,0.85]} position={[0.08,-1.12,-0.5]} castShadow receiveShadow>
+          <Box args={[0.85,0.2,0.85]} position={[-0.5,-1.12,-0.5]} castShadow receiveShadow>
               <meshStandardMaterial color={"#ddd"}/>
             </Box>
           </group>}
