@@ -256,7 +256,11 @@ function Component ({}) {
       console.log("newProfitCount  > lastProfitCount", newProfitCount  , lastProfitCount)
       if (newProfitCount  > lastProfitCount ) {
        app.audio("neutral","./sound/cassh.wav")
-      }
+       app.alert("success","Profitable trade completed!")
+      } else {
+         app.audio("neutral","./sound/wrong.wav")
+         app.alert("error","Loss trade, failed investment!")
+        }
   
       let counting = countProfitableTrades(newprofithi);
       if (counting >= 4) {
