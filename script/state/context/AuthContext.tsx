@@ -38,6 +38,7 @@ const AuthProvider:FC<{
   useEffect( () => {
     if (!LH_rpi || LH_rpi == "user:0000") return
     let [referral, pin] = LH_rpi.split(":")
+    
     if (!pin) return
     fetchUserByRPI(referral,pin)
   }, []);

@@ -20,13 +20,13 @@ const ConnectPlayerForm = ({
   })
   const { do: { login } }: any = useAuth()
   const triggerLogin = async () => {
-    s__loading("login", true)
     let parsedForms = {
       referral: forms.referral.toLowerCase().replace(" ", ""),
       pin: forms.pin.replace(" ", ""),
     }
     if (!parsedForms.referral) return
     if (!parsedForms.pin) return
+    s__loading("login", true)
 
     let playerRes = await login(parsedForms)
     s__loading("login", false)
@@ -79,7 +79,7 @@ const ConnectPlayerForm = ({
       {!!loadings.login && <> <div className="tx-ls-3 hover-2 pt-4 opaci-75">LOADING...</div> </>}
       {!loadings.login &&
         <div className="flex   ">
-          <button className='py-1 px-7 tx-lg tx-white opaci-chov--50 mt-3 noborder bord-r-5 z-100'
+          <button className='py-1 px-2 tx-mdl tx-white opaci-chov--50 mt-3 noborder bord-r-5 z-100'
             style={{ background: "#333333" }}
             onClick={forms.isForm ? triggerLogin : triggerIsForm}
           >

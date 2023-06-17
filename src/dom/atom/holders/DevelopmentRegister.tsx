@@ -195,7 +195,7 @@ function Component ({}) {
             </div>
         </>}
         {asd !== "landing" && <>
-            <div className='pos-abs bottom-0 translate-y-100 z-999  w-100 tx-center   tx-white '
+            <div className='pos-abs bottom-0 translate-y--20 z-999  w-100 tx-center   tx-white '
             >
             <button className="pos-rel tx-white py-1 my-1 px-4 tx-mdl opaci-chov--75 bg-black scale-hov-150"
                 onClick={()=>{s__asd("landing")}}

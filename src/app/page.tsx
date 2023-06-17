@@ -41,12 +41,12 @@ export default async function Page() {
               style={{transform:"translateX(5px)"}}
             >
               {/* <span className='tx-sm tx-bold-8 tx-ls-4 opaci-50' title='Gamified Trading App'>G T A</span> */}
-              <span className='tx-lg'><b>Byt</b>e</span>
-              <span className='tx-lgx'><b>C</b>ity</span>
+              <span className='tx-md'><b>Byt</b>e</span>
+              <span className='tx-sm'><b>C</b>ity</span>
             </h1>
             <div>
               <div className="box-shadow-2-b pa-1 block bord-r-r-10" style={{background:"#ffffff"}}>
-                <Image src={"/bytecity.png"} alt="bytecity" width={50} height={50} />
+                <Image src={"/bytecity.png"} alt="bytecity" width={24} height={24} />
               </div>
             </div>
           </a>
@@ -55,7 +55,7 @@ export default async function Page() {
         
           {!foundJWT && <>
             <div className='pos-abs top-0 right-0 pt-3'>
-              <div className='Q_xs_sm py-8'></div>
+              <div className='Q_xs_sm py-6'></div>
               <ConnectPlayerForm />
             </div>
           </>}

@@ -77,7 +77,7 @@ function Component ({_bouncingThing, tokensArrayArray, isSelectedId, token, clic
       <mesh   // BOUNCING THING CASE
         position={[ +0.325, -0.37, -0.38, ]}          
       >
-        <boxGeometry args={[0.15, 0.18, 0.1]} />
+        <boxGeometry args={[0.18, 0.18, 0.12]} />
         <meshStandardMaterial transparent={true} opacity={0.5}
           color={!isSelectedId ? "#777777" : "#777777"}  
         />

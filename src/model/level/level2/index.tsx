@@ -125,7 +125,8 @@ function Component ({}) {
     app.audio("neutral","./sound/aaa.wav")
     s__selectedToken(x);
     updateTokenOrder(x, selectedTimeframeIndex, "state", 0)
-    if (!tutoStage.lvl) { app.alert("success",x.toUpperCase()+" started successfuly!") }
+    if (!tutoStage.lvl) { app.alert("success","Game Started!") }
+    // if (!tutoStage.lvl) { app.alert("success",x.toUpperCase()+" started successfuly!") }
 
   }
   const trendDown = (x: any) => { s__selectedToken(x); updateTokenOrder(x, selectedTimeframeIndex, "mode", 1)}
@@ -236,7 +237,7 @@ function Component ({}) {
 
     if (isBuying) {
       app.audio("neutral","./sound/cas.wav")
-      app.alert("success","Buy order locally saved!")
+      app.alert("success",`You bought: ${x.toUpperCase()}!`)
     }
   
     if (form.id in currentOrders) {
@@ -288,8 +289,8 @@ function Component ({}) {
       }
     } else {
       if (newTradeObj.side === "sell") {
-        app.audio("neutral","./sound/powerDown.wav")
-        app.alert("error", "Missing live buy order");
+        app.audio("neutral","./sound/404.wav")
+        app.alert("error", "Live trade not found!");
         // s__orderHistory(orderHistory);
         // if (tutoStage > 4)
       }
