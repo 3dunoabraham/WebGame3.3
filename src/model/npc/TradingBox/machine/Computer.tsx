@@ -77,12 +77,14 @@ function Component ({tokensArrayArray, state, calls}:any) {
             >
               <meshStandardMaterial color={"#888"}  />
             </Cylinder>
+            {state.isSelectedId &&
             <Cylinder args={[0.03, 0.01, 0.12, 7]} position={[0.0,0.23,0.065]} // webcam camera
               receiveShadow castShadow
               rotation={[0,Math.PI/2,Math.PI/2]}
             >
               <meshStandardMaterial color={"#808080"}  />
             </Cylinder>
+            }
           </>
         }
       </group>

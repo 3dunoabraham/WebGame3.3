@@ -29,8 +29,8 @@ export function BitCrush() {
     // console.log("newBallPosition.z", newBallPosition.z)
     
     // Check for collision with the walls
-    if (newBallPosition.x > 1.2 || newBallPosition.x < -1.2) {
-        if (newBallPosition.x > 1.2) {
+    if (newBallPosition.x > 0.8 || newBallPosition.x < -0.8) {
+        if (newBallPosition.x > 0.8) {
             newBallPosition.x = 1.1;
             const paddleCenter = $playerPaddle.current.position.z; // Assuming playerPaddle is the paddle the ball collides with
             const distanceFromCenter = newBallPosition.z - paddleCenter;
@@ -57,7 +57,7 @@ export function BitCrush() {
                 // return alert(score)
             }
             
-        } else if (newBallPosition.x < -1.2) {
+        } else if (newBallPosition.x < -0.8) {
             newBallPosition.x = -1.1;
             // console.log("newBallPosition.x", newBallPosition.x)
           setComputerPosition({...newBallPosition});
@@ -70,6 +70,7 @@ export function BitCrush() {
         setBallZVelocity(-ballZVelocity);
     }
 
+    newBallPosition.y = Math.sin(newBallPosition.x+0.8)
     setBallPosition(newBallPosition);
   };
 
@@ -142,24 +143,26 @@ export function BitCrush() {
   return (
     <>
     {/* SCORE */}
-      <group position={[0, -0.145, 7.5]} rotation={[0,Math.PI,0]} >
-        <DynaText color={"#0099ff"} text={score < 0 ? "Click the blue to Play" : score} font={0.2}
-            position={[0,0,0.05]}
+      <group position={[0.5, -0.145, 7.5]} rotation={[0,Math.PI,0]} >
+        <DynaText color={"#0099ff"} text={score < 0 ? "Click blue to Play" : score} font={0.1}
+            onClick={startGame}
+            position={[0,0,0.14]}
         />
         { lastScore > 0 && 
            <DynaText color={"#ff9900"} text={lastScore} font={0.75} position={[0,0,-0.87]}/>
         }
-        <DynaText color={"#ff9900"} text={"Lock Camera"} font={0.15} position={[0,0,-0.35]}/>
+        {/* <DynaText color={"#994400"} text={"Lock Camera"} font={0.15} position={[0,0,-0.35]}/> */}
     </group>
 
-      {/* SCREEN */}
+      {/* FRAME */}
       <group position={[0, -0.2, 6]}>
-        <Box args={[2.5, 0.1, 3.3]} castShadow receiveShadow>
+        <Box args={[1.8, 0.1, 2.4]} castShadow receiveShadow>
           <meshStandardMaterial color="#eee" />
         </Box>
       </group>
+      {/* SCREEN */}
       <group position={[0, -0.2, 6]}>
-        <Box args={[2.4, 0.15, 2.2]} castShadow receiveShadow>
+        <Box args={[1.7, 0.15, 2]} castShadow receiveShadow>
           <meshStandardMaterial color="#333" />
         </Box>
       </group>
@@ -167,10 +170,10 @@ export function BitCrush() {
 
       <group position={[0, 0, 6]}>
         {/* START BUTTON */}
-        <Box args={[0.5, 0.2, 0.3]} castShadow receiveShadow position={[0, -0.2, 1.1]}
+        <Box args={[0.6, 0.2, 0.3]} castShadow receiveShadow position={[0.5, -0.2, 1.1]}
             onClick={startGame}
         >
-          <meshStandardMaterial color="#0099ff" />
+          <meshStandardMaterial color={"#0099ff"} />
         </Box>
         {/* SOUTH BUTTON */}
         {/* <Box args={[0.5, 0.2, 0.3]} castShadow receiveShadow position={[0, -0.2, -0.9]}
@@ -192,13 +195,15 @@ export function BitCrush() {
         {/* END OF BALL */}
 
         {/* PLAYER PADDLE */}
-        <Box args={[0.1, 0.1, 0.4]} position={[1.25, playerPaddlePosition.y, playerPaddlePosition.z]} castShadow receiveShadow ref={$playerPaddle}>
+        <Box args={[0.1, 0.1, 0.4]} position={[0.85, playerPaddlePosition.y, playerPaddlePosition.z]} 
+        castShadow receiveShadow ref={$playerPaddle}>
           <meshStandardMaterial color="#ff9900" />
         </Box>
         {/* END OF PLAYER PADDLE */}
 
         {/* COMPUTER PADDLE */}
-        <Box args={[0.1, 0.1, 0.4]} castShadow position={[-1.25, computerPosition.y, computerPosition.z]} receiveShadow>
+        <Box args={[0.1, 0.1, 0.4]} castShadow position={[-0.85, computerPosition.y, computerPosition.z]} 
+        receiveShadow>
           <meshStandardMaterial color="#ff0000" />
         </Box>
         {/* END OF COMPUTER PADDLE */}

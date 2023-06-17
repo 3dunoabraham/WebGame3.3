@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Box, Cylinder, MapControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
+import DynaText from "../npc/TradingBox/DynaText";
 
 function LockCameraOnBox() {
   const [cameraLocked, setCameraLocked] = useState(false);
@@ -13,7 +14,7 @@ function LockCameraOnBox() {
   useFrame(() => {
     if (controlsRef.current && cameraLocked) {
       controlsRef.current.target.set(0, 0, 12.5); // Make the controls target the scene origin
-      controlsRef.current.object.position.set(0, 5, 12); // Set the camera position to (0, 10, 0) when cameraLocked is true
+      controlsRef.current.object.position.set(0, 3, 12); // Set the camera position to (0, 10, 0) when cameraLocked is true
     }
   });
 
@@ -22,25 +23,29 @@ function LockCameraOnBox() {
       <Box position={[0, -0.67, 14.25]} onClick={cameraLocked ? ()=>(handleBoxClick()) : ()=>(null) }>
         <meshStandardMaterial color={"#ffffff"} />
       </Box>
+      <group position={[-0.5, -0.145, 13.02]} rotation={[0,Math.PI,0]} >
+        <DynaText color={"#994400"} text={cameraLocked ? "Unlock Camera" : "Lock Camera"} font={0.12} position={[0,0,-0.35]}/>
+
+      </group>
       {!cameraLocked && (
         <>
           <Box
-            position={[0, -0.17, 14]}
+            position={[-0.5, -0.17, 13.18]}
             onClick={handleBoxClick}
             args={[0.5, 0.1, 0.2]}
           >
-            <meshStandardMaterial color={"#00ff99"} />
+            <meshStandardMaterial color={"#aa6600"} />
           </Box>
         </>
       )}
       {cameraLocked && (
         <>
           <Cylinder
-            position={[0, -0.17, 13.7]}
+            position={[-0.7, -0.2, 13.2]}
             onClick={handleBoxClick}
             args={[0.1, 0.1, 0.2, 12, 3]}
           >
-            <meshStandardMaterial color={"#ff9900"} />
+            <meshStandardMaterial color={"#994400"} />
           </Cylinder>
         </>
       )}

@@ -1,8 +1,9 @@
 import DynaText from "@/model/npc/TradingBox/DynaText"
 import { Box, Cylinder } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
-import { useMemo, useRef, useState } from "react"
+import { useContext, useMemo, useRef, useState } from "react"
 import { useAuth } from "@/../script/state/context/AuthContext"
+import { AppContext } from "../../../../../script/state/context/AppContext"
 
 function getCompleteTrades(transactionString: string): any[] {
   const transactions: string[] = transactionString.split('&&&').filter(Boolean);
@@ -52,6 +53,7 @@ function getCompleteTrades(transactionString: string): any[] {
 
 
 function Component ({calls, state, projectionMode, s__projectionMode}:any) {
+  const app:any = useContext(AppContext)
   const { superuser, do:{login, demo}, jwt }:any = useAuth()
   
   const $claimButton:any = useRef()
@@ -76,6 +78,9 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
   }, [state.savedString])
   const toggleProjection = () => {
     s__projectionMode(!projectionMode)
+    if (!projectionMode) {
+      app.audio("neutral", "./sound/bridge.wav")
+    }
   }
   const userDatabaseArray = useMemo(()=>{
     try {
@@ -115,8 +120,71 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
 
   return (<>
     
+    {state.hasAnyToken &&
+      <group position={[0.5,0,1.95]}>
+        <Cylinder args={[0.25,0.38,0.75,6]} position={[0,-0.32,0]} castShadow receiveShadow 
+        >
+          <meshStandardMaterial color={"#ccc"}/>
+        </Cylinder>
+      </group>
+    }
+
+
+
+
+{state.hasAnyToken && <>
+      <group position={[0.35,-0.55,1.95]}>
+          {/* {userDatabaseArray.filter((aTrade:any,index:number)=>(aTrade.profitLoss > 0)).slice(0,5).map((anOrder:any, index:any)=>{
+            return (
+              <Box args={[0.07,0.11,0.07]} position={[index*0.075,0.6,0]}  castShadow receiveShadow key={index}>
+                <meshStandardMaterial color={anOrder.profitLoss == 0 ? "#f990" : "#ccc"}/>
+              </Box>
+            )
+          })} */}
+          {userDatabaseArray.filter((aTrade:any,index:number)=>(aTrade.profitLoss > 0)).slice(0,5).map((anOrder:any, index:any)=>{
+            return (
+              <Box args={[0.065,0.1,0.18]} position={[index*0.075,0.6,0]}  castShadow receiveShadow key={index}>
+                <meshStandardMaterial color={anOrder.profitLoss == 0  ? "#aaaaaa" : "#ffaa33"}
+                />
+              </Box>
+            )
+          })}
+          
+          {[0,1,2,3,4].map((anOrder:any, index:any)=>{
+            return (
+              <Box args={[0.065,0.1,0.18]} position={[index*0.075,0.6,0]}   key={index}>
+                <meshStandardMaterial color={"#ff9933"}
+                  transparent={true} opacity={0.15}
+                />
+              </Box>
+            )
+          })}
+        </group>
+      </>}
+
+
+
+      
+      {state.hasAnyToken && <group position={[0.5,0,0]}>
+            <Box args={[1.6,0.66,1.2]} position={[0.0,-0.81,1.88]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#fff"}/>
+            </Box>
+            <Box args={[0.9,0.6,0.95]} position={[0.12,-0.75,1.84]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#B6AfA5"}/>
+            </Box>
+          <Box args={[0.5,0.1,2.2]} position={[-0.5,-1.12,1]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#eee"}/>
+            </Box>
+          <Box args={[0.85,0.2,0.85]} position={[0.08,-1.12,-0.5]} castShadow receiveShadow>
+              <meshStandardMaterial color={"#ddd"}/>
+            </Box>
+          </group>}
+
+
+
+
     {state.hasAnyToken && !!superuser &&  <>
-      <group position={[0,0,2.01]} rotation={[Math.PI/2,0,0]}>
+      <group position={[0.15,0,2.25]} rotation={[Math.PI/2,0,Math.PI/2]}>
         {<>
           
           <DynaText text={"SYNC \n API KEYS!"} color={ "#ff9900"} font={0.05}
@@ -130,9 +198,13 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
         <Cylinder args={[0.15,0.15,0.1,4]} position={[0,0.45,1.05]} castShadow receiveShadow ref={$claimButton}
           onClick={setAPIKeys}
         >
-          <meshStandardMaterial color={!projectionMode ? "#a0dFf3" : "#f93"}/>
+          <meshStandardMaterial color={"#a0dFf3"}/>
         </Cylinder>
         </>}
+      </group>
+    </>}
+    {state.hasAnyToken && !!superuser &&  <>
+      <group position={[0.5,0,2.01]} rotation={[Math.PI/2,0,0]}>
         {!!superuser.subscription && <>
         <Cylinder args={[0.12,0.12,0.1,projectionMode ? 4 : 3]} position={[0,0.25,0.15]} castShadow receiveShadow ref={$claimButton}
           onClick={()=>{toggleProjection()}}
@@ -146,6 +218,11 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
         </Cylinder>
       </group>
     </>}
+
+
+
+
+
 
 
 
@@ -232,61 +309,6 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
     }
   
 
-    {state.hasAnyToken &&
-      <group position={[0,0,1.95]}>
-        <Cylinder args={[0.25,0.38,0.75,6]} position={[0,-0.32,0]} castShadow receiveShadow 
-        >
-          <meshStandardMaterial color={"#ccc"}/>
-        </Cylinder>
-      </group>
-    }
-    {state.hasAnyToken && <>
-      <group position={[-0.15,-0.55,1.95]}>
-          {/* {userDatabaseArray.filter((aTrade:any,index:number)=>(aTrade.profitLoss > 0)).slice(0,5).map((anOrder:any, index:any)=>{
-            return (
-              <Box args={[0.07,0.11,0.07]} position={[index*0.075,0.6,0]}  castShadow receiveShadow key={index}>
-                <meshStandardMaterial color={anOrder.profitLoss == 0 ? "#f990" : "#ccc"}/>
-              </Box>
-            )
-          })} */}
-          {userDatabaseArray.filter((aTrade:any,index:number)=>(aTrade.profitLoss > 0)).slice(0,5).map((anOrder:any, index:any)=>{
-            return (
-              <Box args={[0.065,0.1,0.18]} position={[index*0.075,0.6,0]}  castShadow receiveShadow key={index}>
-                <meshStandardMaterial color={anOrder.profitLoss == 0  ? "#aaaaaa" : "#ffaa33"}
-                />
-              </Box>
-            )
-          })}
-          
-          {[0,1,2,3,4].map((anOrder:any, index:any)=>{
-            return (
-              <Box args={[0.065,0.1,0.18]} position={[index*0.075,0.6,0]}   key={index}>
-                <meshStandardMaterial color={"#ff9933"}
-                  transparent={true} opacity={0.15}
-                />
-              </Box>
-            )
-          })}
-        </group>
-      </>}
-
-
-
-      
-      {state.hasAnyToken && <>
-            <Box args={[1.5,0.66,1.2]} position={[0.05,-0.81,1.88]} castShadow receiveShadow>
-              <meshStandardMaterial color={"#fff"}/>
-            </Box>
-            <Box args={[0.9,0.6,0.95]} position={[0.05,-0.75,1.84]} castShadow receiveShadow>
-              <meshStandardMaterial color={"#B6AfA5"}/>
-            </Box>
-          <Box args={[0.5,0.1,2.2]} position={[0.08,-1.12,1]} castShadow receiveShadow>
-              <meshStandardMaterial color={"#eee"}/>
-            </Box>
-          <Box args={[0.85,0.2,0.85]} position={[0.08,-1.12,-0.5]} castShadow receiveShadow>
-              <meshStandardMaterial color={"#ddd"}/>
-            </Box>
-          </>}
 
 
 

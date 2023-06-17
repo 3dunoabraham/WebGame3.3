@@ -29,7 +29,7 @@ const selectedTimeframeIndex = 0
 const selectedTimeframe = "3m"
 const feePercent = 0.0
 const chartPosLookup:any = {
-  "btc": [-1.25,0,-0.8], "eth": [1.22,0,-0.02], "link": [-1.11,0,1.15], "ftm": [0.72,0,1.515],
+  "btc": [-1.25,0,-0.8], "eth": [0.315,0,-0.6], "link": [-1.335,-0.15,0.7], "ftm": [0.98,-0.25,1.4],
 }
 const chartRotLookup:any = {
   "btc": [0,Math.PI/2,0], "eth": [0,-Math.PI/2,0], "link": [0,Math.PI/2,0], "ftm": [0,0,0],
@@ -472,8 +472,8 @@ function Component ({}) {
       {/* Loyal Player */}
       {hasAnyToken &&  (tutoStage.lvl > 3 && !!superuser && superuser.goodAttempts > 0) && !isDefaultUser &&
         <group position={[0,0,6]}>
-          <GoodPlaceGoal calls={{triggerSyncGoodPlace,setAPIKeys, claim:claimOrSyncDatabase}} {...{projectionMode, s__projectionMode: _s__projectionMode}}
-            state={{hasAnyToken, profitHistory, savedString }}
+          <GoodPlaceGoal calls={{triggerSyncGoodPlace,setAPIKeys, claim:claimOrSyncDatabase, s__projectionMode}} {...{projectionMode, s__projectionMode: _s__projectionMode}}
+            state={{hasAnyToken, profitHistory, savedString, projectionMode }}
           />
         </group>
       }

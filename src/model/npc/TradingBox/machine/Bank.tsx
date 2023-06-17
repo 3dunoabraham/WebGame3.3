@@ -118,16 +118,23 @@ function Component ({tokensArrayArray, state, calls}:any) {
 
 
 
-        {state.isSelectedId && 
-          <>
-          
-          <Cylinder args={[0.02, 0.03, 0.46, 4]}
+        <Cylinder args={[0.02, 0.03, 0.46, 4]}
               position={[-0.2,0.03,0.17]} // PILLAR
               receiveShadow castShadow
               rotation={[0,Math.PI/4*3,0]}
             >
               <meshStandardMaterial color={"#8b8888"}  />
             </Cylinder>
+          <Cylinder args={[0.02, 0.03, 0.46, 4]}
+              position={[0.2,0.03,0.17]} // PILLAR
+              receiveShadow castShadow
+              rotation={[0,Math.PI/4*3,0]}
+            >
+              <meshStandardMaterial color={"#8c8888"}  />
+            </Cylinder>
+        {state.isSelectedId && 
+          <>
+          
           <Cylinder args={[0.02, 0.03, 0.46, 4]}
               position={[-0.1,0.03,0.17]} // PILLAR
               receiveShadow castShadow
@@ -141,13 +148,6 @@ function Component ({tokensArrayArray, state, calls}:any) {
               rotation={[0,Math.PI/4*3,0]}
             >
               <meshStandardMaterial color={"#8a8888"}  />
-            </Cylinder>
-          <Cylinder args={[0.02, 0.03, 0.46, 4]}
-              position={[0.2,0.03,0.17]} // PILLAR
-              receiveShadow castShadow
-              rotation={[0,Math.PI/4*3,0]}
-            >
-              <meshStandardMaterial color={"#8c8888"}  />
             </Cylinder>
 
             <Cylinder args={[0.02, 0.03, 0.46, 4]}
