@@ -122,19 +122,23 @@ function Component ({}) {
   const onTextClick = (x: any) => s__selectedToken(x)
   const setTutoStage = (lvl: any) => s__LS_tutoStage(JSON.stringify({ ...tutoStage, lvl }))
   const join = (x: any) => {
+    app.audio("neutral","./sound/aaa.wav")
     s__selectedToken(x);
     updateTokenOrder(x, selectedTimeframeIndex, "state", 0)
     if (!tutoStage.lvl) { app.alert("success",x.toUpperCase()+" successfuly initiated!") }
-    app.audio("neutral","./sound/click47.wav")
 
   }
   const trendDown = (x: any) => { s__selectedToken(x); updateTokenOrder(x, selectedTimeframeIndex, "mode", 1)}
   const trendUp = (x: any) => { s__selectedToken(x); updateTokenOrder(x, selectedTimeframeIndex, "mode", 0) }
-  const turnOff = (x: any) => { updateTokenOrder(x, selectedTimeframeIndex, "state", 0) }
+  const turnOff = (x: any) => {
+    updateTokenOrder(x, selectedTimeframeIndex, "state", 0)
+    app.audio("neutral","./sound/click33.wav")
+  }
   const turnOn = (x: any) => {
     s__selectedToken(x)
     if (!tutoStage.lvl) { setTutoStage(1) }
     updateTokenOrder(x, selectedTimeframeIndex, "state", 1)
+    app.audio("neutral","./sound/click33.wav")
   }
   const leaveAsset = async (x: any) => {
     s__selectedToken(x)
@@ -142,7 +146,7 @@ function Component ({}) {
     delete new_tokensArrayObj[x];
     s__LS_tokensArrayObj((prevValue) => JSON.stringify(new_tokensArrayObj));
     s__tokensArrayObj(new_tokensArrayObj)
-    app.audio("neutral","./sound/click33.wav")
+    app.audio("neutral","./sound/click47.wav")
 
   }
   const setAPIKeys = async () => {
@@ -227,6 +231,12 @@ function Component ({}) {
     handleFirstTutorialStages(isBuying, tutoStage, setTutoStage);
     s__orderHistory([...orderHistory, newTradeObj])
     updateTokenOrder(x,selectedTimeframeIndex,"buy",isBuying ? "1" : "0",{["price"]:y.price})
+
+    if (isBuying) {
+      app.audio("neutral","./sound/cas.wav")
+    } else {
+      app.audio("neutral","./sound/cassh.wav")
+    }
   
     if (form.id in currentOrders) {
       handleExistingOrder(newTradeObj);

@@ -52,7 +52,7 @@ const ConnectPlayerForm = ({
     }
   }
   const handlePinKeyPress = (event: any) => {
-    app.audio("neutral","./sound/click47.wav")
+    app.audio("neutral","./sound/aaa.wav")
     if (['Enter'].includes(event.key)) {
       triggerLogin()
     }
