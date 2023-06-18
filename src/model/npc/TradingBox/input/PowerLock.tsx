@@ -12,22 +12,22 @@ function PowerLock ({ tokensArrayArray, state, calls }:any) {
         <group position={[!tokensArrayArray ? 0 : -0.25,0,0]}>
             <mesh castShadow receiveShadow 
                 rotation={[0,0,0]} scale={state.score.score ? 1 : 3}
-                position={[  0.67,  0,  0,]}
+                position={[  0.64,  0,  0,]}
             >
-                <boxGeometry args={[0.1, 0.01, 0.015]} />
+                <boxGeometry args={[0.07, 0.01, 0.015]} />
                 <meshStandardMaterial color={!tokensArrayArray ? "#ff9900" : "#bb9955"} />
             </mesh>
             
             <mesh castShadow receiveShadow 
                 rotation={[0,0,0]} scale={state.score.score ? 1 : 3}
-                position={[  0.62,  0,  0.05,]}
+                position={[  0.59,  0,  0.05,]}
             >
-                <boxGeometry args={[0.033, 0.008, 0.02]} />
+                <boxGeometry args={[0.03, 0.008, 0.02]} />
                 <meshStandardMaterial color={!tokensArrayArray ? "#ff9900" : "#bb9955"} />
             </mesh>
             
             <Torus args={[0.06,0.033,6,4]} rotation={[Math.PI/2,0,Math.PI/4*3]} 
-                position={[0.86,0,0]}
+                position={[0.79,0,0]}
             >
                 <meshStandardMaterial flatShading={true} color={!tokensArrayArray ? "#ff9900" : "#bb9955" } />
 

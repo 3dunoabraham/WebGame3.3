@@ -1,4 +1,4 @@
-# Gamified Web-Based Application (#webgamed) | Byte City
+# Gamified Web-Based Application (#webpov) | Byte City
 Byte City is an intuitive platform that optimizes learning and simplifies investing through gamification and automated processes.
 
 

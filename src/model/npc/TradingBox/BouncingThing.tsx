@@ -2,7 +2,7 @@ import { useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import { Mesh } from "three";
 
-function Component ({_bouncingThing, tokensArrayArray, isSelectedId, token, clicked, livestate}:any) {
+function Component ({_bouncingThing, tokensArrayArray, isSelectedId, token, clicked, livestate, calls}:any) {
   
   const shakeAmount = Math.sin(Date.now() / 1000) / 10;
   const jumpHeight = 1.5;
@@ -76,6 +76,7 @@ function Component ({_bouncingThing, tokensArrayArray, isSelectedId, token, clic
     {!!tokensArrayArray && !clicked && <>
       <mesh   // BOUNCING THING CASE
         position={[ +0.325, -0.37, -0.38, ]}          
+        onClick={()=>{calls.app_tip("Uranium Block: Continue the tutorial to unlock it!")}}
       >
         <boxGeometry args={[0.18, 0.18, 0.12]} />
         <meshStandardMaterial transparent={true} opacity={0.5}
@@ -83,6 +84,7 @@ function Component ({_bouncingThing, tokensArrayArray, isSelectedId, token, clic
         />
       </mesh>
     </>}
+    {!!tokensArrayArray &&
     <group position={[0,-0.3,0]}>
       <mesh castShadow receiveShadow ref={bouncingThing}
         position={[ 0.33, 0, -0.36, ]}          
@@ -108,6 +110,7 @@ function Component ({_bouncingThing, tokensArrayArray, isSelectedId, token, clic
         }
       </mesh>
     </group>
+    }
   </>)
 }
 export default Component

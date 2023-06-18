@@ -4,11 +4,9 @@ import { useState } from "react";
 import { FaExternalLinkAlt, FaPause,FaStar, FaPauseCircle, FaRecycle, FaCity, FaArrowDown, FaBook, FaTwitter, FaUser } from "react-icons/fa";
 import Image from 'next/image';
 import Link from "next/link";
+import DisconnectPlayerForm from "@/model/overlay/DisconnectPlayerForm";
 
-function Component ({}) {
-    // const [asd, s__asd] = useState("")
-    
-    // const [asd, s__asd] = useState("")
+function Component ({foundUser, foundJWT}:any) {
     const [asd, s__asd] = useState("")
 
     const setFullscreen = () => {
@@ -28,26 +26,17 @@ function Component ({}) {
                 
                 <div onClick={()=>{setFullscreen()}} className="opaci-chov--50">
 
-                <div className="tx-lg tx-bold-2 bg-white tx-white py-2 px-4 bord-r-50 mt-2  tx-lgx tx-shadow-5" style={{color:"#00ff00"}}>Set FullScreen</div>
+                    <div className="tx-lg tx-bold-5 bg-white tx-white py-1 px-4 bord-r-50 mt-2  tx-lgx tx-shadow-5"
+                        style={{color:"#00ff00"}}>
+                            Set FullScreen
+                    </div>
                 </div>
                 <div className="pt-100 pb-8 "></div>
-                {/* <div onClick={()=>{s__asd("")}} className="opaci-chov--50">
-
-                    <h1 className="Q_sm_x tx-white pa-4 tx-lgx tx-shadow-5" style={{color:"orange"}}>Click Here to <br /> Go Back to the Game</h1>
-                </div> */}
-                
                <Link className="flex-col pos-abs   opaci-chov--50  mt-8 pt-7" 
                  href="https://webpov.vercel.app/"
                  style={{transform:"translateX(15%)"}}
                 >
-                    {/* <div   style={{background:"orangered"}}
-                        className="  tx-lgx py-1 block px-4 py-2 box-shadow-i-2-t tx-white flex"
-                    >
-                        Register <div className="invisible">WebGamed</div>
-                    </div> */}
-                    
                     <div style={{color:"white", 
-                    // textShadow:"1px 1px 0 orangered, -1px -1px 0 orangered "
                     textShadow:"1px 1px 0 orangered, 2px 2px 0 orangered "
                 }} className=" tx-bold-8  opaci-75 tx-   translate-y-50 tx-ls-1 pr-8 flex flex-align-start gap-2"
                     
@@ -89,21 +78,17 @@ function Component ({}) {
                                 style={{color:"#004488"}}
                                 className=" opaci-chov--50 flex-col px-2 Q_xs_px-1 bg-w-90 bord-r-10 py-3"
                             >
-                                {/* <div className=" gap-1 flex flex-align-end tx-shadow-5 tx-white">
-                                    Documentation:
-                                </div> */}
                                 <div className="tx-lgx"><FaBook /></div>
-                                <div className="tx-sm tx-center Q_sm_x">webgamed <br /> .gitbook.io/ <br />
+                                <div className="tx-xs tx-center Q_xs">docs</div>
+                                <div className="tx-sm tx-center Q_sm_x">webpov <br /> .gitbook.io/ <br />
                                 <b className="tx-mdl">bytecity</b></div>
                             </a>
                         <a href="https://twitter.com/gta_btc" target="_blank"
                             style={{color:"#004488"}}
                             className=" opaci-chov--50 flex-col px-2 Q_xs_px-1 bg-w-90 bord-r-10 py-3"
                         >
-                            {/* <div className=" gap-1 flex flex-align-end tx-shadow-5 tx-white">
-                                Twitter:
-                            </div> */}
                             <div className="tx-lgx"><FaTwitter /></div>
+                                <div className="tx-xs tx-center Q_xs">twitter</div>
                             <div className="tx-sm tx-center Q_sm_x">twitter <br />  .com/ <br />
                             <b className="tx-mdl">bytecty</b></div>
                             
@@ -112,103 +97,106 @@ function Component ({}) {
                             style={{color:"#cc44cc"}}
                             className=" opaci-chov--50 flex-col px-2 Q_xs_px-1 bg-w-90 bord-r-10 py-3"
                         >
-                            {/* <div className=" gap-1 flex flex-align-end tx-shadow-5 tx-white">
-                                Twitter:
-                            </div> */}
                             <div className="tx-lgx"><FaStar /></div>
-                            <div className="tx-sm tx-center Q_sm_x">webgamed <br />  .vercel.app <br />
-                            <b className="tx-mdl">/ranking</b></div>
+                                <div className="tx-xs tx-center Q_xs">webpov</div>
+                            <div className="tx-sm tx-center Q_sm_x">webpov <br />  .vercel. <br />
+                            <b className="tx-mdl">app</b></div>
                             
                         </a>
                         <a href="https://webpov.vercel.app/?user=" 
                             style={{color:"#ff8800"}}
                             className=" opaci-chov--50 flex-col px-2 Q_xs_px-1 bg-w-90 bord-r-10 py-3"
                             >
-                            {/* <div className=" gap-1 flex flex-align-end tx-shadow-5 tx-white">
-                                Twitter:
-                            </div> */}
                             <div className="tx-lgx"><FaUser /></div>
-                            <div className="tx-sm tx-center Q_sm_x">webgamed <br />  .vercel.app <br />
+                                <div className="tx-xs tx-center Q_xs">user</div>
+                            <div className="tx-sm tx-center Q_sm_x">webpov <br />  .vercel.app <br />
                             <b className="tx-mdl">?user=...</b></div>
 
                             </a>
                         </div>
+                        
+          <div className=''>
+              <DisconnectPlayerForm />
+            </div>
                     <details className="">
                         <summary className="pt-6 pb-2 opaci-chov--50 ">
-                            <button className="noclick tx-white">Controls</button>
+                            <button className="noclick tx-lg tx-shadow-5  tx-bold-8 tx-white">Controls</button>
                         </summary>
-                        <div className="flex-col box-shadow-5-b left-50p translate-x--50 bord-r-50  pos-abs w-80 bg-b-5 noverflow  w-max-600px" >
+                        <div className="tx-shadow-5 flex-col box-shadow-5-b left-50p translate-x--50 bord-r-50  pos-abs w-80 bg-b-5 noverflow  w-max-600px" >
                             <div className="flex-1 flex-col w-100 gap-2 box-shadow-i-2-t pa-8  flex-align-stretch ">
                                 <div className="flex-center gap-3 ">
                                     <div className="gap-1 flex-col">
-                                        <div className="gap-1 flex">
-                                            <div className="px-2 py-2 _ddr"></div>
-                                            <div className="px-2 py-2 bg-white"></div>
-                                        </div>
-                                        <div className="px-4 py-4 bg-white"></div>
+                                        ←
+                                        🖱️
                                     </div>
-                                    <div className="">Left Click Drag</div>
-                                    <div className="flex-1 w-min-50px opaci-10 border-lgrey my-1"></div>
+                                    <div className="flex-col"><span className="tx-red">Left</span> Click Drag</div>
+                                    <div className="flex-1 w-min-50px opaci-75 border-red my-1"></div>
                                     <div className="tx-red tx-lg">Move</div>
                                 </div>
                                 <div className="flex-center gap-3 ">
-                                    <div className="">Right Click Drag</div>
-                                    <div className="flex-1 w-min-50px opaci-10 border-lgrey my-1"></div>
-                                    <div className="nowrap">Rotate Camera</div>
+                                    <div className=""><span className="tx-green">Right</span> Click Drag</div>
+                                    <div className="flex-1 w-min-50px opaci-75 border-green my-1"></div>
+                                    <div className="tx-right"><span className="tx-green">Rotate</span> Camera</div>
                                 </div>
                                 <div className="flex-center gap-3 ">
-                                    <div className="">Scroll In/Out</div>
-                                    <div className="flex-1 w-min-50px opaci-10 border-lgrey my-1"></div>
-                                    <div>Zoom In/Out</div>
-                                </div>
-                                <div className="flex-center gap-3 ">
-                                    <div className="">F5</div>
-                                    <div className="flex-1 w-min-50px opaci-10 border-lgrey my-1"></div>
-                                    <div>Refresh</div>
+                                    <div className=""><span className="tx-blue">Scroll</span> In/Out</div>
+                                    <div className="flex-1 w-min-50px opaci-75 border-blue my-1"></div>
+                                    <div className="tx-right"><span className="tx-blue">Zoom</span> In/Out</div>
                                 </div>
                             </div>
                         </div>
                     </details>
+
+          
+
                     
-                <div onClick={()=>{s__asd("")}} className="opaci-chov--50 tx-center flex-align-end pos-abs bottom-0 mb-8  right-0 flex-col">
-                    <div className="pa-8 pb-0 tx-shadow-5 tx-lx flex-center gap-2">
-                        {/* <FaArrowDown /> */}
-                        Resume
-                        <div className="box-shadow-2-b py-0 pa-1 block bord-r-10" style={{background:"#ffffff"}}>
-                            <Image src={"/bytecity.png"} alt="bytecity" width={50} height={50} />
+                    <div onClick={()=>{s__asd("")}} className="opaci-chov--50 bg-w-50 tx-center bord-r-l-100  noverflow pos-abs bottom-0 mb-8 box-shadow-2-b right-0 flex-col-stretch">
+                        <div className="pt-4 pb-2 px-8  tx-shadow-5 box-shadow-5-b tx-lx flex-center gap-2 bg-white ">
+                            {/* <FaArrowDown /> */}
+                            <div style={{color:"black "}} className="tx-roman">Back</div>
+                            <div className="box-shadow-5-b  py-0 pa-1 block bord-r-10" style={{background:"#ffffff"}}>
+                                <Image src={"/bytecity.png"} alt="bytecity" width={50} height={50} />
+                            </div>
+                        </div>
+                        <div className=" tx-white mt-1   tx-shadow-5 pb-3 px-8 tx-lg bg-white" style={{color:"orange "}}>
+                            <span className="block pos-abs hover-4 ">
+                                Resume Game
+                            </span>
                         </div>
                     </div>
-                    <div className="tx-white tx-shadow-5 pa-8 pt-0  tx-lg" style={{color:"orange "}}>
-                         Back to Game ↑
-                    </div>
-                </div>
                 </div>
             </div>
         </>}
         {asd !== "landing" && <>
             <div className='Q_sm_x pos-abs top-0  z-999  w-100 tx-center   tx-white '
             >
-            <button className="pos-rel tx-white py-1 my-1 px-4 tx-mdl opaci-chov--75 bg-black scale-hov-150"
-                onClick={()=>{s__asd("landing")}}
-                style={{boxShadow:"inset 0 0 0 2px #ff9900",transform:"scale(0.9) rotate(-2deg)"}}
-            >
-                MENU | Byte City Alpha
-            </button>
             </div>
 
             
-            <div className='Q_sm_x right-0 pos-abs bottom-0  z-999  tx-center   tx-white '
+            <div className=' right-0 pos-abs bottom-0 mb-100 translate-y-100 z-999  tx-center   tx-white '
             >
-            <button className="pos-rel tx-white py-1 my-1 px-2 tx-lgx opaci-chov--75 bg-black "
-                onClick={()=>{s__asd("landing")}}
-                style={{boxShadow:"inset 0 0 0 2px #ff9900",transform:"scale(0.9) rotate(2deg)"}}
+                <details className="pos-rel tx-black">
+                    <summary className="opaci-chov--75">
+
+                    <button className="pos-rel noclick tx-white py-1 my-1 px-2 tx-lgx opaci-chov--75 bg-black "
+                style={{boxShadow:"inset 0 0 0 2px #ff9900",transform:"scale(0.9)"}}
             >
-                MENU
+                Quests
             </button>
+                    </summary>
+                    <div className="pos- -y--100 px-2 bg-white py-1 bord-r-5 mx-1">
+                        <div>
+                            <p>{`1. Demo -> Live`}</p>
+                            <p>{`2. Buy -> Wait`}</p>
+                            <p>{`3. Wait -> Profit`}</p>
+                            <p>{`4. Sell -> Repeat`}</p>
+                        </div>
+                    </div>
+                </details>
             </div>
 
 
-            <div className='Q_xs right-0 pos-abs top-0  z-999  tx-center   tx-white '
+            <div className=' right-0 pos-abs top-0  z-999  tx-center   tx-white '
             >
             <button className="pos-rel tx-white py-1 my-1 px-2 tx-lgx opaci-chov--75 bg-black "
                 onClick={()=>{s__asd("landing")}}

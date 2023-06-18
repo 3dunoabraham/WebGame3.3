@@ -25,7 +25,7 @@ const ConnectPlayerForm = ({
       pin: forms.pin.replace(" ", ""),
     }
     if (!parsedForms.referral) return
-    if (!parsedForms.pin) return
+    if (!parsedForms.pin) return 
     s__loading("login", true)
 
     let playerRes = await login(parsedForms)
@@ -40,6 +40,9 @@ const ConnectPlayerForm = ({
   }
   const triggerIsForm = async () => {
     s__forms({ ...forms, ...{ isForm: true } })
+  }
+  const triggerIsFormOff = async () => {
+    s__forms({ ...forms, ...{ isForm: false } })
   }
   useEffect(() => {
     if (!$referral.current) return
@@ -63,7 +66,7 @@ const ConnectPlayerForm = ({
   return (<>
     <div className='flex-col '>
       {forms.isForm &&
-        <div className='flex-col flex-align-stretch gap-3 box-shadow-1-t pa-2 bord-r- mt-8 z-100 bg-white'>
+        <div className='flex-col bord-r-10 flex-align-stretch gap-3 box-shadow-1-t pa-2 bord-r- mt-8 z-100 bg-white'>
           <input value={forms.referral} onChange={(e: any) => s__forms({ ...forms, ...{ referral: e.target.value } })}
             type="text" placeholder='Referral Email' ref={$referral}
             onKeyUp={handleReferralKeyPress}
@@ -78,9 +81,16 @@ const ConnectPlayerForm = ({
       }
       {!!loadings.login && <> <div className="tx-ls-3 hover-2 pt-4 opaci-75">LOADING...</div> </>}
       {!loadings.login &&
-        <div className="flex   ">
-          <button className='py-1 px-2 tx-mdl tx-white opaci-chov--50 mt-3 noborder bord-r-5 z-100'
-            style={{ background: "#333333" }}
+        <div className="flex-center   z-500 mt-3 gap-1">
+          {forms.isForm && 
+            <div className="bg-white opaci-chov--50 px-2 bord-r-50 py-1"
+            onClick={triggerIsFormOff}
+            >
+                Hide
+            </div>
+          }
+          <button className='tx-mdl tx-white opaci-chov--75 h-80px w-80px  noborder bord-r-100p box-shadow-5-b z-100'
+            style={{ background: "#00aa11" }}
             onClick={forms.isForm ? triggerLogin : triggerIsForm}
           >
             Connect

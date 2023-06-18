@@ -14,7 +14,7 @@ function ConnectPlayerToggle ({calls, state}: any) {
           <meshStandardMaterial color={ "#eee"}/>
         </Cylinder>
         
-        <DynaText text={"Connect"} color={"#5a5"} font={0.06} 
+        <DynaText text={"Connect"} color={"#5a5"} font={0.09} 
           position={[0,-0.94,-0.17]}
         />        
       </>}

@@ -19,7 +19,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
       // small screen surface
         <> 
 
-
+        {state.selectedHasArray && 
         <group position={DisplayPosition} rotation={[0,-0.5,0]}>
           
         <mesh castShadow receiveShadow position={[-0.0165,0.03,0]} >
@@ -55,6 +55,7 @@ function Component ({tokensArrayArray, state, calls}:any) {
               />
           }
         </group>
+        }
             
         </>
       }

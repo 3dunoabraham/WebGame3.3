@@ -1,6 +1,6 @@
 import { useDepthBuffer } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
-import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
+import { forwardRef, useContext, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { Mesh } from "three";
 import { useLocalStorage } from "usehooks-ts";
 import { useQuery } from "@tanstack/react-query";
@@ -19,6 +19,7 @@ import Bank from "./machine/Bank";
 import MiniCitySign from "./output/MiniCitySign";
 import Tower from "./machine/Tower";
 import TrendTree from "./input/TrendTree";
+import { AppContext } from "../../../../script/state/context/AppContext";
 
 export const DEFAULT_TIMEFRAME_ARRAY = ["3m","15m","4h","1d","1w"]  
 export const tokenColors:any = {
@@ -42,7 +43,7 @@ const Component = forwardRef(({
 }: any, ref:any) => {
   const API_PRICE_BASEURL = "https://api.binance.com/api/v3/ticker/price?symbol="
   const baseToken = "USDT"
-    
+    const app:any = useContext(AppContext)
     const [LS_tokensArrayObj, s__LS_tokensArrayObj] = useLocalStorage('localTokensArrayObj', "{}")
     const [LS_rpi, s__LS_rpi] = useLocalStorage('rpi', "")
     const [rpi, s__rpi] = useState("")
@@ -165,7 +166,7 @@ const selectedHasArray = useMemo(()=>{
         </group>
     }
     {mainModel == "bank" && 
-      <group position={position} >
+      <group position={position} onClick={onTextClick}>
         <Bank tokensArrayArray={tokensArrayArray}
           state={{clicked,clickedPrice,isSelectedId,token,queryUSDT,tokenColor,selectedHasArray,}}
           calls={{onTextClick,turnOff,turnOn}}
@@ -200,6 +201,9 @@ const selectedHasArray = useMemo(()=>{
       <group position={position}>
         <BouncingThing tokensArrayArray={tokensArrayArray} _bouncingThing={bouncingThing}
           livestate={{clickedPrice, queryUSDT}}
+          calls={{
+            app_tip:(msg:string)=>{app.alert("neutral",msg)},
+          }}
           isSelectedId={isSelectedId} token={token} clicked={clicked}
         />
         {!!tokensArrayArray && selectedHasArray &&

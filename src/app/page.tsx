@@ -55,14 +55,9 @@ export default async function Page() {
         
           {!foundJWT && <>
             <div className='pos-abs top-0 right-0 pt-3'>
-              <div className='Q_xs_sm py-6'></div>
+              {/* <div className='Q_sm py-1'></div> */}
+              <div className='Q_xs py-3'></div>
               <ConnectPlayerForm />
-            </div>
-          </>}
-          {!!foundJWT && !!foundUser.user && <>
-            <div className='pos-abs bottom-0 translate-y-100 right-0 pt-3'>
-              {/* <div className='flex-col tx-lx opaci-10 py-'>{foundUser.user.name} <small>(Verified)</small></div> */}
-              <DisconnectPlayerForm />
             </div>
           </>}
 
@@ -76,8 +71,8 @@ export default async function Page() {
         {!foundJWT &&  <>
           <DevelopmentRegister />
         </>}
-        {!!foundJWT && <>
-          <DevelopmentProfile />
+        {!!foundJWT && !!foundUser && <>
+          <DevelopmentProfile {...{foundJWT, foundUser}} />
           <BottomStats />
         </>}
       </div>

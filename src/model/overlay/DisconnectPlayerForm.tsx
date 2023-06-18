@@ -24,12 +24,12 @@ const DisconnectPlayerForm = ({
 
 
   return (<>
-    <div className="flex   ">
-      <button className='py-1 px-2 tx-lg tx-white opaci-chov--50  noborder bord-r-5 z-100'
-        style={{background:"#333333"}}
+    <div className="flex   mt-3">
+      <button className='py-1 px-2 tx-lg flex-center gap-1 tx-white border-red-50-b opaci-chov--50  noborder bord-r-5 z-100'
+        style={{background:"#33333399"}}
         onClick={triggerLogout}
       >
-        <div className="Q_lg_x">Disconnect </div>
+        <div className="tx-sm tx-ls-1">Disconnect </div>
         <div className="Q_xs_lg"><FaDoorClosed /></div>
       </button>
     </div>
