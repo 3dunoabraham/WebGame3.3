@@ -4,18 +4,18 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import DynaText from "./TradingBox/DynaText";
 
-export function BitCrush() {
-  const [computerPosition, setComputerPosition] = useState(new THREE.Vector3(0, 0.8, 0));
+export function BitPong() {
+  const [computerPosition, setComputerPosition] = useState(new THREE.Vector3(0, 0, 0));
   const [ballPosition, setBallPosition] = useState(new THREE.Vector3(0, 0, 0));
-  const [ballYVelocity, setBallYVelocity] = useState(0.02);
-  const [ballXVelocity, setBallZVelocity] = useState(0);
-  const [playerPaddlePosition, setPlayerPaddlePosition] = useState(new THREE.Vector3(0, -0.8, 0));
+  const [ballXVelocity, setBallXVelocity] = useState(0.02);
+  const [ballZVelocity, setBallZVelocity] = useState(0);
+  const [playerPaddlePosition, setPlayerPaddlePosition] = useState(new THREE.Vector3(0, 0, 0));
     const [score, s__score] = useState(-1)
     const [lastScore, s__Lastscore] = useState(0)
   const $theBall:any = useRef(null);
   const $computerPaddle:any = useRef(null);
   const $playerPaddle:any = useRef(null);
-  const [mouseX, setMouseX] = useState(0);
+  const [mouseY, setMouseY] = useState(0);
 
   // Function to update the position of the ball
   const updateBallPosition = () => {
@@ -23,23 +23,23 @@ export function BitCrush() {
     if (score < 0) return;
     if (!$theBall.current) return;
     let newBallPosition = $theBall.current.position;
+    newBallPosition.z += ballZVelocity;
     newBallPosition.x += ballXVelocity;
-    newBallPosition.y += ballYVelocity;
 
-    // console.log("newBallPosition.x", newBallPosition.x)
+    // console.log("newBallPosition.z", newBallPosition.z)
     
     // Check for collision with the walls
-    if (newBallPosition.y > 0.8 || newBallPosition.y < -0.8) {
-        if (newBallPosition.y < -0.8) {
-            newBallPosition.y = 0.8;
-            const paddleCenter = $playerPaddle.current.position.x; // Assuming playerPaddle is the paddle the ball collides with
-            const distanceFromCenter = newBallPosition.x - paddleCenter;
+    if (newBallPosition.x > 0.8 || newBallPosition.x < -0.8) {
+        if (newBallPosition.x > 0.8) {
+            newBallPosition.x = 0.8;
+            const paddleCenter = $playerPaddle.current.position.z; // Assuming playerPaddle is the paddle the ball collides with
+            const distanceFromCenter = newBallPosition.z - paddleCenter;
             if (distanceFromCenter >= -0.25 && distanceFromCenter <= 0.25) {
                 
                 s__score(score+1)
 
             }
-            // console.log("distanceFromCenter", distanceFromCenter, newBallPosition.x, $playerPaddle.current.position.x)
+            // console.log("distanceFromCenter", distanceFromCenter, newBallPosition.z, $playerPaddle.current.position.z)
                 // console.log("distanceFromCenter", distanceFromCenter)
                 if (distanceFromCenter >= 0 && distanceFromCenter <= 0.25)
             {
@@ -57,38 +57,38 @@ export function BitCrush() {
                 // return alert(score)
             }
             
-        } else if (newBallPosition.y > 0.8) {
-            newBallPosition.y = 0.8;
-            // console.log("newBallPosition.y", newBallPosition.y)
+        } else if (newBallPosition.x < -0.8) {
+            newBallPosition.x = -0.8;
+            // console.log("newBallPosition.x", newBallPosition.x)
           setComputerPosition({...newBallPosition});
         }
         
 
-        setBallYVelocity(-ballYVelocity);
+        setBallXVelocity(-ballXVelocity);
     }
-    if (newBallPosition.x > 1 || newBallPosition.x < -1) {
-        setBallZVelocity(-ballXVelocity);
+    if (newBallPosition.z > 1 || newBallPosition.z < -1) {
+        setBallZVelocity(-ballZVelocity);
     }
 
-    // newBallPosition.y = Math.sin(newBallPosition.y+0.8)
+    // newBallPosition.y = Math.sin(newBallPosition.x+0.8)
     setBallPosition(newBallPosition);
   };
 
   // Function to move the player paddle up
   const movePlayerPaddleSouth = () => {
     if (!$playerPaddle.current) return;
-    if ($playerPaddle.current.position.x < -1) {return}
+    if ($playerPaddle.current.position.z < -1) {return}
     let newPosition = $playerPaddle.current.position;
-    newPosition.x -= 0.1; // Move the paddle closer to the screen
+    newPosition.z -= 0.1; // Move the paddle closer to the screen
     setPlayerPaddlePosition(newPosition);
   };
 
   // Function to move the player paddle down
   const movePlayerPaddleNorth = () => {
     if (!$playerPaddle.current) return;
-    if ($playerPaddle.current.position.x > 1) {return}
+    if ($playerPaddle.current.position.z > 1) {return}
     let newPosition = $playerPaddle.current.position;
-    newPosition.x += 0.1; // Move the paddle away from the screen
+    newPosition.z += 0.1; // Move the paddle away from the screen
     setPlayerPaddlePosition(newPosition);
   };
   const updateComputerPaddle = ()=>{
@@ -114,11 +114,11 @@ export function BitCrush() {
         // console.log("event.clientY", score,)
         // const mouseYMovement = mouse.y * window.innerHeight; // Calculate the current Y mouse position relative to the window height
         // console.log("event.y / window.innerHeight", event.y , window.innerHeight)
-        let clientX = event.x / window.innerHeight
-        setMouseX(clientX);
-        // console.log("event.clientX",event.y, clientX)
+        let clientY = event.y / window.innerHeight
+        setMouseY(clientY);
+        // console.log("event.clientY",event.y, clientY)
         let newPosition = $playerPaddle.current.position;
-        newPosition.x = clientX*1000
+        newPosition.z = clientY*1000
         setPlayerPaddlePosition(newPosition);
     };
   
@@ -126,10 +126,10 @@ export function BitCrush() {
 //     const handleMouseMove = (event:any) => {
 //         // console.log("event.clientY", score,)
 //         if (score < 0) return
-//         setMouseX(event.clientY);
+//         setMouseY(event.clientY);
 //         // console.log("event.clientY", event.clientY)
 //         let newPosition = $playerPaddle.current.position;
-//         newPosition.x = event.clientY
+//         newPosition.z = event.clientY
 //         setPlayerPaddlePosition(newPosition);
 //     };
   
@@ -146,13 +146,10 @@ export function BitCrush() {
       <group position={[0.5, -0.185, 7.5]} rotation={[0,Math.PI,0]} >
         <DynaText color={"#0099ff"} text={score < 0 ? "Click blue to Play" : score} font={0.14}
             onClick={startGame}
-            rotation={[-Math.PI/2,0,Math.PI]}
-            position={[0,0,0.14]}
+            position={[0,0,0.08]}
         />
         { lastScore > 0 && 
-           <DynaText color={"#ff9900"} text={lastScore} font={0.65} position={[0.5,0.05,-0.4]}
-            rotation={[-Math.PI/2,0,Math.PI]}
-           />
+           <DynaText color={"#ff9900"} text={lastScore} font={0.65} position={[0.5,0.05,-0.3]}/>
         }
         {/* <DynaText color={"#994400"} text={"Lock Camera"} font={0.15} position={[0,0,-0.35]}/> */}
     </group>
@@ -167,8 +164,8 @@ export function BitCrush() {
         <meshStandardMaterial color={"#ffffff"} />
       </Box>
       {/* SCREEN */}
-      <group position={[0, -0.1, 5.9]}>
-        <Box args={[1.72, 2, 0.15]} castShadow receiveShadow>
+      <group position={[0, -0.1, 6]}>
+        <Box args={[1.72, 0.15, 2]} castShadow receiveShadow>
           <meshStandardMaterial color="#333" />
         </Box>
       </group>
@@ -201,14 +198,14 @@ export function BitCrush() {
         {/* END OF BALL */}
 
         {/* PLAYER PADDLE */}
-        <Box args={[0.4, 0.1, 0.1]} position={[playerPaddlePosition.x, playerPaddlePosition.y, 0]} 
+        <Box args={[0.1, 0.1, 0.4]} position={[0.85, playerPaddlePosition.y, playerPaddlePosition.z]} 
         castShadow receiveShadow ref={$playerPaddle}>
           <meshStandardMaterial color="#ff9900" />
         </Box>
         {/* END OF PLAYER PADDLE */}
 
         {/* COMPUTER PADDLE */}
-        <Box args={[0.4, 0.1, 0.1]} castShadow position={[computerPosition.x, computerPosition.y, 0]} 
+        <Box args={[0.1, 0.1, 0.4]} castShadow position={[-0.85, computerPosition.y, computerPosition.z]} 
         receiveShadow>
           <meshStandardMaterial color="#ff0000" />
         </Box>
@@ -218,4 +215,4 @@ export function BitCrush() {
   );
 }
 
-export default BitCrush;
+export default BitPong;

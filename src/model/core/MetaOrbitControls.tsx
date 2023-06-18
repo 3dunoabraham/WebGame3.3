@@ -14,14 +14,14 @@ function LockCameraOnBox() {
   useFrame(() => {
     if (controlsRef.current && cameraLocked) {
       controlsRef.current.target.set(0, 0, 12.5); // Make the controls target the scene origin
-      controlsRef.current.object.position.set(0, 3, 12); // Set the camera position to (0, 10, 0) when cameraLocked is true
+      controlsRef.current.object.position.set(0, 3, 15); // Set the camera position to (0, 10, 0) when cameraLocked is true
     }
   });
 
   return (
     <group>
       
-      <group position={[-0.7, -0.185, 13.02]} rotation={[0,Math.PI,0]} >
+      <group position={[-0.7, -0.185, 13.7]} rotation={[0,0,0]} >
         <DynaText color={"#994400"} text={cameraLocked ? "Unlock Camera" : "Lock Camera"} font={0.12} position={[0,0,-0.35]}/>
 
       </group>

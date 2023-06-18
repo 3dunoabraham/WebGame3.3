@@ -3,7 +3,7 @@ import { Box } from "@react-three/drei"
 
 export function MainRoadEastWest ({}) {
     return (<>
-        <group position={[0,-0.51,0]}>
+        <group position={[-0.28,-0.51,0]}>
             {/* ROAD */}
             <Box args={[8,0.06,0.5]} position={[0.25,0.01,0]} 
                 castShadow receiveShadow

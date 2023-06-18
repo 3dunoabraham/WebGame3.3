@@ -51,7 +51,7 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
             <Cylinder position={[0,-0.2,6]} args={[3.02,3.02,0.02,4]} >
               <meshStandardMaterial color={"#66ff65"}/>
             </Cylinder>
-            <group rotation={[0,0,0]}>
+            <group rotation={[0,0,0]} position={[0,0.8,0]}>
 
               <BitCrush />
             </group>
