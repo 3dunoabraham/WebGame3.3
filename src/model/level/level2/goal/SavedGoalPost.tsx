@@ -333,8 +333,8 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
           />
       </group>
     <group rotation={[0,Math.PI/2,0]} position={[1.31,0,1.63]}>
-      <DynaText text={superuser.attempts} color={ "#3366ff"} font={0.2}
-        position={[0.21,-0.6,0]}
+      <DynaText text={superuser.attempts} color={ "#3366ff"} font={0.16}
+        position={[0.23,-0.6,0]}
           rotation={[0,0,0]}
         />
         <DynaText text={superuser.attempts == 1 ? "Tickets:" : "Tickets:"} color={superuser.attempts > 0 ? "#3366ff" : "#777777"} font={0.07}

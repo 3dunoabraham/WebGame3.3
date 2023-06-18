@@ -144,7 +144,7 @@ export function BitCrush() {
     <>
     {/* SCORE */}
       <group position={[0.5, -0.185, 7.5]} rotation={[0,Math.PI,0]} >
-        <DynaText color={"#0099ff"} text={score < 0 ? "Click blue to Play" : score} font={0.1}
+        <DynaText color={"#0099ff"} text={score < 0 ? "Click blue to Play" : score} font={score < 0 ? 0.1 : 0.4 }
             onClick={startGame}
             rotation={[-Math.PI/2,0,Math.PI]}
             position={[0.05,-0.774,0.9]}
@@ -158,8 +158,8 @@ export function BitCrush() {
     </group>
 
       {/* FRAME */}
-      <group position={[0, -1.01, 6]}>
-        <Box args={[1.8, 0.1, 2.4]} castShadow receiveShadow>
+      <group position={[0, -1.01, 6.45]}>
+        <Box args={[1.8, 0.1, 1.4]} castShadow receiveShadow>
           <meshStandardMaterial color="#eee" />
         </Box>
       </group>

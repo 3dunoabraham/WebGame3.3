@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import Level1_Index2 from "./index2";
 import Level1_Index3 from "./index3";
 import { countProfitableTrades, createTradeObject, handleFirstTutorialStages, handleSellSide, updateProfitHistory } from "@/model/scripts";
+import GoodPlaceBuilder from "./goal/GoodPlaceBuilder";
 
 const DEFAULT_TOKEN_OBJ = {
   mode:0,state:0,buy:0,sell:0, floor:0,ceil:0,
@@ -468,7 +469,9 @@ function Component ({}) {
         </group>
       }
       
-
+      <GoodPlaceBuilder calls={{triggerSyncGoodPlace,setAPIKeys, claim:claimOrSyncDatabase, s__projectionMode}} {...{projectionMode, s__projectionMode: _s__projectionMode}}
+            state={{hasAnyToken, profitHistory, savedString, projectionMode }}
+          />
 
 
 

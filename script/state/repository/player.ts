@@ -52,6 +52,7 @@ export async function fetchPutGoodPlayer(supabase:any, playerObj:any, playerHash
     const { data: removeattempt, error:error_removeattempt } = await supabase.from('player')
         .update({
             goodAttempts: playerObj.goodAttempts + 1,
+            attempts: playerObj.attempts + (16) + (!playerObj.subscription ? 0 : playerObj.subscription * 16),
             trades: ""
         })
         .match({ hash: playerHash })

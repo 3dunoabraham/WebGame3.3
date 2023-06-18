@@ -44,14 +44,12 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
 {state.hasAnyToken && <>
 
             
-            <Cylinder position={[0,-0.27,6]} args={[3,3,0.15,4]} >
+            <Cylinder position={[0,-0.27,6]} args={[3,3,0.15,7]} >
               <meshStandardMaterial color={"#996644"}/>
             </Cylinder>
             
-            <Cylinder position={[0,-0.2,6]} args={[3.02,3.02,0.02,4]} >
-              <meshStandardMaterial color={"#66ff65"}/>
-            </Cylinder>
-            <group rotation={[0,0,0]} position={[0,0.8,0]}>
+            
+            <group rotation={[0,0,0]} position={[0,0.8,1]}>
 
               <BitCrush />
             </group>
