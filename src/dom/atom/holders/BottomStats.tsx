@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { FaExternalLinkAlt, FaPause, FaPauseCircle, FaRecycle, FaCity, FaArrowDown, FaBook, FaTwitter, FaUser, FaStar } from "react-icons/fa";
+import { FaExternalLinkAlt, FaPause, FaPauseCircle, FaRecycle, FaCity, FaArrowDown, FaBook, FaTwitter, FaUser, FaStar, FaTicketAlt, FaIdBadge } from "react-icons/fa";
 import Image from 'next/image';
 import { useAuth } from "@/../script/state/context/AuthContext";
 
@@ -47,21 +47,23 @@ function Component ({}) {
                         onClick={()=>{  }}
                         style={{boxShadow:"inset 0 0 0 1px #777777"}}
                     >
-                        sub: {superuser.subscription}
+                        <FaCity />
+                        {superuser.subscription}
                     </button>
                 }
                 <button className="pos-rel tx-white py-1 my-1 px-4 Q_xs_px-1 tx-mdl opaci-chov--75 bg-black nowrap"
-                    onClick={()=>{  }} title="Streak"
-                    style={{boxShadow:"inset 0 0 0 1px #777777", color:"orangered", textShadow:"0 0 5px orangered"}}
+                    onClick={()=>{  }} title="Stars"
+                    style={{boxShadow:"inset 0 0 0 1px #777777", color:"gold", textShadow:"0 0 5px orangered"}}
                 >
-                    Strk: {superuser.goodAttempts}
+                        <FaStar />
+                    {superuser.goodAttempts}
                 </button>
                 {superuser.attempts && 
                     <button className="pos-rel tx-white py-1 my-1 px-4 Q_xs_px-1 tx-mdl opaci-chov--75 bg-black flex gap-1"
                         onClick={()=>{  }}
-                        style={{boxShadow:"inset 0 0 0 1px #777777", color:"yellow", textShadow:"0 0 5px orange"}}
+                        style={{boxShadow:"inset 0 0 0 1px #777777", color:"lightblue", textShadow:"0 0 5px blue"}}
                     >
-                        <FaStar />
+                        <FaTicketAlt style={{color:"#019AFF"}} />
                         {superuser.attempts}
                     </button>
                 }

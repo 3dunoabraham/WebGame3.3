@@ -314,31 +314,31 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
     {!!superuser && superuser.subscription && <>
     <group rotation={[0,Math.PI/2,0]} position={[1.31,0,2.3]}>
       <DynaText text={superuser.subscription} color={ "#33cc33"}
-        position={[0,-0.8,0]}
+        position={[0,-0.85,0]}
           rotation={[0,0,0]}
         />
-      <DynaText text={superuser.subscription == 1 ? "Sub Level" : "Sub Level"} color={ "#33cc33"} font={0.07}
-        position={[0.02,-1,0]}
+      <DynaText text={superuser.subscription == 1 ? "City Level" : "Level"} color={ "#66aa66"} font={0.07}
+        position={[0.0,-0.6,0]}
           rotation={[0,0,0]}
         />
       </group>
-    <group rotation={[0,Math.PI/2,0]} position={[1.31,0,1.9]}>
-      <DynaText text={superuser.goodAttempts} color={ "#ff7733"}
-        position={[0,-0.8,0]}
+    <group rotation={[0,Math.PI/2,0]} position={[1.31,0,1.95]}>
+      <DynaText text={superuser.goodAttempts} color={ "#ffaa33"}
+        position={[0,-0.85,0]}
           rotation={[0,0,0]}
         />
-        <DynaText text={"Streak"} color={superuser.goodAttempts > 0 ? "#ff7733" : "#777777"} font={0.07}
-          position={[0.02,-1,0]}
+        <DynaText text={superuser.goodAttempts == 1 ? "Star" : "Stars"} color={superuser.goodAttempts > 0 ? "#ffaa33" : "#777777"} font={0.07}
+          position={[0,-0.6,0]}
             rotation={[0,0,0]}
           />
       </group>
-    <group rotation={[0,Math.PI/2,0]} position={[1.31,0,1.5]}>
-      <DynaText text={superuser.attempts} color={ "#ffaa33"}
-        position={[0,-0.8,0]}
+    <group rotation={[0,Math.PI/2,0]} position={[1.31,0,1.63]}>
+      <DynaText text={superuser.attempts} color={ "#3366ff"} font={0.2}
+        position={[0.21,-0.6,0]}
           rotation={[0,0,0]}
         />
-        <DynaText text={superuser.attempts == 1 ? "Attempt" : "Attempts"} color={superuser.attempts > 0 ? "#ffaa33" : "#777777"} font={0.07}
-          position={[0.02,-1,0]}
+        <DynaText text={superuser.attempts == 1 ? "Tickets:" : "Tickets:"} color={superuser.attempts > 0 ? "#3366ff" : "#777777"} font={0.07}
+          position={[0,-0.6,0]}
             rotation={[0,0,0]}
           />
       </group>
