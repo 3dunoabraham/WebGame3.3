@@ -34,7 +34,7 @@ function Level1_Index3 ({state, calls, }:any) {
     aNewArray.splice(theIndex, 1)
     calls.s__profitHistory(aNewArray)
       app.audio("neutral","./sound/aaa.wav")
-      app.alert("success", "Successfully reduced debt, You claimed a job!")
+      app.alert("success", "You redeemed (1) local loss!")
   }
 
 

@@ -187,9 +187,15 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
 
     {state.hasAnyToken && !!superuser &&  <>
       <group position={[0.15,0,2.25]} rotation={[Math.PI/2,0,Math.PI/2]}>
+          <DynaText text={"API STORAGE STATION"} color={ "#888"} font={0.09}
+            position={[-0.3,0.46,0.6]}
+              rotation={[-Math.PI/2,0,0]}
+
+              // position={[0,-0.15,-1.19]} font={0.15}
+            />
         {<>
           
-          <DynaText text={"SYNC \n API KEYS!"} color={ "#ff9900"} font={0.05}
+          <DynaText text={"SYNC \n API KEYS!"} color={ "#cc6600"} font={0.05}
             position={[0,0.505,1.04]}
               rotation={[-Math.PI/2,0,0]}
 

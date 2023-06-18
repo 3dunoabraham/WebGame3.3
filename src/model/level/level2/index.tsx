@@ -237,7 +237,7 @@ function Component ({}) {
 
     if (isBuying) {
       app.audio("neutral","./sound/cas.wav")
-      app.alert("success",`You bought: ${x.toUpperCase()}!`)
+      app.alert("success",`You bought: ${x.toUpperCase()} at: ${y.price}!`)
     }
   
     if (form.id in currentOrders) {
@@ -259,7 +259,11 @@ function Component ({}) {
       console.log("newProfitCount  > lastProfitCount", newProfitCount  , lastProfitCount)
       if (newProfitCount  > lastProfitCount ) {
        app.audio("neutral","./sound/cassh.wav")
-       app.alert("success","Profitable trade completed!")
+      //  let theLastProfit 
+        // console.log("new profit trade obj", newTradeObj, newprofithi[newprofithi.length-1])
+        let pointsNumber = parseFloat(`${newprofithi[newprofithi.length-1]}`)*100
+        let points = parseInt(`${pointsNumber}`)
+       app.alert("success",`You won ${points} point(s) on ${newTradeObj.token.toUpperCase()}!`)
       } else {
          app.audio("neutral","./sound/wrong.wav")
          app.alert("error","Loss trade, failed investment!")
@@ -290,7 +294,7 @@ function Component ({}) {
     } else {
       if (newTradeObj.side === "sell") {
         app.audio("neutral","./sound/404.wav")
-        app.alert("error", "Live trade not found!");
+        app.alert("error", "Live BUY order not found!");
         // s__orderHistory(orderHistory);
         // if (tutoStage > 4)
       }
