@@ -31,7 +31,7 @@ export function BitCrush() {
     // Check for collision with the walls
     if (newBallPosition.x > 0.8 || newBallPosition.x < -0.8) {
         if (newBallPosition.x > 0.8) {
-            newBallPosition.x = 1.1;
+            newBallPosition.x = 0.8;
             const paddleCenter = $playerPaddle.current.position.z; // Assuming playerPaddle is the paddle the ball collides with
             const distanceFromCenter = newBallPosition.z - paddleCenter;
             if (distanceFromCenter >= -0.25 && distanceFromCenter <= 0.25) {
@@ -58,7 +58,7 @@ export function BitCrush() {
             }
             
         } else if (newBallPosition.x < -0.8) {
-            newBallPosition.x = -1.1;
+            newBallPosition.x = -0.8;
             // console.log("newBallPosition.x", newBallPosition.x)
           setComputerPosition({...newBallPosition});
         }
@@ -70,7 +70,7 @@ export function BitCrush() {
         setBallZVelocity(-ballZVelocity);
     }
 
-    newBallPosition.y = Math.sin(newBallPosition.x+0.8)
+    // newBallPosition.y = Math.sin(newBallPosition.x+0.8)
     setBallPosition(newBallPosition);
   };
 
@@ -143,13 +143,13 @@ export function BitCrush() {
   return (
     <>
     {/* SCORE */}
-      <group position={[0.5, -0.145, 7.5]} rotation={[0,Math.PI,0]} >
-        <DynaText color={"#0099ff"} text={score < 0 ? "Click blue to Play" : score} font={0.1}
+      <group position={[0.5, -0.185, 7.5]} rotation={[0,Math.PI,0]} >
+        <DynaText color={"#0099ff"} text={score < 0 ? "Click blue to Play" : score} font={0.14}
             onClick={startGame}
-            position={[0,0,0.14]}
+            position={[0,0,0.08]}
         />
         { lastScore > 0 && 
-           <DynaText color={"#ff9900"} text={lastScore} font={0.75} position={[0,0,-0.87]}/>
+           <DynaText color={"#ff9900"} text={lastScore} font={0.65} position={[0.5,0.05,-0.3]}/>
         }
         {/* <DynaText color={"#994400"} text={"Lock Camera"} font={0.15} position={[0,0,-0.35]}/> */}
     </group>
@@ -160,9 +160,12 @@ export function BitCrush() {
           <meshStandardMaterial color="#eee" />
         </Box>
       </group>
+      <Box position={[0, -0.25, 7.87]}  args={[0.8,0.2,0.7]}>
+        <meshStandardMaterial color={"#ffffff"} />
+      </Box>
       {/* SCREEN */}
-      <group position={[0, -0.2, 6]}>
-        <Box args={[1.7, 0.15, 2]} castShadow receiveShadow>
+      <group position={[0, -0.1, 6]}>
+        <Box args={[1.72, 0.15, 2]} castShadow receiveShadow>
           <meshStandardMaterial color="#333" />
         </Box>
       </group>
@@ -170,7 +173,7 @@ export function BitCrush() {
 
       <group position={[0, 0, 6]}>
         {/* START BUTTON */}
-        <Box args={[0.6, 0.2, 0.3]} castShadow receiveShadow position={[0.5, -0.2, 1.1]}
+        <Box args={[0.6, 0.2, 0.3]} castShadow receiveShadow position={[0.5, -0.1, 1.1]}
             onClick={startGame}
         >
           <meshStandardMaterial color={"#0099ff"} />

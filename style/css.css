@@ -815,6 +815,8 @@
 .appear-once-2 { animation: fadeinout 2s;}
 .appear-once-3 { animation: fadeinout 3s;}
 .appear-once-4 { animation: fadeinout 4s;}
+.appear-once-5 { animation: fadeinout 5s;}
+.appear-once-6 { animation: fadeinout 6s;}
 .appear-delay-1 { animation: appeardelay 0.5s;}
 .appear-delay-2 { animation: appeardelay 2s;}
 .appear-hiding { opacity: 0; }

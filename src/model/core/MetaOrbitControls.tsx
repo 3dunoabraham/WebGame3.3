@@ -20,10 +20,8 @@ function LockCameraOnBox() {
 
   return (
     <group>
-      <Box position={[0, -0.67, 14.25]} onClick={cameraLocked ? ()=>(handleBoxClick()) : ()=>(null) }>
-        <meshStandardMaterial color={"#ffffff"} />
-      </Box>
-      <group position={[-0.5, -0.145, 13.02]} rotation={[0,Math.PI,0]} >
+      
+      <group position={[-0.7, -0.185, 13.02]} rotation={[0,Math.PI,0]} >
         <DynaText color={"#994400"} text={cameraLocked ? "Unlock Camera" : "Lock Camera"} font={0.12} position={[0,0,-0.35]}/>
 
       </group>

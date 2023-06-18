@@ -486,7 +486,7 @@ function Component ({}) {
       {"ftm" in tokensArrayObj && <> <MovingBoxAndPipe /> </>}
       {hasAllTokens && <>
         <Cylinder receiveShadow args={[3.3,3.3,0.15,tutoStage.lvl > 4 ? 3+tutoStage.lvl : 4]} position={[0, -1.2, 0]}>
-          <meshStandardMaterial color={tutoStage.lvl > 4 ? "#5ABFFA" : "#fff"} />
+          <meshStandardMaterial color={tutoStage.lvl > 4 ? "#84BC4E" : "#fff"} />
 
         </Cylinder>
         {/* <Box args={[4, 0.25, 5]} position={[0, -1.2, -0.5]} castShadow receiveShadow>
