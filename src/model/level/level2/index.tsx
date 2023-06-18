@@ -266,7 +266,7 @@ function Component ({}) {
        app.alert("success",`You won ${points} point(s) on ${newTradeObj.token.toUpperCase()}!`)
       } else {
          app.audio("neutral","./sound/wrong.wav")
-         app.alert("error","Loss trade, failed investment!")
+         app.alert("error","Loss trade, try again!")
         }
   
       let counting = countProfitableTrades(newprofithi);

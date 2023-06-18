@@ -15,7 +15,7 @@ function Component ({state}:any) {
     { state.hasAnyToken && state.tutoStage.lvl == 3  && <TutorialGoal /> }
     { state.hasAnyToken && state.tutoStage.lvl > 3  && <TutorialFee /> }
 
-    
+    { state.hasAnyToken && state.tutoStage.lvl > 2 &&
     <group position={[-0.35,-0.498,-1.9]} scale={0.35}  >
             <group position={[0,0,0]} rotation={[0,Math.PI/2,0]}>
                 <FontText position={[0,0,0]} fontSize={0.2} rotation={[-Math.PI/2,0,0]} 
@@ -24,6 +24,7 @@ function Component ({state}:any) {
                 </FontText>
             </group>
         </group>
+}
 
   </>)
 }
