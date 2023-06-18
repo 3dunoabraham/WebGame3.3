@@ -27,7 +27,7 @@ function Level1_Index2 ({state, calls, }:any) {
       }
     } else {
       if (state.realProfitCount < 4) {
-        app.alert("neutral", "Trying to sync account")
+        // app.alert("neutral", "Trying to sync account")
         // let loginRes = await login({
         //   referral:state.LS_rpi.split(":")[0],
         //   pin:state.LS_rpi.split(":")[1]
@@ -36,8 +36,8 @@ function Level1_Index2 ({state, calls, }:any) {
 
       } else {
         calls.s__profitHistory([])
-
-        app.alert("success", "Congratulations! you've reached the simulated!")
+        app.audio("neutral", "./sound/aaa.wav")
+        app.alert("success", "Local Storage Station has been cleared!")
       }
     }
 

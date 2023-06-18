@@ -235,7 +235,7 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
 
 
     {state.hasAnyToken && !!superuser && superuser.subscription && databaseProfitCount > 0 && <>
-      <group position={[0,-0.3,1.9]} rotation={[-Math.PI/2,0,0]}>
+      <group position={[0.5,-0.3,1.9]} rotation={[-Math.PI/2,0,0]}>
         <Cylinder args={[0.08,0.08,0.1,projectionMode ? 4 : 3]} position={[0,0.25,0.15]} castShadow receiveShadow ref={$claimButton}
           onClick={()=>{syncConvertAttempt()}}
         >
@@ -303,18 +303,46 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
       <DynaText text={superuser.subscription} color={ "#cc33cc"}
         position={[0,-1.06,0.5]}
           rotation={[-Math.PI/2,0,0]}
-
-          // position={[0,-0.15,-1.19]} font={0.15}
         />
-        
       <DynaText text={superuser.subscription == 1 ? "Node" : "Nodes"} color={ "#cc33cc"} font={0.09}
         position={[0.02,-1.06,0.7]}
           rotation={[-Math.PI/2,0,0]}
-
-          // position={[0,-0.15,-1.19]} font={0.15}
         />
       </group>
     }
+    
+    {!!superuser && superuser.subscription && <>
+    <group rotation={[0,Math.PI/2,0]} position={[1.31,0,2.3]}>
+      <DynaText text={superuser.subscription} color={ "#33cc33"}
+        position={[0,-0.8,0]}
+          rotation={[0,0,0]}
+        />
+      <DynaText text={superuser.subscription == 1 ? "Sub Level" : "Sub Level"} color={ "#33cc33"} font={0.07}
+        position={[0.02,-1,0]}
+          rotation={[0,0,0]}
+        />
+      </group>
+    <group rotation={[0,Math.PI/2,0]} position={[1.31,0,1.9]}>
+      <DynaText text={superuser.goodAttempts} color={ "#ff7733"}
+        position={[0,-0.8,0]}
+          rotation={[0,0,0]}
+        />
+        <DynaText text={"Streak"} color={superuser.goodAttempts > 0 ? "#ff7733" : "#777777"} font={0.07}
+          position={[0.02,-1,0]}
+            rotation={[0,0,0]}
+          />
+      </group>
+    <group rotation={[0,Math.PI/2,0]} position={[1.31,0,1.5]}>
+      <DynaText text={superuser.attempts} color={ "#ffaa33"}
+        position={[0,-0.8,0]}
+          rotation={[0,0,0]}
+        />
+        <DynaText text={superuser.attempts == 1 ? "Attempt" : "Attempts"} color={superuser.attempts > 0 ? "#ffaa33" : "#777777"} font={0.07}
+          position={[0.02,-1,0]}
+            rotation={[0,0,0]}
+          />
+      </group>
+    </>}
   
 
 

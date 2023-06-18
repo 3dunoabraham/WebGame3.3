@@ -263,7 +263,7 @@ function Component ({}) {
         // console.log("new profit trade obj", newTradeObj, newprofithi[newprofithi.length-1])
         let pointsNumber = parseFloat(`${newprofithi[newprofithi.length-1]}`)*100
         let points = parseInt(`${pointsNumber}`)
-       app.alert("success",`You won ${points} point(s) on ${newTradeObj.token.toUpperCase()}!`)
+       app.alert("success",`You won ${points} point(s) on ${newTradeObj.token.toUpperCase()} (${newTradeObj.price})!`)
       } else {
          app.audio("neutral","./sound/wrong.wav")
          app.alert("error","Loss trade, try again!")

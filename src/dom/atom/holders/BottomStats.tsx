@@ -42,20 +42,20 @@ function Component ({}) {
             >
                 {superuser.name.replace("@gmail.com","")}
             </button>
+                {superuser.subscription && 
+                    <button className="pos-rel tx-green py-1 my-1 px-4 Q_xs_px-1 tx-mdl opaci-chov--75 bg-black "
+                        onClick={()=>{  }}
+                        style={{boxShadow:"inset 0 0 0 1px #777777"}}
+                    >
+                        sub: {superuser.subscription}
+                    </button>
+                }
                 <button className="pos-rel tx-white py-1 my-1 px-4 Q_xs_px-1 tx-mdl opaci-chov--75 bg-black nowrap"
                     onClick={()=>{  }} title="Streak"
                     style={{boxShadow:"inset 0 0 0 1px #777777", color:"orangered", textShadow:"0 0 5px orangered"}}
                 >
                     Strk: {superuser.goodAttempts}
                 </button>
-                {superuser.subscription && 
-                    <button className="pos-rel tx-white py-1 my-1 px-4 Q_xs_px-1 tx-mdl opaci-chov--75 bg-black "
-                        onClick={()=>{  }}
-                        style={{boxShadow:"inset 0 0 0 1px #777777"}}
-                    >
-                        {superuser.subscription}
-                    </button>
-                }
                 {superuser.attempts && 
                     <button className="pos-rel tx-white py-1 my-1 px-4 Q_xs_px-1 tx-mdl opaci-chov--75 bg-black flex gap-1"
                         onClick={()=>{  }}
