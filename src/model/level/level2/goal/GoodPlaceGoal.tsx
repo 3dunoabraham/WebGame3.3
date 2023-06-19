@@ -51,7 +51,9 @@ function Component ({calls, state, projectionMode, s__projectionMode}:any) {
             
             <group rotation={[0,0,0]} position={[0,0.8,1]}>
 
-              <BitCrush />
+              <BitCrush
+                
+               />
             </group>
 
             {/* LONG BRiDGE */}

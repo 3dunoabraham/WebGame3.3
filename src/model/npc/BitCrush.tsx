@@ -3,6 +3,7 @@ import { Box } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import DynaText from "./TradingBox/DynaText";
+import LocalTradingBox from "./TradingBox/LocalTradingBox";
 
 export function BitCrush() {
   const [computerPosition, setComputerPosition] = useState(new THREE.Vector3(0, 0.8, 0));
@@ -139,9 +140,23 @@ export function BitCrush() {
 //       window.removeEventListener("mousemove", handleMouseMove);
 //     };
 //   }, []);
+    const [form, s__form] = useState({
+      id:"BTCUSDT4H",
+    })
   
   return (
     <>
+    
+    {!!form.id && form.id.split("USDT").length > 1 && <>
+
+    <group position={[0,0,4]}>
+      <LocalTradingBox
+        {...{form}}
+      />
+
+      </group>
+    </>}
+
     {/* SCORE */}
       <group position={[0.5, -0.185, 7.5]} rotation={[0,Math.PI,0]} >
         <DynaText color={"#0099ff"} text={score < 0 ? "Click blue to Play" : score} font={score < 0 ? 0.1 : 0.4 }
